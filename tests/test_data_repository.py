@@ -15,12 +15,16 @@ def test_all_templates_validate_and_have_unique_sections() -> None:
         "t02_problem_solution_automation",
         "t03_lifestyle_social_proof",
         "t04_full_campaign",
+        "t05_value_practical_full_campaign",
+        "t06_trust_maintenance_full_campaign",
     }
     assert {template["id"]: len(template["layout"]) for template in templates} == {
-        "t01_performance_value_evidence": 10,
-        "t02_problem_solution_automation": 10,
-        "t03_lifestyle_social_proof": 10,
+        "t01_performance_value_evidence": 12,
+        "t02_problem_solution_automation": 12,
+        "t03_lifestyle_social_proof": 12,
         "t04_full_campaign": 12,
+        "t05_value_practical_full_campaign": 12,
+        "t06_trust_maintenance_full_campaign": 12,
     }
 
 
@@ -34,6 +38,17 @@ def test_template_html_contains_only_placeholders_for_values() -> None:
 
 def test_catalog_matches_template_files() -> None:
     DataRepository().validate_catalog_links()
+
+
+def test_retrieval_index_links_six_executable_templates() -> None:
+    index = DataRepository().load_template_retrieval_index()
+    executable = {
+        item["executable_template_id"]
+        for item in index["candidates"]
+        if item["executable_template_id"] is not None
+    }
+    assert len(index["candidates"]) == 16
+    assert len(executable) == 6
 
 
 def test_synthetic_example_is_schema_valid() -> None:

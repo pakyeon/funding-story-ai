@@ -40,6 +40,12 @@ class DataRepository:
             "story_image_manifest": self._read_json(
                 self.schemas_dir / "story-image-manifest.schema.json"
             ),
+            "integrated_story_run": self._read_json(
+                self.schemas_dir / "integrated-story-run.schema.json"
+            ),
+            "template_retrieval_index": self._read_json(
+                self.schemas_dir / "template-retrieval-index.schema.json"
+            ),
             "catalog": self._read_json(
                 self.schemas_dir / "template-catalog.schema.json"
             ),
@@ -150,6 +156,12 @@ class DataRepository:
             value.get("input_id", "story intake semantic state"),
         )
 
+    def story_brief_schema(self) -> dict[str, Any]:
+        return deepcopy(self._schemas["brief"])
+
+    def intake_semantic_state_schema(self) -> dict[str, Any]:
+        return deepcopy(self._schemas["intake_semantic_state"])
+
     def load_category_profiles(self) -> list[dict[str, Any]]:
         profiles = [
             self._read_json(path) for path in sorted(self.profiles_dir.glob("*.json"))
@@ -186,6 +198,29 @@ class DataRepository:
     def validate_story_image_manifest(self, value: dict[str, Any]) -> None:
         self._validate(value, "story_image_manifest", "story image manifest")
 
+    def validate_integrated_story_run(self, value: dict[str, Any]) -> None:
+        self._validate(value, "integrated_story_run", "integrated story run")
+
+    def load_template_retrieval_index(self) -> dict[str, Any]:
+        value = self._read_json(self.templates_dir / "retrieval-index.json")
+        self._validate(value, "template_retrieval_index", "template retrieval index")
+        self._require_unique(
+            (candidate["candidate_id"] for candidate in value["candidates"]),
+            "retrieval candidate id",
+        )
+        executable = {
+            candidate["executable_template_id"]
+            for candidate in value["candidates"]
+            if candidate["executable_template_id"] is not None
+        }
+        available = {template["id"] for template in self.load_templates()}
+        missing = executable - available
+        if missing:
+            raise DataValidationError(
+                f"Retrieval index references unavailable templates: {sorted(missing)}"
+            )
+        return value
+
     def validate_catalog_links(self) -> None:
         template_ids = {template["id"] for template in self.load_templates()}
         catalog_ids = {
@@ -196,6 +231,7 @@ class DataRepository:
                 f"Template/catalog id mismatch: templates={template_ids}, "
                 f"catalog={catalog_ids}"
             )
+        self.load_template_retrieval_index()
 
     @staticmethod
     def _require_unique(values: Iterable[str], label: str) -> None:

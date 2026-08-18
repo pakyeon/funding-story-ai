@@ -1,57 +1,61 @@
 {
   "schema_version": "funding-story-template-v1",
-  "id": "t01_performance_value_evidence",
-  "template_name": "로봇청소기 성능·가성비·증빙형",
+  "id": "t06_trust_maintenance_full_campaign",
+  "template_name": "로봇청소기 신뢰·유지관리형 전체 캠페인",
   "category": "테크·가전",
   "language": "ko",
   "generation_source": "manual-analysis",
-  "target": "가격과 핵심 성능 수치를 함께 비교하고 구매 근거를 확인하려는 로봇청소기 관심 사용자",
-  "default_word_count": 1800,
-  "narration_mode": "evidence_first",
+  "target": "성능의 검증 상태와 유지관리·서비스 범위를 우선 확인하는 로봇청소기 사용자",
+  "default_word_count": 2200,
+  "narration_mode": "trust_maintenance_full_campaign",
   "style": {
     "tone_keywords": [
-      "명확함",
-      "실용적",
-      "검증중심"
+      "신중함",
+      "투명함",
+      "관리중심"
     ],
-    "sentence_style": "짧은 결론 뒤에 조건·수치·근거를 분리해 설명",
-    "visual_mood": "제품 수치와 작동 원리를 빠르게 비교할 수 있는 기술 문서형 구성",
+    "sentence_style": "검증된 사실, 메이커 진술, 미확인 정보를 문단 안에서 명확히 구분",
+    "visual_mood": "제품 관리 상태와 근거 범위를 차분하게 검토할 수 있는 신뢰 중심 테크 캠페인",
     "color_palette": [
-      "#111827",
-      "#2563EB",
-      "#F8FAFC"
+      "#0F172A",
+      "#0F766E",
+      "#F0FDFA"
     ],
     "font_style": "Sans-serif",
-    "typography": "핵심 수치는 대형, 측정 조건과 주석은 본문보다 작게 표현",
-    "urgency_style": "입력된 수량·기간이 있을 때만 제한 조건을 사실 그대로 표시",
-    "cta_style": "제품 사양과 증빙을 확인한 뒤 리워드 구성을 비교하도록 안내"
+    "typography": "검증 상태와 조건은 표와 보조 문장으로 분리하고 과도한 강조를 피함",
+    "urgency_style": "제공된 일정·수량이 없으면 긴급성 문구를 사용하지 않음",
+    "cta_style": "검증 상태와 유지관리·서비스 조건을 확인한 뒤 참여를 안내"
   },
   "content_strategy": {
-    "core_message": "핵심 성능과 가격 제안을 먼저 제시하고 각 수치의 조건·증빙·사용 편익을 순서대로 연결한다.",
+    "core_message": "시험·인증·관리·서비스 정보를 출처 상태와 함께 제시하고 확인되지 않은 유지관리 효과나 지원 약속은 만들지 않는다.",
     "product_keywords": [
       "로봇청소기",
-      "흡입성능",
-      "청소자동화",
-      "가성비",
-      "성능증빙"
+      "유지관리",
+      "신뢰",
+      "시험조건",
+      "서비스"
     ],
     "success_metrics": [
-      "핵심 수치의 입력 사실 일치",
-      "주장별 증빙 연결",
-      "가격·구성 정보 누락 없음"
+      "자체 시험과 외부 인증 구분",
+      "관리 범위와 예외 표시",
+      "서비스 약속의 입력 근거 확인"
     ],
     "emphasis_phrases": {
-      "performance": [
-        "측정 조건과 함께 제시",
-        "입력된 수치만 사용"
+      "trust": [
+        "증빙 유형과 적용 범위를 함께 표시",
+        "인증·후기·전문가 평가는 입력이 있을 때만 사용"
       ],
-      "value": [
-        "구성과 가격을 분리해 비교",
-        "할인율은 기준 가격이 있을 때만 계산"
+      "maintenance": [
+        "자동 관리와 수동 관리 범위를 구분",
+        "소모품·세척 주기는 입력값만 사용"
       ],
-      "evidence": [
-        "증빙 ID 연결",
-        "근거 부족 시 검토 필요 표시"
+      "service": [
+        "A/S 기간과 범위를 제공된 조건으로만 표시",
+        "미래 지원 약속 생성 금지"
+      ],
+      "project": [
+        "생산·배송·리스크 대응은 입력값만 사용",
+        "미확인 항목은 검토 필요로 표시"
       ]
     }
   },

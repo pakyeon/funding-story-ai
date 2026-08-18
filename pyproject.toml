@@ -9,6 +9,7 @@ description = "Fact-aware AI pipeline for reviewable crowdfunding stories"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+  "fastmcp[tasks]>=3,<4",
   "google-genai>=1.31,<2",
   "jsonschema>=4.23,<5",
   "langgraph>=1.2.11",
@@ -25,6 +26,8 @@ dev = [
 
 [project.scripts]
 funding-story = "funding_story_ai.cli:main"
+funding-story-mcp-server = "funding_story_ai.mcp_server:main"
+funding-story-submit = "funding_story_ai.mcp_client_cli:main"
 
 [tool.pytest.ini_options]
 addopts = "-q"

@@ -1,57 +1,61 @@
 {
   "schema_version": "funding-story-template-v1",
-  "id": "t01_performance_value_evidence",
-  "template_name": "로봇청소기 성능·가성비·증빙형",
+  "id": "t05_value_practical_full_campaign",
+  "template_name": "로봇청소기 가성비·실용형 전체 캠페인",
   "category": "테크·가전",
   "language": "ko",
   "generation_source": "manual-analysis",
-  "target": "가격과 핵심 성능 수치를 함께 비교하고 구매 근거를 확인하려는 로봇청소기 관심 사용자",
-  "default_word_count": 1800,
-  "narration_mode": "evidence_first",
+  "target": "과한 부가 기능보다 확인된 필수 기능과 실제 제공 구성을 중시하는 로봇청소기 사용자",
+  "default_word_count": 2000,
+  "narration_mode": "value_practical_full_campaign",
   "style": {
     "tone_keywords": [
-      "명확함",
-      "실용적",
-      "검증중심"
+      "경제적",
+      "담백함",
+      "실용적"
     ],
-    "sentence_style": "짧은 결론 뒤에 조건·수치·근거를 분리해 설명",
-    "visual_mood": "제품 수치와 작동 원리를 빠르게 비교할 수 있는 기술 문서형 구성",
+    "sentence_style": "필수 기능과 사용 편익을 짧게 연결하고 가격·구성은 제공된 값만 분리해 설명",
+    "visual_mood": "불필요한 장식 없이 제품과 제공 기능을 명확하게 보여 주는 실용형 테크 캠페인",
     "color_palette": [
       "#111827",
-      "#2563EB",
+      "#3B82F6",
       "#F8FAFC"
     ],
     "font_style": "Sans-serif",
-    "typography": "핵심 수치는 대형, 측정 조건과 주석은 본문보다 작게 표현",
-    "urgency_style": "입력된 수량·기간이 있을 때만 제한 조건을 사실 그대로 표시",
-    "cta_style": "제품 사양과 증빙을 확인한 뒤 리워드 구성을 비교하도록 안내"
+    "typography": "핵심 기능은 굵게, 조건과 미확인 정보는 작은 보조 문장으로 구분",
+    "urgency_style": "제공된 수량·기간이 없으면 할인이나 한정성을 만들지 않음",
+    "cta_style": "확인된 필수 기능과 제공 구성을 검토한 뒤 참여를 안내"
   },
   "content_strategy": {
-    "core_message": "핵심 성능과 가격 제안을 먼저 제시하고 각 수치의 조건·증빙·사용 편익을 순서대로 연결한다.",
+    "core_message": "로봇청소기의 확인된 필수 기능과 제공 구성을 중심으로 실용 가치를 설명하고 미입력 가격·혜택은 만들지 않는다.",
     "product_keywords": [
       "로봇청소기",
-      "흡입성능",
-      "청소자동화",
       "가성비",
-      "성능증빙"
+      "필수기능",
+      "실용",
+      "제공구성"
     ],
     "success_metrics": [
-      "핵심 수치의 입력 사실 일치",
-      "주장별 증빙 연결",
-      "가격·구성 정보 누락 없음"
+      "필수 기능과 부가 기능 구분",
+      "입력된 구성만 제시",
+      "미제공 가격·할인 추정 금지"
     ],
     "emphasis_phrases": {
-      "performance": [
-        "측정 조건과 함께 제시",
-        "입력된 수치만 사용"
-      ],
       "value": [
-        "구성과 가격을 분리해 비교",
-        "할인율은 기준 가격이 있을 때만 계산"
+        "실제 제공 구성을 기준으로 설명",
+        "가격 정보가 없으면 가성비를 수치로 단정하지 않음"
+      ],
+      "practicality": [
+        "반복 사용 상황과 필수 기능을 연결",
+        "입력된 편익만 강조"
       ],
       "evidence": [
-        "증빙 ID 연결",
-        "근거 부족 시 검토 필요 표시"
+        "기능 수치와 시험 조건을 함께 배치",
+        "근거 없는 비교 우위 제외"
+      ],
+      "project": [
+        "일정·리워드·펀딩 계획은 입력값만 사용",
+        "미입력 항목은 검토 필요로 표시"
       ]
     }
   },

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import os
 from dataclasses import dataclass
+from datetime import date
 from decimal import Decimal
 
 MILLION = Decimal("1000000")
@@ -41,9 +42,26 @@ class PricingCatalog:
         output_usd_per_million=Decimal("7.50"),
         source="google-standard-pricing-2026-08-14",
     )
+    _GEMINI_37_INTRODUCTORY = ModelPrice(
+        input_usd_per_million=Decimal("0.75"),
+        output_usd_per_million=Decimal("3.75"),
+        source="google-introductory-pricing-2026-08-13-through-2026-12-31",
+    )
+    _GEMINI_37_POST_INTRODUCTORY = ModelPrice(
+        input_usd_per_million=Decimal("1.50"),
+        output_usd_per_million=Decimal("7.50"),
+        source="google-post-introductory-pricing-effective-2027-01-01",
+    )
 
     def __init__(self, prices: dict[str, ModelPrice] | None = None) -> None:
         self._prices = prices or self._prices_from_env()
+
+    @classmethod
+    def _default_gemini_37_price(cls, *, today: date | None = None) -> ModelPrice:
+        effective_date = today or date.today()
+        if effective_date <= date(2026, 12, 31):
+            return cls._GEMINI_37_INTRODUCTORY
+        return cls._GEMINI_37_POST_INTRODUCTORY
 
     @classmethod
     def _prices_from_env(cls) -> dict[str, ModelPrice]:
@@ -59,11 +77,7 @@ class PricingCatalog:
                 source="configured-gemini-3.7-price",
             )
             if input_37 and output_37
-            else ModelPrice(
-                input_usd_per_million=cls._GEMINI_36_STANDARD.input_usd_per_million,
-                output_usd_per_million=cls._GEMINI_36_STANDARD.output_usd_per_million,
-                source="conservative-proxy:gemini-3.6-flash-standard-2026-08-14",
-            )
+            else cls._default_gemini_37_price()
         )
         return {
             "gemini-3.7-flash": price_37,

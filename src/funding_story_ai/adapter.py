@@ -80,6 +80,55 @@ class GeminiAdapter:
         if not prompt.strip():
             raise ValueError("prompt must not be empty")
 
+        return self._generate_json(
+            contents=prompt,
+            projected_input_bytes=len(prompt.encode("utf-8")),
+            response_schema=response_schema,
+            request_id=request_id,
+        )
+
+    def generate_multimodal_json(
+        self,
+        *,
+        prompt: str,
+        images: list[tuple[bytes, str]],
+        response_schema: dict[str, Any],
+        request_id: str | None = None,
+    ) -> GenerationResult:
+        """Generate schema-constrained JSON from text and in-memory images."""
+        if not prompt.strip():
+            raise ValueError("prompt must not be empty")
+        if not images:
+            return self.generate_json(
+                prompt=prompt,
+                response_schema=response_schema,
+                request_id=request_id,
+            )
+        parts: list[Any] = [types.Part.from_text(text=prompt)]
+        projected_input_bytes = len(prompt.encode("utf-8"))
+        for image_bytes, mime_type in images:
+            if not image_bytes:
+                raise ValueError("image bytes must not be empty")
+            if not mime_type.startswith("image/"):
+                raise ValueError(f"unsupported image mime type: {mime_type}")
+            parts.append(types.Part.from_bytes(data=image_bytes, mime_type=mime_type))
+            projected_input_bytes += len(image_bytes)
+        return self._generate_json(
+            contents=[types.Content(role="user", parts=parts)],
+            projected_input_bytes=projected_input_bytes,
+            response_schema=response_schema,
+            request_id=request_id,
+        )
+
+    def _generate_json(
+        self,
+        *,
+        contents: Any,
+        projected_input_bytes: int,
+        response_schema: dict[str, Any],
+        request_id: str | None,
+    ) -> GenerationResult:
+
         request_id = request_id or str(uuid.uuid4())
         attempt = 0
         last_access_error: Exception | None = None
@@ -89,7 +138,8 @@ class GeminiAdapter:
             try:
                 return self._call(
                     model=self.settings.primary_model,
-                    prompt=prompt,
+                    contents=contents,
+                    projected_input_bytes=projected_input_bytes,
                     response_schema=response_schema,
                     request_id=request_id,
                     attempt=attempt,
@@ -105,7 +155,8 @@ class GeminiAdapter:
         try:
             return self._call(
                 model=self.settings.fallback_model,
-                prompt=prompt,
+                contents=contents,
+                projected_input_bytes=projected_input_bytes,
                 response_schema=response_schema,
                 request_id=request_id,
                 attempt=attempt,
@@ -123,14 +174,15 @@ class GeminiAdapter:
         self,
         *,
         model: str,
-        prompt: str,
+        contents: Any,
+        projected_input_bytes: int,
         response_schema: dict[str, Any],
         request_id: str,
         attempt: int,
     ) -> GenerationResult:
         # UTF-8 byte length deliberately overestimates most text token counts,
         # including Korean prompts, for the preflight budget guard.
-        projected_prompt_tokens = max(1, len(prompt.encode("utf-8")))
+        projected_prompt_tokens = max(1, projected_input_bytes)
         self.ledger.assert_can_spend(
             model,
             TokenUsage(
@@ -143,7 +195,7 @@ class GeminiAdapter:
         try:
             response = self.client.models.generate_content(
                 model=model,
-                contents=prompt,
+                contents=contents,
                 config=types.GenerateContentConfig(
                     response_mime_type="application/json",
                     response_json_schema=response_schema,

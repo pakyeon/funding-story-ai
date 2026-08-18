@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://funding-story-ai.local/schemas/template-retrieval-index.schema.json",
+  "title": "Template retrieval candidate index",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "embedding", "candidates"],
+  "$defs": {
+    "string_list": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    }
+  },
+  "properties": {
+    "schema_version": {"const": "template-retrieval-index-v1"},
+    "embedding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["model", "dimensions", "document_task", "query_task"],
+      "properties": {
+        "model": {"const": "gemini-embedding-001"},
+        "dimensions": {"const": 768},
+        "document_task": {"const": "RETRIEVAL_DOCUMENT"},
+        "query_task": {"const": "RETRIEVAL_QUERY"}
+      }
+    },
+    "candidates": {
+      "type": "array",
+      "minItems": 6,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "candidate_id", "name", "origin", "category", "product_types",
+          "persuasion_axis", "target", "problems", "core_message",
+          "tone_keywords", "section_roles", "executable_template_id"
+        ],
+        "properties": {
+          "candidate_id": {"type": "string", "pattern": "^rc[0-9]{2}$"},
+          "name": {"type": "string", "minLength": 1},
+          "origin": {
+            "enum": ["executable-template", "hard-negative", "cross-category-negative"]
+          },
+          "category": {"type": "string", "minLength": 1},
+          "product_types": {"$ref": "#/$defs/string_list"},
+          "persuasion_axis": {"$ref": "#/$defs/string_list"},
+          "target": {"type": "string", "minLength": 1},
+          "problems": {"$ref": "#/$defs/string_list"},
+          "core_message": {"type": "string", "minLength": 1},
+          "tone_keywords": {"$ref": "#/$defs/string_list"},
+          "section_roles": {"$ref": "#/$defs/string_list"},
+          "executable_template_id": {
+            "type": ["string", "null"],
+            "pattern": "^t[0-9]{2}_[a-z0-9_]+$"
+          }
+        }
+      }
+    }
+  }
+}

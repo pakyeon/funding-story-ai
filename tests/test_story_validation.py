@@ -1,5 +1,7 @@
 from copy import deepcopy
 
+import pytest
+
 from funding_story_ai.data_repository import DataRepository
 from funding_story_ai.validation import StoryValidator
 
@@ -88,7 +90,7 @@ def test_validator_flags_promises_created_from_unknown_input() -> None:
     template = repository.get_template("t02_problem_solution_automation")
     content = _valid_content(repository, template["id"])
     service = next(
-        section for section in content["sections"] if section["template_section_id"] == "service"
+        section for section in content["sections"] if section["template_section_id"] == "timeline"
     )
     service["body"] = "AS 정책은 현재 확인 중이며 추후 공지될 예정입니다."
     service["source_fields"] = ["unknown.as_and_refund_policy"]
@@ -100,6 +102,45 @@ def test_validator_flags_promises_created_from_unknown_input() -> None:
         )
     }
     assert "unsupported-future-commitment" in codes
+
+
+@pytest.mark.parametrize(
+    "future_copy",
+    [
+        "가격과 일정은 확정 후 추가 안내될 예정입니다.",
+        "향후 업데이트될 리워드와 일정을 확인해 주세요.",
+        "일정 확정 시 프로젝트 페이지에서 확인할 수 있습니다.",
+    ],
+)
+def test_validator_flags_future_copy_variants(future_copy: str) -> None:
+    repository = DataRepository()
+    brief = repository.load_brief()
+    template = repository.get_template("t02_problem_solution_automation")
+    content = _valid_content(repository, template["id"])
+    content["sections"][-1]["body"] = future_copy
+    content["sections"][-1]["source_fields"] = ["unknown.reward_and_schedule"]
+    warnings = StoryValidator().validate(
+        content=content, brief=brief, template=template
+    )
+    assert any(warning.code == "unsupported-future-commitment" for warning in warnings)
+
+
+def test_validator_flags_carpet_inference_without_carpet_input() -> None:
+    repository = DataRepository()
+    brief = repository.load_brief()
+    brief["audiences"] = []
+    brief["features"] = [
+        feature
+        for feature in brief["features"]
+        if feature["id"] != "feature_carpet_lift"
+    ]
+    template = repository.get_template("t02_problem_solution_automation")
+    content = _valid_content(repository, template["id"])
+    content["sections"][2]["body"] = "12mm 리프팅으로 카펫 환경에 대응합니다."
+    warnings = StoryValidator().validate(
+        content=content, brief=brief, template=template
+    )
+    assert any(warning.code == "unsupported-generated-text" for warning in warnings)
 
 
 def test_validator_flags_product_common_sense_and_concept_expansion() -> None:
@@ -122,13 +163,29 @@ def test_validator_flags_product_common_sense_and_concept_expansion() -> None:
 
     codes = [warning.code for warning in warnings]
     messages = [warning.message for warning in warnings]
-    assert codes.count("unsupported-generated-text") >= 6
+    assert codes.count("unsupported-generated-text") >= 5
     assert "source-role-imprecision" in codes
     assert any("도크 자동 복귀" in message for message in messages)
     assert any("정수통 관리 방식" in message for message in messages)
     assert any("오수통 관리 방식" in message for message in messages)
     assert any("먼지봉투 관리 방식" in message for message in messages)
     assert any("앱 연동 경험" in message for message in messages)
+
+
+def test_validator_does_not_treat_explicit_app_absence_as_new_app_claim() -> None:
+    repository = DataRepository()
+    brief = repository.load_brief()
+    brief["product"]["summary"] += " 전용 앱 미지원"
+    template = repository.get_template("t02_problem_solution_automation")
+    content = _valid_content(repository, template["id"])
+    content["sections"][0]["body"] = "전용 앱은 지원하지 않습니다."
+    warnings = StoryValidator().validate(
+        content=content, brief=brief, template=template
+    )
+    assert not any(
+        warning.code == "unsupported-generated-text" and "전용 앱" in warning.message
+        for warning in warnings
+    )
 
 
 def test_validator_requires_explicit_support_for_automatic_dust_emptying() -> None:
@@ -148,6 +205,18 @@ def test_validator_requires_explicit_support_for_automatic_dust_emptying() -> No
     )
 
     assert any("먼지 비움의 자동 동작" in warning.message for warning in warnings)
+
+
+def test_validator_requires_explicit_support_for_post_cleaning_dock_timing() -> None:
+    repository = DataRepository()
+    brief = repository.load_brief()
+    template = repository.get_template("t02_problem_solution_automation")
+    content = _valid_content(repository, template["id"])
+    content["sections"][2]["body"] = "청소 후 도크에서 먼지 비움과 충전을 진행합니다."
+    warnings = StoryValidator().validate(
+        content=content, brief=brief, template=template
+    )
+    assert any("청소 후 도크 동작 시점" in warning.message for warning in warnings)
 
 
 def test_validator_flags_internal_unknown_identifier_in_prose() -> None:

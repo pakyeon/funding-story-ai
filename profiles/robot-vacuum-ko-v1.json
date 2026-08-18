@@ -48,6 +48,8 @@
     "t01_performance_value_evidence": 2,
     "t02_problem_solution_automation": 3,
     "t03_lifestyle_social_proof": 0,
-    "t04_full_campaign": 4
+    "t04_full_campaign": 4,
+    "t05_value_practical_full_campaign": 2,
+    "t06_trust_maintenance_full_campaign": 3
   }
 }

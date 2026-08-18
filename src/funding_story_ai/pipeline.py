@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any, Literal, TypedDict
+from typing import Any, Literal, Protocol, TypedDict
 
 from langgraph.graph import END, START, StateGraph
 
@@ -13,6 +13,16 @@ from .validation import StoryValidator, StoryWarning
 
 class StoryPipelineError(RuntimeError):
     pass
+
+
+class StoryTemplateSelector(Protocol):
+    def select(
+        self,
+        brief: dict[str, Any],
+        templates: list[dict[str, Any]],
+        *,
+        soft_boosts: dict[str, int] | None = None,
+    ) -> TemplateSelection: ...
 
 
 class StoryPipelineState(TypedDict, total=False):
@@ -40,7 +50,7 @@ class StoryPipeline:
         *,
         repository: DataRepository,
         adapter: GeminiAdapter,
-        selector: TemplateSelector | None = None,
+        selector: StoryTemplateSelector | None = None,
         validator: StoryValidator | None = None,
         max_correction_attempts: int = 1,
     ) -> None:

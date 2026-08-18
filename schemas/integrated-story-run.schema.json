@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://funding-story-ai.local/schemas/integrated-story-run.schema.json",
+  "title": "Integrated story execution result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "run_id", "status", "template_id", "model",
+    "input_brief", "story", "images", "preview", "warning_count", "review_required"
+  ],
+  "$defs": {
+    "artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    }
+  },
+  "properties": {
+    "schema_version": {"const": "integrated-story-run-v1"},
+    "run_id": {"type": "string", "pattern": "^run-[a-zA-Z0-9-]+$"},
+    "status": {"enum": ["complete", "partial"]},
+    "template_id": {"type": "string", "pattern": "^t[0-9]{2}_[a-z0-9_]+$"},
+    "model": {"type": "string", "minLength": 1},
+    "input_brief": {"$ref": "#/$defs/artifact"},
+    "story": {"$ref": "#/$defs/artifact"},
+    "images": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "manifest", "requested", "succeeded", "failed",
+        "estimated_cost_usd", "qa_pending"
+      ],
+      "properties": {
+        "manifest": {"$ref": "#/$defs/artifact"},
+        "requested": {"type": "integer", "minimum": 0},
+        "succeeded": {"type": "integer", "minimum": 0},
+        "failed": {"type": "integer", "minimum": 0},
+        "estimated_cost_usd": {"type": "string", "pattern": "^[0-9]+(?:\\.[0-9]+)?$"},
+        "qa_pending": {"type": "integer", "minimum": 0}
+      }
+    },
+    "preview": {"$ref": "#/$defs/artifact"},
+    "warning_count": {"type": "integer", "minimum": 0},
+    "review_required": {"const": true}
+  }
+}

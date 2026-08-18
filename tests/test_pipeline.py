@@ -70,7 +70,7 @@ def test_pipeline_selects_t02_and_builds_valid_result() -> None:
     assert result["review_required"] is True
     assert result["warnings"] == []
     assert result["usage"]["model_calls"] == 1
-    assert len(result["sections"]) == 10
+    assert len(result["sections"]) == 12
 
 
 def test_pipeline_corrects_once_and_aggregates_usage() -> None:

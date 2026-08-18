@@ -48,8 +48,9 @@ def brief_source_fields(brief: dict[str, Any]) -> set[str]:
 _NUMBER = re.compile(r"(?<![A-Za-z])\d[\d,]*(?:\.\d+)?")
 _ORDERED_LIST_MARKER = re.compile(r"(?m)^\s*\d+[.)]\s+")
 _UNKNOWN_OVERREACH = re.compile(
-    r"확인\s*중|확정\s*준비\s*중|추후.{0,20}(?:공지|안내|업데이트)|"
-    r"정식\s*오픈\s*시|확정되는\s*대로|안내드리겠습니다|공지될\s*예정"
+    r"확인\s*중|확정\s*준비\s*중|(?:추후|향후|추가).{0,20}(?:공지|안내|업데이트)|"
+    r"정식\s*오픈\s*시|확정되는\s*대로|안내드리겠습니다|"
+    r"(?:공지|안내)(?:될|할)\s*예정|확정\s*시.{0,30}확인"
 )
 _UNSUPPORTED_PRODUCT_ATTRIBUTE = re.compile(
     r"(?:(?:자사|클린포지)\s*)?전용\s*(?:모바일\s*)?앱"
@@ -57,6 +58,18 @@ _UNSUPPORTED_PRODUCT_ATTRIBUTE = re.compile(
 _INTERNAL_IDENTIFIER = re.compile(r"\bunknown\.[A-Za-z0-9_.-]+\b")
 
 _CONCEPT_GUARDS = (
+    (
+        "unsupported-generated-text",
+        re.compile(r"청소\s*후.{0,30}(?:먼지(?:통)?\s*비움|충전)"),
+        re.compile(r"청소\s*후.{0,30}(?:먼지(?:통)?\s*비움|충전)"),
+        "청소 후 도크 동작 시점",
+    ),
+    (
+        "unsupported-generated-text",
+        re.compile(r"(?:카펫|카페트).{0,20}(?:대응|환경|구간|바닥)"),
+        re.compile(r"(?:카펫|카페트)"),
+        "카펫 환경 대응",
+    ),
     (
         "unsupported-generated-text",
         re.compile(r"자동\s*먼지(?:통)?\s*비움"),
@@ -247,7 +260,9 @@ class StoryValidator:
                         ),
                     )
                 )
-            if match := _UNSUPPORTED_PRODUCT_ATTRIBUTE.search(prose):
+            if (match := _UNSUPPORTED_PRODUCT_ATTRIBUTE.search(prose)) and not re.search(
+                r"앱", brief_prose
+            ):
                 warnings.append(
                     StoryWarning(
                         "unsupported-generated-text",

@@ -2,11 +2,15 @@
 
 from .client import StoryGenerator
 from .intake import StoryIntakeState, build_intake_graph, question_prompt
+from .worker import WorkerOutcome, WorkerRequest, build_live_worker
 
 __all__ = [
     "StoryGenerator",
     "StoryIntakeState",
     "build_intake_graph",
     "question_prompt",
+    "WorkerOutcome",
+    "WorkerRequest",
+    "build_live_worker",
 ]
 __version__ = "0.1.0"

@@ -24,6 +24,7 @@ def build_section_image_prompt(
     section: dict[str, Any],
     template: dict[str, Any],
     reference_available: bool = True,
+    visual_identity: str | None = None,
 ) -> str:
     palette = ", ".join(template["style"]["color_palette"])
     section_id = section["template_section_id"]
@@ -75,6 +76,7 @@ def build_section_image_prompt(
 안전한 시각 전략: {visual_strategy}
 템플릿 무드: {template['style']['visual_mood']}
 색 팔레트 참고: {palette}
+제품 시각 정체성(사용자 입력·brief 범위): {visual_identity or '구체 외형 미제공'}
 
 필수 제약:
 {fidelity_constraint}
@@ -82,6 +84,8 @@ def build_section_image_prompt(
 - 읽을 수 있는 텍스트, 로고, 숫자, 가격, 인증, 수상, UI 글자, 워터마크를 넣지 않음
 - 사람, 반려동물, 추가 구성품을 넣지 않음
 - 입력에 없는 성능을 암시하는 과장 효과나 시험 장면을 넣지 않음
+- 분할 패널, 연속 동작 프레임, 화살표, 이동 경로선, 센서 광선, 투시 효과를 넣지 않음
+- 하나의 제품 본체와 하나의 도크만 한 장면에 배치하고 같은 제품을 복제하지 않음
 - 충분한 여백과 사실적인 제품 사진 또는 단순한 비문자 시각 흐름으로 구성
 - 모든 제목, 설명, 성능 수치와 시험 조건은 이미지 밖의 편집 가능한 HTML로 표현
 - 이미지 안에는 타이포그래피를 만들지 않음
@@ -94,6 +98,7 @@ def planned_image_sections(
     section_ids: set[str] | None = None,
     *,
     reference_available: bool = True,
+    visual_identity: str | None = None,
 ) -> list[dict[str, str]]:
     available = {
         section["template_section_id"]
@@ -113,6 +118,7 @@ def planned_image_sections(
             section=section,
             template=template,
             reference_available=reference_available,
+            visual_identity=visual_identity,
         )
         plans.append(
             {
@@ -133,6 +139,8 @@ def generate_section_images(
     adapter: OpenAIImageAdapter,
     settings: ImageSettings,
     section_ids: set[str] | None = None,
+    run_id: str | None = None,
+    visual_identity: str | None = None,
 ) -> dict[str, Any]:
     story = repository.load_story_result(story_path)
     template = repository.get_template(story["template_id"])
@@ -142,6 +150,7 @@ def generate_section_images(
         template,
         section_ids,
         reference_available=reference_available,
+        visual_identity=visual_identity,
     )
     output_dir.mkdir(parents=True, exist_ok=False)
     assets: list[dict[str, Any]] = []
@@ -165,6 +174,7 @@ def generate_section_images(
                         section=sections_by_id[plan["section_id"]],
                         template=template,
                         reference_available=True,
+                        visual_identity=visual_identity,
                     )
                     plan["prompt"] = prompt
                     plan["prompt_sha256"] = hashlib.sha256(
@@ -220,7 +230,7 @@ def generate_section_images(
 
     manifest = {
         "schema_version": "story-image-manifest-v1",
-        "run_id": output_dir.name,
+        "run_id": run_id or output_dir.name,
         "story_sha256": file_sha256(story_path),
         "reference_sha256": file_sha256(reference_path) if reference_path else None,
         "input_mode": "reference-edit" if reference_path else "text-seeded-edit",

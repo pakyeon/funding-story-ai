@@ -1,6 +1,6 @@
 # 제품군 프로필
 
-제품군 프로필은 공통 입력 그래프를 바꾸지 않고 질문 문구와 템플릿 선택 신호를
+제품군 프로필은 공통 입력 그래프를 바꾸지 않고 질문 문구와 카테고리 신호를
 전문화한다.
 
 ## 공통 의미 슬롯
@@ -34,7 +34,9 @@
 ```
 
 질문 그래프는 어떤 예시가 로봇청소기용인지 알지 못한다. `question_prompt()`가 선택된
-stage의 슬롯과 profile을 조합한다.
+stage의 슬롯과 profile을 조합한다. `template_soft_boosts`는 API 호출 없는 직접
+선택기에서만 사용한다. 전체 MCP 경로의 KNN은 profile의 `category`와 별도 환경 변수
+`TEMPLATE_CATEGORY_BOOST`를 사용한다.
 
 ## 새 제품군 추가 절차
 

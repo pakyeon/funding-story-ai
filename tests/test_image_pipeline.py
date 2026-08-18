@@ -79,8 +79,8 @@ def test_three_t02_image_sections_are_planned() -> None:
     plans = planned_image_sections(story, repository.get_template(story["template_id"]))
     assert [plan["section_id"] for plan in plans] == [
         "hero",
-        "automation_journey",
-        "performance_proof",
+        "solution",
+        "features",
     ]
 
 
@@ -107,14 +107,14 @@ def test_three_observed_template_images_keep_unprovided_components_out() -> None
     assert "입력 이미지에 없는 구성품을 추가하지 않음" in features_prompt
 
 
-def test_performance_prompt_keeps_metrics_out_of_raster_image() -> None:
+def test_solution_prompt_keeps_metrics_out_of_raster_image() -> None:
     repository = DataRepository()
     story = _story(repository)
     story["sections"][4]["body"] = "최대 8,000Pa와 180분을 보여 줍니다."
     plans = planned_image_sections(
         story,
         repository.get_template(story["template_id"]),
-        {"performance_proof"},
+        {"solution"},
     )
     assert len(plans) == 1
     assert "8,000" not in plans[0]["prompt"]
