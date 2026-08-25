@@ -1,5 +1,6 @@
 import asyncio
 import json
+import time
 from typing import Any
 
 from fastmcp import Client
@@ -35,7 +36,6 @@ def test_mcp_contract_task_resource_and_idempotency(tmp_path) -> None:
             "idempotency_key": "idempotency-one",
             "brief": DataRepository().load_brief(),
             "template_id": "t02_problem_solution_automation",
-            "category_profile_id": "robot-vacuum-ko-v1",
         }
     }
 
@@ -47,18 +47,20 @@ def test_mcp_contract_task_resource_and_idempotency(tmp_path) -> None:
             assert [str(resource.uriTemplate) for resource in resources] == [
                 "story://runs/{run_id}"
             ]
-            first_task = await client.call_tool(
-                "create_crowdfunding_story", arguments, task=True
-            )
-            first = (await first_task.result()).structured_content
+            first_result = await client.call_tool("create_crowdfunding_story", arguments)
+            first = first_result.structured_content
             assert first is not None
             assert first["idempotent_replay"] is False
-            contents = await client.read_resource(first["result_uri"])
-            assert json.loads(contents[0].text)["result"]["review_required"] is True
-            replay_task = await client.call_tool(
-                "create_crowdfunding_story", arguments, task=True
-            )
-            replay = (await replay_task.result()).structured_content
+            assert first["status"] in {"accepted", "completed"}
+            for _ in range(100):
+                contents = await client.read_resource(first["result_uri"])
+                record = json.loads(contents[0].text)
+                if record["status"] == "completed":
+                    break
+                time.sleep(0.01)
+            assert record["result"]["review_required"] is True
+            replay_result = await client.call_tool("create_crowdfunding_story", arguments)
+            replay = replay_result.structured_content
             assert replay is not None
             assert replay["run_id"] == first["run_id"]
             assert replay["idempotent_replay"] is True

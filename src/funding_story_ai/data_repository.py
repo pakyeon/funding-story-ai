@@ -15,13 +15,12 @@ class DataValidationError(ValueError):
 
 
 class DataRepository:
-    """Load and validate templates, profiles, examples, and generated artifacts."""
+    """Load and validate templates, examples, and generated artifacts."""
 
     def __init__(self, root: Path | None = None) -> None:
         self.root = root or Path(__file__).resolve().parents[2]
         self.schemas_dir = self.root / "schemas"
         self.templates_dir = self.root / "templates"
-        self.profiles_dir = self.root / "profiles"
         self.examples_dir = self.root / "examples"
         self._schemas = {
             "section": self._read_json(
@@ -48,9 +47,6 @@ class DataRepository:
             ),
             "catalog": self._read_json(
                 self.schemas_dir / "template-catalog.schema.json"
-            ),
-            "category_profile": self._read_json(
-                self.schemas_dir / "category-profile.schema.json"
             ),
             "intake_semantic_state": self._read_json(
                 self.schemas_dir / "story-intake-semantic-state.schema.json"
@@ -161,30 +157,6 @@ class DataRepository:
 
     def intake_semantic_state_schema(self) -> dict[str, Any]:
         return deepcopy(self._schemas["intake_semantic_state"])
-
-    def load_category_profiles(self) -> list[dict[str, Any]]:
-        profiles = [
-            self._read_json(path) for path in sorted(self.profiles_dir.glob("*.json"))
-        ]
-        if not profiles:
-            raise DataValidationError("No category profiles found")
-        for profile in profiles:
-            self._validate(
-                profile,
-                "category_profile",
-                profile.get("profile_id", "category profile"),
-            )
-        self._require_unique(
-            (profile["profile_id"] for profile in profiles),
-            "category profile id",
-        )
-        return profiles
-
-    def get_category_profile(self, profile_id: str) -> dict[str, Any]:
-        for profile in self.load_category_profiles():
-            if profile["profile_id"] == profile_id:
-                return profile
-        raise DataValidationError(f"Unknown category profile id: {profile_id}")
 
     def story_generation_content_schema(self) -> dict[str, Any]:
         return deepcopy(self._schemas["story_generation_content"])

@@ -96,10 +96,10 @@ def render_story_html(
     fallback_image: str | None = None,
 ) -> str:
     assets = {
-        asset["section_id"]: asset["path"]
+        asset["section_id"]: (asset["path"], asset.get("qa_status", "pending"))
         for asset in (manifest or {}).get("assets", [])
         if asset["status"] == "success"
-        and asset.get("qa_status") in {"pass", "conditional"}
+        and asset.get("qa_status") != "fail"
     }
     template_by_id = {section["id"]: section for section in template["layout"]}
     colors = template["style"]["color_palette"]
@@ -107,7 +107,9 @@ def render_story_html(
     for index, section in enumerate(story["sections"], start=1):
         section_id = section["template_section_id"]
         spec = template_by_id[section_id]
-        image_source = assets.get(section_id)
+        generated_asset = assets.get(section_id)
+        image_source = generated_asset[0] if generated_asset else None
+        qa_status = generated_asset[1] if generated_asset else None
         image_status = "generated"
         if not image_source and section["image_intent"]["required"] and fallback_image:
             image_source = fallback_image
@@ -117,7 +119,8 @@ def render_story_html(
             image = (
                 f'<figure class="visual {image_status}">'
                 f'<img src="{_escape(image_source)}" alt="{_escape(section["heading"])}">'
-                f'<figcaption>{_escape(section["image_intent"]["purpose"])}</figcaption>'
+                f'<figcaption>{_escape(section["image_intent"]["purpose"])}'
+                f'{" · 사람 검토 대기" if qa_status == "pending" else ""}</figcaption>'
                 "</figure>"
             )
         body_html = _render_markdown_body(section["body"])
@@ -186,6 +189,59 @@ def write_story_preview(
         render_story_html(
             story=story,
             template=template,
+            manifest=manifest,
+            fallback_image=fallback_image,
+        ),
+        encoding="utf-8",
+    )
+
+
+def render_editor_fragment(
+    *,
+    story: dict[str, Any],
+    manifest: dict[str, Any] | None = None,
+    fallback_image: str | None = None,
+) -> str:
+    """Render conservative, editable HTML suitable for a Froala-style editor import."""
+
+    assets = {
+        asset["section_id"]: asset["path"]
+        for asset in (manifest or {}).get("assets", [])
+        if asset["status"] == "success" and asset.get("qa_status") != "fail"
+    }
+    sections = []
+    for section in story["sections"]:
+        section_id = section["template_section_id"]
+        image_source = assets.get(section_id)
+        if not image_source and section["image_intent"]["required"]:
+            image_source = fallback_image
+        image = (
+            '<p style="text-align: center;">'
+            f'<img src="{_escape(image_source)}" alt="{_escape(section["heading"])}" '
+            'style="width: 100%; max-width: 860px;">'
+            "</p>"
+            if image_source
+            else ""
+        )
+        sections.append(
+            f'<div data-story-section="{_escape(section_id)}">'
+            f'<h2 style="text-align: center;">{_escape(section["heading"])}</h2>'
+            f'{image}{_render_markdown_body(section["body"])}'
+            "</div>"
+        )
+    return "\n".join(sections)
+
+
+def write_editor_fragment(
+    *,
+    target: Path,
+    story: dict[str, Any],
+    manifest: dict[str, Any] | None = None,
+    fallback_image: str | None = None,
+) -> None:
+    target.write_text(
+        render_editor_fragment(
+            story=story,
             manifest=manifest,
             fallback_image=fallback_image,
         ),

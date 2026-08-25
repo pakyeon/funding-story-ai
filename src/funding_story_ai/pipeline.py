@@ -20,16 +20,12 @@ class StoryTemplateSelector(Protocol):
         self,
         brief: dict[str, Any],
         templates: list[dict[str, Any]],
-        *,
-        soft_boosts: dict[str, int] | None = None,
     ) -> TemplateSelection: ...
 
 
 class StoryPipelineState(TypedDict, total=False):
     brief: dict[str, Any]
     requested_template_id: str | None
-    requested_category_profile_id: str | None
-    category_profile: dict[str, Any] | None
     template: dict[str, Any]
     template_version: str
     selection: TemplateSelection
@@ -51,7 +47,7 @@ class StoryPipeline:
         adapter: GeminiAdapter,
         selector: StoryTemplateSelector | None = None,
         validator: StoryValidator | None = None,
-        max_correction_attempts: int = 1,
+        max_correction_attempts: int = 0,
     ) -> None:
         self.repository = repository
         self.adapter = adapter
@@ -62,12 +58,6 @@ class StoryPipeline:
 
     def _select_template(self, state: StoryPipelineState) -> StoryPipelineState:
         requested = state.get("requested_template_id")
-        requested_profile_id = state.get("requested_category_profile_id")
-        profile = (
-            self.repository.get_category_profile(requested_profile_id)
-            if requested_profile_id
-            else None
-        )
         if requested:
             template = self.repository.get_template(requested)
             selection = TemplateSelection(
@@ -78,18 +68,11 @@ class StoryPipeline:
             )
         else:
             templates = self.repository.load_templates()
-            selection = self.selector.select(
-                state["brief"],
-                templates,
-                soft_boosts=(
-                    profile["template_soft_boosts"] if profile is not None else None
-                ),
-            )
+            selection = self.selector.select(state["brief"], templates)
             template = self.repository.get_template(selection.template_id)
         return {
             "template": template,
             "template_version": self.repository.get_template_version(template["id"]),
-            "category_profile": profile,
             "selection": selection,
             "retry_count": 0,
         }
@@ -158,7 +141,7 @@ class StoryPipeline:
         warnings = state.get("warnings", [])
         result = {
             "schema_version": "story-result-v1",
-            "language": "ko",
+            "language": state["brief"]["language"],
             "template_id": state["template"]["id"],
             "template_version": state["template_version"],
             "model": generation.model,
@@ -197,14 +180,12 @@ class StoryPipeline:
         brief: dict[str, Any],
         *,
         template_id: str | None = None,
-        category_profile_id: str | None = None,
     ) -> dict[str, Any]:
         self.repository.validate_story_brief(brief)
         state = self.graph.invoke(
             {
                 "brief": brief,
                 "requested_template_id": template_id,
-                "requested_category_profile_id": category_profile_id,
             }
         )
         return state["result"]

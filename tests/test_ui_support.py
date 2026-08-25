@@ -3,24 +3,11 @@ from pathlib import Path
 import pytest
 
 from funding_story_ai.ui_support import (
+    build_run_resource_payload,
     conversation_payload,
     inline_preview_images,
-    mark_stage_answered,
-    resolve_run_directory,
     save_uploaded_image,
 )
-
-
-def test_mark_stage_answered_only_updates_matching_question_group() -> None:
-    flags = {
-        "primary_answered": False,
-        "secondary_answered": False,
-        "combined_answered": False,
-    }
-    updated = mark_stage_answered("primary-details", flags)
-    assert updated["primary_answered"] is True
-    assert updated["secondary_answered"] is False
-    assert flags["primary_answered"] is False
 
 
 def test_conversation_payload_keeps_the_question_with_each_followup() -> None:
@@ -57,11 +44,6 @@ def test_uploaded_image_rejects_non_image_suffix(tmp_path: Path) -> None:
         )
 
 
-def test_run_directory_rejects_path_traversal(tmp_path: Path) -> None:
-    with pytest.raises(ValueError, match="run id"):
-        resolve_run_directory(tmp_path, "../../outside")
-
-
 def test_inline_preview_images_embeds_only_run_local_files(tmp_path: Path) -> None:
     run_dir = tmp_path / "run-example"
     images = run_dir / "images"
@@ -73,3 +55,37 @@ def test_inline_preview_images_embeds_only_run_local_files(tmp_path: Path) -> No
     )
     assert 'src="data:image/png;base64,cG5n"' in rendered
     assert 'src="https://example.com/image.png"' in rendered
+
+
+def test_run_resource_contains_display_artifacts_without_client_filesystem_access(
+    tmp_path: Path,
+) -> None:
+    run_id = "run-abcdef"
+    run_dir = tmp_path / run_id
+    images = run_dir / "images"
+    images.mkdir(parents=True)
+    (run_dir / "story.json").write_text('{"sections": []}', encoding="utf-8")
+    (images / "hero.jpeg").write_bytes(b"image")
+    (images / "manifest.json").write_text(
+        '{"assets": [{"section_id": "hero", "status": "success", '
+        '"path": "hero.jpeg"}]}',
+        encoding="utf-8",
+    )
+    (run_dir / "preview.html").write_text(
+        '<img src="images/hero.jpeg">', encoding="utf-8"
+    )
+    record = {
+        "run_id": run_id,
+        "status": "completed",
+        "result": {
+            "story": {"path": "story.json"},
+            "preview": {"path": "preview.html"},
+            "images": {"manifest": {"path": "images/manifest.json"}},
+        },
+    }
+    payload = build_run_resource_payload(tmp_path, record)
+    assert payload["artifacts"]["story"] == {"sections": []}
+    assert 'src="data:image/jpeg;base64,aW1hZ2U="' in payload["artifacts"]["preview_html"]
+    assert payload["artifacts"]["image_data"]["hero.jpeg"].startswith(
+        "data:image/jpeg;base64,"
+    )

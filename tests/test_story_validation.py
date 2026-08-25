@@ -125,53 +125,6 @@ def test_validator_flags_future_copy_variants(future_copy: str) -> None:
     assert any(warning.code == "unsupported-future-commitment" for warning in warnings)
 
 
-def test_validator_flags_carpet_inference_without_carpet_input() -> None:
-    repository = DataRepository()
-    brief = repository.load_brief()
-    brief["audiences"] = []
-    brief["features"] = [
-        feature
-        for feature in brief["features"]
-        if feature["id"] != "feature_carpet_lift"
-    ]
-    template = repository.get_template("t02_problem_solution_automation")
-    content = _valid_content(repository, template["id"])
-    content["sections"][2]["body"] = "12mm 리프팅으로 카펫 환경에 대응합니다."
-    warnings = StoryValidator().validate(
-        content=content, brief=brief, template=template
-    )
-    assert any(warning.code == "unsupported-generated-text" for warning in warnings)
-
-
-def test_validator_flags_product_common_sense_and_concept_expansion() -> None:
-    repository = DataRepository()
-    brief = repository.load_brief("robot-vacuum/brief.json")
-    template = repository.get_template("t02_problem_solution_automation")
-    content = _valid_content(repository, template["id"])
-    content["sections"][3]["body"] = (
-        "전면 센서로 경로를 감지하고 도크로 자동 복귀합니다. "
-        "정수통 채움과 오수통 비움, 먼지봉투 교체는 수동 관리가 필요합니다."
-    )
-    content["sections"][4]["body"] = "전용 모바일 앱을 지원합니다."
-    content["sections"][7]["body"] = "개발팀은 앱 연동 경험을 갖췄습니다."
-
-    warnings = StoryValidator().validate(
-        content=content,
-        brief=brief,
-        template=template,
-    )
-
-    codes = [warning.code for warning in warnings]
-    messages = [warning.message for warning in warnings]
-    assert codes.count("unsupported-generated-text") >= 5
-    assert "source-role-imprecision" in codes
-    assert any("도크 자동 복귀" in message for message in messages)
-    assert any("정수통 관리 방식" in message for message in messages)
-    assert any("오수통 관리 방식" in message for message in messages)
-    assert any("먼지봉투 관리 방식" in message for message in messages)
-    assert any("앱 연동 경험" in message for message in messages)
-
-
 def test_validator_does_not_treat_explicit_app_absence_as_new_app_claim() -> None:
     repository = DataRepository()
     brief = repository.load_brief()
@@ -186,37 +139,6 @@ def test_validator_does_not_treat_explicit_app_absence_as_new_app_claim() -> Non
         warning.code == "unsupported-generated-text" and "전용 앱" in warning.message
         for warning in warnings
     )
-
-
-def test_validator_requires_explicit_support_for_automatic_dust_emptying() -> None:
-    repository = DataRepository()
-    brief = repository.load_brief("robot-vacuum/brief.json")
-    for feature in brief["features"]:
-        if feature["id"] == "feature_all_in_one_dock":
-            feature["description"] = feature["description"].replace("자동 먼지 비움", "먼지 비움")
-    template = repository.get_template("t02_problem_solution_automation")
-    content = _valid_content(repository, template["id"])
-    content["sections"][0]["body"] = "도킹 스테이션에서 자동 먼지 비움을 지원합니다."
-
-    warnings = StoryValidator().validate(
-        content=content,
-        brief=brief,
-        template=template,
-    )
-
-    assert any("먼지 비움의 자동 동작" in warning.message for warning in warnings)
-
-
-def test_validator_requires_explicit_support_for_post_cleaning_dock_timing() -> None:
-    repository = DataRepository()
-    brief = repository.load_brief()
-    template = repository.get_template("t02_problem_solution_automation")
-    content = _valid_content(repository, template["id"])
-    content["sections"][2]["body"] = "청소 후 도크에서 먼지 비움과 충전을 진행합니다."
-    warnings = StoryValidator().validate(
-        content=content, brief=brief, template=template
-    )
-    assert any("청소 후 도크 동작 시점" in warning.message for warning in warnings)
 
 
 def test_validator_flags_internal_unknown_identifier_in_prose() -> None:

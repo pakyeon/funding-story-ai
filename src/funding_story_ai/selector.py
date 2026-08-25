@@ -31,14 +31,12 @@ def _brief_text(brief: dict[str, Any]) -> str:
 
 
 class TemplateSelector:
-    """Transparent rule selector with optional category-profile soft boosts."""
+    """Transparent local fallback selector."""
 
     def select(
         self,
         brief: dict[str, Any],
         templates: list[dict[str, Any]],
-        *,
-        soft_boosts: dict[str, int] | None = None,
     ) -> TemplateSelection:
         category = brief["product"]["category"]
         eligible = [template for template in templates if template["category"] == category]
@@ -46,7 +44,6 @@ class TemplateSelector:
             raise ValueError(f"No template for category: {category}")
 
         text = _brief_text(brief)
-        soft_boosts = soft_boosts or {}
         scores: dict[str, int] = {}
         reasons_by_id: dict[str, list[str]] = {}
         for template in eligible:
@@ -89,11 +86,6 @@ class TemplateSelector:
                 if social_evidence == 0:
                     score -= 5
                     reasons.append("social proof input missing")
-
-            profile_boost = soft_boosts.get(template_id, 0)
-            if profile_boost:
-                score += profile_boost
-                reasons.append(f"category profile soft boost: {profile_boost:+d}")
 
             scores[template_id] = score
             reasons_by_id[template_id] = reasons

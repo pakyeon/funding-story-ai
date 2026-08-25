@@ -55,7 +55,7 @@
   "properties": {
     "schema_version": { "const": "story-brief-v1" },
     "brief_id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9_-]+$" },
-    "language": { "const": "ko" },
+    "language": { "enum": ["ko", "en", "ja", "zh"] },
     "source": {
       "type": "object",
       "additionalProperties": false,

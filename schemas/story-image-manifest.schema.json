@@ -50,7 +50,12 @@
           "sha256",
           "error_type",
           "qa_status",
-          "qa_notes"
+          "qa_notes",
+          "provider",
+          "model",
+          "mime_type",
+          "attempts",
+          "ai_metadata_embedded"
         ],
         "properties": {
           "section_id": { "type": "string", "minLength": 1 },
@@ -65,7 +70,15 @@
           "qa_notes": {
             "type": "array",
             "items": { "type": "string", "minLength": 1 }
-          }
+          },
+          "provider": {"type": ["string", "null"]},
+          "model": {"type": ["string", "null"]},
+          "mime_type": {
+            "type": ["string", "null"],
+            "enum": ["image/jpeg", "image/png", "image/webp", null]
+          },
+          "attempts": {"type": "integer", "minimum": 1},
+          "ai_metadata_embedded": {"type": "boolean"}
         }
       }
     }

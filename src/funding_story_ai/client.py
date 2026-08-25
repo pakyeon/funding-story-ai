@@ -30,15 +30,10 @@ class StoryGenerator:
         self,
         brief: dict[str, Any] | str | Path,
         *,
-        profile: str | None = None,
         template: str | None = None,
     ) -> dict[str, Any]:
         if isinstance(brief, dict):
             normalized = brief
         else:
             normalized = self.repository.load_brief_path(Path(brief))
-        return self.pipeline.invoke(
-            normalized,
-            template_id=template,
-            category_profile_id=profile,
-        )
+        return self.pipeline.invoke(normalized, template_id=template)

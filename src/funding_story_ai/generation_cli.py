@@ -24,7 +24,6 @@ def build_dry_run_summary(
     brief_name: str | None,
     template_id: str | None,
     brief_path: Path | None = None,
-    category_profile_id: str | None = None,
 ) -> dict:
     load_dotenv(dotenv_path=Path(".env"), override=False)
     settings = build_runtime(require_project=False)
@@ -34,18 +33,7 @@ def build_dry_run_summary(
         selection_scores = {template_id: 0}
         selection_reasons = ["explicit template request"]
     else:
-        profile = (
-            repository.get_category_profile(category_profile_id)
-            if category_profile_id
-            else None
-        )
-        selection = TemplateSelector().select(
-            brief,
-            repository.load_templates(),
-            soft_boosts=(
-                profile["template_soft_boosts"] if profile is not None else None
-            ),
-        )
+        selection = TemplateSelector().select(brief, repository.load_templates())
         template = repository.get_template(selection.template_id)
         selection_scores = selection.scores
         selection_reasons = list(selection.reasons)
@@ -56,7 +44,6 @@ def build_dry_run_summary(
         "template_version": repository.get_template_version(template["id"]),
         "selection_scores": selection_scores,
         "selection_reasons": selection_reasons,
-        "category_profile_id": category_profile_id,
         "model": settings.primary_model,
     }
 
@@ -85,10 +72,6 @@ def main() -> None:
         help="Path to a schema-validated story brief",
     )
     parser.add_argument("--template", help="Explicit template id; omit for selection")
-    parser.add_argument(
-        "--category-profile",
-        help="Optional category profile id for examples and template soft boosts",
-    )
     mode = parser.add_mutually_exclusive_group(required=True)
     mode.add_argument("--dry-run", action="store_true", help="Validate and select only")
     mode.add_argument("--live", action="store_true", help="Call Vertex AI and save JSON")
@@ -104,7 +87,6 @@ def main() -> None:
                     args.brief,
                     args.template,
                     brief_path=args.brief_path,
-                    category_profile_id=args.category_profile,
                 ),
                 ensure_ascii=False,
             )
@@ -122,7 +104,6 @@ def main() -> None:
             brief_path=args.brief_path,
         ),
         template_id=args.template,
-        category_profile_id=args.category_profile,
     )
     output_path = args.output or _default_output_path()
     if output_path.exists():

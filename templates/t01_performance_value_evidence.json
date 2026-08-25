@@ -135,6 +135,19 @@
       "html_structure": "evidence list without fabricated quotation"
     },
     {
+      "id": "rewards",
+      "label": "리워드 구성",
+      "type": "reward",
+      "summary": "메이커가 제공한 리워드 구성과 가격을 구분해 제시",
+      "expected_content": "REWARD 입력만 사용하고 미제공 가격·수량·구성품을 추정하지 않음",
+      "visual_hint": "확정된 리워드만 담은 편집 가능한 카드 또는 표",
+      "content_type": "reward_table",
+      "image_required": true,
+      "overlay_content": null,
+      "html_content": "<section class=\"rewards\"><h2>{{reward_heading}}</h2><table>{{provided_reward_rows}}</table></section>",
+      "html_structure": "maker-provided reward table"
+    },
+    {
       "id": "funding_plan",
       "label": "펀딩금 사용 계획",
       "type": "funding_plan",
@@ -181,7 +194,7 @@
       "expected_content": "CLAIM과 FACT로 확인된 팀 정보만 사용하고 개인별 경력·직책은 입력이 있을 때만 표시",
       "visual_hint": "검증된 팀 정보와 미입력 역할을 구분한 목록",
       "content_type": "team_list",
-      "image_required": false,
+      "image_required": true,
       "overlay_content": null,
       "html_content": "<section class=\"team\"><h2>{{team_heading}}</h2><ul>{{verified_team_items}}</ul></section>",
       "html_structure": "team fact list without inferred roles"

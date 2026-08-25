@@ -1,150 +1,105 @@
 # 아키텍처
 
-Funding Story AI는 대화 에이전트, 도구 경계와 생성 실행기를 분리한다. worker는 사용자
-의도를 이해하지만 생성 코드를 직접 실행할 수 없고, executor는 스토리를 생성하지만
-대화 상태를 알지 못한다. 두 계층은 FastMCP의 단일 구조화 도구로만 연결된다.
-
-## 전체 흐름
+Funding Story AI는 대화 처리기, MCP 도구 경계와 스토리 실행기를 분리한다. 대화
+처리기는 질문과 생성 승인을 다루고, 실행기는 대화 상태 없이 구조화 입력만 처리한다.
 
 ```mermaid
 flowchart TB
-    U0["사용자"] --> UI["Streamlit UI·CLI·Python 호출자"]
     subgraph Conversation["대화 계층"]
-        UI --> U["사용자 텍스트·이미지"]
-        U --> X["Gemini Semantic Extractor"]
-        X --> Q["LangGraph Intake Policy"]
-        Q -->|"정보 보완"| U
-        Q -->|"확인·건너뛰기"| B["Grounded Story Brief"]
+        U["텍스트 + 선택 이미지"] --> X["Gemini 의미 추출 + 다음 질문 결정"]
+        X --> Q["LangGraph 전환 통제"]
+        Q -->|"보완 질문"| U
+        Q -->|"확인·건너뛰기"| B["입력 근거 스토리 명세"]
     end
 
     subgraph Tool["도구 계층"]
         B --> C["FastMCP Client"]
         C -->|"Streamable HTTP"| M["create_crowdfunding_story"]
-        M --> S["Local Run Store"]
+        M -->|"accepted + result URI"| S["Local Run Store"]
     end
 
     subgraph Execution["실행 계층"]
-        M --> E["Integrated Executor"]
-        E --> K["Exact KNN Retriever"]
-        K --> P["Prompt + Template"]
-        P --> G["Gemini Text Generator"]
-        G --> V["Schema + Factuality Validator"]
-        V -->|"최대 1회"| G
-        V --> I["OpenAI Image Generator"]
-        I --> H["HTML Preview"]
+        M -.-> E["Background Executor"]
+        E --> K["Exact KNN + category boost 0.15"]
+        K --> P["Structured Template"]
+        P --> G["Gemini Text Generation"]
+        G --> V["Schema + Groundedness Warnings"]
+        V --> I["OpenAI Images → Gemini Fallback"]
+        I --> H["Manifest + Editor HTML + Preview"]
+        H --> S
     end
-
-    H --> S
-    H --> UI
 ```
-
-## Streamlit 데모 UI
-
-`streamlit_app.py`는 별도의 생성 로직을 갖지 않는 로컬 인터페이스다. 사용자 대화와
-기준 이미지를 기존 worker에 전달하고, 생성 승인이 끝나면 동일한 FastMCP 도구를 통해
-실행한다. 완료된 로컬 실행 기록에서 HTML, 섹션별 원고, 생성 이미지와 JSON을 읽어
-표시한다. API 인증 정보는 UI 입력이나 세션 상태에 저장하지 않고 `.env`와 애플리케이션
-기본 인증에서만 읽는다.
-
-이 UI에는 사용자 인증, 원격 파일 저장소, 다중 사용자 격리, 배포 설정이 포함되지
-않는다. 따라서 현재 브랜치의 화면은 로컬 기능 공유와 시연 범위에 한정된다.
 
 ## 공개 구조와의 대응
 
-공개된 상위 구조에서 story-maker-worker, MCP tool layer, story-maker executor와
-텍스트·이미지 생성으로 분리된 책임을 제품 구조에 대응했다. 상위 도메인 supervisor는
-여러 도메인을 라우팅할 때 필요한 요소이므로 단일 스토리 제품에는 포함하지 않았다.
-
-| 공개된 역할 | 이 저장소 | 구현 상태 |
+| 공개된 역할 | 이 저장소 | 구현 내용 |
 |---|---|---|
-| story-maker-worker | `worker.py` | 의미 슬롯, 질문, 확인, grounded brief |
-| MCP tool layer | `mcp_server.py` | FastMCP 3.x, tool 1개, task·resource |
+| story-maker-worker | `worker.py` | 의미 상태와 다음 질문 결정, 확인, 명세 작성 |
+| MCP tool layer | `mcp_server.py` | worker용 생성 도구, 비동기 접수, 결과 리소스 |
 | story-maker executor | `engine.py` | 텍스트·이미지·HTML 통합 실행 |
-| template search | `template_retrieval.py` | Gemini embedding exact KNN + boost |
-| text generation | `pipeline.py`, `adapter.py` | schema-constrained Gemini 결과 |
-| image generation | `image_pipeline.py` | 섹션 3개, 실패 격리, QA 상태 |
-| callback / result | `run_store.py` | local resource와 idempotent replay |
+| template search | `template_retrieval.py` | Gemini embedding exact KNN + soft boost |
+| text generation | `pipeline.py`, `adapter.py` | JSON Schema 제약 Gemini 결과 |
+| image generation | `image_generation.py`, `image_pipeline.py` | 공급자 폴백, 재시도, AI 표시, 검토 상태 |
+| callback / result | `run_store.py` | 로컬 리소스와 멱등 재조회 |
 
-이는 관찰 가능한 책임 경계를 재현한 것이며 외부 서비스의 비공개 클래스·payload·배포
-구조와 동일하다는 주장이 아니다.
+상위 supervisor는 여러 도메인 라우팅용이므로 단일 스토리 범위에서 구현하지 않았다.
+이 표는 공개된 책임 경계의 대응이며 비공개 클래스, payload, 배포 구조와 동일하다는
+주장이 아니다.
 
-## Worker
+## 대화 처리기
 
-worker는 다음 제품군 독립 슬롯을 추출한다.
+`story-intake-semantic-state-v2`는 다음을 함께 기록한다.
 
-```text
-product_identity
-key_strengths
-target_supporters
-problem_context
-trust_elements
-maker_team_intro
-```
+- 언어와 이미지 첨부 여부
+- 제품명·유형·분류, 강점, 대상, 문제, 신뢰·팀 정보
+- 리워드, 일정·정책, 펀딩금 계획, 플랫폼 선택 이유, 위험 대응
+- 값 충돌 상태
+- `ready_to_confirm`, 다음 질문, 질문 대상 필드
 
-각 슬롯은 `provided`, `explicitly-absent`, `unknown` 중 하나다. 신뢰 정보나 팀 정보가
-“없음”으로 명시되면 답변 완료로 인정한다. 충돌이 해소되지 않았거나 제품 정체성이
-없으면 실행 도구를 호출하지 않는다.
+각 슬롯은 `provided`, `explicitly-absent`, `unknown` 중 하나다. 질문 순서는 별도 제품
+프로필이나 UI 완료 표시가 아니라 LLM이 현재 대화에서 결정한다. LangGraph는 시작,
+보완 질문, 확인, 생성 준비의 전환만 통제한다.
 
-LangGraph 입력 그래프는 최소 보완 질문 → 확인 → 생성 준비 순서만 제어한다. 제품군별
-예시는 profile에 있고 라우팅 코어에는 제품명이 들어가지 않는다.
+입력은 메시지당 1,000자 이하, 선택 이미지 1개·10MB 이하·JPG/PNG/WEBP로 제한한다.
 
 ## FastMCP 경계
 
 - 전송: Streamable HTTP
 - 기본 bind: `127.0.0.1:8765`
-- worker allowlist: `create_crowdfunding_story` 1개
-- 실행: FastMCP task
-- 결과: `story://runs/{run_id}` resource
-- 중복 제어: caller ID + idempotency key + canonical request hash
+- worker 허용 목록: `create_crowdfunding_story` 1개
+- 제출 응답: `accepted`, 실행 ID, `story://runs/{run_id}`
+- 실행: 로컬 thread pool 백그라운드 작업
+- 멱등성: caller ID + idempotency key + canonical request hash
 
-SSE fallback은 구현하지 않았다. local server는 loopback 이외 주소로 시작할 수 없다.
-운영 배포 시에는 인증, TLS, 공유 저장소와 다중 프로세스 동시성 제어가 별도 필요하다.
+running, completed, failed 재요청은 예외 대신 동일 실행 상태를 반환한다. 같은 키와 다른
+payload만 충돌이다. 로컬 구현은 webhook이 아니라 결과 리소스 조회를 사용한다.
 
-## 템플릿 검색
-
-검색 문서는 카테고리, 제품 유형, 문제, 타깃, 핵심 메시지, 설득 축, 톤과 섹션 역할을
-직렬화한다. 브리프도 같은 의미 영역의 질의로 변환한다.
+## 검색·실행·결과
 
 ```text
 Gemini embedding (RETRIEVAL_DOCUMENT / RETRIEVAL_QUERY, 768d)
 → L2 normalize
 → exact cosine similarity
-→ same-category boost (0.0, 0.1, 0.2 중 하나)
-→ deterministic candidate-id tie break
-→ executable top-1
+→ same-category boost (기본 0.15)
+→ candidate ID tie break
+→ 순위상 첫 실행 가능 템플릿
 ```
 
-현재 index는 16후보이고 6후보만 실제 템플릿을 가리킨다. 실행 불가능 candidate가
-top-1이면 조용히 다음 후보로 넘어가지 않고 `NonExecutableTopResult`로 실패한다.
+현재 index 16개 중 6개가 실행 가능하다. 선택된 구성 양식은 10~13개 영역과 5~6개
+이미지 위치를 직접 정의한다. 본문 검증 경고는 전체 재생성을 유발하지 않는다.
 
-## 실행기와 결과 계약
+이미지는 OpenAI 키가 있으면 `gpt-image-2`를 먼저 사용하고 Gemini 이미지 모델로
+폴백한다. 각 공급자는 최대 3회 시도한다. 성공 이미지는 사람 검토 전에도 미리보기에
+표시하되 `pending`을 명시한다. PNG tEXt 또는 JPEG COM에 AI 생성 표시를 넣을 수 없는
+비정상 바이트는 표시 실패를 manifest에 기록한다.
 
-통합 실행기는 다음 순서로 한 run을 소유한다.
+결과는 `brief.json`, `story.json`, 이미지 manifest와 파일, `editor.html`,
+`preview.html` 및 SHA-256을 포함한다. `editor.html`은 보수적인 Froala 계열 편집기용
+조각이지만 비공개 와디즈 허용 목록과의 완전한 호환을 보증하지 않는다.
 
-1. 브리프 검증
-2. 템플릿 검색 또는 명시적 템플릿 적용
-3. 구조화 스토리 생성 및 최대 1회 수정
-4. hero·solution·features 이미지 생성
-5. 편집 가능한 HTML 렌더링
-6. 각 파일 SHA-256과 QA 상태 기록
+## 의도적으로 다른 부분
 
-이미지 한 장의 실패나 스토리 경고는 다른 산출물을 삭제하지 않는다. 대신 run 상태가
-`partial`이 되고 모든 결과는 `review_required: true`다. 기존 output 디렉터리는
-덮어쓰지 않는다.
-
-## 데이터 계약
-
-- `story-intake-semantic-state`: worker 의미 슬롯과 충돌 상태
-- `story-brief`: 사실·주장·증빙·미확인 정보
-- `category-profile`: 카테고리별 추출·질문 힌트
-- `template-retrieval-index`: 임베딩 설정과 후보 메타데이터
-- `story-template`: 스타일·콘텐츠 전략·12-section 골격
-- `story-result`: 텍스트, source fields, 경고
-- `story-image-manifest`: 이미지 파일·해시·QA
-- `integrated-story-run`: 모든 산출물을 연결하는 최상위 결과
-
-## 실패 처리
-
-- Gemini 3.7 Flash 접근 오류를 최대 5회 확인한 뒤 3.6 Flash로 폴백한다.
-- 요청 성공·실패를 로컬 run record에 남기고 예외 타입만 저장한다.
-- 구조화 결과가 스키마를 어기면 제한 수정 후 경고가 포함된 결과를 반환한다.
+- 본문 모델은 PoC 비용 결정에 따라 Gemini 3.7 Flash와 3.6 Flash를 사용한다.
+- 전송은 FastMCP 권장 Streamable HTTP를 사용하고 SSE 폴백은 구현하지 않았다.
+- 로컬 callback 대체는 polling resource이며 운영 webhook payload를 재현하지 않는다.
+- worker가 보는 도구가 하나라는 사실은 전체 MCP 서버 도구 수에 대한 주장이 아니다.

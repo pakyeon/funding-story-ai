@@ -116,7 +116,7 @@
       "expected_content": "사용 계획 입력이 없으면 비율과 용도를 만들지 않고 필요한 입력 항목만 표시",
       "visual_hint": "제공된 값만 포함하는 편집 가능한 사용 계획 표",
       "content_type": "funding_plan_table",
-      "image_required": false,
+      "image_required": true,
       "overlay_content": null,
       "html_content": "<section class=\"funding-plan\"><h2>{{funding_heading}}</h2><table>{{provided_funding_rows}}</table></section>",
       "html_structure": "funding plan table or missing-input notice"
@@ -142,7 +142,7 @@
       "expected_content": "SCHEDULE_POLICY와 일정 출처를 사용하고 미입력 기간·미래 공지 약속을 만들지 않음",
       "visual_hint": "날짜와 상태를 수정할 수 있는 세로 타임라인",
       "content_type": "project_timeline",
-      "image_required": false,
+      "image_required": true,
       "overlay_content": null,
       "html_content": "<section class=\"timeline\"><h2>{{timeline_heading}}</h2><ol>{{provided_schedule}}</ol></section>",
       "html_structure": "editable schedule timeline or missing-input notice"
@@ -155,7 +155,7 @@
       "expected_content": "CLAIM과 FACT로 확인된 팀 정보만 사용하고 개인별 경력·직책은 입력이 있을 때만 표시",
       "visual_hint": "검증된 팀 정보와 미입력 역할을 구분한 목록",
       "content_type": "team_list",
-      "image_required": false,
+      "image_required": true,
       "overlay_content": null,
       "html_content": "<section class=\"team\"><h2>{{team_heading}}</h2><ul>{{verified_team_items}}</ul></section>",
       "html_structure": "team fact list without inferred roles"

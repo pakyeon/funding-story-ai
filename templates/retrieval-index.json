@@ -58,7 +58,7 @@
       "persuasion_axis": ["성능", "문제해결", "신뢰", "프로젝트"],
       "target": "제품과 펀딩 운영 정보를 함께 검토하는 사용자",
       "problems": ["제품 가치와 프로젝트 정보의 분산", "근거 없는 비교 위험"],
-      "core_message": "성능·문제·해결·비교·신뢰·프로젝트 정보를 12개 역할로 구성한다.",
+      "core_message": "성능·문제·해결·비교·신뢰·프로젝트 정보를 구조화된 역할로 구성한다.",
       "tone_keywords": ["실용적", "구체적", "검토가능"],
       "section_roles": ["hero", "problem", "solution", "comparison", "features", "social_proof", "funding_plan", "platform_choice", "timeline", "team", "risks", "cta"],
       "executable_template_id": "t04_full_campaign"

@@ -1,12 +1,9 @@
 from types import SimpleNamespace
 
-import pytest
-
 from funding_story_ai.data_repository import DataRepository
 from funding_story_ai.template_retrieval import (
     ExactKnnTemplateRetriever,
     GeminiEmbeddingProvider,
-    NonExecutableTopResult,
 )
 
 
@@ -36,10 +33,9 @@ def test_category_soft_boost_recovers_same_category_executable() -> None:
         index=index, embeddings=_ControlledEmbeddings(), category_boost=0.0
     ).rank(query="가성비 실용형", query_category="테크·가전")
     assert without.ranked[0].candidate_id == "rc14"
-    with pytest.raises(NonExecutableTopResult):
-        _ = without.selected_template_id
+    assert without.selected_candidate.rank > 1
     with_boost = ExactKnnTemplateRetriever(
-        index=index, embeddings=_ControlledEmbeddings(), category_boost=0.1
+        index=index, embeddings=_ControlledEmbeddings(), category_boost=0.15
     ).rank(query="가성비 실용형", query_category="테크·가전")
     assert with_boost.ranked[0].candidate_id == "rc05"
     assert with_boost.selected_template_id == "t05_value_practical_full_campaign"

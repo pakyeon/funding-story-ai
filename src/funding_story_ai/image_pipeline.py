@@ -2,11 +2,36 @@ from __future__ import annotations
 
 import hashlib
 import json
+import struct
+import zlib
 from pathlib import Path
 from typing import Any
 
 from .data_repository import DataRepository
-from .image_generation import ImageSettings, OpenAIImageAdapter
+from .image_generation import ImageAdapter, ImageSettings
+
+
+def _embed_ai_metadata(data: bytes, *, mime_type: str, model: str) -> tuple[bytes, bool]:
+    """Embed a compact AI marker in PNG tEXt or JPEG COM when bytes are valid."""
+    marker = json.dumps(
+        {"AI-Generated": True, "model": model}, ensure_ascii=True, separators=(",", ":")
+    ).encode("ascii")
+    if mime_type == "image/png" and data.startswith(b"\x89PNG\r\n\x1a\n") and len(data) >= 33:
+        payload = b"AI-Generated\x00" + marker
+        chunk = b"tEXt" + payload
+        encoded = struct.pack(">I", len(payload)) + chunk + struct.pack(">I", zlib.crc32(chunk))
+        return data[:33] + encoded + data[33:], True
+    if mime_type == "image/jpeg" and data.startswith(b"\xff\xd8"):
+        payload = marker[:65531]
+        segment = b"\xff\xfe" + struct.pack(">H", len(payload) + 2) + payload
+        return data[:2] + segment + data[2:], True
+    return data, False
+
+
+def _extension(mime_type: str, fallback: str) -> str:
+    return {"image/jpeg": "jpeg", "image/png": "png", "image/webp": "webp"}.get(
+        mime_type, fallback
+    )
 
 
 def file_sha256(path: Path) -> str:
@@ -26,41 +51,17 @@ def build_section_image_prompt(
 ) -> str:
     palette = ", ".join(template["style"]["color_palette"])
     section_id = section["template_section_id"]
-    visual_strategy = {
-        "hero": (
-            "제품 본체와 도킹 스테이션을 한 장면의 정면 3/4 제품 사진으로 배치하고, "
-            "본문 제목을 HTML로 얹을 수 있도록 넓은 여백을 남김. "
-            "분할 패널이나 단계 도식은 사용하지 않음"
-        ),
-        "automation_journey": (
-            "제품 본체와 도킹 스테이션의 확인 가능한 외관만 사용한 3~4단계 비문자 흐름. "
-            "내부 탱크, 배관, 물의 내부 이동 경로, 투시 구조, 센서 광선은 만들지 않음"
-        ),
-        "performance_proof": (
-            "제품 외관 클로즈업과 바닥 먼지 관리 장면을 단순하게 표현하고, "
-            "성능 수치와 시험 조건을 HTML 카드로 배치할 넓은 빈 공간을 남김. "
-            "차트, 지표 카드, 아이콘, 수치 시각화는 만들지 않음"
-        ),
-        "solution": (
-            "참조 제품 본체와 도킹 스테이션을 실제 거실 바닥에 배치한 단일 사용 장면. "
-            "기능 효과, 센서 광선, 내부 구조, 젖음 방지나 살균 효과를 시각적으로 단정하지 않음"
-        ),
-        "features": (
-            "참조 제품 본체와 도킹 스테이션만 단정한 제품 사진으로 배치. "
-            "물걸레 패드, 브러시, 필터, 먼지봉투, 전원선 등 입력 이미지에 없는 "
-            "구성품을 추가하지 않음"
-        ),
-    }.get(
-        section_id,
-        "확인 가능한 제품 외관을 중심으로 한 단일 장면과 HTML 본문을 위한 충분한 여백",
+    template_section = next(
+        item for item in template["layout"] if item["id"] == section_id
     )
+    visual_strategy = template_section["visual_hint"]
     input_instruction = (
         "참조 이미지에 있는 가상 제품 디자인을 동일한 제품으로 인식할 수 있게 보존하여"
         if reference_available
         else "입력 제품 설명만을 바탕으로 가상의 제품 외관을 일관된 디자인으로 설정하여"
     )
     fidelity_constraint = (
-        "- 참조 제품의 본체, 센서, 도크 형태와 색을 유지"
+        "- 참조 이미지에서 확인되는 제품 형태·색·구성을 유지"
         if reference_available
         else (
             "- 같은 실행의 모든 섹션에서 동일 제품으로 보이도록 "
@@ -80,10 +81,10 @@ def build_section_image_prompt(
 {fidelity_constraint}
 - 입력이 합성 예제이면 실제 판매 제품이나 브랜드가 아닌 가상 디자인으로 표현
 - 읽을 수 있는 텍스트, 로고, 숫자, 가격, 인증, 수상, UI 글자, 워터마크를 넣지 않음
-- 사람, 반려동물, 추가 구성품을 넣지 않음
+- 사람, 반려동물, 입력에 없는 추가 구성품을 넣지 않음
 - 입력에 없는 성능을 암시하는 과장 효과나 시험 장면을 넣지 않음
 - 분할 패널, 연속 동작 프레임, 화살표, 이동 경로선, 센서 광선, 투시 효과를 넣지 않음
-- 하나의 제품 본체와 하나의 도크만 한 장면에 배치하고 같은 제품을 복제하지 않음
+- 같은 제품을 불필요하게 복제하지 않음
 - 충분한 여백과 사실적인 제품 사진 또는 단순한 비문자 시각 흐름으로 구성
 - 모든 제목, 설명, 성능 수치와 시험 조건은 이미지 밖의 편집 가능한 HTML로 표현
 - 이미지 안에는 타이포그래피를 만들지 않음
@@ -133,7 +134,7 @@ def generate_section_images(
     reference_path: Path | None,
     output_dir: Path,
     repository: DataRepository,
-    adapter: OpenAIImageAdapter,
+    adapter: ImageAdapter,
     settings: ImageSettings,
     section_ids: set[str] | None = None,
     run_id: str | None = None,
@@ -178,21 +179,33 @@ def generate_section_images(
                     reference_path=active_reference,
                     prompt=plan["prompt"],
                 )
-            filename = f"{plan['section_id']}.{settings.output_format}"
+            image_bytes, metadata_embedded = _embed_ai_metadata(
+                result.image_bytes,
+                mime_type=result.mime_type,
+                model=result.model,
+            )
+            filename = (
+                f"{plan['section_id']}.{_extension(result.mime_type, settings.output_format)}"
+            )
             target = output_dir / filename
-            target.write_bytes(result.image_bytes)
+            target.write_bytes(image_bytes)
             if reference_path is None and generated_seed_path is None:
                 generated_seed_path = target
-                generated_seed_sha256 = hashlib.sha256(result.image_bytes).hexdigest()
+                generated_seed_sha256 = hashlib.sha256(image_bytes).hexdigest()
             assets.append(
                 {
                     "section_id": plan["section_id"],
                     "status": "success",
                     "path": filename,
-                    "sha256": hashlib.sha256(result.image_bytes).hexdigest(),
+                    "sha256": hashlib.sha256(image_bytes).hexdigest(),
                     "error_type": None,
                     "qa_status": "pending",
-                    "qa_notes": [],
+                    "qa_notes": ["게시 전 사람의 사실·품질 검토가 필요합니다."],
+                    "provider": result.provider,
+                    "model": result.model,
+                    "mime_type": result.mime_type,
+                    "attempts": result.attempts,
+                    "ai_metadata_embedded": metadata_embedded,
                 }
             )
         except Exception as exc:
@@ -205,6 +218,11 @@ def generate_section_images(
                     "error_type": type(exc).__name__,
                     "qa_status": "fail",
                     "qa_notes": ["생성 오류로 미리보기 사용 불가"],
+                    "provider": None,
+                    "model": None,
+                    "mime_type": None,
+                    "attempts": max(1, int(getattr(exc, "attempts", 1))),
+                    "ai_metadata_embedded": False,
                 }
             )
 

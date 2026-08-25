@@ -13,10 +13,6 @@ class IdempotencyConflict(RuntimeError):
     pass
 
 
-class DuplicateRunInProgress(RuntimeError):
-    pass
-
-
 class RunNotFound(KeyError):
     pass
 
@@ -75,10 +71,6 @@ class LocalRunStore:
                         "The idempotency key was already used with a different request"
                     )
                 record = self.get(existing["run_id"])
-                if record["status"] == "running":
-                    raise DuplicateRunInProgress(
-                        f"Run is already in progress: {record['run_id']}"
-                    )
                 return record, False
 
             run_id = f"run-{uuid.uuid4()}"

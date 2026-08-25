@@ -8,21 +8,19 @@ from pathlib import Path
 from typing import Any, Protocol
 
 from .data_repository import DataRepository
-from .image_generation import ImageSettings, OpenAIImageAdapter
+from .image_generation import ImageAdapter, ImageSettings
 from .image_pipeline import file_sha256, generate_section_images
 from .pipeline import StoryPipeline
-from .preview import write_story_preview
+from .preview import write_editor_fragment, write_story_preview
 
 
 @dataclass(frozen=True, slots=True)
 class StoryExecutionInput:
     brief: dict[str, Any]
     template_id: str | None = None
-    category_profile_id: str | None = None
     run_id: str | None = None
     output_dir: Path | None = None
     reference_image_path: Path | None = None
-    generate_images: bool = True
 
 
 class StoryExecutor(Protocol):
@@ -41,7 +39,6 @@ class StoryMakerExecutor:
         return self.pipeline.invoke(
             value.brief,
             template_id=value.template_id,
-            category_profile_id=value.category_profile_id,
         )
 
 
@@ -53,7 +50,7 @@ class IntegratedStoryMakerExecutor:
         *,
         repository: DataRepository,
         pipeline: StoryPipeline,
-        image_adapter: OpenAIImageAdapter,
+        image_adapter: ImageAdapter,
         image_settings: ImageSettings,
     ) -> None:
         self.repository = repository
@@ -73,7 +70,6 @@ class IntegratedStoryMakerExecutor:
         story = self.pipeline.invoke(
             value.brief,
             template_id=value.template_id,
-            category_profile_id=value.category_profile_id,
         )
         template = self.repository.get_template(story["template_id"])
         value.output_dir.mkdir(parents=True, exist_ok=False)
@@ -88,8 +84,6 @@ class IntegratedStoryMakerExecutor:
             encoding="utf-8",
         )
 
-        if not value.generate_images:
-            raise ValueError("Integrated execution requires section image generation")
         visual_identity = " / ".join(
             [
                 value.brief["product"]["name"],
@@ -132,6 +126,13 @@ class IntegratedStoryMakerExecutor:
             manifest=render_manifest,
             fallback_image=fallback_image,
         )
+        editor_path = value.output_dir / "editor.html"
+        write_editor_fragment(
+            target=editor_path,
+            story=story,
+            manifest=render_manifest,
+            fallback_image=fallback_image,
+        )
         manifest_path = images_dir / "manifest.json"
         result = {
             "schema_version": "integrated-story-run-v1",
@@ -154,6 +155,7 @@ class IntegratedStoryMakerExecutor:
                 ),
             },
             "preview": {"path": "preview.html", "sha256": file_sha256(preview_path)},
+            "editor": {"path": "editor.html", "sha256": file_sha256(editor_path)},
             "warning_count": len(story["warnings"]),
             "review_required": True,
         }

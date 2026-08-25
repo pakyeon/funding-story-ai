@@ -110,12 +110,19 @@ class TemplateRetrievalResult:
 
     @property
     def selected_template_id(self) -> str:
-        top = self.ranked[0]
-        if top.executable_template_id is None:
-            raise NonExecutableTopResult(
-                f"Top retrieval candidate is not executable: {top.candidate_id}"
-            )
-        return top.executable_template_id
+        for candidate in self.ranked:
+            if candidate.executable_template_id is not None:
+                return candidate.executable_template_id
+        raise NonExecutableTopResult("No executable template exists in the ranked results")
+
+    @property
+    def selected_candidate(self) -> RankedTemplate:
+        template_id = self.selected_template_id
+        return next(
+            candidate
+            for candidate in self.ranked
+            if candidate.executable_template_id == template_id
+        )
 
 
 def _normalize(vector: list[float]) -> list[float]:
@@ -172,14 +179,14 @@ def brief_query_document(brief: dict[str, Any]) -> str:
 class ExactKnnTemplateRetriever:
     """Exact cosine KNN plus a bounded same-category soft boost."""
 
-    ALLOWED_BOOSTS = {0.0, 0.1, 0.2}
+    ALLOWED_BOOSTS = {0.0, 0.1, 0.15, 0.2}
 
     def __init__(
         self,
         *,
         index: dict[str, Any],
         embeddings: EmbeddingProvider,
-        category_boost: float = 0.1,
+        category_boost: float = 0.15,
     ) -> None:
         if category_boost not in self.ALLOWED_BOOSTS:
             raise ValueError(f"category_boost must be one of {sorted(self.ALLOWED_BOOSTS)}")
@@ -254,10 +261,7 @@ class RetrievalTemplateSelector:
         self,
         brief: dict[str, Any],
         templates: list[dict[str, Any]],
-        *,
-        soft_boosts: dict[str, int] | None = None,
     ) -> TemplateSelection:
-        del soft_boosts
         result = self.retriever.select(brief)
         template_id = result.selected_template_id
         if template_id not in {template["id"] for template in templates}:
@@ -270,14 +274,14 @@ class RetrievalTemplateSelector:
             for item in result.ranked
             if item.executable_template_id is not None
         }
-        top = result.ranked[0]
+        selected = result.selected_candidate
         return TemplateSelection(
             template_id=template_id,
-            score=round(top.final_score * 1_000_000),
+            score=round(selected.final_score * 1_000_000),
             scores=scores,
             reasons=(
-                f"exact KNN top-1: {top.candidate_id}",
-                f"semantic score: {top.semantic_score:.8f}",
-                f"category soft boost: {top.category_boost:.2f}",
+                f"exact KNN executable rank {selected.rank}: {selected.candidate_id}",
+                f"semantic score: {selected.semantic_score:.8f}",
+                f"category soft boost: {selected.category_boost:.2f}",
             ),
         )

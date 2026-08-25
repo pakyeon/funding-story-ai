@@ -1,18 +1,18 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://funding-story-ai.local/schemas/story-intake-semantic-state.schema.json",
-  "title": "Product-agnostic story intake semantic state",
-  "description": "질문 분기에 필요한 제품군 독립 의미 슬롯과 대화 턴 상태를 분리한 내부 상태다.",
+  "title": "Story intake semantic state and worker decision",
+  "description": "대화 LLM이 추출한 제품 사실과 다음 대화 행동을 함께 표현한다.",
   "type": "object",
   "additionalProperties": false,
   "required": [
     "schema_version",
     "input_id",
-    "profile_id",
+    "language",
     "image_attached",
     "slots",
     "fact_conflict",
-    "turn_state"
+    "decision"
   ],
   "$defs": {
     "non_empty_string": {"type": "string", "minLength": 1},
@@ -21,45 +21,55 @@
       "additionalProperties": false,
       "required": ["status", "values", "source_turn"],
       "properties": {
-        "status": {
-          "enum": ["provided", "explicitly-absent", "unknown"]
-        },
-        "values": {
-          "type": "array",
-          "items": {"$ref": "#/$defs/non_empty_string"}
-        },
-        "source_turn": {
-          "enum": ["initial", "followup", "none"]
-        }
+        "status": {"enum": ["provided", "explicitly-absent", "unknown"]},
+        "values": {"type": "array", "items": {"$ref": "#/$defs/non_empty_string"}},
+        "source_turn": {"enum": ["initial", "followup", "none"]}
       }
     }
   },
   "properties": {
-    "schema_version": {"const": "story-intake-semantic-state-v1"},
+    "schema_version": {"const": "story-intake-semantic-state-v2"},
     "input_id": {"$ref": "#/$defs/non_empty_string"},
-    "profile_id": {
-      "type": ["string", "null"],
-      "minLength": 1
-    },
+    "language": {"enum": ["ko", "en", "ja", "zh"]},
     "image_attached": {"type": "boolean"},
     "slots": {
       "type": "object",
       "additionalProperties": false,
       "required": [
-        "product_identity",
+        "product_name",
+        "product_type",
+        "category",
         "key_strengths",
         "target_supporters",
         "problem_context",
         "trust_elements",
-        "maker_team_intro"
+        "maker_team_intro",
+        "rewards",
+        "funding_end",
+        "shipping_start",
+        "refund_policy",
+        "as_policy",
+        "funding_plan",
+        "platform_choice",
+        "risk_response"
       ],
       "properties": {
-        "product_identity": {"$ref": "#/$defs/slot"},
+        "product_name": {"$ref": "#/$defs/slot"},
+        "product_type": {"$ref": "#/$defs/slot"},
+        "category": {"$ref": "#/$defs/slot"},
         "key_strengths": {"$ref": "#/$defs/slot"},
         "target_supporters": {"$ref": "#/$defs/slot"},
         "problem_context": {"$ref": "#/$defs/slot"},
         "trust_elements": {"$ref": "#/$defs/slot"},
-        "maker_team_intro": {"$ref": "#/$defs/slot"}
+        "maker_team_intro": {"$ref": "#/$defs/slot"},
+        "rewards": {"$ref": "#/$defs/slot"},
+        "funding_end": {"$ref": "#/$defs/slot"},
+        "shipping_start": {"$ref": "#/$defs/slot"},
+        "refund_policy": {"$ref": "#/$defs/slot"},
+        "as_policy": {"$ref": "#/$defs/slot"},
+        "funding_plan": {"$ref": "#/$defs/slot"},
+        "platform_choice": {"$ref": "#/$defs/slot"},
+        "risk_response": {"$ref": "#/$defs/slot"}
       }
     },
     "fact_conflict": {
@@ -67,9 +77,7 @@
       "additionalProperties": false,
       "required": ["status", "authoritative_values", "superseded_values"],
       "properties": {
-        "status": {
-          "enum": ["none", "superseded-resolved", "unresolved"]
-        },
+        "status": {"enum": ["none", "superseded-resolved", "unresolved"]},
         "authoritative_values": {
           "type": "array",
           "items": {"$ref": "#/$defs/non_empty_string"}
@@ -80,22 +88,38 @@
         }
       }
     },
-    "turn_state": {
+    "decision": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "primary_answered",
-        "combined_answered",
-        "secondary_answered",
-        "skip_requested",
-        "confirmed"
-      ],
+      "required": ["ready_to_confirm", "requested_fields", "follow_up_question"],
       "properties": {
-        "primary_answered": {"type": "boolean"},
-        "combined_answered": {"type": "boolean"},
-        "secondary_answered": {"type": "boolean"},
-        "skip_requested": {"type": "boolean"},
-        "confirmed": {"type": "boolean"}
+        "ready_to_confirm": {"type": "boolean"},
+        "requested_fields": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "product_name",
+              "product_type",
+              "category",
+              "key_strengths",
+              "target_supporters",
+              "problem_context",
+              "trust_elements",
+              "maker_team_intro",
+              "rewards",
+              "funding_end",
+              "shipping_start",
+              "refund_policy",
+              "as_policy",
+              "funding_plan",
+              "platform_choice",
+              "risk_response",
+              "fact_conflict_resolution"
+            ]
+          }
+        },
+        "follow_up_question": {"type": ["string", "null"], "minLength": 1}
       }
     }
   }

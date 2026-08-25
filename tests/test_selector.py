@@ -12,21 +12,9 @@ def test_cleanforge_brief_selects_problem_solution_automation_template() -> None
     assert "automation/problem signals" in " ".join(selection.reasons)
 
 
-def test_category_profile_applies_only_declared_soft_boosts() -> None:
+def test_rule_selector_does_not_depend_on_a_category_profile() -> None:
     repository = DataRepository()
     brief = repository.load_brief("robot-vacuum/brief.json")
-    profile = repository.get_category_profile("robot-vacuum-ko-v1")
     baseline = TemplateSelector().select(brief, repository.load_templates())
-    selection = TemplateSelector().select(
-        brief,
-        repository.load_templates(),
-        soft_boosts=profile["template_soft_boosts"],
-    )
-
-    assert selection.scores["t04_full_campaign"] == (
-        baseline.scores["t04_full_campaign"] + 4
-    )
-    assert selection.scores["t02_problem_solution_automation"] == (
-        baseline.scores["t02_problem_solution_automation"] + 3
-    )
-    assert "category profile soft boost" in " ".join(selection.reasons)
+    repeated = TemplateSelector().select(brief, repository.load_templates())
+    assert repeated == baseline

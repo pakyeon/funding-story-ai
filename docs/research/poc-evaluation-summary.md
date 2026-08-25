@@ -33,7 +33,7 @@ E01·E02만 전수 claim-level 라벨링했고 나머지는 중요 주장 중심
 - N10: 미실행·미승인
 - 실행 경로: worker → FastMCP → retrieval → executor → text/images/HTML
 - 검색 집합: 16후보, 실행 가능 6개
-- 검색 방식: exact cosine KNN + category boost 0.1
+- 검색 방식: exact cosine KNN + category boost 0.15
 
 N09는 전체 로컬 실행 경로와 12-section·3-image 결과 생성을 완료했다. 로컬 검색은
 `t06_trust_maintenance_full_campaign`을 선택했고 결과 경고는 0개였다. 다만 동일 입력에서

@@ -1,9 +1,9 @@
 from __future__ import annotations
 
 import argparse
-import asyncio
 import json
 import os
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from typing import Any, Literal
 
@@ -14,7 +14,12 @@ from pydantic import BaseModel, Field
 from .adapter import GeminiAdapter
 from .data_repository import DataRepository
 from .engine import IntegratedStoryMakerExecutor, StoryExecutionInput, StoryExecutor
-from .image_generation import ImageSettings, OpenAIImageAdapter
+from .image_generation import (
+    GeminiImageAdapter,
+    ImageSettings,
+    OpenAIImageAdapter,
+    RetryingFallbackImageAdapter,
+)
 from .pipeline import StoryPipeline
 from .run_store import LocalRunStore
 from .smoke import build_runtime
@@ -23,6 +28,7 @@ from .template_retrieval import (
     GeminiEmbeddingProvider,
     RetrievalTemplateSelector,
 )
+from .ui_support import build_run_resource_payload
 
 
 class CreateStoryRequest(BaseModel):
@@ -30,27 +36,33 @@ class CreateStoryRequest(BaseModel):
     idempotency_key: str = Field(min_length=8, max_length=256)
     brief: dict[str, Any]
     template_id: str | None = None
-    category_profile_id: str | None = None
     reference_image_path: str | None = None
-    generate_images: bool = True
 
 
 class CreateStoryResponse(BaseModel):
     run_id: str
-    status: Literal["completed"]
+    status: Literal["accepted", "completed", "failed"]
     result_uri: str
-    template_id: str
-    model: str
-    warning_count: int
-    output_status: Literal["complete", "partial"]
+    template_id: str | None = None
+    model: str | None = None
+    warning_count: int | None = None
+    output_status: Literal["complete", "partial"] | None = None
     review_required: Literal[True]
     idempotent_replay: bool
+    error_type: str | None = None
 
 
 class StoryMakerService:
-    def __init__(self, *, executor: StoryExecutor, store: LocalRunStore) -> None:
+    def __init__(
+        self,
+        *,
+        executor: StoryExecutor,
+        store: LocalRunStore,
+        pool: ThreadPoolExecutor | None = None,
+    ) -> None:
         self.executor = executor
         self.store = store
+        self.pool = pool or ThreadPoolExecutor(max_workers=2, thread_name_prefix="story-maker")
 
     def create(self, request: CreateStoryRequest) -> CreateStoryResponse:
         payload = request.model_dump(exclude={"caller_id", "idempotency_key"}, mode="json")
@@ -61,54 +73,62 @@ class StoryMakerService:
         )
         if not created:
             return self._response(record, idempotent_replay=True)
+        self.pool.submit(self._execute, record["run_id"], request)
+        return self._response(self.store.get(record["run_id"]), idempotent_replay=False)
+
+    def _execute(self, run_id: str, request: CreateStoryRequest) -> None:
         try:
             result = self.executor.execute(
                 StoryExecutionInput(
                     brief=request.brief,
                     template_id=request.template_id,
-                    category_profile_id=request.category_profile_id,
-                    run_id=record["run_id"],
-                    output_dir=self.store.root / record["run_id"],
+                    run_id=run_id,
+                    output_dir=self.store.root / run_id,
                     reference_image_path=(
                         Path(request.reference_image_path)
                         if request.reference_image_path
                         else None
                     ),
-                    generate_images=request.generate_images,
                 )
             )
-            record = self.store.complete(record["run_id"], result)
+            self.store.complete(run_id, result)
         except Exception as exc:
-            self.store.fail(record["run_id"], exc)
-            raise
-        return self._response(record, idempotent_replay=False)
+            self.store.fail(run_id, exc)
 
     @staticmethod
     def _response(
         record: dict[str, Any], *, idempotent_replay: bool
     ) -> CreateStoryResponse:
-        result = record["result"]
-        if record["status"] != "completed" or not isinstance(result, dict):
-            raise RuntimeError(f"Run is not complete: {record['run_id']}")
+        result = record.get("result")
+        status = {
+            "running": "accepted",
+            "completed": "completed",
+            "failed": "failed",
+        }[record["status"]]
         return CreateStoryResponse(
             run_id=record["run_id"],
-            status="completed",
+            status=status,
             result_uri=record["result_uri"],
-            template_id=result["template_id"],
-            model=result["model"],
-            warning_count=int(result.get("warning_count", len(result.get("warnings", [])))),
-            output_status=result.get("status", "complete"),
+            template_id=result.get("template_id") if isinstance(result, dict) else None,
+            model=result.get("model") if isinstance(result, dict) else None,
+            warning_count=(
+                int(result.get("warning_count", len(result.get("warnings", []))))
+                if isinstance(result, dict)
+                else None
+            ),
+            output_status=result.get("status", "complete") if isinstance(result, dict) else None,
             review_required=True,
             idempotent_replay=idempotent_replay,
+            error_type=record.get("error_type"),
         )
 
 
 def build_story_mcp_server(*, service: StoryMakerService) -> FastMCP:
     server = FastMCP("Funding Story Maker")
 
-    @server.tool(name="create_crowdfunding_story", task=True)
-    async def create_crowdfunding_story(request: CreateStoryRequest) -> CreateStoryResponse:
-        return await asyncio.to_thread(service.create, request)
+    @server.tool(name="create_crowdfunding_story")
+    def create_crowdfunding_story(request: CreateStoryRequest) -> CreateStoryResponse:
+        return service.create(request)
 
     @server.resource(
         "story://runs/{run_id}",
@@ -116,7 +136,10 @@ def build_story_mcp_server(*, service: StoryMakerService) -> FastMCP:
         mime_type="application/json",
     )
     def crowdfunding_story_result(run_id: str) -> str:
-        return json.dumps(service.store.get(run_id), ensure_ascii=False)
+        record = service.store.get(run_id)
+        return json.dumps(
+            build_run_resource_payload(service.store.root, record), ensure_ascii=False
+        )
 
     return server
 
@@ -129,7 +152,7 @@ def build_live_service(root: Path | None = None) -> StoryMakerService:
     retriever = ExactKnnTemplateRetriever(
         index=repository.load_template_retrieval_index(),
         embeddings=GeminiEmbeddingProvider(client=adapter.client),
-        category_boost=float(os.getenv("TEMPLATE_CATEGORY_BOOST", "0.1")),
+        category_boost=float(os.getenv("TEMPLATE_CATEGORY_BOOST", "0.15")),
     )
     pipeline = StoryPipeline(
         repository=repository,
@@ -137,10 +160,18 @@ def build_live_service(root: Path | None = None) -> StoryMakerService:
         selector=RetrievalTemplateSelector(retriever),
     )
     image_settings = ImageSettings.from_env()
+    image_adapters = []
+    if os.getenv("OPENAI_API_KEY", "").strip():
+        image_adapters.append(OpenAIImageAdapter(image_settings))
+    image_adapters.append(GeminiImageAdapter(image_settings, client=adapter.client))
+    image_adapter = RetryingFallbackImageAdapter(
+        image_adapters,
+        attempts_per_provider=image_settings.attempts_per_provider,
+    )
     executor = IntegratedStoryMakerExecutor(
         repository=repository,
         pipeline=pipeline,
-        image_adapter=OpenAIImageAdapter(image_settings),
+        image_adapter=image_adapter,
         image_settings=image_settings,
     )
     store_root = Path(os.getenv("STORY_MCP_RUN_STORE", "artifacts/runs"))

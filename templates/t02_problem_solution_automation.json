@@ -97,19 +97,6 @@
       "html_structure": "solution image followed by verified feature list"
     },
     {
-      "id": "comparison",
-      "label": "비교",
-      "type": "comparison",
-      "summary": "검증 가능한 비교 근거만 표로 제공",
-      "expected_content": "비교 제품·시장 데이터가 없으면 자사 입력 사실만 정리하고 일반 제품 수치·우열을 생성하지 않음",
-      "visual_hint": "출처가 있는 항목만 포함한 편집 가능한 비교 표",
-      "content_type": "comparison_table",
-      "image_required": false,
-      "overlay_content": null,
-      "html_content": "<section class=\"comparison\"><h2>{{comparison_heading}}</h2><table>{{supported_comparison_rows}}</table></section>",
-      "html_structure": "source-bounded comparison table"
-    },
-    {
       "id": "features",
       "label": "주요 기능·구성",
       "type": "feature",
@@ -130,7 +117,7 @@
       "expected_content": "EVIDENCE와 CLAIM을 연결하고 인증·전문가 평가·후기가 없으면 생성하지 않음",
       "visual_hint": "증빙 유형과 적용 범위를 나타내는 편집 가능한 목록",
       "content_type": "evidence_list",
-      "image_required": false,
+      "image_required": true,
       "overlay_content": null,
       "html_content": "<section class=\"evidence\"><h2>{{trust_heading}}</h2><ul>{{evidence_items}}</ul></section>",
       "html_structure": "evidence list without fabricated quotation"
@@ -169,7 +156,7 @@
       "expected_content": "SCHEDULE_POLICY와 일정 출처를 사용하고 미입력 기간·미래 공지 약속을 만들지 않음",
       "visual_hint": "날짜와 상태를 수정할 수 있는 세로 타임라인",
       "content_type": "project_timeline",
-      "image_required": false,
+      "image_required": true,
       "overlay_content": null,
       "html_content": "<section class=\"timeline\"><h2>{{timeline_heading}}</h2><ol>{{provided_schedule}}</ol></section>",
       "html_structure": "editable schedule timeline or missing-input notice"

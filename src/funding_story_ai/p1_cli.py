@@ -9,10 +9,17 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
+from .adapter import GeminiAdapter
 from .data_repository import DataRepository
-from .image_generation import ImageSettings, OpenAIImageAdapter
+from .image_generation import (
+    GeminiImageAdapter,
+    ImageSettings,
+    OpenAIImageAdapter,
+    RetryingFallbackImageAdapter,
+)
 from .image_pipeline import generate_section_images, planned_image_sections
 from .preview import write_story_preview
+from .smoke import build_runtime
 
 
 def _default_output_dir() -> Path:
@@ -77,7 +84,15 @@ def main() -> None:
 
     live_settings = ImageSettings.from_env()
     output_dir = args.output_dir or _default_output_dir()
-    adapter = OpenAIImageAdapter(live_settings)
+    gemini = GeminiAdapter(build_runtime())
+    adapters = []
+    if os.getenv("OPENAI_API_KEY", "").strip():
+        adapters.append(OpenAIImageAdapter(live_settings))
+    adapters.append(GeminiImageAdapter(live_settings, client=gemini.client))
+    adapter = RetryingFallbackImageAdapter(
+        adapters,
+        attempts_per_provider=live_settings.attempts_per_provider,
+    )
     manifest = generate_section_images(
         story_path=args.story,
         reference_path=args.reference,

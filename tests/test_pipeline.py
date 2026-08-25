@@ -63,10 +63,10 @@ def test_pipeline_selects_t02_and_builds_valid_result() -> None:
     assert result["automated_validation_passed"] is True
     assert result["review_required"] is True
     assert result["warnings"] == []
-    assert len(result["sections"]) == 12
+    assert len(result["sections"]) == 11
 
 
-def test_pipeline_corrects_once() -> None:
+def test_pipeline_records_validation_warning_without_full_regeneration() -> None:
     repository = DataRepository()
     adapter = FakeAdapter(
         [_content(repository, unsupported_number=True), _content(repository)]
@@ -75,7 +75,7 @@ def test_pipeline_corrects_once() -> None:
         repository.load_brief("robot-vacuum/brief.json")
     )
 
-    assert len(adapter.prompts) == 2
-    assert "브리프에서 찾지 못한 수치" in adapter.prompts[1]
-    assert result["automated_validation_passed"] is True
+    assert len(adapter.prompts) == 1
+    assert result["automated_validation_passed"] is False
+    assert any(item["code"] == "unlisted-number" for item in result["warnings"])
     assert result["review_required"] is True

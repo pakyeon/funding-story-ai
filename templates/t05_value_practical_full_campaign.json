@@ -126,19 +126,6 @@
       "html_structure": "feature image followed by editable feature table"
     },
     {
-      "id": "social_proof",
-      "label": "신뢰·검증",
-      "type": "evidence",
-      "summary": "시험·인증·후기·메이커 배경을 출처 상태와 함께 구분",
-      "expected_content": "EVIDENCE와 CLAIM을 연결하고 인증·전문가 평가·후기가 없으면 생성하지 않음",
-      "visual_hint": "증빙 유형과 적용 범위를 나타내는 편집 가능한 목록",
-      "content_type": "evidence_list",
-      "image_required": false,
-      "overlay_content": null,
-      "html_content": "<section class=\"evidence\"><h2>{{trust_heading}}</h2><ul>{{evidence_items}}</ul></section>",
-      "html_structure": "evidence list without fabricated quotation"
-    },
-    {
       "id": "funding_plan",
       "label": "펀딩금 사용 계획",
       "type": "funding_plan",
@@ -172,7 +159,7 @@
       "expected_content": "SCHEDULE_POLICY와 일정 출처를 사용하고 미입력 기간·미래 공지 약속을 만들지 않음",
       "visual_hint": "날짜와 상태를 수정할 수 있는 세로 타임라인",
       "content_type": "project_timeline",
-      "image_required": false,
+      "image_required": true,
       "overlay_content": null,
       "html_content": "<section class=\"timeline\"><h2>{{timeline_heading}}</h2><ol>{{provided_schedule}}</ol></section>",
       "html_structure": "editable schedule timeline or missing-input notice"
@@ -211,7 +198,7 @@
       "expected_content": "검증된 기능을 짧게 요약하고 미제공 가격·수량·마감 긴급성을 만들지 않음",
       "visual_hint": "제품 핵심 가치와 검토 안내를 담는 단순한 마무리 배너",
       "content_type": "cta_banner",
-      "image_required": false,
+      "image_required": true,
       "overlay_content": null,
       "html_content": "<section class=\"cta\"><h2>{{cta_heading}}</h2><p>{{verified_cta}}</p></section>",
       "html_structure": "verified-value CTA without artificial urgency"

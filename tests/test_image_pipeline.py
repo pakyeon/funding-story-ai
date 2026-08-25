@@ -56,7 +56,7 @@ class FakeImageAdapter:
         )
 
 
-def test_three_t02_image_sections_are_planned() -> None:
+def test_t02_template_plans_its_five_required_images() -> None:
     repository = DataRepository()
     story = _story(repository)
     plans = planned_image_sections(story, repository.get_template(story["template_id"]))
@@ -64,10 +64,12 @@ def test_three_t02_image_sections_are_planned() -> None:
         "hero",
         "solution",
         "features",
+        "social_proof",
+        "timeline",
     ]
 
 
-def test_three_observed_template_images_keep_unprovided_components_out() -> None:
+def test_template_image_count_is_driven_by_the_selected_layout() -> None:
     repository = DataRepository()
     template = repository.get_template("t04_full_campaign")
     story = {
@@ -85,9 +87,11 @@ def test_three_observed_template_images_keep_unprovided_components_out() -> None
 
     plans = planned_image_sections(story, template)
 
-    assert [plan["section_id"] for plan in plans] == ["hero", "solution", "features"]
+    assert [plan["section_id"] for plan in plans] == [
+        "hero", "solution", "features", "funding_plan", "timeline", "team"
+    ]
     features_prompt = next(plan["prompt"] for plan in plans if plan["section_id"] == "features")
-    assert "입력 이미지에 없는 구성품을 추가하지 않음" in features_prompt
+    assert "입력에 없는 추가 구성품을 넣지 않음" in features_prompt
 
 
 def test_solution_prompt_keeps_metrics_out_of_raster_image() -> None:
@@ -123,8 +127,8 @@ def test_generate_images_writes_valid_manifest_and_preview(tmp_path) -> None:
         settings=settings,
     )
 
-    assert manifest["requested"] == 3
-    assert manifest["succeeded"] == 3
+    assert manifest["requested"] == 5
+    assert manifest["succeeded"] == 5
     assert manifest["failed"] == 0
     assert {asset["qa_status"] for asset in manifest["assets"]} == {"pending"}
     repository.validate_story_image_manifest(manifest)
@@ -136,7 +140,8 @@ def test_generate_images_writes_valid_manifest_and_preview(tmp_path) -> None:
         fallback_image="reference.jpg",
     )
     assert "본문 HTML 복사" in html
-    assert 'src="reference.jpg"' in html
+    assert 'src="hero.jpeg"' in html
+    assert "사람 검토 대기" in html
     manifest["assets"][0]["qa_status"] = "pass"
     html_after_qa = render_story_html(
         story=story,
@@ -167,7 +172,7 @@ def test_generate_images_accepts_text_only_input_without_reference(tmp_path) -> 
     assert manifest["reference_sha256"] is None
     assert manifest["input_mode"] == "text-seeded-edit"
     assert manifest["generated_seed_sha256"] is not None
-    assert manifest["succeeded"] == 3
+    assert manifest["succeeded"] == 5
     assert (output / "hero.jpeg").read_bytes() == b"generated-hero"
     repository.validate_story_image_manifest(manifest)
 

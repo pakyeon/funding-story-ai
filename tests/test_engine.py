@@ -18,13 +18,11 @@ class _Pipeline:
         brief: dict[str, Any],
         *,
         template_id: str | None = None,
-        category_profile_id: str | None = None,
     ) -> dict[str, Any]:
         self.calls.append(
             {
                 "brief": brief,
                 "template_id": template_id,
-                "category_profile_id": category_profile_id,
             }
         )
         return {"status": "complete"}
@@ -40,7 +38,6 @@ def test_story_maker_executor_has_no_mcp_dependency() -> None:
         StoryExecutionInput(
             brief=brief,
             template_id="t02_problem_solution_automation",
-            category_profile_id="robot-vacuum-ko-v1",
         )
     )
 
@@ -49,7 +46,6 @@ def test_story_maker_executor_has_no_mcp_dependency() -> None:
         {
             "brief": brief,
             "template_id": "t02_problem_solution_automation",
-            "category_profile_id": "robot-vacuum-ko-v1",
         }
     ]
 
@@ -61,7 +57,7 @@ class _IntegratedPipeline:
         self.repository = repository
         self.warnings = warnings or []
 
-    def invoke(self, brief, *, template_id=None, category_profile_id=None):
+    def invoke(self, brief, *, template_id=None):
         template = self.repository.get_template(
             template_id or "t04_full_campaign"
         )
@@ -141,14 +137,15 @@ def test_integrated_executor_links_story_images_and_html_under_one_run(tmp_path)
     )
 
     assert result["status"] == "complete"
-    assert result["images"]["requested"] == 3
-    assert result["images"]["succeeded"] == 3
-    assert result["images"]["qa_pending"] == 3
+    assert result["images"]["requested"] == 6
+    assert result["images"]["succeeded"] == 6
+    assert result["images"]["qa_pending"] == 6
     assert (run_dir / "story.json").is_file()
     assert (run_dir / "brief.json").is_file()
     assert (run_dir / "images" / "manifest.json").is_file()
     assert (run_dir / "preview.html").is_file()
-    assert 'src="images/reference.jpg"' in (run_dir / "preview.html").read_text()
+    assert (run_dir / "editor.html").is_file()
+    assert 'src="images/hero.jpeg"' in (run_dir / "preview.html").read_text()
     repository.validate_integrated_story_run(result)
     assert result["input_brief"]["path"] == "brief.json"
 

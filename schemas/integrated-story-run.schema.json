@@ -6,7 +6,7 @@
   "additionalProperties": false,
   "required": [
     "schema_version", "run_id", "status", "template_id", "model",
-    "input_brief", "story", "images", "preview", "warning_count", "review_required"
+    "input_brief", "story", "images", "preview", "editor", "warning_count", "review_required"
   ],
   "$defs": {
     "artifact": {
@@ -43,6 +43,7 @@
       }
     },
     "preview": {"$ref": "#/$defs/artifact"},
+    "editor": {"$ref": "#/$defs/artifact"},
     "warning_count": {"type": "integer", "minimum": 0},
     "review_required": {"const": true}
   }

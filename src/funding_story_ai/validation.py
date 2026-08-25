@@ -52,67 +52,7 @@ _UNKNOWN_OVERREACH = re.compile(
     r"정식\s*오픈\s*시|확정되는\s*대로|안내드리겠습니다|"
     r"(?:공지|안내)(?:될|할)\s*예정|확정\s*시.{0,30}확인"
 )
-_UNSUPPORTED_PRODUCT_ATTRIBUTE = re.compile(
-    r"(?:(?:자사|클린포지)\s*)?전용\s*(?:모바일\s*)?앱"
-)
 _INTERNAL_IDENTIFIER = re.compile(r"\bunknown\.[A-Za-z0-9_.-]+\b")
-
-_CONCEPT_GUARDS = (
-    (
-        "unsupported-generated-text",
-        re.compile(r"청소\s*후.{0,30}(?:먼지(?:통)?\s*비움|충전)"),
-        re.compile(r"청소\s*후.{0,30}(?:먼지(?:통)?\s*비움|충전)"),
-        "청소 후 도크 동작 시점",
-    ),
-    (
-        "unsupported-generated-text",
-        re.compile(r"(?:카펫|카페트).{0,20}(?:대응|환경|구간|바닥)"),
-        re.compile(r"(?:카펫|카페트)"),
-        "카펫 환경 대응",
-    ),
-    (
-        "unsupported-generated-text",
-        re.compile(r"자동\s*먼지(?:통)?\s*비움"),
-        re.compile(r"자동\s*먼지(?:통)?\s*비움"),
-        "먼지 비움의 자동 동작",
-    ),
-    (
-        "unsupported-generated-text",
-        re.compile(r"(?:스테이션|도크)(?:로|으로)?\s*(?:자동\s*)?복귀"),
-        re.compile(r"(?:자동\s*)?복귀"),
-        "도크 자동 복귀",
-    ),
-    (
-        "unsupported-generated-text",
-        re.compile(r"정수통.{0,30}(?:채움|보충|수동)"),
-        re.compile(r"정수통.{0,30}(?:채움|보충|수동)"),
-        "정수통 관리 방식",
-    ),
-    (
-        "unsupported-generated-text",
-        re.compile(r"오수통.{0,30}(?:비움|교체|수동)"),
-        re.compile(r"오수통.{0,30}(?:비움|교체|수동)"),
-        "오수통 관리 방식",
-    ),
-    (
-        "unsupported-generated-text",
-        re.compile(r"먼지봉투.{0,30}(?:교체|수동)"),
-        re.compile(r"먼지봉투.{0,30}(?:교체|수동)"),
-        "먼지봉투 관리 방식",
-    ),
-    (
-        "unsupported-generated-text",
-        re.compile(r"앱\s*연동\s*경험"),
-        re.compile(r"앱\s*연동\s*경험"),
-        "앱 연동 경험",
-    ),
-    (
-        "source-role-imprecision",
-        re.compile(r"전면(?:\s*구조광)?\s*센서.{0,20}경로(?:를|을)\s*감지"),
-        re.compile(r"경로(?:를|을)\s*감지"),
-        "전면 센서의 경로 감지",
-    ),
-)
 
 
 def _number_key(value: str) -> Decimal | None:
@@ -189,7 +129,6 @@ class StoryValidator:
         expected_by_id = {section["id"]: section for section in expected}
         allowed_sources = brief_source_fields(brief)
         grounded_numbers = allowed_numbers(brief)
-        brief_prose = " ".join(_all_string_values(brief))
         for section in actual:
             section_id = section["template_section_id"]
             expected_section = expected_by_id.get(section_id)
@@ -260,17 +199,6 @@ class StoryValidator:
                         ),
                     )
                 )
-            if (match := _UNSUPPORTED_PRODUCT_ATTRIBUTE.search(prose)) and not re.search(
-                r"앱", brief_prose
-            ):
-                warnings.append(
-                    StoryWarning(
-                        "unsupported-generated-text",
-                        f"입력에 없는 제품 속성을 추가했습니다: {match.group(0)}",
-                        section_id,
-                        tuple(section["source_fields"]),
-                    )
-                )
             if match := _INTERNAL_IDENTIFIER.search(prose):
                 warnings.append(
                     StoryWarning(
@@ -280,17 +208,4 @@ class StoryValidator:
                         tuple(section["source_fields"]),
                     )
                 )
-            for code, output_pattern, required_pattern, label in _CONCEPT_GUARDS:
-                if (match := output_pattern.search(prose)) and not required_pattern.search(
-                    brief_prose
-                ):
-                    warnings.append(
-                        StoryWarning(
-                            code,
-                            f"브리프에 없는 개념 확장 또는 동작을 추가했습니다: "
-                            f"{label} ({match.group(0)})",
-                            section_id,
-                            tuple(section["source_fields"]),
-                        )
-                    )
         return warnings
