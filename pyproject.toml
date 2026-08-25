@@ -23,6 +23,9 @@ dev = [
   "pytest-cov>=6,<7",
   "ruff>=0.9,<1",
 ]
+ui = [
+  "streamlit>=1.40,<2",
+]
 
 [project.scripts]
 funding-story = "funding_story_ai.cli:main"

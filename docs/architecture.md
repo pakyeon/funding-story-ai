@@ -8,8 +8,10 @@ Funding Story AI는 대화 에이전트, 도구 경계와 생성 실행기를 �
 
 ```mermaid
 flowchart TB
+    U0["사용자"] --> UI["Streamlit UI·CLI·Python 호출자"]
     subgraph Conversation["대화 계층"]
-        U["사용자 텍스트·이미지"] --> X["Gemini Semantic Extractor"]
+        UI --> U["사용자 텍스트·이미지"]
+        U --> X["Gemini Semantic Extractor"]
         X --> Q["LangGraph Intake Policy"]
         Q -->|"정보 보완"| U
         Q -->|"확인·건너뛰기"| B["Grounded Story Brief"]
@@ -33,7 +35,19 @@ flowchart TB
     end
 
     H --> S
+    H --> UI
 ```
+
+## Streamlit 데모 UI
+
+`streamlit_app.py`는 별도의 생성 로직을 갖지 않는 로컬 인터페이스다. 사용자 대화와
+기준 이미지를 기존 worker에 전달하고, 생성 승인이 끝나면 동일한 FastMCP 도구를 통해
+실행한다. 완료된 로컬 실행 기록에서 HTML, 섹션별 원고, 생성 이미지와 JSON을 읽어
+표시한다. API 인증 정보는 UI 입력이나 세션 상태에 저장하지 않고 `.env`와 애플리케이션
+기본 인증에서만 읽는다.
+
+이 UI에는 사용자 인증, 원격 파일 저장소, 다중 사용자 격리, 배포 설정이 포함되지
+않는다. 따라서 현재 브랜치의 화면은 로컬 기능 공유와 시연 범위에 한정된다.
 
 ## 공개 구조와의 대응
 

@@ -27,7 +27,7 @@ information and confirms whether generation should begin. It delegates the actua
 to an execution engine through a FastMCP tool.
 
 [Features](#what-does-funding-story-ai-do) · [Quick Start](#-quick-start) ·
-[Example](#-included-example-synthetic-robot-vacuum) · [Architecture](#-architecture) ·
+[UI demo](#-streamlit-demo) · [Example](#-included-example-synthetic-robot-vacuum) · [Architecture](#-architecture) ·
 [Implementation](#implementation-scope) · [Limitations](#-current-scope-and-limitations)
 
 ## What does Funding Story AI do?
@@ -134,6 +134,30 @@ preview.html               # Editable result preview
 Repeating a request with the same requester, `--idempotency-key`, and input returns the existing
 run. Reusing the key with different input returns an idempotency error.
 
+## 🖥 Streamlit demo
+
+The UI is maintained on the `feat/streamlit-demo` branch and calls the same conversation worker
+and local FastMCP generation tool as the command-line flow. It is intended for local feature
+demonstrations, not deployment.
+
+Start the generation server in the first terminal:
+
+```bash
+uv run funding-story server --host 127.0.0.1 --port 8765
+```
+
+Start the UI in a second terminal:
+
+```bash
+uv sync --locked --group ui
+uv run --group ui streamlit run streamlit_app.py
+```
+
+Open `http://127.0.0.1:8501`, attach an optional product reference image, and describe the
+product. The UI presents follow-up questions, asks for explicit generation confirmation, and then
+shows the HTML preview, section copy, generated images, and JSON result. API credentials remain in
+the local `.env` file and are not entered into the UI.
+
 ## Conversational input
 
 The conversation worker determines the input state and delegates an approved generation request to
@@ -213,7 +237,8 @@ both same-category candidates and intentionally confusing candidates from other 
 
 ```mermaid
 flowchart TB
-    U["User conversation and product image"] --> A["Conversation worker<br/>extraction, questions, generation confirmation"]
+    U["User conversation and product image"] --> UI["Streamlit UI, CLI, or Python caller"]
+    UI --> A["Conversation worker<br/>extraction, questions, generation confirmation"]
     A --> Q{"Confirmed or questions skipped?"}
     Q -->|"No"| U
     Q -->|"Yes"| D["Structured product specification"]
@@ -229,6 +254,7 @@ flowchart TB
     V -->|"At most one revision"| G
     V --> I["OpenAI section image generation"]
     I --> R["JSON, image manifest, and HTML"]
+    R --> UI
 
     E -.-> L["Run repository<br/>idempotency and file hashes"]
 ```
@@ -237,6 +263,7 @@ flowchart TB
 
 | Component | Responsibility | Does not perform |
 |---|---|---|
+| Streamlit UI | Local conversation, reference-image upload, and result presentation | Credentials or generation logic |
 | Conversation worker | Text and image extraction, questions, generation confirmation | Story or image generation |
 | FastMCP tool boundary | Input validation, job creation, result retrieval, idempotency | Story writing |
 | Template retriever | Vector similarity and category weighting | Model-generated content |
