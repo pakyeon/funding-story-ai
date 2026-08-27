@@ -4,23 +4,9 @@ import pytest
 
 from funding_story_ai.ui_support import (
     build_run_resource_payload,
-    conversation_payload,
     inline_preview_images,
     save_uploaded_image,
 )
-
-
-def test_conversation_payload_keeps_the_question_with_each_followup() -> None:
-    messages = [
-        {"role": "user", "content": "얇은 로봇청소기입니다."},
-        {"role": "assistant", "content": "누구를 위한 제품인가요?"},
-        {"role": "user", "content": "가구 아래 청소가 필요한 사용자입니다."},
-    ]
-    initial, followups = conversation_payload(messages)
-    assert initial == "얇은 로봇청소기입니다."
-    assert followups == (
-        "질문: 누구를 위한 제품인가요?\n답변: 가구 아래 청소가 필요한 사용자입니다.",
-    )
 
 
 def test_uploaded_image_uses_a_fixed_safe_filename(tmp_path: Path) -> None:

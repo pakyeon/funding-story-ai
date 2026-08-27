@@ -14,32 +14,6 @@ _ALLOWED_IMAGE_SUFFIXES = {".jpeg", ".jpg", ".png", ".webp"}
 _LOCAL_IMAGE_SOURCE = re.compile(r'src="(images/[A-Za-z0-9_.-]+)"')
 
 
-def conversation_payload(messages: list[dict[str, Any]]) -> tuple[str, tuple[str, ...]]:
-    """Convert visible chat turns into the worker conversation payload."""
-
-    initial = ""
-    followups: list[str] = []
-    pending_question: str | None = None
-    for message in messages:
-        role = message.get("role")
-        content = str(message.get("content", "")).strip()
-        if not content:
-            continue
-        if role == "assistant":
-            pending_question = content
-            continue
-        if role != "user":
-            continue
-        if not initial:
-            initial = content
-        elif pending_question:
-            followups.append(f"질문: {pending_question}\n답변: {content}")
-        else:
-            followups.append(content)
-        pending_question = None
-    return initial, tuple(followups)
-
-
 def save_uploaded_image(*, root: Path, input_id: str, filename: str, content: bytes) -> Path:
     """Persist one validated chat attachment under the ignored artifact directory."""
 

@@ -147,8 +147,9 @@ worker = build_live_worker()
 outcome = asyncio.run(
     worker.handle(
         WorkerRequest(
+            thread_id="demo-conversation-01",
             input_id="demo-01",
-            initial_message=(
+            message=(
                 "OrbitClean V3는 가구 아래를 자주 청소하는 사용자를 위한 "
                 "얇은 로봇청소기이며 도크가 모인 먼지를 비웁니다."
             ),
@@ -157,12 +158,12 @@ outcome = asyncio.run(
 )
 
 print(outcome.stage)
-print(outcome.questions)
+print(outcome.reply)
 ```
 
-호출자는 대화 내역과 반환된 `semantic_state`를 보관하고 다음 요청의
-`prior_semantic_state`로 전달합니다. `confirmed=True` 또는 `skip_requested=True`는
-사용자 행동 뒤에만 설정합니다.
+한 대화의 모든 입력에는 같은 `thread_id`를 사용합니다. LangGraph SQLite Checkpointer가
+메시지, 구조화 사실, 질문 이력, 현재 요약과 승인 버전을 유지합니다. 사용자는 일반
+메시지로 요약을 승인하거나 수정하며, 불리언 승인이나 질문 건너뛰기 생성 경로는 없습니다.
 
 ## 🧹 포함된 예제
 
@@ -179,10 +180,17 @@ print(outcome.questions)
 
 ```mermaid
 flowchart TB
-    U["사용자 대화 + 선택 이미지"] --> W["대화 처리기<br/>의미 상태 + 다음 질문 결정"]
-    W --> Q{"확인 또는 건너뛰기?"}
-    Q -->|아니요| U
-    Q -->|예| B["입력 근거 스토리 명세"]
+    U["사용자 대화 + 선택 이미지"] --> X["입력 이해<br/>구조화 사실 변경안"]
+    X --> F["사실 검증·반영"]
+    F --> Q{"필수 정보 충족?"}
+    Q -->|아니요| N["적응형 다음 질문"]
+    N --> U
+    Q -->|예| A["입력 근거 요약 + 명시적 승인"]
+    A -->|수정·거절·모호함| U
+    A -->|승인된 요약 버전| B["입력 근거 스토리 명세"]
+    C[("SQLite Checkpointer<br/>세션별 상태")]
+    C <--> X
+    C <--> A
 
     B --> C["FastMCP 클라이언트"]
     C -->|"Streamable HTTP"| M["create_crowdfunding_story"]
@@ -207,7 +215,7 @@ worker가 보는 MCP 표면에는 생성 도구 하나만 공개합니다. 이�
 
 | 영역 | 현재 구현 |
 |---|---|
-| 대화 | Gemini 멀티모달 의미 추출·다음 질문 결정, LangGraph 상태 전환 통제 |
+| 대화 | Gemini 입력 이해·질문·요약·승인 노드, 결정적 reducer와 LangGraph SQLite Checkpointer |
 | 도구 경계 | worker 허용 목록의 FastMCP 생성 도구 1개와 실행 리소스 1개 |
 | 실행 | 멱등성을 갖춘 비차단 로컬 백그라운드 작업 |
 | 검색 | 축소 후보 16개 exact KNN, 기본 분류 가중치 `0.15` |
@@ -232,6 +240,9 @@ uv run funding-story validate
 ## 문서
 
 - [처리 구조](../docs/architecture.md)
+- [적응형 대화 처리기 설계](../docs/adaptive-conversation-worker-design.md)
+- [적응형 대화 처리기 구현 체크리스트](../docs/adaptive-conversation-worker-implementation-plan.md)
+- [적응형 대화 처리기 평가 결과](../docs/adaptive-conversation-worker-evaluation-results.md)
 - [구성 양식·검색 시스템](../docs/template-system.md)
 - [입력 근거 검증](../docs/factuality-and-validation.md)
 - [관찰 가능한 동작 조사](../docs/research/observable-story-ai-behavior.md)

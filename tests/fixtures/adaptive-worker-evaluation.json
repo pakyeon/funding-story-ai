@@ -1,0 +1,191 @@
+{
+  "schema_version": "adaptive-worker-evaluation-v1",
+  "scenarios": [
+    {
+      "id": "partial-then-approve",
+      "turns": [
+        {
+          "message": "바로 만들어줘",
+          "understanding": {
+            "intent": "request_generation",
+            "fact_patches": [
+              {"field": "product_name", "operation": "replace", "values": ["OrbitClean V3"]},
+              {"field": "product_type", "operation": "replace", "values": ["로봇청소기"]},
+              {"field": "category", "operation": "replace", "values": ["테크·가전"]}
+            ],
+            "unresolved_references": [],
+            "requires_clarification": false,
+            "clarification_question": null
+          },
+          "expected_stage": "collecting",
+          "expected_missing": ["key_strengths", "target_supporters"],
+          "expected_tool_calls": 0
+        },
+        {
+          "message": "얇은 본체와 자동 먼지 비움이 강점이고 가구 아래 청소가 필요한 사용자가 타깃이야",
+          "understanding": {
+            "intent": "provide_information",
+            "fact_patches": [
+              {"field": "key_strengths", "operation": "replace", "values": ["얇은 본체", "자동 먼지 비움"]},
+              {"field": "target_supporters", "operation": "replace", "values": ["가구 아래 청소가 필요한 사용자"]}
+            ],
+            "unresolved_references": [],
+            "requires_clarification": false,
+            "clarification_question": null
+          },
+          "expected_stage": "awaiting-approval",
+          "expected_missing": [],
+          "expected_summary_version": 1,
+          "expected_tool_calls": 0
+        },
+        {
+          "message": "이 내용으로 생성해줘",
+          "approval_decision": {"decision": "approve", "reason": "명시적 생성 승인"},
+          "expected_stage": "submitted",
+          "expected_missing": [],
+          "expected_summary_version": 1,
+          "expected_tool_calls": 1
+        }
+      ]
+    },
+    {
+      "id": "ambiguous-approval",
+      "turns": [
+        {
+          "message": "Cleanbot은 반려동물 가구용 로봇청소기이며 자동 먼지 비움이 강점이야",
+          "understanding": {
+            "intent": "provide_information",
+            "fact_patches": [
+              {"field": "product_name", "operation": "replace", "values": ["Cleanbot"]},
+              {"field": "product_type", "operation": "replace", "values": ["로봇청소기"]},
+              {"field": "category", "operation": "replace", "values": ["테크·가전"]},
+              {"field": "key_strengths", "operation": "replace", "values": ["자동 먼지 비움"]},
+              {"field": "target_supporters", "operation": "replace", "values": ["반려동물 가구"]}
+            ],
+            "unresolved_references": [],
+            "requires_clarification": false,
+            "clarification_question": null
+          },
+          "expected_stage": "awaiting-approval",
+          "expected_missing": [],
+          "expected_summary_version": 1,
+          "expected_tool_calls": 0
+        },
+        {
+          "message": "네",
+          "approval_decision": {"decision": "ambiguous", "reason": "승인 대상이 불명확함"},
+          "expected_stage": "awaiting-approval",
+          "expected_missing": [],
+          "expected_summary_version": 1,
+          "expected_tool_calls": 0
+        },
+        {
+          "message": "요약한 내용 그대로 생성해줘",
+          "approval_decision": {"decision": "approve", "reason": "요약을 대상으로 한 명시적 승인"},
+          "expected_stage": "submitted",
+          "expected_missing": [],
+          "expected_summary_version": 1,
+          "expected_tool_calls": 1
+        }
+      ]
+    },
+    {
+      "id": "revision-invalidates-approval",
+      "turns": [
+        {
+          "message": "Slim R1은 맞벌이 가구용 로봇청소기이고 얇은 본체가 강점이야",
+          "understanding": {
+            "intent": "provide_information",
+            "fact_patches": [
+              {"field": "product_name", "operation": "replace", "values": ["Slim R1"]},
+              {"field": "product_type", "operation": "replace", "values": ["로봇청소기"]},
+              {"field": "category", "operation": "replace", "values": ["테크·가전"]},
+              {"field": "key_strengths", "operation": "replace", "values": ["얇은 본체"]},
+              {"field": "target_supporters", "operation": "replace", "values": ["맞벌이 가구"]}
+            ],
+            "unresolved_references": [],
+            "requires_clarification": false,
+            "clarification_question": null
+          },
+          "expected_stage": "awaiting-approval",
+          "expected_missing": [],
+          "expected_summary_version": 1,
+          "expected_tool_calls": 0
+        },
+        {
+          "message": "타깃을 20~40대 반려동물 가구로 바꿀게",
+          "approval_decision": {"decision": "revise", "reason": "기존 사실 수정"},
+          "understanding": {
+            "intent": "revise_information",
+            "fact_patches": [
+              {"field": "target_supporters", "operation": "replace", "values": ["20~40대 반려동물 가구"]}
+            ],
+            "unresolved_references": [],
+            "requires_clarification": false,
+            "clarification_question": null
+          },
+          "expected_stage": "awaiting-approval",
+          "expected_missing": [],
+          "expected_summary_version": 2,
+          "expected_tool_calls": 0,
+          "expected_facts": {"target_supporters": ["20~40대 반려동물 가구"]}
+        },
+        {
+          "message": "수정된 내용으로 생성해줘",
+          "approval_decision": {"decision": "approve", "reason": "수정 요약 명시적 승인"},
+          "expected_stage": "submitted",
+          "expected_missing": [],
+          "expected_summary_version": 2,
+          "expected_tool_calls": 1
+        }
+      ]
+    },
+    {
+      "id": "reject-without-generation",
+      "turns": [
+        {
+          "message": "Quiet R1은 소음에 민감한 가구용 로봇청소기이고 저소음 운전이 강점이야",
+          "understanding": {
+            "intent": "provide_information",
+            "fact_patches": [
+              {"field": "product_name", "operation": "replace", "values": ["Quiet R1"]},
+              {"field": "product_type", "operation": "replace", "values": ["로봇청소기"]},
+              {"field": "category", "operation": "replace", "values": ["테크·가전"]},
+              {"field": "key_strengths", "operation": "replace", "values": ["저소음 운전"]},
+              {"field": "target_supporters", "operation": "replace", "values": ["소음에 민감한 가구"]}
+            ],
+            "unresolved_references": [],
+            "requires_clarification": false,
+            "clarification_question": null
+          },
+          "expected_stage": "awaiting-approval",
+          "expected_missing": [],
+          "expected_summary_version": 1,
+          "expected_tool_calls": 0
+        },
+        {
+          "message": "생성하지 않을게",
+          "approval_decision": {"decision": "reject", "reason": "명시적 생성 거절"},
+          "expected_stage": "collecting",
+          "expected_missing": [],
+          "expected_summary_version": 1,
+          "expected_tool_calls": 0
+        },
+        {
+          "message": "세션을 종료해줘",
+          "understanding": {
+            "intent": "cancel",
+            "fact_patches": [],
+            "unresolved_references": [],
+            "requires_clarification": false,
+            "clarification_question": null
+          },
+          "expected_stage": "cancelled",
+          "expected_missing": [],
+          "expected_summary_version": 1,
+          "expected_tool_calls": 0
+        }
+      ]
+    }
+  ]
+}

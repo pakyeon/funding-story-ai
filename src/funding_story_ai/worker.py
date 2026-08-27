@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import json
 import re
+import sqlite3
+import uuid
 from dataclasses import dataclass
 from datetime import date
 from pathlib import Path
@@ -9,13 +11,23 @@ from typing import Any, Literal, Protocol
 
 from dotenv import load_dotenv
 from fastmcp import Client
+from langgraph.checkpoint.memory import InMemorySaver
+from langgraph.checkpoint.sqlite import SqliteSaver
 
 from .adapter import GeminiAdapter
+from .conversation import (
+    ApprovalDecision,
+    ConversationModel,
+    QuestionPlan,
+    StorySummary,
+    TurnUnderstanding,
+    build_conversation_graph,
+    missing_required_fields,
+)
 from .data_repository import DataRepository
-from .intake import StoryIntakeState, build_intake_graph
 from .smoke import build_runtime
 
-WorkerStatus = Literal["awaiting-input", "ready", "submitted"]
+WorkerStatus = Literal["awaiting-input", "awaiting-approval", "submitted", "closed"]
 
 MAX_MESSAGE_CHARS = 1_000
 MAX_IMAGE_BYTES = 10 * 1024 * 1024
@@ -29,43 +41,47 @@ SUPPORTED_IMAGES = {
 
 @dataclass(frozen=True, slots=True)
 class WorkerRequest:
+    thread_id: str
     input_id: str
-    initial_message: str
-    followup_messages: tuple[str, ...] = ()
+    message: str
+    message_id: str = ""
     image_path: Path | None = None
-    prior_semantic_state: dict[str, Any] | None = None
-    skip_requested: bool = False
-    confirmed: bool = False
     caller_id: str = "local-story-worker"
     idempotency_key: str = ""
 
 
 @dataclass(frozen=True, slots=True)
 class WorkerOutcome:
+    thread_id: str
     input_id: str
     status: WorkerStatus
     stage: str
+    reply: str
     requested_fields: tuple[str, ...]
     questions: tuple[str, ...]
-    semantic_state: dict[str, Any]
+    facts: dict[str, dict[str, Any]]
+    current_summary: dict[str, Any] | None
+    summary_version: int
+    approved_summary_version: int | None
     generation_start_trigger: str | None = None
     tool_result: dict[str, Any] | None = None
 
     def to_dict(self) -> dict[str, Any]:
         return {
+            "thread_id": self.thread_id,
             "input_id": self.input_id,
             "status": self.status,
             "stage": self.stage,
+            "reply": self.reply,
             "requested_fields": list(self.requested_fields),
             "questions": list(self.questions),
-            "semantic_state": self.semantic_state,
+            "facts": self.facts,
+            "current_summary": self.current_summary,
+            "summary_version": self.summary_version,
+            "approved_summary_version": self.approved_summary_version,
             "generation_start_trigger": self.generation_start_trigger,
             "tool_result": self.tool_result,
         }
-
-
-class SemanticExtractor(Protocol):
-    def extract(self, request: WorkerRequest) -> dict[str, Any]: ...
 
 
 class BriefBuilder(Protocol):
@@ -85,23 +101,15 @@ class GenerationTool(Protocol):
     ) -> dict[str, Any]: ...
 
 
-def _conversation_text(request: WorkerRequest) -> str:
-    turns = [f"initial: {request.initial_message.strip()}"]
-    turns.extend(
-        f"followup_{index}: {message.strip()}"
-        for index, message in enumerate(request.followup_messages, start=1)
-    )
-    return "\n".join(turns)
-
-
 def validate_worker_request(request: WorkerRequest) -> None:
+    if not request.thread_id.strip():
+        raise ValueError("thread_id must not be empty")
     if not request.input_id.strip():
         raise ValueError("input_id must not be empty")
-    messages = (request.initial_message, *request.followup_messages)
-    for index, message in enumerate(messages):
-        if len(message) > MAX_MESSAGE_CHARS:
-            label = "initial_message" if index == 0 else f"followup_messages[{index - 1}]"
-            raise ValueError(f"{label} must be at most {MAX_MESSAGE_CHARS:,} characters")
+    if not request.message.strip():
+        raise ValueError("message must not be empty")
+    if len(request.message) > MAX_MESSAGE_CHARS:
+        raise ValueError(f"message must be at most {MAX_MESSAGE_CHARS:,} characters")
     if request.image_path is not None:
         if not request.image_path.is_file():
             raise FileNotFoundError(request.image_path)
@@ -117,58 +125,154 @@ def _image_payload(path: Path | None) -> list[tuple[bytes, str]]:
     return [(path.read_bytes(), SUPPORTED_IMAGES[path.suffix.lower()])]
 
 
-class GeminiSemanticExtractor:
-    """Use the dialogue model for both semantic extraction and next-question choice."""
+class GeminiConversationModel:
+    """Gemini-backed semantic nodes with separate structured contracts."""
 
-    def __init__(self, *, repository: DataRepository, adapter: GeminiAdapter) -> None:
-        self.repository = repository
+    def __init__(self, adapter: GeminiAdapter) -> None:
         self.adapter = adapter
 
-    def extract(self, request: WorkerRequest) -> dict[str, Any]:
-        prior = request.prior_semantic_state or {}
-        prompt = f"""당신은 크라우드펀딩 스토리 작성 대화 에이전트입니다.
-사용자 대화에서 사실 슬롯을 추출하고, 지금 확인할 가치가 가장 큰 후속 질문을
-직접 결정하세요. 출력은 JSON Schema만 따릅니다.
+    @staticmethod
+    def _context(
+        messages: list[dict[str, str]], facts: dict[str, dict[str, Any]]
+    ) -> str:
+        return json.dumps(
+            {"messages": messages, "current_facts": facts},
+            ensure_ascii=False,
+            indent=2,
+        )
+
+    def understand_turn(
+        self,
+        *,
+        message: dict[str, str],
+        messages: list[dict[str, str]],
+        facts: dict[str, dict[str, Any]],
+        image_path: str | None,
+    ) -> TurnUnderstanding:
+        prompt = f"""당신은 크라우드펀딩 스토리 작성 대화의 입력 이해 노드입니다.
+최신 사용자 발화가 현재 사실을 어떻게 추가·수정·삭제하는지만 구조화하세요.
 
 규칙:
-- 사용자가 직접 말한 내용만 values에 넣습니다. 언급되지 않은 값은 unknown입니다.
-- 사용자가 없다고 명시한 값만 explicitly-absent입니다.
-- 이미지는 색·형태·보이는 구성 등 직접 관찰 가능한 외형만 근거가 됩니다. 성능,
-  인증, 내부 구조, 앱 기능, 팀 경력은 이미지에서 추정하지 않습니다.
-- 최신 입력이 이전 값을 명시적으로 교체했다면 superseded-resolved로 기록합니다.
-- 제품명, 제품 유형, 카테고리, 핵심 강점, 주요 대상이 스토리 방향을 결정할 만큼
-  확보되면 ready_to_confirm=true로 둡니다. 나머지 슬롯은 선택 정보이며 무조건
-  질문하지 않습니다.
-- 정보가 부족하면 템플릿이나 고정 제품 프로필이 아니라 현재 대화 맥락을 보고 한
-  번에 하나 또는 서로 밀접한 여러 항목을 자연스러운 한 질문으로 물을 수 있습니다.
-- 질문을 할 때 requested_fields와 follow_up_question을 함께 채웁니다.
-- 대화 언어에 따라 language를 ko, en, ja, zh 중 하나로 선택합니다.
-- funding_end와 shipping_start는 사용자가 정확한 날짜를 제공한 경우 YYYY-MM-DD로
-  정규화하고, 상대 일정만 제공했다면 원문 의미를 유지합니다.
+- 사용자가 직접 제공한 사실만 fact_patches로 반환합니다.
+- 최신 발화가 이전 값을 바꾸면 replace, 항목을 더하면 append를 사용합니다.
+- 없다고 명시하면 mark_absent, 미정으로 되돌리면 clear를 사용합니다.
+- 생성 요청 자체는 제품 사실이 아닙니다.
+- 지시 대상이 불명확하면 값을 추정하지 말고 clarification을 요청합니다.
+- 질문 예시나 모델의 상식은 사용자 사실로 만들지 않습니다.
+- 이미지는 직접 보이는 외형만 근거로 사용할 수 있습니다. 성능, 인증, 내부 구조,
+  앱 기능과 팀 경력은 이미지에서 추정하지 않습니다.
 
-input_id: {request.input_id}
-이전 의미 상태(참고용이며 최신 대화가 우선):
-{json.dumps(prior, ensure_ascii=False)}
+현재 문맥:
+{self._context(messages, facts)}
 
-전체 대화:
-{_conversation_text(request)}
+최신 사용자 발화:
+{json.dumps(message, ensure_ascii=False)}
 """
-        images = _image_payload(request.image_path)
+        images = _image_payload(Path(image_path)) if image_path else []
         result = self.adapter.generate_multimodal_json(
             prompt=prompt,
             images=images,
-            response_schema=self.repository.intake_semantic_state_schema(),
+            response_schema=TurnUnderstanding.model_json_schema(),
         )
-        value = result.data
-        value.update(
-            {
-                "schema_version": "story-intake-semantic-state-v2",
-                "input_id": request.input_id,
-                "image_attached": bool(images),
-            }
+        return TurnUnderstanding.model_validate(result.data)
+
+    def plan_questions(
+        self,
+        *,
+        messages: list[dict[str, str]],
+        facts: dict[str, dict[str, Any]],
+        missing_required_fields: list[str],
+        asked_topics: list[str],
+        turn_understanding: TurnUnderstanding,
+    ) -> QuestionPlan:
+        prompt = f"""당신은 크라우드펀딩 스토리 작성 대화의 다음 질문 계획 노드입니다.
+현재 사실과 부족한 필수 정보를 바탕으로 다음 한 번의 자연스러운 질문을 작성하세요.
+
+규칙:
+- 필수 정보가 부족하면 requested_fields에 그중 하나 이상을 반드시 포함합니다.
+- 서로 밀접한 항목만 한 질문으로 묶습니다.
+- 이미 답한 정보는 반복 질문하지 않습니다.
+- 이미 물었지만 답하지 않은 선택 정보보다 필수 정보를 우선합니다.
+- 사용자가 곧바로 생성을 요청해도 필수 정보는 생략하지 않습니다.
+- 질문에 사실 예시를 넣더라도 그 예시는 확정 정보가 아닙니다.
+
+부족한 필수 필드: {json.dumps(missing_required_fields, ensure_ascii=False)}
+이미 질문한 주제: {json.dumps(asked_topics, ensure_ascii=False)}
+이번 입력 분석: {turn_understanding.model_dump_json()}
+현재 문맥:
+{self._context(messages, facts)}
+"""
+        result = self.adapter.generate_json(
+            prompt=prompt,
+            response_schema=QuestionPlan.model_json_schema(),
         )
-        self.repository.validate_intake_semantic_state(value)
-        return value
+        return QuestionPlan.model_validate(result.data)
+
+    def build_summary(
+        self,
+        *,
+        messages: list[dict[str, str]],
+        facts: dict[str, dict[str, Any]],
+    ) -> StorySummary:
+        provided = {
+            field: value["values"]
+            for field, value in facts.items()
+            if value["status"] == "provided"
+        }
+        unconfirmed = [
+            field for field, value in facts.items() if value["status"] != "provided"
+        ]
+        prompt = f"""당신은 크라우드펀딩 스토리 생성 직전의 사용자 확인 요약 노드입니다.
+제공된 사실을 읽기 쉬운 한국어로 정리하고 생성 여부를 명시적으로 물으세요.
+
+규칙:
+- confirmed_facts는 아래 확정 사실을 키와 값까지 그대로 복사합니다.
+- unconfirmed_fields는 아래 목록을 순서까지 그대로 복사합니다.
+- summary_text에는 확정 사실만 사용하고 새 수치·성능·인증·효과를 추가하지 않습니다.
+- 이 출력은 스토리 본문이 아니라 사용자가 결정 내용을 확인하기 위한 요약입니다.
+- confirmation_question은 이 내용으로 스토리를 생성할지 명시적으로 묻습니다.
+
+확정 사실: {json.dumps(provided, ensure_ascii=False)}
+미확인 필드: {json.dumps(unconfirmed, ensure_ascii=False)}
+대화 문맥: {json.dumps(messages, ensure_ascii=False)}
+"""
+        result = self.adapter.generate_json(
+            prompt=prompt,
+            response_schema=StorySummary.model_json_schema(),
+        )
+        return StorySummary.model_validate(result.data)
+
+    def classify_approval(
+        self,
+        *,
+        message: dict[str, str],
+        summary: StorySummary,
+        messages: list[dict[str, str]],
+    ) -> ApprovalDecision:
+        prompt = f"""당신은 스토리 생성 승인 의도 분류 노드입니다.
+사용자의 최신 발화를 approve, revise, reject, ambiguous 중 하나로 분류하세요.
+
+규칙:
+- 현재 요약 그대로 생성을 명시적으로 요청한 경우만 approve입니다.
+- 사실 추가·수정·삭제가 포함되면 revise입니다.
+- 생성하지 않겠다는 의사는 reject입니다.
+- 질문, 제안, 조건부 표현과 확신할 수 없는 동의는 ambiguous입니다.
+- 질문을 건너뛰겠다는 말은 approve가 아닙니다.
+
+승인 대상 요약:
+{summary.model_dump_json()}
+
+최신 사용자 발화:
+{json.dumps(message, ensure_ascii=False)}
+
+최근 대화:
+{json.dumps(messages[-6:], ensure_ascii=False)}
+"""
+        result = self.adapter.generate_json(
+            prompt=prompt,
+            response_schema=ApprovalDecision.model_json_schema(),
+        )
+        return ApprovalDecision.model_validate(result.data)
 
 
 def _brief_id(input_id: str) -> str:
@@ -416,101 +520,194 @@ class FastMcpGenerationTool:
             return dict(result.structured_content)
 
 
-def semantic_state_to_intake(
-    request: WorkerRequest, semantic_state: dict[str, Any]
-) -> StoryIntakeState:
-    decision = semantic_state["decision"]
+def graph_state_to_semantic_state(
+    *, input_id: str, state: dict[str, Any]
+) -> dict[str, Any]:
+    """Adapt approved graph facts to the existing grounded brief boundary."""
+    slots: dict[str, dict[str, Any]] = {}
+    for field, value in state["facts"].items():
+        turn = int(value.get("updated_at_turn", 0))
+        slots[field] = {
+            "status": value["status"],
+            "values": list(value["values"]),
+            "source_turn": "none" if turn == 0 else ("initial" if turn == 1 else "followup"),
+        }
+
     return {
-        "initial_message": request.initial_message,
-        "agent_ready_to_confirm": bool(decision["ready_to_confirm"]),
-        "agent_question": decision["follow_up_question"],
-        "agent_requested_fields": list(decision["requested_fields"]),
-        "skip_remaining_questions": request.skip_requested,
-        "confirmed": request.confirmed,
+        "schema_version": "story-intake-semantic-state-v2",
+        "input_id": input_id,
+        "language": "ko",
+        "image_attached": bool(state.get("image_attached", False)),
+        "slots": slots,
+        "fact_conflict": {
+            "status": "none",
+            "authoritative_values": [],
+            "superseded_values": [],
+        },
+        "decision": {
+            "ready_to_confirm": not missing_required_fields(state["facts"]),
+            "requested_fields": [],
+            "follow_up_question": None,
+        },
     }
 
 
-_CONFIRMATION_QUESTIONS = {
-    "ko": "정리된 제품 정보로 스토리를 생성할까요?",
-    "en": "Would you like me to generate the story from the information above?",
-    "ja": "整理した製品情報からストーリーを生成しますか？",
-    "zh": "要根据以上产品信息生成故事吗？",
-}
-
-
 class StoryMakerWorker:
-    """Conversation agent; all generation crosses the MCP boundary."""
+    """Stateful conversation graph; all generation crosses the MCP boundary."""
 
     def __init__(
         self,
         *,
         repository: DataRepository,
-        extractor: SemanticExtractor,
+        conversation_model: ConversationModel,
         brief_builder: BriefBuilder,
         generation_tool: GenerationTool,
+        checkpointer: Any | None = None,
+        checkpoint_connection: sqlite3.Connection | None = None,
     ) -> None:
         self.repository = repository
-        self.extractor = extractor
+        self.conversation_model = conversation_model
         self.brief_builder = brief_builder
         self.generation_tool = generation_tool
-        self.intake_graph = build_intake_graph()
+        self.checkpointer = checkpointer or InMemorySaver()
+        self.checkpoint_connection = checkpoint_connection
+        self.conversation_graph = build_conversation_graph(
+            conversation_model,
+            checkpointer=self.checkpointer,
+        )
+
+    @staticmethod
+    def _config(thread_id: str) -> dict[str, Any]:
+        return {"configurable": {"thread_id": thread_id}}
+
+    @staticmethod
+    def _message(request: WorkerRequest) -> dict[str, str]:
+        return {
+            "id": request.message_id.strip() or f"user-{uuid.uuid4()}",
+            "role": "user",
+            "content": request.message.strip(),
+        }
+
+    @staticmethod
+    def _status(stage: str) -> WorkerStatus:
+        if stage == "awaiting-approval":
+            return "awaiting-approval"
+        if stage == "submitted":
+            return "submitted"
+        if stage == "cancelled":
+            return "closed"
+        return "awaiting-input"
+
+    @staticmethod
+    def _outcome(
+        request: WorkerRequest, state: dict[str, Any], *, trigger: str | None = None
+    ) -> WorkerOutcome:
+        stage = str(state.get("workflow_stage", "collecting"))
+        reply = str(state.get("reply", ""))
+        questions = (reply,) if reply and stage in {"collecting", "awaiting-approval"} else ()
+        return WorkerOutcome(
+            thread_id=request.thread_id,
+            input_id=request.input_id,
+            status=StoryMakerWorker._status(stage),
+            stage=stage,
+            reply=reply,
+            requested_fields=tuple(state.get("requested_fields", [])),
+            questions=questions,
+            facts=dict(state.get("facts", {})),
+            current_summary=state.get("current_summary"),
+            summary_version=int(state.get("summary_version", 0)),
+            approved_summary_version=state.get("approved_summary_version"),
+            generation_start_trigger=trigger,
+            tool_result=state.get("tool_result"),
+        )
 
     async def handle(self, request: WorkerRequest) -> WorkerOutcome:
         validate_worker_request(request)
-        semantic_state = self.extractor.extract(request)
+        message = self._message(request)
+        graph_input: dict[str, Any] = {
+            "incoming_message": message,
+            "messages": [message],
+            "input_id": request.input_id,
+            "caller_id": request.caller_id,
+            "idempotency_key": request.idempotency_key,
+        }
+        if request.image_path is not None:
+            graph_input.update(
+                {
+                    "image_path": str(request.image_path),
+                    "image_attached": True,
+                }
+            )
+        config = self._config(request.thread_id)
+        state = self.conversation_graph.invoke(graph_input, config)
+        if state.get("workflow_stage") != "approved":
+            return self._outcome(request, state)
+
+        if state.get("approved_summary_version") != state.get("summary_version"):
+            raise ValueError("Approved summary version does not match the current summary")
+        semantic_state = graph_state_to_semantic_state(input_id=request.input_id, state=state)
         self.repository.validate_intake_semantic_state(semantic_state)
-        decision = semantic_state["decision"]
-        if semantic_state["fact_conflict"]["status"] == "unresolved":
-            question = decision["follow_up_question"] or (
-                "충돌하는 값 중 최종 사실로 사용할 값을 확인해 주세요."
-            )
-            return WorkerOutcome(
-                request.input_id, "awaiting-input", "conflict-resolution",
-                ("fact_conflict_resolution",), (question,), semantic_state,
-            )
-
-        routed = self.intake_graph.invoke(semantic_state_to_intake(request, semantic_state))
-        stage = str(routed["stage"])
-        requested = tuple(routed.get("requested_fields", []))
-        if stage != "ready-to-generate":
-            question = routed.get("question")
-            if stage == "confirmation":
-                question = _CONFIRMATION_QUESTIONS[semantic_state["language"]]
-            if not isinstance(question, str) or not question.strip():
-                raise ValueError("The conversation agent did not provide a follow-up question")
-            return WorkerOutcome(
-                request.input_id, "awaiting-input", stage, requested,
-                (question,), semantic_state,
-            )
-
-        trigger = str(routed["generation_start_trigger"])
         brief = self.brief_builder.build(request, semantic_state)
         reference = (
             None
             if semantic_state["fact_conflict"]["status"] == "superseded-resolved"
-            else request.image_path
+            else Path(state["image_path"]) if state.get("image_path") else None
+        )
+        summary_version = int(state["approved_summary_version"])
+        idempotency_key = request.idempotency_key or (
+            f"worker-{request.thread_id}-summary-{summary_version}"
         )
         tool_result = await self.generation_tool.create(
             brief=brief,
             caller_id=request.caller_id,
-            idempotency_key=request.idempotency_key or f"worker-{request.input_id}-v2",
+            idempotency_key=idempotency_key,
             reference_image_path=reference,
         )
-        return WorkerOutcome(
-            request.input_id, "submitted", stage, (), (), semantic_state,
-            trigger, tool_result,
+        self.conversation_graph.update_state(
+            config,
+            {
+                "workflow_stage": "submitted",
+                "tool_result": tool_result,
+                "reply": "스토리 생성 요청을 제출했습니다.",
+                "requested_fields": [],
+            },
+            as_node="approval_guard",
         )
+        submitted = dict(self.conversation_graph.get_state(config).values)
+        return self._outcome(request, submitted, trigger="explicit-confirmation")
+
+    def get_state(self, thread_id: str) -> dict[str, Any]:
+        return dict(self.conversation_graph.get_state(self._config(thread_id)).values)
+
+    def delete_thread(self, thread_id: str) -> None:
+        self.checkpointer.delete_thread(thread_id)
+
+    def close(self) -> None:
+        if self.checkpoint_connection is not None:
+            self.checkpoint_connection.close()
 
 
 def build_live_worker(
-    *, server_url: str = "http://127.0.0.1:8765/mcp", root: Path | None = None
+    *,
+    server_url: str = "http://127.0.0.1:8765/mcp",
+    root: Path | None = None,
+    checkpoint_path: Path | None = None,
 ) -> StoryMakerWorker:
     load_dotenv()
     repository = DataRepository(root)
     adapter = GeminiAdapter(build_runtime())
+    state_path = checkpoint_path or (
+        repository.root / "artifacts" / "state" / "conversations.sqlite3"
+    )
+    state_path.parent.mkdir(parents=True, exist_ok=True)
+    connection = sqlite3.connect(state_path, check_same_thread=False)
+    checkpointer = SqliteSaver(connection)
+    checkpointer.setup()
     return StoryMakerWorker(
         repository=repository,
-        extractor=GeminiSemanticExtractor(repository=repository, adapter=adapter),
+        conversation_model=GeminiConversationModel(adapter),
         brief_builder=GroundedBriefBuilder(repository=repository),
         generation_tool=FastMcpGenerationTool(server_url),
+        checkpointer=checkpointer,
+        checkpoint_connection=connection,
     )

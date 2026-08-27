@@ -149,8 +149,9 @@ worker = build_live_worker()
 outcome = asyncio.run(
     worker.handle(
         WorkerRequest(
+            thread_id="demo-conversation-01",
             input_id="demo-01",
-            initial_message=(
+            message=(
                 "OrbitClean V3 is a slim robot vacuum for people who frequently "
                 "clean under furniture. Its dock empties collected dust."
             ),
@@ -159,11 +160,13 @@ outcome = asyncio.run(
 )
 
 print(outcome.stage)
-print(outcome.questions)
+print(outcome.reply)
 ```
 
-The caller retains the conversation history and returned `semantic_state`, passes it back as
-`prior_semantic_state`, and sets `confirmed=True` or `skip_requested=True` only after a user action.
+Use the same `thread_id` for every turn in one conversation. The LangGraph SQLite checkpointer keeps
+messages, structured facts, question history, the current summary, and its approval version. The
+user approves or revises the summary with a normal message; there is no Boolean confirmation or
+question-skipping generation path.
 
 ## 🧹 Included example
 
@@ -181,10 +184,17 @@ a reproducible input package for the current PoC:
 
 ```mermaid
 flowchart TB
-    U["User conversation + optional image"] --> W["Dialogue worker<br/>semantic state + next-question decision"]
-    W --> Q{"Confirmed or skipped?"}
-    Q -->|No| U
-    Q -->|Yes| B["Grounded story specification"]
+    U["User conversation + optional image"] --> X["Understand turn<br/>structured fact patches"]
+    X --> F["Validate + apply facts"]
+    F --> Q{"Required facts complete?"}
+    Q -->|No| N["Adaptive next question"]
+    N --> U
+    Q -->|Yes| A["Grounded summary + explicit approval"]
+    A -->|Revise / reject / ambiguous| U
+    A -->|Approved summary version| B["Grounded story specification"]
+    C[("SQLite checkpointer<br/>thread-scoped state")]
+    C <--> X
+    C <--> A
 
     B --> C["FastMCP client"]
     C -->|"Streamable HTTP"| M["create_crowdfunding_story"]
@@ -210,7 +220,7 @@ transport or model configuration.
 
 | Area | Current implementation |
 |---|---|
-| Dialogue | Gemini multimodal extraction and next-question decision; LangGraph transition guards |
+| Dialogue | Separate Gemini understanding, question, summary, and approval nodes; deterministic reducers and LangGraph SQLite checkpoints |
 | Tool boundary | One worker-allowlisted FastMCP generation tool and one run resource |
 | Execution | Non-blocking local background job with caller-scoped idempotency |
 | Retrieval | Exact KNN over 16 reduced candidates; default category boost `0.15` |
@@ -235,6 +245,9 @@ The test suite uses local fakes and does not call paid model APIs.
 ## Documentation
 
 - [Architecture](docs/architecture.md)
+- [Planned adaptive conversation worker](docs/adaptive-conversation-worker-design.md) (Korean)
+- [Adaptive worker implementation checklist](docs/adaptive-conversation-worker-implementation-plan.md) (Korean)
+- [Adaptive worker evaluation results](docs/adaptive-conversation-worker-evaluation-results.md) (Korean)
 - [Template and retrieval system](docs/template-system.md)
 - [Input-grounded validation](docs/factuality-and-validation.md)
 - [Observable behavior study](docs/research/observable-story-ai-behavior.md)

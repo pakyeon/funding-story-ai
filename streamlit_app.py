@@ -12,7 +12,6 @@ import streamlit as st
 from dotenv import load_dotenv
 
 from funding_story_ai.ui_support import (
-    conversation_payload,
     read_run_resource,
     save_uploaded_image,
 )
@@ -24,11 +23,14 @@ SERVER_URL = os.getenv("STORY_MCP_SERVER_URL", "http://127.0.0.1:8765/mcp")
 
 
 def _initialize_state() -> None:
+    conversation_id = f"ui-{uuid.uuid4()}"
     defaults: dict[str, Any] = {
-        "input_id": f"ui-{uuid.uuid4()}",
+        "thread_id": conversation_id,
+        "input_id": conversation_id,
         "messages": [],
         "stage": None,
-        "semantic_state": None,
+        "facts": {},
+        "summary_version": 0,
         "tool_result": None,
         "reference_image_path": None,
     }
@@ -38,11 +40,16 @@ def _initialize_state() -> None:
 
 
 def _reset() -> None:
+    thread_id = st.session_state.get("thread_id")
+    if thread_id:
+        _get_worker().delete_thread(thread_id)
     for key in (
+        "thread_id",
         "input_id",
         "messages",
         "stage",
-        "semantic_state",
+        "facts",
+        "summary_version",
         "tool_result",
         "reference_image_path",
         "story_chat_input",
@@ -50,26 +57,27 @@ def _reset() -> None:
         st.session_state.pop(key, None)
 
 
-def _worker_request(*, confirmed: bool = False, skip: bool = False) -> WorkerOutcome:
-    initial, followups = conversation_payload(st.session_state.messages)
+@st.cache_resource
+def _get_worker():
+    return build_live_worker(server_url=SERVER_URL, root=ROOT)
+
+
+def _worker_request(message: str) -> WorkerOutcome:
     request = WorkerRequest(
+        thread_id=st.session_state.thread_id,
         input_id=st.session_state.input_id,
-        initial_message=initial,
-        followup_messages=followups,
+        message=message,
+        message_id=f"ui-message-{uuid.uuid4()}",
         image_path=st.session_state.reference_image_path,
-        prior_semantic_state=st.session_state.semantic_state,
-        skip_requested=skip,
-        confirmed=confirmed,
         caller_id="streamlit-demo",
-        idempotency_key=f"streamlit-{st.session_state.input_id}-v2",
     )
-    worker = build_live_worker(server_url=SERVER_URL, root=ROOT)
-    return asyncio.run(worker.handle(request))
+    return asyncio.run(_get_worker().handle(request))
 
 
 def _handle_outcome(outcome: WorkerOutcome) -> None:
     st.session_state.stage = outcome.stage
-    st.session_state.semantic_state = outcome.semantic_state
+    st.session_state.facts = outcome.facts
+    st.session_state.summary_version = outcome.summary_version
     if outcome.status == "submitted":
         st.session_state.tool_result = outcome.tool_result
         return
@@ -79,11 +87,11 @@ def _handle_outcome(outcome: WorkerOutcome) -> None:
             st.session_state.messages.append(message)
 
 
-def _run_worker(*, confirmed: bool = False, skip: bool = False) -> bool:
-    label = "생성 작업을 제출하고 있습니다…" if confirmed or skip else "입력을 확인하고 있습니다…"
+def _run_worker(message: str, *, approving: bool = False) -> bool:
+    label = "생성 작업을 제출하고 있습니다…" if approving else "입력을 확인하고 있습니다…"
     try:
         with st.spinner(label):
-            outcome = _worker_request(confirmed=confirmed, skip=skip)
+            outcome = _worker_request(message)
         _handle_outcome(outcome)
         return True
     except Exception as exc:
@@ -208,13 +216,13 @@ for message in st.session_state.messages:
 if st.session_state.tool_result:
     _render_result()
 else:
-    if st.session_state.stage == "confirmation":
+    if st.session_state.stage == "awaiting-approval":
         if st.button("이 정보로 스토리 생성", type="primary", use_container_width=True):
-            if _run_worker(confirmed=True):
-                st.rerun()
-    elif st.session_state.stage == "follow-up":
-        if st.button("남은 질문을 건너뛰고 생성", use_container_width=True):
-            if _run_worker(skip=True):
+            approval_message = "요약한 내용 그대로 스토리를 생성해줘"
+            st.session_state.messages.append(
+                {"role": "user", "content": approval_message, "image_path": None}
+            )
+            if _run_worker(approval_message, approving=True):
                 st.rerun()
 
     submitted = st.chat_input(
@@ -255,5 +263,5 @@ else:
                     "image_path": str(image_path) if image_path else None,
                 }
             )
-            if _run_worker():
+            if _run_worker(text.strip()):
                 st.rerun()

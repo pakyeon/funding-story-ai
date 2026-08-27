@@ -6,10 +6,19 @@ Funding Story AI는 대화 처리기, MCP 도구 경계와 스토리 실행기�
 ```mermaid
 flowchart TB
     subgraph Conversation["대화 계층"]
-        U["텍스트 + 선택 이미지"] --> X["Gemini 의미 추출 + 다음 질문 결정"]
-        X --> Q["LangGraph 전환 통제"]
-        Q -->|"보완 질문"| U
-        Q -->|"확인·건너뛰기"| B["입력 근거 스토리 명세"]
+        U["텍스트 + 선택 이미지"] --> X["understand_turn<br/>Gemini 구조화 사실 변경안"]
+        X --> F["apply_fact_patch<br/>결정적 상태 반영"]
+        F --> R["필수 정보 검사"]
+        R -->|"부족"| Q["plan_next_questions<br/>Gemini 적응형 질문"]
+        Q --> U
+        R -->|"충족"| Y["build_summary<br/>현재 결정 내용 요약"]
+        Y --> A["classify_approval<br/>명시적 승인 분류"]
+        A -->|"수정·모호함·거절"| U
+        A -->|"승인"| G["approval_guard<br/>요약 버전 검증"]
+        G --> B["입력 근거 스토리 명세"]
+        C[("SQLite Checkpointer<br/>thread_id 세션 상태")]
+        C <--> X
+        C <--> Y
     end
 
     subgraph Tool["도구 계층"]
@@ -34,7 +43,7 @@ flowchart TB
 
 | 공개된 역할 | 이 저장소 | 구현 내용 |
 |---|---|---|
-| story-maker-worker | `worker.py` | 의미 상태와 다음 질문 결정, 확인, 명세 작성 |
+| story-maker-worker | `conversation.py`, `worker.py` | 사실 추출·상태 갱신·적응형 질문·요약·승인·명세 작성 |
 | MCP tool layer | `mcp_server.py` | worker용 생성 도구, 비동기 접수, 결과 리소스 |
 | story-maker executor | `engine.py` | 텍스트·이미지·HTML 통합 실행 |
 | template search | `template_retrieval.py` | Gemini embedding exact KNN + soft boost |
@@ -48,17 +57,27 @@ flowchart TB
 
 ## 대화 처리기
 
-`story-intake-semantic-state-v2`는 다음을 함께 기록한다.
+`StoryWorkerState`는 다음을 세션별로 기록한다.
 
-- 언어와 이미지 첨부 여부
-- 제품명·유형·분류, 강점, 대상, 문제, 신뢰·팀 정보
-- 리워드, 일정·정책, 펀딩금 계획, 플랫폼 선택 이유, 위험 대응
-- 값 충돌 상태
-- `ready_to_confirm`, 다음 질문, 질문 대상 필드
+- 사용자·처리기 메시지와 선택 이미지 위치
+- 제품명·유형·분류, 강점, 대상, 문제, 신뢰·팀 정보 등 구조화 사실
+- 사실 변경 이력, 출처 메시지와 현재 사실 revision
+- 필수 누락 필드, 이미 질문한 주제와 현재 질문 계획
+- 현재 요약, 요약 버전, 요약을 만든 사실 revision
+- 승인 대기 여부, 승인된 요약 버전과 실행 단계
 
-각 슬롯은 `provided`, `explicitly-absent`, `unknown` 중 하나다. 질문 순서는 별도 제품
-프로필이나 UI 완료 표시가 아니라 LLM이 현재 대화에서 결정한다. LangGraph는 시작,
-보완 질문, 확인, 생성 준비의 전환만 통제한다.
+각 사실은 `provided`, `explicitly-absent`, `unknown` 중 하나다. LLM은 사실 변경안을
+제안하지만 허용 필드와 연산 적용, 필수 정보 검사와 승인 버전 검증은 결정적 노드가
+담당한다. 질문 순서와 묶음은 제품 프로필이나 UI 완료 표시가 아니라 현재 대화와
+누적 사실을 받은 LLM이 결정한다.
+
+LangGraph 그래프와 SQLite Checkpointer가 같은 `thread_id`의 질문, 보완, 요약과 승인
+상태를 유지한다. 사용자는 자연어로 승인·수정·거절할 수 있으며, 불리언 승인 플래그와
+질문 건너뛰기 생성 경로는 없다. 요약 이후 사실이 바뀌면 기존 승인은 무효화된다.
+
+승인된 그래프 사실은 기존 `story-intake-semantic-state-v2` 경계로 변환된 뒤 입력 근거
+스토리 명세를 만든다. 이 변환 스키마는 실행기 호환용이며 대화 메모리의 기준 저장소가
+아니다.
 
 입력은 메시지당 1,000자 이하, 선택 이미지 1개·10MB 이하·JPG/PNG/WEBP로 제한한다.
 
@@ -103,3 +122,4 @@ Gemini embedding (RETRIEVAL_DOCUMENT / RETRIEVAL_QUERY, 768d)
 - 전송은 FastMCP 권장 Streamable HTTP를 사용하고 SSE 폴백은 구현하지 않았다.
 - 로컬 callback 대체는 polling resource이며 운영 webhook payload를 재현하지 않는다.
 - worker가 보는 도구가 하나라는 사실은 전체 MCP 서버 도구 수에 대한 주장이 아니다.
+- 세션 메모리는 로컬 SQLite Checkpointer를 사용하며 장기 사용자 메모리는 구현하지 않았다.
