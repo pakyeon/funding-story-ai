@@ -27,3 +27,15 @@ def test_streamlit_app_exposes_only_explicit_approval_action() -> None:
     }
     app.run(timeout=20)
     assert "이 요약으로 생성 준비" in [button.label for button in app.button]
+
+
+def test_streamlit_app_keeps_generation_as_a_separate_action() -> None:
+    streamlit_testing = pytest.importorskip("streamlit.testing.v1")
+    app = streamlit_testing.AppTest.from_file(
+        str(Path(__file__).resolve().parents[1] / "streamlit_app.py")
+    ).run(timeout=20)
+    app.session_state["stage"] = "generation-ready"
+    app.run(timeout=20)
+    labels = [button.label for button in app.button]
+    assert "승인된 정보로 생성 실행" in labels
+    assert "이 요약으로 생성 준비" not in labels
