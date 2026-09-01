@@ -9,6 +9,7 @@ from funding_story_ai.engine import (
     review_integrated_story_run,
 )
 from funding_story_ai.image_generation import ImageResult, ImageSettings
+from funding_story_ai.image_pipeline import file_sha256
 from funding_story_ai.media_projection import build_approved_generation_package
 from funding_story_ai.run_store import LocalRunStore
 
@@ -334,6 +335,7 @@ def test_review_integrated_run_renders_publishable_html_after_all_checks_pass(tm
         )
     )
     store.complete(run_id, result)
+    original_manifest_sha = result["images"]["manifest"]["sha256"]
     review = review_integrated_story_run(
         repository=repository,
         store=store,
@@ -356,6 +358,11 @@ def test_review_integrated_run_renders_publishable_html_after_all_checks_pass(tm
     updated = review["run"]
     assert updated["result"]["images"]["qa_pending"] == 0
     assert updated["result"]["publishable_html"]["path"] == "publishable.html"
+    manifest_path = store.root / run_id / "images" / "manifest.json"
+    assert updated["result"]["images"]["manifest"]["sha256"] == file_sha256(
+        manifest_path
+    )
+    assert updated["result"]["images"]["manifest"]["sha256"] != original_manifest_sha
 
 
 def test_review_integrated_run_keeps_warning_story_unpublishable(tmp_path) -> None:

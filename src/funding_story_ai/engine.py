@@ -307,6 +307,7 @@ def review_integrated_story_run(
         publishable_path.unlink()
 
     result = deepcopy(record["result"])
+    result["images"]["manifest"]["sha256"] = file_sha256(manifest_path)
     result["images"]["qa_pending"] = sum(
         asset["qa_status"] == "pending" for asset in manifest["assets"]
     )
