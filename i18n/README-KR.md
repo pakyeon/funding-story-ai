@@ -111,6 +111,21 @@ uv run funding-story submit \
 `StoryGenerationDispatcher`가 만듭니다. 명령은 이 불변 패키지를 제출하고
 `story://runs/{run_id}` 리소스가 완료 또는 실패할 때까지 조회합니다.
 
+### 5. Streamlit 사용자 흐름 실행
+
+공유 가능한 UI는 `feat/streamlit-demo` 브랜치에 분리되어 있습니다. 핵심 패키지와
+FastMCP 서버를 먼저 실행한 뒤 두 번째 터미널에서 다음을 실행합니다.
+
+```bash
+uv sync --locked --group ui
+uv run streamlit run streamlit_app.py
+```
+
+서버와 UI를 서로 다른 worktree에서 실행한다면 두 환경의 `STORY_MCP_RUN_STORE`를
+같은 절대 경로로 지정해야 합니다. UI는 대화 안에서 참조 이미지를 받고, 후속 질문과
+요약 승인 후 별도의 생성 버튼을 제공합니다. 완료된 초안·게시 가능 HTML은 전체 페이지로
+확인하고 원본 산출물을 다운로드할 수 있으며, 이미지 검수 결과도 같은 화면에서 저장합니다.
+
 ## 대화 API
 
 ```python

@@ -117,6 +117,23 @@ The package is produced by `StoryGenerationDispatcher` only after the conversati
 summary is explicitly approved. The command submits that immutable package and polls its
 `story://runs/{run_id}` resource until completion or failure.
 
+### 5. Run the Streamlit demonstration
+
+The shareable UI lives on the `feat/streamlit-demo` branch so the core package remains free of
+Streamlit dependencies. Start the MCP server first, then run the UI in a second terminal:
+
+```bash
+uv sync --locked --group ui
+uv run streamlit run streamlit_app.py
+```
+
+The UI uses the same `STORY_MCP_RUN_STORE` directory as the server. When the server and UI run from
+different worktrees, set that variable to the same absolute path in both environments. The flow
+keeps image upload in the conversation, asks follow-up questions, shows a grounded summary for
+explicit approval, and starts generation only after a separate button press. Completed draft and
+publishable HTML can be viewed in full, downloaded, and image review results can be saved from the
+same screen.
+
 ## Conversational API
 
 ```python

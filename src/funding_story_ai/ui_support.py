@@ -11,7 +11,8 @@ from fastmcp import Client
 
 MAX_UPLOAD_BYTES = 10 * 1024 * 1024
 _ALLOWED_IMAGE_SUFFIXES = {".jpeg", ".jpg", ".png", ".webp"}
-_LOCAL_IMAGE_SOURCE = re.compile(r'src="(images/[A-Za-z0-9_.-]+)"')
+_RUN_ID = re.compile(r"run-[a-f0-9-]+$")
+_LOCAL_IMAGE_SOURCE = re.compile(r'src=["\'](images/[A-Za-z0-9_.-]+)["\']')
 
 
 def save_uploaded_image(*, root: Path, input_id: str, filename: str, content: bytes) -> Path:
@@ -46,60 +47,118 @@ def inline_preview_images(preview_html: str, run_dir: Path) -> str:
     resolved_run = run_dir.resolve()
 
     def replace(match: re.Match[str]) -> str:
-        path = (resolved_run / Path(match.group(1))).resolve()
+        relative = Path(match.group(1))
+        path = (resolved_run / relative).resolve()
         if resolved_run not in path.parents or not path.is_file():
             return match.group(0)
-        return f'src="{_data_url(path)}"'
+        quote = match.group(0)[4]
+        return f"src={quote}{_data_url(path)}{quote}"
 
     return _LOCAL_IMAGE_SOURCE.sub(replace, preview_html)
 
 
-def build_run_resource_payload(store_root: Path, record: dict[str, Any]) -> dict[str, Any]:
-    """Build the UI-safe resource representation at the MCP server boundary."""
-
-    payload = dict(record)
-    if record["status"] != "completed":
-        return payload
-    run_id = str(record["run_id"])
-    if not re.fullmatch(r"run-[a-f0-9-]+", run_id):
+def _run_dir(store_root: Path, run_id: str) -> Path:
+    if not _RUN_ID.fullmatch(run_id):
         raise ValueError("Invalid generated run id")
-    run_dir = store_root.resolve() / run_id
-    result = record.get("result") or {}
-    if not {"story", "images", "preview"}.issubset(result):
-        return payload
+    root = store_root.resolve()
+    run_dir = (root / run_id).resolve()
+    if root not in run_dir.parents:
+        raise ValueError("Run directory escapes the configured artifact root")
+    return run_dir
 
-    def artifact_path(name: str) -> Path:
-        relative = Path(result[name]["path"])
-        path = (run_dir / relative).resolve()
-        if run_dir.resolve() not in path.parents or not path.is_file():
-            raise FileNotFoundError(f"Missing run artifact: {name}")
-        return path
 
-    story = json.loads(artifact_path("story").read_text(encoding="utf-8"))
-    manifest_path = run_dir / result["images"]["manifest"]["path"]
+def _artifact_path(run_dir: Path, relative: str) -> Path:
+    path = (run_dir / Path(relative)).resolve()
+    if run_dir not in path.parents or not path.is_file():
+        raise FileNotFoundError(f"Missing run artifact: {relative}")
+    return path
+
+
+def load_run_artifacts(store_root: Path, record: dict[str, Any]) -> dict[str, Any]:
+    """Load user-facing HTML and source files for a completed MCP run."""
+
+    if record.get("status") != "completed":
+        raise ValueError("Only completed runs have display artifacts")
+    result = record.get("result")
+    if not isinstance(result, dict):
+        raise ValueError("Completed run has no result")
+    run_dir = _run_dir(store_root, str(record["run_id"]))
+    story_path = _artifact_path(run_dir, result["story"]["path"])
+    manifest_path = _artifact_path(run_dir, result["images"]["manifest"]["path"])
+    media_plan_path = _artifact_path(run_dir, result["media_plan"]["path"])
+    draft_path = _artifact_path(run_dir, result["draft_html"]["path"])
+    publishable_info = result.get("publishable_html")
+    publishable_path = (
+        _artifact_path(run_dir, publishable_info["path"])
+        if isinstance(publishable_info, dict)
+        else None
+    )
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-    preview_path = artifact_path("preview")
     image_data = {
-        asset["path"]: _data_url(run_dir / "images" / asset["path"])
+        asset["path"]: _data_url(_artifact_path(run_dir, f"images/{asset['path']}"))
         for asset in manifest["assets"]
         if asset["status"] == "success" and asset.get("path")
     }
-    payload["artifacts"] = {
-        "story": story,
+    source_files = {
+        "story.json": story_path.read_text(encoding="utf-8"),
+        "media-facts.json": _artifact_path(
+            run_dir, result["media_facts"]["path"]
+        ).read_text(encoding="utf-8"),
+        "media-plan.json": media_plan_path.read_text(encoding="utf-8"),
+        "images/manifest.json": manifest_path.read_text(encoding="utf-8"),
+        "draft.html": draft_path.read_text(encoding="utf-8"),
+    }
+    if publishable_path is not None:
+        source_files["publishable.html"] = publishable_path.read_text(encoding="utf-8")
+    return {
+        "run_dir": run_dir,
+        "story": json.loads(story_path.read_text(encoding="utf-8")),
         "manifest": manifest,
-        "preview_html": inline_preview_images(
-            preview_path.read_text(encoding="utf-8"), run_dir
+        "draft_html": inline_preview_images(source_files["draft.html"], run_dir),
+        "publishable_html": (
+            inline_preview_images(source_files["publishable.html"], run_dir)
+            if "publishable.html" in source_files
+            else None
         ),
         "image_data": image_data,
+        "source_files": source_files,
+    }
+
+
+def build_run_resource_payload(store_root: Path, record: dict[str, Any]) -> dict[str, Any]:
+    """Add display-safe artifacts to a completed MCP resource response."""
+
+    payload = dict(record)
+    if record.get("status") != "completed":
+        return payload
+    result = record.get("result")
+    if not isinstance(result, dict) or not {
+        "story",
+        "images",
+        "media_facts",
+        "media_plan",
+        "draft_html",
+    }.issubset(result):
+        return payload
+    artifacts = load_run_artifacts(store_root, record)
+    payload["artifacts"] = {
+        "story": artifacts["story"],
+        "manifest": artifacts["manifest"],
+        "draft_html": artifacts["draft_html"],
+        "publishable_html": artifacts["publishable_html"],
+        "image_data": artifacts["image_data"],
+        "source_files": artifacts["source_files"],
     }
     return payload
 
 
-async def read_run_resource(server_url: str, result_uri: str) -> dict[str, Any]:
-    """Read a run through FastMCP instead of reaching into the server filesystem."""
+async def read_run_resource(server_url: str | Any, result_uri: str) -> dict[str, Any]:
+    """Read a run through FastMCP instead of bypassing the server boundary."""
 
     async with Client(server_url) as client:
         contents = await client.read_resource(result_uri)
+    if not contents or not getattr(contents[0], "text", None):
+        raise ValueError("Run resource returned no JSON content")
     value = json.loads(contents[0].text)
     if not isinstance(value, dict):
         raise ValueError("Run resource must contain a JSON object")

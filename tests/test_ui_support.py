@@ -3,8 +3,8 @@ from pathlib import Path
 import pytest
 
 from funding_story_ai.ui_support import (
-    build_run_resource_payload,
     inline_preview_images,
+    load_run_artifacts,
     save_uploaded_image,
 )
 
@@ -43,21 +43,23 @@ def test_inline_preview_images_embeds_only_run_local_files(tmp_path: Path) -> No
     assert 'src="https://example.com/image.png"' in rendered
 
 
-def test_run_resource_contains_display_artifacts_without_client_filesystem_access(
-    tmp_path: Path,
-) -> None:
+def test_load_run_artifacts_inlines_html_and_exposes_downloads(tmp_path: Path) -> None:
     run_id = "run-abcdef"
     run_dir = tmp_path / run_id
     images = run_dir / "images"
     images.mkdir(parents=True)
-    (run_dir / "story.json").write_text('{"sections": []}', encoding="utf-8")
+    (run_dir / "story.json").write_text(
+        '{"template_id": "t02", "sections": [], "warnings": []}', encoding="utf-8"
+    )
+    (run_dir / "media-facts.json").write_text("{}", encoding="utf-8")
+    (run_dir / "media-plan.json").write_text("{}", encoding="utf-8")
     (images / "hero.jpeg").write_bytes(b"image")
     (images / "manifest.json").write_text(
         '{"assets": [{"section_id": "hero", "status": "success", '
-        '"path": "hero.jpeg"}]}',
+        '"slot_id": "slot-1", "path": "hero.jpeg"}]}',
         encoding="utf-8",
     )
-    (run_dir / "preview.html").write_text(
+    (run_dir / "draft.html").write_text(
         '<img src="images/hero.jpeg">', encoding="utf-8"
     )
     record = {
@@ -65,13 +67,23 @@ def test_run_resource_contains_display_artifacts_without_client_filesystem_acces
         "status": "completed",
         "result": {
             "story": {"path": "story.json"},
-            "preview": {"path": "preview.html"},
+            "media_facts": {"path": "media-facts.json"},
+            "media_plan": {"path": "media-plan.json"},
+            "draft_html": {"path": "draft.html"},
+            "publishable_html": None,
             "images": {"manifest": {"path": "images/manifest.json"}},
         },
     }
-    payload = build_run_resource_payload(tmp_path, record)
-    assert payload["artifacts"]["story"] == {"sections": []}
-    assert 'src="data:image/jpeg;base64,aW1hZ2U="' in payload["artifacts"]["preview_html"]
-    assert payload["artifacts"]["image_data"]["hero.jpeg"].startswith(
+    payload = load_run_artifacts(tmp_path, record)
+    assert payload["story"] == {"template_id": "t02", "sections": [], "warnings": []}
+    assert 'src="data:image/jpeg;base64,aW1hZ2U="' in payload["draft_html"]
+    assert payload["image_data"]["hero.jpeg"].startswith(
         "data:image/jpeg;base64,"
     )
+    assert set(payload["source_files"]) == {
+        "story.json",
+        "media-facts.json",
+        "media-plan.json",
+        "images/manifest.json",
+        "draft.html",
+    }

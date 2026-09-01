@@ -22,5 +22,8 @@ def test_streamlit_app_exposes_only_explicit_approval_action() -> None:
     assert "남은 질문을 건너뛰고 생성" not in [button.label for button in app.button]
 
     app.session_state["stage"] = "awaiting-approval"
+    app.session_state["summary"] = {
+        "summary_text": "테스트 요약",
+    }
     app.run(timeout=20)
-    assert "이 정보로 스토리 생성" in [button.label for button in app.button]
+    assert "이 요약으로 생성 준비" in [button.label for button in app.button]
