@@ -8,21 +8,17 @@ from pathlib import Path
 
 from fastmcp import Client
 
-from .data_repository import DataRepository
-
 
 async def _run(args: argparse.Namespace) -> None:
-    repository = DataRepository()
-    brief = repository.load_brief_path(args.brief_path)
+    generation_package = json.loads(
+        args.generation_package.read_text(encoding="utf-8")
+    )
     arguments = {
         "request": {
             "caller_id": args.caller_id,
             "idempotency_key": args.idempotency_key or str(uuid.uuid4()),
-            "brief": brief,
+            "generation_package": generation_package,
             "template_id": args.template,
-            "reference_image_path": (
-                str(args.reference_image) if args.reference_image else None
-            ),
         }
     }
     async with Client(args.server_url) as client:
@@ -45,11 +41,10 @@ async def _run(args: argparse.Namespace) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="Submit a structured brief to the local FastMCP server"
+        description="Submit an approved generation package to the local FastMCP server"
     )
     parser.add_argument("--server-url", default="http://127.0.0.1:8765/mcp")
-    parser.add_argument("--brief-path", type=Path, required=True)
-    parser.add_argument("--reference-image", type=Path)
+    parser.add_argument("--generation-package", type=Path, required=True)
     parser.add_argument("--caller-id", default="local-cli")
     parser.add_argument("--idempotency-key")
     parser.add_argument("--template")

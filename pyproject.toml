@@ -14,16 +14,17 @@ dependencies = [
   "jsonschema>=4.23,<5",
   "langgraph>=1.2.11",
   "langgraph-checkpoint-sqlite>=3.1,<4",
-  "openai>=2,<3",
   "pydantic>=2.10,<3",
   "python-dotenv>=1.0,<2",
 ]
 
 [dependency-groups]
 dev = [
+  "mypy>=1.13,<2",
   "pytest>=8.3,<9",
   "pytest-cov>=6,<7",
   "ruff>=0.9,<1",
+  "types-jsonschema>=4.23,<5",
 ]
 ui = [
   "streamlit>=1.40,<2",

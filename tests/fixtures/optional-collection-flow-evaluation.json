@@ -1,0 +1,269 @@
+{
+  "schema_version": "optional-collection-flow-evaluation-v1",
+  "scenarios": [
+    {
+      "id": "partial-group-skip-approve",
+      "turns": [
+        {
+          "message": "바로 만들어줘",
+          "understanding": {
+            "intent": "request_generation",
+            "fact_patches": [
+              {"field": "product_name", "operation": "replace", "values": ["OrbitClean V3"]},
+              {"field": "product_type", "operation": "replace", "values": ["로봇청소기"]},
+              {"field": "category", "operation": "replace", "values": ["테크·가전"]}
+            ]
+          },
+          "expected_stage": "collecting",
+          "expected_phase": "required",
+          "expected_missing": ["key_strengths", "target_supporters"],
+          "generation_ready": false
+        },
+        {
+          "message": "얇은 본체가 강점이고 가구 아래 청소가 필요한 사람이 타깃이야",
+          "understanding": {
+            "intent": "provide_information",
+            "fact_patches": [
+              {"field": "key_strengths", "operation": "replace", "values": ["얇은 본체"]},
+              {"field": "target_supporters", "operation": "replace", "values": ["가구 아래 청소가 필요한 사용자"]}
+            ]
+          },
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer",
+          "expected_missing": [],
+          "generation_ready": false
+        },
+        {
+          "message": "스토리 설득 정보부터 입력할게",
+          "understanding": {
+            "intent": "provide_information",
+            "collection_directive": {
+              "action": "select_groups",
+              "groups": ["story_persuasion"]
+            }
+          },
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect",
+          "expected_missing": [],
+          "expected_group": "story_persuasion",
+          "generation_ready": false
+        },
+        {
+          "message": "반복 청소를 줄이고 KTL 시험 성적서가 있으며 팀 소개는 없어",
+          "understanding": {
+            "intent": "provide_information",
+            "fact_patches": [
+              {"field": "problem_context", "operation": "replace", "values": ["가구 아래 반복 청소"]},
+              {"field": "trust_elements", "operation": "replace", "values": ["KTL 시험 성적서"]},
+              {"field": "maker_team_intro", "operation": "mark_absent", "values": []}
+            ]
+          },
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer",
+          "expected_missing": [],
+          "generation_ready": false
+        },
+        {
+          "message": "나머지 선택 정보는 모두 생략할게",
+          "understanding": {
+            "intent": "request_generation",
+            "collection_directive": {"action": "skip_all_optional"}
+          },
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval",
+          "expected_missing": [],
+          "expected_summary_version": 1,
+          "generation_ready": false
+        },
+        {
+          "message": "요약한 내용 그대로 생성해줘",
+          "approval_decision": {"decision": "approve", "reason": "명시적 생성 승인"},
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready",
+          "expected_missing": [],
+          "expected_summary_version": 1,
+          "generation_ready": true
+        }
+      ]
+    },
+    {
+      "id": "all-fields-direct-summary",
+      "turns": [
+        {
+          "message": "16개 정보를 모두 입력할게",
+          "understanding": {
+            "intent": "provide_information",
+            "fact_patches": [
+              {"field": "product_name", "operation": "replace", "values": ["Full R1"]},
+              {"field": "product_type", "operation": "replace", "values": ["로봇청소기"]},
+              {"field": "category", "operation": "replace", "values": ["테크·가전"]},
+              {"field": "key_strengths", "operation": "replace", "values": ["저소음"]},
+              {"field": "target_supporters", "operation": "replace", "values": ["영유아 가구"]},
+              {"field": "problem_context", "operation": "replace", "values": ["야간 청소 소음"]},
+              {"field": "trust_elements", "operation": "replace", "values": ["소음 시험 성적서"]},
+              {"field": "maker_team_intro", "operation": "replace", "values": ["가전 개발 8년 팀"]},
+              {"field": "rewards", "operation": "replace", "values": ["본품 1개"]},
+              {"field": "funding_end", "operation": "replace", "values": ["2026-09-30"]},
+              {"field": "shipping_start", "operation": "replace", "values": ["2026-10-15"]},
+              {"field": "refund_policy", "operation": "replace", "values": ["수령 후 7일"]},
+              {"field": "as_policy", "operation": "replace", "values": ["1년 보증"]},
+              {"field": "funding_plan", "operation": "replace", "values": ["초도 생산"]},
+              {"field": "platform_choice", "operation": "replace", "values": ["초기 사용자 검증"]},
+              {"field": "risk_response", "operation": "replace", "values": ["예비 생산처 확보"]}
+            ]
+          },
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval",
+          "expected_missing": [],
+          "expected_summary_version": 1,
+          "generation_ready": false
+        },
+        {
+          "message": "네",
+          "approval_decision": {"decision": "ambiguous", "reason": "승인 대상 불명확"},
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval",
+          "expected_missing": [],
+          "expected_summary_version": 1,
+          "generation_ready": false
+        },
+        {
+          "message": "현재 요약 그대로 생성해줘",
+          "approval_decision": {"decision": "approve", "reason": "명시적 생성 승인"},
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready",
+          "expected_missing": [],
+          "expected_summary_version": 1,
+          "generation_ready": true
+        }
+      ]
+    },
+    {
+      "id": "skip-then-revise",
+      "turns": [
+        {
+          "message": "필수 정보만 입력할게",
+          "understanding": {
+            "intent": "provide_information",
+            "fact_patches": [
+              {"field": "product_name", "operation": "replace", "values": ["Revise R1"]},
+              {"field": "product_type", "operation": "replace", "values": ["로봇청소기"]},
+              {"field": "category", "operation": "replace", "values": ["테크·가전"]},
+              {"field": "key_strengths", "operation": "replace", "values": ["얇은 본체"]},
+              {"field": "target_supporters", "operation": "replace", "values": ["맞벌이 가구"]}
+            ]
+          },
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer",
+          "expected_missing": [],
+          "generation_ready": false
+        },
+        {
+          "message": "선택 정보는 전부 생략할게",
+          "understanding": {
+            "intent": "request_generation",
+            "collection_directive": {"action": "skip_all_optional"}
+          },
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval",
+          "expected_missing": [],
+          "expected_summary_version": 1,
+          "generation_ready": false
+        },
+        {
+          "message": "리워드는 본품 얼리버드 1개로 추가할게",
+          "approval_decision": {"decision": "revise", "reason": "사실 추가"},
+          "understanding": {
+            "intent": "revise_information",
+            "fact_patches": [
+              {"field": "rewards", "operation": "replace", "values": ["본품 얼리버드 1개"]}
+            ]
+          },
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval",
+          "expected_missing": [],
+          "expected_summary_version": 2,
+          "expected_facts": {"rewards": ["본품 얼리버드 1개"]},
+          "generation_ready": false
+        },
+        {
+          "message": "수정된 요약으로 생성해줘",
+          "approval_decision": {"decision": "approve", "reason": "명시적 생성 승인"},
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready",
+          "expected_missing": [],
+          "expected_summary_version": 2,
+          "generation_ready": true
+        }
+      ]
+    },
+    {
+      "id": "ambiguous-skip-reject",
+      "turns": [
+        {
+          "message": "기본 제품 정보를 입력할게",
+          "understanding": {
+            "intent": "provide_information",
+            "fact_patches": [
+              {"field": "product_name", "operation": "replace", "values": ["Safe R1"]},
+              {"field": "product_type", "operation": "replace", "values": ["로봇청소기"]},
+              {"field": "category", "operation": "replace", "values": ["테크·가전"]},
+              {"field": "key_strengths", "operation": "replace", "values": ["저소음"]},
+              {"field": "target_supporters", "operation": "replace", "values": ["소음에 민감한 가구"]}
+            ]
+          },
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer",
+          "expected_missing": [],
+          "generation_ready": false
+        },
+        {
+          "message": "그냥 해줘",
+          "understanding": {
+            "intent": "request_generation",
+            "collection_directive": {
+              "action": "none",
+              "fields": ["rewards"],
+              "requires_clarification": true,
+              "clarification_question": "리워드를 생략한다는 뜻인지 알려주세요."
+            }
+          },
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer",
+          "expected_missing": [],
+          "generation_ready": false
+        },
+        {
+          "message": "남은 선택 정보 전체를 생략할게",
+          "understanding": {
+            "intent": "request_generation",
+            "collection_directive": {"action": "skip_all_optional"}
+          },
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval",
+          "expected_missing": [],
+          "expected_summary_version": 1,
+          "generation_ready": false
+        },
+        {
+          "message": "생성하지 않을게",
+          "approval_decision": {"decision": "reject", "reason": "명시적 거절"},
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer",
+          "expected_missing": [],
+          "expected_summary_version": 1,
+          "generation_ready": false
+        },
+        {
+          "message": "세션을 종료해줘",
+          "understanding": {"intent": "cancel"},
+          "expected_stage": "cancelled",
+          "expected_phase": "closed",
+          "expected_missing": [],
+          "expected_summary_version": 1,
+          "generation_ready": false
+        }
+      ]
+    }
+  ]
+}

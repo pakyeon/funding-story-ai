@@ -1,0 +1,805 @@
+{
+  "schema_version": "story-worker-approval-evaluation-v1",
+  "cases": [
+    {
+      "id": "approval-001",
+      "message": "네, 이 요약 그대로 스토리를 생성해 주세요.",
+      "expected_decision": "approve",
+      "tags": [
+        "approve"
+      ]
+    },
+    {
+      "id": "approval-002",
+      "message": "확인했습니다. 현재 내용으로 생성을 시작해.",
+      "expected_decision": "approve",
+      "tags": [
+        "approve"
+      ]
+    },
+    {
+      "id": "approval-003",
+      "message": "수정 없이 이 내용으로 스토리 작성 진행을 승인합니다.",
+      "expected_decision": "approve",
+      "tags": [
+        "approve"
+      ]
+    },
+    {
+      "id": "approval-004",
+      "message": "요약 내용이 맞으니 그대로 생성해줘.",
+      "expected_decision": "approve",
+      "tags": [
+        "approve"
+      ]
+    },
+    {
+      "id": "approval-005",
+      "message": "지금 확정된 정보로 스토리를 만들어 주세요.",
+      "expected_decision": "approve",
+      "tags": [
+        "approve"
+      ]
+    },
+    {
+      "id": "approval-006",
+      "message": "네, 이 요약 그대로 스토리를 생성해 주세요. (2번째 확인)",
+      "expected_decision": "approve",
+      "tags": [
+        "approve"
+      ]
+    },
+    {
+      "id": "approval-007",
+      "message": "확인했습니다. 현재 내용으로 생성을 시작해. (2번째 확인)",
+      "expected_decision": "approve",
+      "tags": [
+        "approve"
+      ]
+    },
+    {
+      "id": "approval-008",
+      "message": "수정 없이 이 내용으로 스토리 작성 진행을 승인합니다. (2번째 확인)",
+      "expected_decision": "approve",
+      "tags": [
+        "approve"
+      ]
+    },
+    {
+      "id": "approval-009",
+      "message": "요약 내용이 맞으니 그대로 생성해줘. (2번째 확인)",
+      "expected_decision": "approve",
+      "tags": [
+        "approve"
+      ]
+    },
+    {
+      "id": "approval-010",
+      "message": "지금 확정된 정보로 스토리를 만들어 주세요. (2번째 확인)",
+      "expected_decision": "approve",
+      "tags": [
+        "approve"
+      ]
+    },
+    {
+      "id": "approval-011",
+      "message": "네, 이 요약 그대로 스토리를 생성해 주세요. (3번째 확인)",
+      "expected_decision": "approve",
+      "tags": [
+        "approve"
+      ]
+    },
+    {
+      "id": "approval-012",
+      "message": "확인했습니다. 현재 내용으로 생성을 시작해. (3번째 확인)",
+      "expected_decision": "approve",
+      "tags": [
+        "approve"
+      ]
+    },
+    {
+      "id": "approval-013",
+      "message": "수정 없이 이 내용으로 스토리 작성 진행을 승인합니다. (3번째 확인)",
+      "expected_decision": "approve",
+      "tags": [
+        "approve"
+      ]
+    },
+    {
+      "id": "approval-014",
+      "message": "요약 내용이 맞으니 그대로 생성해줘. (3번째 확인)",
+      "expected_decision": "approve",
+      "tags": [
+        "approve"
+      ]
+    },
+    {
+      "id": "approval-015",
+      "message": "지금 확정된 정보로 스토리를 만들어 주세요. (3번째 확인)",
+      "expected_decision": "approve",
+      "tags": [
+        "approve"
+      ]
+    },
+    {
+      "id": "approval-016",
+      "message": "네, 이 요약 그대로 스토리를 생성해 주세요. (4번째 확인)",
+      "expected_decision": "approve",
+      "tags": [
+        "approve"
+      ]
+    },
+    {
+      "id": "approval-017",
+      "message": "확인했습니다. 현재 내용으로 생성을 시작해. (4번째 확인)",
+      "expected_decision": "approve",
+      "tags": [
+        "approve"
+      ]
+    },
+    {
+      "id": "approval-018",
+      "message": "수정 없이 이 내용으로 스토리 작성 진행을 승인합니다. (4번째 확인)",
+      "expected_decision": "approve",
+      "tags": [
+        "approve"
+      ]
+    },
+    {
+      "id": "approval-019",
+      "message": "요약 내용이 맞으니 그대로 생성해줘. (4번째 확인)",
+      "expected_decision": "approve",
+      "tags": [
+        "approve"
+      ]
+    },
+    {
+      "id": "approval-020",
+      "message": "지금 확정된 정보로 스토리를 만들어 주세요. (4번째 확인)",
+      "expected_decision": "approve",
+      "tags": [
+        "approve"
+      ]
+    },
+    {
+      "id": "approval-021",
+      "message": "네, 이 요약 그대로 스토리를 생성해 주세요. (5번째 확인)",
+      "expected_decision": "approve",
+      "tags": [
+        "approve"
+      ]
+    },
+    {
+      "id": "approval-022",
+      "message": "확인했습니다. 현재 내용으로 생성을 시작해. (5번째 확인)",
+      "expected_decision": "approve",
+      "tags": [
+        "approve"
+      ]
+    },
+    {
+      "id": "approval-023",
+      "message": "수정 없이 이 내용으로 스토리 작성 진행을 승인합니다. (5번째 확인)",
+      "expected_decision": "approve",
+      "tags": [
+        "approve"
+      ]
+    },
+    {
+      "id": "approval-024",
+      "message": "요약 내용이 맞으니 그대로 생성해줘. (5번째 확인)",
+      "expected_decision": "approve",
+      "tags": [
+        "approve"
+      ]
+    },
+    {
+      "id": "approval-025",
+      "message": "지금 확정된 정보로 스토리를 만들어 주세요. (5번째 확인)",
+      "expected_decision": "approve",
+      "tags": [
+        "approve"
+      ]
+    },
+    {
+      "id": "approval-026",
+      "message": "타깃을 1인 가구로 바꾼 뒤 다시 보여줘.",
+      "expected_decision": "revise",
+      "tags": [
+        "revise"
+      ]
+    },
+    {
+      "id": "approval-027",
+      "message": "핵심 강점에 저소음 기능을 추가할게.",
+      "expected_decision": "revise",
+      "tags": [
+        "revise"
+      ]
+    },
+    {
+      "id": "approval-028",
+      "message": "제품명은 오빗클린 V4로 수정해줘.",
+      "expected_decision": "revise",
+      "tags": [
+        "revise"
+      ]
+    },
+    {
+      "id": "approval-029",
+      "message": "리워드 가격을 45만 원으로 바꾸겠습니다.",
+      "expected_decision": "revise",
+      "tags": [
+        "revise"
+      ]
+    },
+    {
+      "id": "approval-030",
+      "message": "발송 일정은 미정으로 되돌려줘.",
+      "expected_decision": "revise",
+      "tags": [
+        "revise"
+      ]
+    },
+    {
+      "id": "approval-031",
+      "message": "타깃을 1인 가구로 바꾼 뒤 다시 보여줘. (2번째 확인)",
+      "expected_decision": "revise",
+      "tags": [
+        "revise"
+      ]
+    },
+    {
+      "id": "approval-032",
+      "message": "핵심 강점에 저소음 기능을 추가할게. (2번째 확인)",
+      "expected_decision": "revise",
+      "tags": [
+        "revise"
+      ]
+    },
+    {
+      "id": "approval-033",
+      "message": "제품명은 오빗클린 V4로 수정해줘. (2번째 확인)",
+      "expected_decision": "revise",
+      "tags": [
+        "revise"
+      ]
+    },
+    {
+      "id": "approval-034",
+      "message": "리워드 가격을 45만 원으로 바꾸겠습니다. (2번째 확인)",
+      "expected_decision": "revise",
+      "tags": [
+        "revise"
+      ]
+    },
+    {
+      "id": "approval-035",
+      "message": "발송 일정은 미정으로 되돌려줘. (2번째 확인)",
+      "expected_decision": "revise",
+      "tags": [
+        "revise"
+      ]
+    },
+    {
+      "id": "approval-036",
+      "message": "타깃을 1인 가구로 바꾼 뒤 다시 보여줘. (3번째 확인)",
+      "expected_decision": "revise",
+      "tags": [
+        "revise"
+      ]
+    },
+    {
+      "id": "approval-037",
+      "message": "핵심 강점에 저소음 기능을 추가할게. (3번째 확인)",
+      "expected_decision": "revise",
+      "tags": [
+        "revise"
+      ]
+    },
+    {
+      "id": "approval-038",
+      "message": "제품명은 오빗클린 V4로 수정해줘. (3번째 확인)",
+      "expected_decision": "revise",
+      "tags": [
+        "revise"
+      ]
+    },
+    {
+      "id": "approval-039",
+      "message": "리워드 가격을 45만 원으로 바꾸겠습니다. (3번째 확인)",
+      "expected_decision": "revise",
+      "tags": [
+        "revise"
+      ]
+    },
+    {
+      "id": "approval-040",
+      "message": "발송 일정은 미정으로 되돌려줘. (3번째 확인)",
+      "expected_decision": "revise",
+      "tags": [
+        "revise"
+      ]
+    },
+    {
+      "id": "approval-041",
+      "message": "타깃을 1인 가구로 바꾼 뒤 다시 보여줘. (4번째 확인)",
+      "expected_decision": "revise",
+      "tags": [
+        "revise"
+      ]
+    },
+    {
+      "id": "approval-042",
+      "message": "핵심 강점에 저소음 기능을 추가할게. (4번째 확인)",
+      "expected_decision": "revise",
+      "tags": [
+        "revise"
+      ]
+    },
+    {
+      "id": "approval-043",
+      "message": "제품명은 오빗클린 V4로 수정해줘. (4번째 확인)",
+      "expected_decision": "revise",
+      "tags": [
+        "revise"
+      ]
+    },
+    {
+      "id": "approval-044",
+      "message": "리워드 가격을 45만 원으로 바꾸겠습니다. (4번째 확인)",
+      "expected_decision": "revise",
+      "tags": [
+        "revise"
+      ]
+    },
+    {
+      "id": "approval-045",
+      "message": "발송 일정은 미정으로 되돌려줘. (4번째 확인)",
+      "expected_decision": "revise",
+      "tags": [
+        "revise"
+      ]
+    },
+    {
+      "id": "approval-046",
+      "message": "타깃을 1인 가구로 바꾼 뒤 다시 보여줘. (5번째 확인)",
+      "expected_decision": "revise",
+      "tags": [
+        "revise"
+      ]
+    },
+    {
+      "id": "approval-047",
+      "message": "핵심 강점에 저소음 기능을 추가할게. (5번째 확인)",
+      "expected_decision": "revise",
+      "tags": [
+        "revise"
+      ]
+    },
+    {
+      "id": "approval-048",
+      "message": "제품명은 오빗클린 V4로 수정해줘. (5번째 확인)",
+      "expected_decision": "revise",
+      "tags": [
+        "revise"
+      ]
+    },
+    {
+      "id": "approval-049",
+      "message": "리워드 가격을 45만 원으로 바꾸겠습니다. (5번째 확인)",
+      "expected_decision": "revise",
+      "tags": [
+        "revise"
+      ]
+    },
+    {
+      "id": "approval-050",
+      "message": "발송 일정은 미정으로 되돌려줘. (5번째 확인)",
+      "expected_decision": "revise",
+      "tags": [
+        "revise"
+      ]
+    },
+    {
+      "id": "approval-051",
+      "message": "스토리를 생성하지 않을게.",
+      "expected_decision": "reject",
+      "tags": [
+        "reject"
+      ]
+    },
+    {
+      "id": "approval-052",
+      "message": "이번 작성은 여기서 취소해줘.",
+      "expected_decision": "reject",
+      "tags": [
+        "reject"
+      ]
+    },
+    {
+      "id": "approval-053",
+      "message": "생성하지 말고 종료하겠습니다.",
+      "expected_decision": "reject",
+      "tags": [
+        "reject"
+      ]
+    },
+    {
+      "id": "approval-054",
+      "message": "이 프로젝트의 스토리 작성은 중단해.",
+      "expected_decision": "reject",
+      "tags": [
+        "reject"
+      ]
+    },
+    {
+      "id": "approval-055",
+      "message": "승인하지 않습니다. 만들지 마세요.",
+      "expected_decision": "reject",
+      "tags": [
+        "reject"
+      ]
+    },
+    {
+      "id": "approval-056",
+      "message": "스토리를 생성하지 않을게. (2번째 확인)",
+      "expected_decision": "reject",
+      "tags": [
+        "reject"
+      ]
+    },
+    {
+      "id": "approval-057",
+      "message": "이번 작성은 여기서 취소해줘. (2번째 확인)",
+      "expected_decision": "reject",
+      "tags": [
+        "reject"
+      ]
+    },
+    {
+      "id": "approval-058",
+      "message": "생성하지 말고 종료하겠습니다. (2번째 확인)",
+      "expected_decision": "reject",
+      "tags": [
+        "reject"
+      ]
+    },
+    {
+      "id": "approval-059",
+      "message": "이 프로젝트의 스토리 작성은 중단해. (2번째 확인)",
+      "expected_decision": "reject",
+      "tags": [
+        "reject"
+      ]
+    },
+    {
+      "id": "approval-060",
+      "message": "승인하지 않습니다. 만들지 마세요. (2번째 확인)",
+      "expected_decision": "reject",
+      "tags": [
+        "reject"
+      ]
+    },
+    {
+      "id": "approval-061",
+      "message": "스토리를 생성하지 않을게. (3번째 확인)",
+      "expected_decision": "reject",
+      "tags": [
+        "reject"
+      ]
+    },
+    {
+      "id": "approval-062",
+      "message": "이번 작성은 여기서 취소해줘. (3번째 확인)",
+      "expected_decision": "reject",
+      "tags": [
+        "reject"
+      ]
+    },
+    {
+      "id": "approval-063",
+      "message": "생성하지 말고 종료하겠습니다. (3번째 확인)",
+      "expected_decision": "reject",
+      "tags": [
+        "reject"
+      ]
+    },
+    {
+      "id": "approval-064",
+      "message": "이 프로젝트의 스토리 작성은 중단해. (3번째 확인)",
+      "expected_decision": "reject",
+      "tags": [
+        "reject"
+      ]
+    },
+    {
+      "id": "approval-065",
+      "message": "승인하지 않습니다. 만들지 마세요. (3번째 확인)",
+      "expected_decision": "reject",
+      "tags": [
+        "reject"
+      ]
+    },
+    {
+      "id": "approval-066",
+      "message": "스토리를 생성하지 않을게. (4번째 확인)",
+      "expected_decision": "reject",
+      "tags": [
+        "reject"
+      ]
+    },
+    {
+      "id": "approval-067",
+      "message": "이번 작성은 여기서 취소해줘. (4번째 확인)",
+      "expected_decision": "reject",
+      "tags": [
+        "reject"
+      ]
+    },
+    {
+      "id": "approval-068",
+      "message": "생성하지 말고 종료하겠습니다. (4번째 확인)",
+      "expected_decision": "reject",
+      "tags": [
+        "reject"
+      ]
+    },
+    {
+      "id": "approval-069",
+      "message": "이 프로젝트의 스토리 작성은 중단해. (4번째 확인)",
+      "expected_decision": "reject",
+      "tags": [
+        "reject"
+      ]
+    },
+    {
+      "id": "approval-070",
+      "message": "승인하지 않습니다. 만들지 마세요. (4번째 확인)",
+      "expected_decision": "reject",
+      "tags": [
+        "reject"
+      ]
+    },
+    {
+      "id": "approval-071",
+      "message": "스토리를 생성하지 않을게. (5번째 확인)",
+      "expected_decision": "reject",
+      "tags": [
+        "reject"
+      ]
+    },
+    {
+      "id": "approval-072",
+      "message": "이번 작성은 여기서 취소해줘. (5번째 확인)",
+      "expected_decision": "reject",
+      "tags": [
+        "reject"
+      ]
+    },
+    {
+      "id": "approval-073",
+      "message": "생성하지 말고 종료하겠습니다. (5번째 확인)",
+      "expected_decision": "reject",
+      "tags": [
+        "reject"
+      ]
+    },
+    {
+      "id": "approval-074",
+      "message": "이 프로젝트의 스토리 작성은 중단해. (5번째 확인)",
+      "expected_decision": "reject",
+      "tags": [
+        "reject"
+      ]
+    },
+    {
+      "id": "approval-075",
+      "message": "승인하지 않습니다. 만들지 마세요. (5번째 확인)",
+      "expected_decision": "reject",
+      "tags": [
+        "reject"
+      ]
+    },
+    {
+      "id": "approval-076",
+      "message": "괜찮은 것 같아.",
+      "expected_decision": "ambiguous",
+      "tags": [
+        "ambiguous"
+      ]
+    },
+    {
+      "id": "approval-077",
+      "message": "이대로 해도 될까?",
+      "expected_decision": "ambiguous",
+      "tags": [
+        "ambiguous"
+      ]
+    },
+    {
+      "id": "approval-078",
+      "message": "조금 고민해볼게.",
+      "expected_decision": "ambiguous",
+      "tags": [
+        "ambiguous"
+      ]
+    },
+    {
+      "id": "approval-079",
+      "message": "필수 정보는 다 들어갔어?",
+      "expected_decision": "ambiguous",
+      "tags": [
+        "ambiguous"
+      ]
+    },
+    {
+      "id": "approval-080",
+      "message": "가능하면 이 방향으로 가자.",
+      "expected_decision": "ambiguous",
+      "tags": [
+        "ambiguous"
+      ]
+    },
+    {
+      "id": "approval-081",
+      "message": "괜찮은 것 같아. (2번째 확인)",
+      "expected_decision": "ambiguous",
+      "tags": [
+        "ambiguous"
+      ]
+    },
+    {
+      "id": "approval-082",
+      "message": "이대로 해도 될까? (2번째 확인)",
+      "expected_decision": "ambiguous",
+      "tags": [
+        "ambiguous"
+      ]
+    },
+    {
+      "id": "approval-083",
+      "message": "조금 고민해볼게. (2번째 확인)",
+      "expected_decision": "ambiguous",
+      "tags": [
+        "ambiguous"
+      ]
+    },
+    {
+      "id": "approval-084",
+      "message": "필수 정보는 다 들어갔어? (2번째 확인)",
+      "expected_decision": "ambiguous",
+      "tags": [
+        "ambiguous"
+      ]
+    },
+    {
+      "id": "approval-085",
+      "message": "가능하면 이 방향으로 가자. (2번째 확인)",
+      "expected_decision": "ambiguous",
+      "tags": [
+        "ambiguous"
+      ]
+    },
+    {
+      "id": "approval-086",
+      "message": "괜찮은 것 같아. (3번째 확인)",
+      "expected_decision": "ambiguous",
+      "tags": [
+        "ambiguous"
+      ]
+    },
+    {
+      "id": "approval-087",
+      "message": "이대로 해도 될까? (3번째 확인)",
+      "expected_decision": "ambiguous",
+      "tags": [
+        "ambiguous"
+      ]
+    },
+    {
+      "id": "approval-088",
+      "message": "조금 고민해볼게. (3번째 확인)",
+      "expected_decision": "ambiguous",
+      "tags": [
+        "ambiguous"
+      ]
+    },
+    {
+      "id": "approval-089",
+      "message": "필수 정보는 다 들어갔어? (3번째 확인)",
+      "expected_decision": "ambiguous",
+      "tags": [
+        "ambiguous"
+      ]
+    },
+    {
+      "id": "approval-090",
+      "message": "가능하면 이 방향으로 가자. (3번째 확인)",
+      "expected_decision": "ambiguous",
+      "tags": [
+        "ambiguous"
+      ]
+    },
+    {
+      "id": "approval-091",
+      "message": "괜찮은 것 같아. (4번째 확인)",
+      "expected_decision": "ambiguous",
+      "tags": [
+        "ambiguous"
+      ]
+    },
+    {
+      "id": "approval-092",
+      "message": "이대로 해도 될까? (4번째 확인)",
+      "expected_decision": "ambiguous",
+      "tags": [
+        "ambiguous"
+      ]
+    },
+    {
+      "id": "approval-093",
+      "message": "조금 고민해볼게. (4번째 확인)",
+      "expected_decision": "ambiguous",
+      "tags": [
+        "ambiguous"
+      ]
+    },
+    {
+      "id": "approval-094",
+      "message": "필수 정보는 다 들어갔어? (4번째 확인)",
+      "expected_decision": "ambiguous",
+      "tags": [
+        "ambiguous"
+      ]
+    },
+    {
+      "id": "approval-095",
+      "message": "가능하면 이 방향으로 가자. (4번째 확인)",
+      "expected_decision": "ambiguous",
+      "tags": [
+        "ambiguous"
+      ]
+    },
+    {
+      "id": "approval-096",
+      "message": "괜찮은 것 같아. (5번째 확인)",
+      "expected_decision": "ambiguous",
+      "tags": [
+        "ambiguous"
+      ]
+    },
+    {
+      "id": "approval-097",
+      "message": "이대로 해도 될까? (5번째 확인)",
+      "expected_decision": "ambiguous",
+      "tags": [
+        "ambiguous"
+      ]
+    },
+    {
+      "id": "approval-098",
+      "message": "조금 고민해볼게. (5번째 확인)",
+      "expected_decision": "ambiguous",
+      "tags": [
+        "ambiguous"
+      ]
+    },
+    {
+      "id": "approval-099",
+      "message": "필수 정보는 다 들어갔어? (5번째 확인)",
+      "expected_decision": "ambiguous",
+      "tags": [
+        "ambiguous"
+      ]
+    },
+    {
+      "id": "approval-100",
+      "message": "가능하면 이 방향으로 가자. (5번째 확인)",
+      "expected_decision": "ambiguous",
+      "tags": [
+        "ambiguous"
+      ]
+    }
+  ]
+}

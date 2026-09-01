@@ -8,6 +8,7 @@ from fastmcp import Client
 from funding_story_ai.data_repository import DataRepository
 from funding_story_ai.engine import StoryExecutionInput
 from funding_story_ai.mcp_server import StoryMakerService, build_story_mcp_server
+from funding_story_ai.media_projection import build_approved_generation_package
 from funding_story_ai.run_store import LocalRunStore
 
 
@@ -26,15 +27,37 @@ class _Executor:
         }
 
 
+def _generation_package(repository: DataRepository) -> dict[str, Any]:
+    return build_approved_generation_package(
+        repository=repository,
+        input_id="mcp-test",
+        thread_id="mcp-thread",
+        state={
+            "workflow_stage": "generation-ready",
+            "summary_version": 1,
+            "approved_summary_version": 1,
+            "facts_revision": 1,
+            "collection_revision": 1,
+            "facts": {},
+        },
+        brief=repository.load_brief(),
+    )
+
+
 def test_mcp_contract_task_resource_and_idempotency(tmp_path) -> None:
+    repository = DataRepository()
     executor = _Executor()
-    service = StoryMakerService(executor=executor, store=LocalRunStore(tmp_path / "runs"))
+    service = StoryMakerService(
+        executor=executor,
+        store=LocalRunStore(tmp_path / "runs"),
+        repository=repository,
+    )
     server = build_story_mcp_server(service=service)
     arguments = {
         "request": {
             "caller_id": "worker-one",
             "idempotency_key": "idempotency-one",
-            "brief": DataRepository().load_brief(),
+            "generation_package": _generation_package(repository),
             "template_id": "t02_problem_solution_automation",
         }
     }

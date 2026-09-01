@@ -13,4 +13,5 @@ build/
 reports/*.jsonl
 artifacts/
 internal/
+evals/results/
 docs/research/poc-logic-distillation-summary.md

@@ -1,0 +1,287 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://funding-story-ai.local/evals/robot-vacuum-media-planning-case-v1.schema.json",
+  "title": "Robot Vacuum Media Planning Evaluation Case v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "case_id",
+    "case_kind",
+    "variant",
+    "template_id",
+    "input",
+    "expected",
+    "tags",
+    "notes"
+  ],
+  "$defs": {
+    "capability_group": {
+      "enum": [
+        "product_identity_outcome",
+        "problem_environment",
+        "cleaning_mechanism",
+        "mobility_coverage",
+        "automation_return",
+        "control_personalization",
+        "evidence_performance",
+        "configuration_maintenance"
+      ]
+    },
+    "asset_role": {
+      "enum": [
+        "product_body",
+        "dock",
+        "accessory",
+        "control_interface",
+        "provided_evidence"
+      ]
+    },
+    "fact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "fact_id",
+        "text",
+        "availability",
+        "support_level",
+        "collection_state",
+        "source_field",
+        "revision",
+        "source_refs",
+        "asset_roles"
+      ],
+      "properties": {
+        "fact_id": { "type": "string", "pattern": "^fact_[0-9]{2}$" },
+        "text": { "type": "string", "minLength": 1 },
+        "availability": {
+          "enum": ["provided", "unknown", "explicitly_absent", "conflicting"]
+        },
+        "support_level": {
+          "enum": ["supported", "maker_stated", "none", "rejected"]
+        },
+        "collection_state": {
+          "enum": ["not_offered", "requested", "resolved", "skipped"]
+        },
+        "source_field": {
+          "enum": [
+            "product_summary",
+            "product_fact",
+            "problem",
+            "feature",
+            "claim",
+            "evidence",
+            "unknown",
+            "worker_state"
+          ]
+        },
+        "revision": { "type": "integer", "minimum": 1 },
+        "source_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "asset_roles": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/asset_role" }
+        }
+      }
+    },
+    "fact_mapping": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fact_id", "capability_group", "planner_state"],
+      "properties": {
+        "fact_id": { "type": "string", "pattern": "^fact_[0-9]{2}$" },
+        "capability_group": { "$ref": "#/$defs/capability_group" },
+        "planner_state": {
+          "enum": ["verified", "unverified", "unknown", "inactive", "conflicting"]
+        }
+      }
+    },
+    "slot_bound": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "capability_group",
+        "min",
+        "max",
+        "priority",
+        "reference_policy",
+        "reference_asset_roles",
+        "placement_candidates"
+      ],
+      "properties": {
+        "capability_group": { "$ref": "#/$defs/capability_group" },
+        "min": { "type": "integer", "minimum": 0, "maximum": 2 },
+        "max": { "type": "integer", "minimum": 0, "maximum": 2 },
+        "priority": { "enum": ["required", "recommended", "optional"] },
+        "reference_policy": { "enum": ["required", "optional", "none"] },
+        "reference_asset_roles": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/asset_role" }
+        },
+        "placement_candidates": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "section_lead",
+              "inline",
+              "after_claim",
+              "after_explanation",
+              "section_close"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "properties": {
+    "schema_version": { "const": "robot-vacuum-media-planning-case-v1" },
+    "case_id": {
+      "type": "string",
+      "pattern": "^rv_(variant|defensive)_[0-9]{3}$"
+    },
+    "case_kind": { "enum": ["product_variant", "defensive"] },
+    "variant": {
+      "enum": [
+        "basic_vacuum",
+        "vacuum_mop",
+        "auto_empty_dock",
+        "all_in_one_dock"
+      ]
+    },
+    "template_id": {
+      "enum": [
+        "t01_performance_value_evidence",
+        "t02_problem_solution_automation",
+        "t03_lifestyle_social_proof",
+        "t04_full_campaign",
+        "t05_value_practical_full_campaign",
+        "t06_trust_maintenance_full_campaign"
+      ]
+    },
+    "input": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_boundary",
+        "worker_revision",
+        "template_revision",
+        "product_summary",
+        "facts",
+        "template_capability_groups",
+        "available_assets"
+      ],
+      "properties": {
+        "source_boundary": {
+          "enum": ["approved_worker_projection", "defensive_boundary_injection"]
+        },
+        "worker_revision": { "type": "integer", "minimum": 1 },
+        "template_revision": { "type": "string", "minLength": 1 },
+        "product_summary": { "type": "string", "minLength": 1 },
+        "facts": {
+          "type": "array",
+          "minItems": 3,
+          "items": { "$ref": "#/$defs/fact" }
+        },
+        "template_capability_groups": {
+          "type": "array",
+          "minItems": 3,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/capability_group" }
+        },
+        "available_assets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["asset_id", "role", "source_refs"],
+            "properties": {
+              "asset_id": { "type": "string", "pattern": "^asset_[0-9]{2}$" },
+              "role": { "$ref": "#/$defs/asset_role" },
+              "source_refs": {
+                "type": "array",
+                "minItems": 1,
+                "uniqueItems": true,
+                "items": { "type": "string", "minLength": 1 }
+              }
+            }
+          }
+        }
+      }
+    },
+    "expected": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "fact_mappings",
+        "decision",
+        "active_groups",
+        "placeholder_groups",
+        "inactive_groups",
+        "slot_bounds",
+        "missing_reference_roles",
+        "publishable",
+        "generation_allowed",
+        "reasons"
+      ],
+      "properties": {
+        "fact_mappings": {
+          "type": "array",
+          "minItems": 3,
+          "items": { "$ref": "#/$defs/fact_mapping" }
+        },
+        "decision": {
+          "enum": [
+            "ready",
+            "draft_with_placeholders",
+            "needs_required_information",
+            "needs_reference_assets",
+            "reject_conflict"
+          ]
+        },
+        "active_groups": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/capability_group" }
+        },
+        "placeholder_groups": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/capability_group" }
+        },
+        "inactive_groups": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/capability_group" }
+        },
+        "slot_bounds": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/slot_bound" }
+        },
+        "missing_reference_roles": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/asset_role" }
+        },
+        "publishable": { "type": "boolean" },
+        "generation_allowed": { "type": "boolean" },
+        "reasons": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "tags": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" }
+    },
+    "notes": { "type": "string" }
+  }
+}

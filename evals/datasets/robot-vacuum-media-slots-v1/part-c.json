@@ -1,0 +1,556 @@
+{
+  "slot_annotations": [
+    {
+      "annotation_id": "p71636-s01-m01",
+      "page_id": "71636",
+      "page_tier": "strict_mixed",
+      "section_index": 1,
+      "section_role": "intro",
+      "section_summary": "에즈윈 X8-UV의 제품명·LDS·UV 살균·물걸레 조합과 프로젝트를 소개하는 도입부",
+      "capability_group": "product_identity_outcome",
+      "persuasion_goal": "제품 정체성과 핵심 차별점을 빠르게 인지시킨다",
+      "observed_media_kind": "static",
+      "observed_media_count": 4,
+      "slot_grouping_key": "product_identity_hero",
+      "reference_policy": "required",
+      "reference_asset_roles": [
+        "product_body"
+      ],
+      "evidence_status": "observed",
+      "priority_candidate": "required",
+      "placement": "section_lead",
+      "source_size_status": "partial",
+      "notes": "관찰: 본문 첫 이미지와 이어지는 3개 이미지가 도입부에 배치된다. 현재 로드된 첫 미디어의 natural은 890px 폭이며, 개별 원본 전체 목록은 확인하지 못했다. source: https://www.wadiz.kr/web/campaign/detail/71636"
+    },
+    {
+      "annotation_id": "p71636-s02-m01",
+      "page_id": "71636",
+      "page_tier": "strict_mixed",
+      "section_index": 2,
+      "section_role": "problem",
+      "section_summary": "먼지와 물걸레 사용의 불편을 제기하고 대용량 먼지통·물통을 제시한다",
+      "capability_group": "problem_environment",
+      "persuasion_goal": "반복적인 먼지 처리와 물 보충 부담을 문제로 인식시킨다",
+      "observed_media_kind": "mixed",
+      "observed_media_count": null,
+      "slot_grouping_key": "dust_and_water_refill_problem",
+      "reference_policy": "optional",
+      "reference_asset_roles": [],
+      "evidence_status": "observed",
+      "priority_candidate": "recommended",
+      "placement": "after_claim",
+      "source_size_status": "unverified",
+      "notes": "관찰: ‘한 바퀴 돌고나면 먼지 가득한 청소기 뒷면..’, ‘기존 제품은 일찍 물을 갈아야 해서 불편하지 않으셨나요?’ 같은 텍스트 사이에 정적 이미지와 GIPHY 출처 이미지가 배치된다. 여러 DOM 군집의 경계가 불명확해 슬롯 수는 null로 기록했다. source: https://www.wadiz.kr/web/campaign/detail/71636"
+    },
+    {
+      "annotation_id": "p71636-s03-m01",
+      "page_id": "71636",
+      "page_tier": "strict_mixed",
+      "section_index": 3,
+      "section_role": "comparison",
+      "section_summary": "LDS·자이로·카메라 센서와 동선·금지구역·충전 성능을 비교표로 제시한다",
+      "capability_group": "evidence_performance",
+      "persuasion_goal": "센서와 주행 기능의 차이를 비교 가능한 근거로 보여준다",
+      "observed_media_kind": "static",
+      "observed_media_count": null,
+      "slot_grouping_key": "sensor_and_navigation_comparison",
+      "reference_policy": "none",
+      "reference_asset_roles": [
+        "provided_evidence"
+      ],
+      "evidence_status": "observed",
+      "priority_candidate": "recommended",
+      "placement": "after_claim",
+      "source_size_status": "unverified",
+      "notes": "관찰: HTML TABLE에 ‘기능 / 센서종류’, LDS, 동선, 실시간 동선, 금지구역·가상벽·청소구역, 자동충전 및 재청소 기능이 텍스트로 존재한다. 표 자체는 제품 참조 이미지 없이 근거 카드로 표현할 수 있다. source: https://www.wadiz.kr/web/campaign/detail/71636"
+    },
+    {
+      "annotation_id": "p71636-s04-m01",
+      "page_id": "71636",
+      "page_tier": "strict_mixed",
+      "section_index": 4,
+      "section_role": "feature",
+      "section_summary": "흡입력·먼지통과 물통·배터리·브러시·UV 살균 기능을 기능별 텍스트와 미디어로 설명한다",
+      "capability_group": "cleaning_mechanism",
+      "persuasion_goal": "청소 결과를 만드는 흡입·브러시·물걸레·살균 메커니즘을 구체화한다",
+      "observed_media_kind": "mixed",
+      "observed_media_count": null,
+      "slot_grouping_key": "cleaning_and_sanitization_mechanism",
+      "reference_policy": "required",
+      "reference_asset_roles": [
+        "product_body",
+        "accessory"
+      ],
+      "evidence_status": "observed",
+      "priority_candidate": "required",
+      "placement": "after_explanation",
+      "source_size_status": "partial",
+      "notes": "관찰: ‘3단계로 흡입력 조절’, 대용량 먼지통·물통, 정품 LG 배터리, 이중 사이드 브러시, UV 살균광, 메인 브러시가 순서대로 등장하고 각 기능 주변에 이미지가 배치된다. 개별 기능군별 전체 이미지 수는 lazy loading 상태에 따라 달라져 null이다. source: https://www.wadiz.kr/web/campaign/detail/71636"
+    },
+    {
+      "annotation_id": "p71636-s05-m01",
+      "page_id": "71636",
+      "page_tier": "strict_mixed",
+      "section_index": 5,
+      "section_role": "use_case",
+      "section_summary": "LDS 지도·금지구역·추락 방지·카펫 감지·등판과 물걸레 주행을 생활 공간 대응으로 묶는다",
+      "capability_group": "mobility_coverage",
+      "persuasion_goal": "다양한 바닥과 공간에서도 계획적으로 움직이고 안전하게 청소하는 모습을 전달한다",
+      "observed_media_kind": "mixed",
+      "observed_media_count": null,
+      "slot_grouping_key": "mapping_floor_and_threshold_response",
+      "reference_policy": "required",
+      "reference_asset_roles": [
+        "product_body",
+        "provided_evidence"
+      ],
+      "evidence_status": "observed",
+      "priority_candidate": "required",
+      "placement": "after_explanation",
+      "source_size_status": "partial",
+      "notes": "관찰: ‘공간을 뛰어넘는 스마트한 기능’ 아래 LDS·실시간 동선·제한 구역·가상벽·구역 청소·지정 위치 이동, 추락 방지, Y자 물걸레 패턴, 카펫 센서, 30도 등판 텍스트와 이미지가 이어진다. 기능별 이미지의 정확한 수는 고정하지 않았다. source: https://www.wadiz.kr/web/campaign/detail/71636"
+    },
+    {
+      "annotation_id": "p71636-s06-m01",
+      "page_id": "71636",
+      "page_tier": "strict_mixed",
+      "section_index": 6,
+      "section_role": "feature",
+      "section_summary": "배터리 부족 시 자동 충전하고 청소 중지 지점으로 복귀·재개하는 흐름을 설명한다",
+      "capability_group": "automation_return",
+      "persuasion_goal": "사용자가 직접 충전과 재시작을 관리해야 하는 부담을 줄인다는 점을 보여준다",
+      "observed_media_kind": "mixed",
+      "observed_media_count": null,
+      "slot_grouping_key": "automatic_charge_and_resume",
+      "reference_policy": "required",
+      "reference_asset_roles": [
+        "product_body",
+        "accessory"
+      ],
+      "evidence_status": "observed",
+      "priority_candidate": "recommended",
+      "placement": "after_claim",
+      "source_size_status": "unverified",
+      "notes": "관찰: ‘자동 충전 및 충전 이탈 감지’ 블록에 배터리 20% 이하 자동 충전, 중지 지점 재개, 도킹 이탈 감지 설명과 미디어가 배치된다. 자동 먼지 비움 도크는 이 페이지에서 확인되지 않았다. source: https://www.wadiz.kr/web/campaign/detail/71636"
+    },
+    {
+      "annotation_id": "p71636-s07-m01",
+      "page_id": "71636",
+      "page_tier": "strict_mixed",
+      "section_index": 7,
+      "section_role": "feature",
+      "section_summary": "한국어 앱·리모컨·2.4GHz Wi-Fi 연결과 앱 설정 단계를 설명한다",
+      "capability_group": "control_personalization",
+      "persuasion_goal": "앱과 리모컨을 통한 제어 가능성과 초기 연결 절차를 이해시킨다",
+      "observed_media_kind": "mixed",
+      "observed_media_count": 12,
+      "slot_grouping_key": "localized_app_and_remote_control",
+      "reference_policy": "required",
+      "reference_asset_roles": [
+        "control_interface",
+        "product_body"
+      ],
+      "evidence_status": "observed",
+      "priority_candidate": "recommended",
+      "placement": "after_explanation",
+      "source_size_status": "unverified",
+      "notes": "관찰: 한국어 지원·리모컨·앱 설명 뒤 WEBACK 설치와 QR 스캔, Wi-Fi 선택, 연결 성공, 예약·기록·공유 단계가 텍스트와 이미지로 반복된다. DOM에서 단계별 이미지 12개가 확인되지만 이미지 내부 문구는 OCR하지 않았다. source: https://www.wadiz.kr/web/campaign/detail/71636"
+    },
+    {
+      "annotation_id": "p71636-s08-m01",
+      "page_id": "71636",
+      "page_tier": "strict_mixed",
+      "section_index": 8,
+      "section_role": "configuration",
+      "section_summary": "제품 스펙·부위 설명·구성품·모듈러 수리와 고객지원 정보를 후반부에 제공한다",
+      "capability_group": "configuration_maintenance",
+      "persuasion_goal": "구매 후 구성과 유지관리·지원 범위를 확인시켜 신뢰를 보강한다",
+      "observed_media_kind": "mixed",
+      "observed_media_count": null,
+      "slot_grouping_key": "specs_parts_and_service",
+      "reference_policy": "required",
+      "reference_asset_roles": [
+        "product_body",
+        "accessory",
+        "provided_evidence"
+      ],
+      "evidence_status": "observed",
+      "priority_candidate": "recommended",
+      "placement": "section_close",
+      "source_size_status": "partial",
+      "notes": "관찰: 제품 스펙 TABLE, 부위 설명·제품 구성 이미지, 풀 모듈러 제품·에즈윈 고객지원·사용 후기·FAQ가 후반부에 배치된다. 일부 스펙과 인증·시험 관련 주장은 텍스트로 확인되지만 이미지 내부 문자와 모든 원본 크기는 확인하지 않았다. source: https://www.wadiz.kr/web/campaign/detail/71636"
+    },
+    {
+      "annotation_id": "p79621-s01-m01",
+      "page_id": "79621",
+      "page_tier": "strict_mixed",
+      "section_index": 1,
+      "section_role": "intro",
+      "section_summary": "카카오프렌즈 라이언 디자인의 아이클레보 로봇청소기와 제품 정체성을 시각적으로 소개한다",
+      "capability_group": "product_identity_outcome",
+      "persuasion_goal": "캐릭터 외형과 귀여운 청소 경험을 제품의 첫 인상으로 전달한다",
+      "observed_media_kind": "mixed",
+      "observed_media_count": null,
+      "slot_grouping_key": "character_product_identity_hero",
+      "reference_policy": "required",
+      "reference_asset_roles": [
+        "product_body"
+      ],
+      "evidence_status": "observed",
+      "priority_candidate": "required",
+      "placement": "section_lead",
+      "source_size_status": "partial",
+      "notes": "관찰: 본문 시작부터 제품·캐릭터 관련 미디어가 텍스트 도입 전까지 집중되고, 첫 미디어는 GIF로 확인된다. 전체 원본은 lazy loading으로 일부만 직접 로드되었으며 페이지 전체 이미지 요소는 45개, GIF는 6개다. source: https://www.wadiz.kr/web/campaign/detail/79621"
+    },
+    {
+      "annotation_id": "p79621-s02-m01",
+      "page_id": "79621",
+      "page_tier": "strict_mixed",
+      "section_index": 2,
+      "section_role": "use_case",
+      "section_summary": "5cm 낮아진 컴팩트·슬림 디자인으로 가구 아래와 원룸·아이방을 청소하는 사용 장면을 제시한다",
+      "capability_group": "problem_environment",
+      "persuasion_goal": "좁은 공간과 손이 닿지 않는 구역의 청소 문제에 제품 형태가 대응함을 보여준다",
+      "observed_media_kind": "static",
+      "observed_media_count": 1,
+      "slot_grouping_key": "compact_small_space_cleaning",
+      "reference_policy": "required",
+      "reference_asset_roles": [
+        "product_body"
+      ],
+      "evidence_status": "observed",
+      "priority_candidate": "required",
+      "placement": "after_explanation",
+      "source_size_status": "unverified",
+      "notes": "관찰: 제품 이미지 다음에 ‘자사 G5 모델 대비 5cm 작아진 컴팩트&슬림 디자인’, 가구 밑·원룸·아이방 텍스트가 이어지고 이미지가 배치된다. 이 구간의 이미지 1개는 DOM에서 확인했지만 원본 크기는 확인하지 못했다. source: https://www.wadiz.kr/web/campaign/detail/79621"
+    },
+    {
+      "annotation_id": "p79621-s03-m01",
+      "page_id": "79621",
+      "page_tier": "strict_mixed",
+      "section_index": 3,
+      "section_role": "feature",
+      "section_summary": "랜덤·스팟·엣지 모드와 직선·집중·벽타기 주행을 반복하는 멀티 클리닝을 설명한다",
+      "capability_group": "mobility_coverage",
+      "persuasion_goal": "기본 흡입 청소가 여러 주행 패턴을 통해 먼지를 놓치지 않는다는 점을 전달한다",
+      "observed_media_kind": "mixed",
+      "observed_media_count": 1,
+      "slot_grouping_key": "multi_mode_cleaning_pattern",
+      "reference_policy": "required",
+      "reference_asset_roles": [
+        "product_body"
+      ],
+      "evidence_status": "observed",
+      "priority_candidate": "recommended",
+      "placement": "after_explanation",
+      "source_size_status": "unverified",
+      "notes": "관찰: 랜덤·스팟·엣지 주행 패턴 설명 직후 미디어 1개가 배치되므로 청소 도구가 아니라 이동·공간 대응으로 분류했다. 물걸레 걸레판은 기본 구성품이라는 별도 주의 문구가 뒤따르며 이 슬롯의 기능으로 합치지 않았다. source: https://www.wadiz.kr/web/campaign/detail/79621"
+    },
+    {
+      "annotation_id": "p79621-s04-m01",
+      "page_id": "79621",
+      "page_tier": "strict_mixed",
+      "section_index": 4,
+      "section_role": "evidence",
+      "section_summary": "생활 먼지·카펫 위 강아지·고양이 털 청소 결과를 강조하고 물걸레 구성 조건을 덧붙인다",
+      "capability_group": "evidence_performance",
+      "persuasion_goal": "일상 오염과 반려동물 털을 청소할 수 있다는 결과 중심의 기대를 만든다",
+      "observed_media_kind": "mixed",
+      "observed_media_count": 4,
+      "slot_grouping_key": "pet_hair_and_daily_dust_result",
+      "reference_policy": "optional",
+      "reference_asset_roles": [
+        "product_body"
+      ],
+      "evidence_status": "observed",
+      "priority_candidate": "recommended",
+      "placement": "after_claim",
+      "source_size_status": "unverified",
+      "notes": "관찰: ‘청소효율, 직접 확인해 볼까요?’와 생활 먼지·카펫·강아지·고양이 털 텍스트 전후에 미디어 4개가 배치된다. 제품이 등장하는 장면은 제품 참조가 필요할 수 있으나 오염 배경만으로 구성되는 장면은 선택적이다. source: https://www.wadiz.kr/web/campaign/detail/79621"
+    },
+    {
+      "annotation_id": "p79621-s05-m01",
+      "page_id": "79621",
+      "page_tier": "strict_mixed",
+      "section_index": 5,
+      "section_role": "feature",
+      "section_summary": "약 7cm 높이를 감지하는 추락 방지 센서를 계단·현관 사용 맥락과 함께 설명한다",
+      "capability_group": "mobility_coverage",
+      "persuasion_goal": "단차가 있는 생활 공간에서도 안전하게 사용하는 조건을 제시한다",
+      "observed_media_kind": "static",
+      "observed_media_count": 1,
+      "slot_grouping_key": "fall_sensor_threshold_safety",
+      "reference_policy": "required",
+      "reference_asset_roles": [
+        "product_body",
+        "provided_evidence"
+      ],
+      "evidence_status": "observed",
+      "priority_candidate": "recommended",
+      "placement": "after_claim",
+      "source_size_status": "unverified",
+      "notes": "관찰: ‘추락 방지 센서’와 약 7cm 높이 감지·계단·현관 설명 뒤에 이미지 1개가 놓인다. 수치는 제품 사실로 취급해야 하며 새 수치를 이미지에 임의로 넣지 않는다. source: https://www.wadiz.kr/web/campaign/detail/79621"
+    },
+    {
+      "annotation_id": "p79621-s06-m01",
+      "page_id": "79621",
+      "page_tier": "strict_mixed",
+      "section_index": 6,
+      "section_role": "operations",
+      "section_summary": "최대 90분 청소와 원터치 시작·종료, 먼지통 세척·조립 절차를 안내한다",
+      "capability_group": "control_personalization",
+      "persuasion_goal": "긴 연속 사용과 간단한 조작·관리로 일상 사용 장벽을 낮춘다",
+      "observed_media_kind": "static",
+      "observed_media_count": 2,
+      "slot_grouping_key": "one_touch_operation_and_runtime",
+      "reference_policy": "required",
+      "reference_asset_roles": [
+        "product_body",
+        "accessory"
+      ],
+      "evidence_status": "observed",
+      "priority_candidate": "recommended",
+      "placement": "after_explanation",
+      "source_size_status": "unverified",
+      "notes": "관찰: 최대 90분 연속 청소 텍스트와 원터치 구동·먼지통 물세척 설명이 본문에 직접 존재하고 주변에 제품 미디어가 배치된다. 자동 도크 복귀·자동 먼지 비움은 확인되지 않아 자동화·복귀로 분류하지 않고 기본 사용자 제어를 주 능력군으로 삼았다. source: https://www.wadiz.kr/web/campaign/detail/79621"
+    },
+    {
+      "annotation_id": "p79621-s07-m01",
+      "page_id": "79621",
+      "page_tier": "strict_mixed",
+      "section_index": 7,
+      "section_role": "configuration",
+      "section_summary": "물걸레 걸레판, 리워드·구성, 충전 안내와 기본 청소 기능을 구매 조건과 함께 제시한다",
+      "capability_group": "configuration_maintenance",
+      "persuasion_goal": "구매 후 실제 사용에 필요한 구성품과 관리 조건을 명확히 한다",
+      "observed_media_kind": "mixed",
+      "observed_media_count": null,
+      "slot_grouping_key": "reward_accessory_and_basic_maintenance",
+      "reference_policy": "required",
+      "reference_asset_roles": [
+        "product_body",
+        "accessory"
+      ],
+      "evidence_status": "observed",
+      "priority_candidate": "recommended",
+      "placement": "section_close",
+      "source_size_status": "partial",
+      "notes": "관찰: 물걸레 걸레판 기본 구성, 3시간 이상 충전, 먼지통 관리, 기본 청소 기능과 리워드 설명이 후반부에 나타나며 이미지가 중간중간 삽입된다. 후기·구성 이미지의 기능별 경계가 불명확해 수량은 null이다. source: https://www.wadiz.kr/web/campaign/detail/79621"
+    },
+    {
+      "annotation_id": "p79621-s08-m01",
+      "page_id": "79621",
+      "page_tier": "strict_mixed",
+      "section_index": 8,
+      "section_role": "trust",
+      "section_summary": "유진로봇의 연구개발·품질검증·A/S와 카카오프렌즈 라이선스 신뢰를 후반부에서 보강한다",
+      "capability_group": "configuration_maintenance",
+      "persuasion_goal": "제조사 전문성과 정품·지원 가능성을 통해 구매 불안을 줄인다",
+      "observed_media_kind": "static",
+      "observed_media_count": null,
+      "slot_grouping_key": "maker_license_and_after_sales_trust",
+      "reference_policy": "optional",
+      "reference_asset_roles": [
+        "provided_evidence"
+      ],
+      "evidence_status": "observed",
+      "priority_candidate": "optional",
+      "placement": "section_close",
+      "source_size_status": "unverified",
+      "notes": "관찰: 유진로봇의 설립·연구개발·QA·A/S, 카카오프렌즈 공식 라이선스와 정품 홀로그램 안내가 HTML 텍스트로 존재한다. 이미지 내부 문구와 인증 자료 원본은 확인하지 않았다. source: https://www.wadiz.kr/web/campaign/detail/79621"
+    }
+  ],
+  "contrast_pages": [
+    {
+      "page_id": "230436",
+      "page_tier": "visual_heavy_contrast",
+      "product_variant": "에코백스 T20 Omni 물걸레 리프팅·올인원 스테이션",
+      "success_evidence": "페이지 하단에 ‘성공’, ‘18,356,000원 달성’, ‘26명 참여’, ‘2023년 10월 3일 성공적으로 종료’가 표시됨",
+      "dom_image_count": 46,
+      "dom_loop_motion_count": 16,
+      "core_text_level": "minimal",
+      "render_width_observed": [
+        740
+      ],
+      "source_widths_observed": [
+        860,
+        1000,
+        1500
+      ],
+      "allowed_uses": [
+        "기능 설명이 시각 montage에 집중된 페이지와 strict_mixed 표본의 대비",
+        "GIF·정적 이미지 수와 source/render 폭 기록",
+        "핵심 텍스트가 메이커 스토리와 운영 정보에 집중되는지 확인"
+      ],
+      "prohibited_uses": [
+        "이미지 내부 OCR 없이 기능별 슬롯 정답으로 사용",
+        "성공 성과와 이미지 수 또는 배치의 인과관계 주장",
+        "에코백스 T20의 모든 기능을 로봇청소기 공통 규칙으로 일반화"
+      ],
+      "notes": "관찰: DOM 직계 자식 11개, 텍스트 직계 노드 5개이며 core는 시각 카드 중심이다. loop_motion은 GIF 16개로 집계했다. 일부 렌더 폭 602·467·640px도 관찰되지만 대표 본문 폭은 740px이다. source: https://www.wadiz.kr/web/campaign/detail/230436"
+    },
+    {
+      "page_id": "252927",
+      "page_tier": "visual_heavy_contrast",
+      "product_variant": "치후360 M20 물걸레 전용·자동 세척·자연풍 건조",
+      "success_evidence": "페이지 하단에 902%, 4,512,000원, 17명 참여, 2024년 5월 20일 성공 종료가 표시됨",
+      "dom_image_count": 63,
+      "dom_loop_motion_count": 25,
+      "core_text_level": "low",
+      "render_width_observed": [
+        740
+      ],
+      "source_widths_observed": [
+        640,
+        800,
+        860,
+        1008,
+        1104,
+        1176,
+        1182,
+        1200,
+        1600
+      ],
+      "allowed_uses": [
+        "물걸레 전용 제품의 정적 이미지·GIF 밀도 대비",
+        "자동 세척·건조 기능이 시각 카드에 몰리는 사례의 메타데이터 비교",
+        "원본 폭과 본문 렌더 폭의 분리 기록"
+      ],
+      "prohibited_uses": [
+        "이미지 내부 내용을 확인하지 않고 기능별 미디어 정답으로 사용",
+        "물걸레 전용 제품을 흡입·매핑 제품의 기준으로 사용",
+        "GIF 개수를 생성 이미지 개수의 고정 규칙으로 사용"
+      ],
+      "notes": "관찰: DOM 직계 자식 79개, 이미지 63개, 텍스트 직계 노드 15개, native video 0개이며 GIF 25개를 loop_motion으로 집계했다. 핵심 기능은 정적 이미지와 GIF 카드에 집중되고 텍스트는 후반 운영·메이커 정보에 집중된다. source: https://www.wadiz.kr/web/campaign/detail/252927"
+    },
+    {
+      "page_id": "373779",
+      "page_tier": "visual_heavy_contrast",
+      "product_variant": "에브리봇 B1 욕실·화장실 특화 로봇청소기",
+      "success_evidence": "페이지 하단에 9,543%, 95,430,000원, 797명 참여, 2025년 10월 28일 성공 종료가 표시됨",
+      "dom_image_count": 35,
+      "dom_loop_motion_count": 13,
+      "core_text_level": "low",
+      "render_width_observed": [
+        740
+      ],
+      "source_widths_observed": [
+        750,
+        850,
+        860
+      ],
+      "allowed_uses": [
+        "욕실 사용 환경 특화 제품의 visual-heavy 대비",
+        "정적 이미지·GIF·loop MP4가 하나의 기능 montage에 섞이는 사례 비교",
+        "공간 특화 장면의 배치 위치와 미디어 종류 기록"
+      ],
+      "prohibited_uses": [
+        "영상 프레임을 분석하지 않은 상태에서 영상 내용의 정답화",
+        "욕실 특화 제품의 내비게이션·자동 복귀 기능을 추정해 슬롯화",
+        "IPX4 또는 제품 성능 주장을 공식 시험 결과로 해석"
+      ],
+      "notes": "관찰: DOM 직계 자식 12개, 이미지 35개, GIF 10개, native loop MP4 3개, 텍스트 직계 노드 7개다. 37개 미디어가 첫 feature 문단에 집중되고 텍스트는 메이커 소개·와디즈 이유에 뒤따른다. source: https://www.wadiz.kr/web/campaign/detail/373779"
+    },
+    {
+      "page_id": "380419",
+      "page_tier": "visual_heavy_contrast",
+      "product_variant": "홈리아 더스트봇 흡입·물걸레·자동 먼지 비움 스테이션",
+      "success_evidence": "페이지 하단에 15,242%, 76,210,300원, 529명 참여, 2025년 12월 12일 종료가 표시됨",
+      "dom_image_count": 68,
+      "dom_loop_motion_count": 62,
+      "core_text_level": "minimal",
+      "render_width_observed": [
+        740
+      ],
+      "source_widths_observed": [
+        1000
+      ],
+      "allowed_uses": [
+        "흡입·물걸레·스테이션 기능이 통합 montage로 배치되는 사례 대비",
+        "정적 이미지 68개와 GIF 11개·loop MP4 51개의 미디어 밀도 기록",
+        "visual-heavy 페이지의 source/render 폭 비교"
+      ],
+      "prohibited_uses": [
+        "거대한 미디어 군집을 기능별 슬롯의 관찰 정답으로 사용",
+        "매핑·장애물 대응·앱 제어를 페이지에 있다고 추정",
+        "반복 MP4 수를 제품별 필수 이미지 수로 고정"
+      ],
+      "notes": "관찰: DOM 직계 자식 17개, 텍스트 직계 노드 5개이며 핵심 미디어가 한 개의 큰 군집에 몰린다. loop_motion은 GIF 11개와 native loop MP4 51개를 합산했다. 개별 미디어와 기능의 정확한 대응은 확인 불가다. source: https://www.wadiz.kr/web/campaign/detail/380419"
+    },
+    {
+      "page_id": "399975",
+      "page_tier": "visual_heavy_contrast",
+      "product_variant": "기펠 AI dToF GFR-5000W-S 건식 흡입 로봇청소기·자동 먼지 비움 스테이션",
+      "success_evidence": "페이지 하단에 5,503%, 27,518,000원, 263명 참여, 2026년 5월 20일 성공 종료가 표시됨",
+      "dom_image_count": 33,
+      "dom_loop_motion_count": 45,
+      "core_text_level": "low",
+      "render_width_observed": [
+        740
+      ],
+      "source_widths_observed": [
+        600,
+        860,
+        2190,
+        6000
+      ],
+      "allowed_uses": [
+        "최신 건식 흡입·스테이션 사례의 정적/GIF/loop MP4 구성 비교",
+        "후반 텍스트 요약과 core montage의 분리 여부 기록",
+        "센서·흡입력·배터리·앱·자동 비움이 시각 군집에 배치되는 양상 대비"
+      ],
+      "prohibited_uses": [
+        "센서 수만으로 매핑·장애물 회피 기능을 확정",
+        "후반 요약 텍스트를 개별 미디어의 직접 라벨로 간주",
+        "영상·GIF 세부 장면을 확인하지 않고 생성 슬롯으로 복제"
+      ],
+      "notes": "관찰: DOM 직계 자식 92개, 텍스트 직계 노드 18개, 이미지 33개, GIF 9개, native loop MP4 36개다. loop_motion은 GIF와 MP4를 합산했다. 핵심 0~70번대는 시각 montage이고 다섯 가지 기능 텍스트는 후반 ‘와디즈 진행 이유’에 집중된다. source: https://www.wadiz.kr/web/campaign/detail/399975"
+    },
+    {
+      "page_id": "250201",
+      "page_tier": "visual_heavy_contrast",
+      "product_variant": "오쿠 클린와우 A11 반려동물 털 특화 물걸레 로봇청소기",
+      "success_evidence": "페이지 하단에 13,490,600원 달성, 82명 참여, 2023년 12월 26일 성공 종료가 표시됨",
+      "dom_image_count": 69,
+      "dom_loop_motion_count": 31,
+      "core_text_level": "low",
+      "render_width_observed": [
+        740
+      ],
+      "source_widths_observed": [
+        400,
+        476,
+        480,
+        588,
+        600,
+        611,
+        658,
+        672,
+        747,
+        800,
+        840,
+        900,
+        992,
+        1000,
+        1080,
+        1200,
+        1920,
+        5998,
+        6001,
+        6341,
+        6720
+      ],
+      "allowed_uses": [
+        "반려동물 털·생활 맥락을 이미지 중심으로 표현하는 사례 대비",
+        "GIF 31개와 정적 이미지 69개의 미디어 밀도 기록",
+        "제품 소개·반려동물 사용 맥락·후반 운영 정보의 텍스트 집중 위치 비교"
+      ],
+      "prohibited_uses": [
+        "이미지 중심 core를 반려동물 기능별 슬롯의 정답으로 사용",
+        "물걸레·LDS·센서 등 개별 기능을 이미지 내부 확인 없이 확정",
+        "성공 성과를 반려동물 이미지 구성의 효과로 해석"
+      ],
+      "notes": "관찰: DOM 직계 자식 96개, 텍스트 직계 노드 12개, 이미지 69개, GIF 31개, native video 0개다. 반려동물 맥락 텍스트가 일부 존재하지만 핵심 feature는 이미지/GIF에 집중된다. source: https://www.wadiz.kr/web/campaign/detail/250201"
+    }
+  ]
+}

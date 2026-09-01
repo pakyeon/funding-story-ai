@@ -18,8 +18,9 @@ class RuntimeSettings:
     primary_model: str = "gemini-3.7-flash"
     fallback_model: str = "gemini-3.6-flash"
     primary_access_attempts: int = 5
-    max_output_tokens: int = 8192
-    thinking_level: str = "LOW"
+    request_timeout_ms: int = 120000
+    max_output_tokens: int = 24576
+    thinking_level: str = "MEDIUM"
 
     @classmethod
     def from_env(cls, *, require_project: bool = True) -> RuntimeSettings:
@@ -27,9 +28,9 @@ class RuntimeSettings:
         if require_project and not project_id:
             raise ValueError("GOOGLE_CLOUD_PROJECT is required")
 
-        thinking_level = os.getenv("GEMINI_THINKING_LEVEL", "LOW").upper()
-        if thinking_level not in {"MINIMAL", "LOW", "MEDIUM", "HIGH"}:
-            raise ValueError("GEMINI_THINKING_LEVEL must be MINIMAL, LOW, MEDIUM, or HIGH")
+        thinking_level = os.getenv("GEMINI_THINKING_LEVEL", "MEDIUM").upper()
+        if thinking_level not in {"LOW", "MEDIUM", "HIGH"}:
+            raise ValueError("GEMINI_THINKING_LEVEL must be LOW, MEDIUM, or HIGH")
 
         return cls(
             project_id=project_id,
@@ -37,6 +38,7 @@ class RuntimeSettings:
             primary_model=os.getenv("GEMINI_PRIMARY_MODEL", "gemini-3.7-flash"),
             fallback_model=os.getenv("GEMINI_FALLBACK_MODEL", "gemini-3.6-flash"),
             primary_access_attempts=_positive_int("GEMINI_PRIMARY_ACCESS_ATTEMPTS", 5),
-            max_output_tokens=_positive_int("GEMINI_MAX_OUTPUT_TOKENS", 8192),
+            request_timeout_ms=_positive_int("GEMINI_REQUEST_TIMEOUT_MS", 120000),
+            max_output_tokens=_positive_int("GEMINI_MAX_OUTPUT_TOKENS", 24576),
             thinking_level=thinking_level,
         )

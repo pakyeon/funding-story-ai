@@ -1,0 +1,152 @@
+{
+  "schema_version": "media-profile-v1",
+  "id": "robotic-floor-cleaner-v1",
+  "version": "1.0.0",
+  "category": "로봇청소기",
+  "capability_groups": [
+    {
+      "id": "product_identity_outcome",
+      "persuasion_goal": "제품 정체성과 사용자가 기대할 핵심 결과를 첫 화면에서 이해시킨다.",
+      "priority": "required",
+      "cardinality": {"min": 1, "max": 1},
+      "reference_policy": "required",
+      "reference_asset_roles": ["product_body"],
+      "supported_media_kinds": ["static"],
+      "placement_candidates": ["section_lead"],
+      "allowed_section_types": ["intro"],
+      "slot_grouping_key": "identity_outcome",
+      "visual_hint": "승인된 본체 외형과 제품이 쓰이는 대표 공간을 한 장면으로 보여준다.",
+      "placeholder": {
+        "title": "제품 대표 이미지가 필요합니다",
+        "description": "제품 본체의 외형과 핵심 사용 결과를 확인할 수 있는 이미지를 추가해 주세요.",
+        "input_format": "정면 또는 3/4 각도의 제품 이미지 JPG·PNG·WEBP"
+      }
+    },
+    {
+      "id": "problem_environment",
+      "persuasion_goal": "사용자가 실제로 겪는 청소 부담과 사용 환경을 구체화한다.",
+      "priority": "recommended",
+      "cardinality": {"min": 0, "max": 1},
+      "reference_policy": "none",
+      "reference_asset_roles": [],
+      "supported_media_kinds": ["static"],
+      "placement_candidates": ["after_claim", "after_explanation"],
+      "allowed_section_types": ["problem"],
+      "slot_grouping_key": "problem_context",
+      "visual_hint": "입력된 바닥 상태와 생활 맥락만 보여 주고 제품 기능을 미리 암시하지 않는다.",
+      "placeholder": {
+        "title": "사용 환경 설명을 추가할 수 있습니다",
+        "description": "제품이 해결하려는 실제 청소 상황이나 반복되는 불편을 입력해 주세요.",
+        "input_format": "사용 공간, 바닥 종류, 청소 부담을 1~3문장으로 입력"
+      }
+    },
+    {
+      "id": "cleaning_mechanism",
+      "persuasion_goal": "확인된 흡입·브러시·물걸레 구조가 어떻게 청소하는지 설명한다.",
+      "priority": "required",
+      "cardinality": {"min": 1, "max": 2},
+      "reference_policy": "required",
+      "reference_asset_roles": ["product_body", "accessory"],
+      "supported_media_kinds": ["static", "loop_motion"],
+      "placement_candidates": ["inline", "after_explanation"],
+      "allowed_section_types": ["solution", "feature", "comparison"],
+      "slot_grouping_key": "cleaning_scene",
+      "visual_hint": "실제 본체 또는 제공된 부속품을 사용해 하나의 청소 목적에 관련된 기능을 묶는다.",
+      "placeholder": {
+        "title": "청소 방식 자료가 필요합니다",
+        "description": "흡입구·브러시·물걸레처럼 실제 청소에 사용하는 구조와 동작을 입력해 주세요.",
+        "input_format": "기능 설명과 해당 부품 사진 또는 제품 사양"
+      }
+    },
+    {
+      "id": "mobility_coverage",
+      "persuasion_goal": "제품이 공간을 인식하고 이동하며 청소 범위를 다루는 방식을 보여준다.",
+      "priority": "required",
+      "cardinality": {"min": 1, "max": 2},
+      "reference_policy": "required",
+      "reference_asset_roles": ["product_body"],
+      "supported_media_kinds": ["static", "loop_motion"],
+      "placement_candidates": ["inline", "after_claim"],
+      "allowed_section_types": ["solution", "feature", "comparison"],
+      "slot_grouping_key": "mobility_scene",
+      "visual_hint": "승인된 주행·공간 대응 사실만 사용하고 센서 광선이나 경로를 과장하지 않는다.",
+      "placeholder": {
+        "title": "주행·공간 대응 자료가 필요합니다",
+        "description": "제품이 이동 범위와 장애물·문턱·추락 위험을 다루는 방식을 입력해 주세요.",
+        "input_format": "주행 기능 설명과 제품 본체 이미지"
+      }
+    },
+    {
+      "id": "automation_return",
+      "persuasion_goal": "충전·복귀·먼지 비움·세척·건조 중 실제 지원하는 자동화 범위를 보여준다.",
+      "priority": "recommended",
+      "cardinality": {"min": 0, "max": 1},
+      "reference_policy": "required",
+      "reference_asset_roles": ["product_body", "dock"],
+      "supported_media_kinds": ["static", "loop_motion"],
+      "placement_candidates": ["inline", "after_explanation"],
+      "allowed_section_types": ["solution", "feature", "timeline"],
+      "slot_grouping_key": "automation_journey",
+      "visual_hint": "본체와 도크의 실제 형태·관계를 유지하고 지원되지 않는 자동화 단계를 추가하지 않는다.",
+      "placeholder": {
+        "title": "자동화 기능 자료를 추가할 수 있습니다",
+        "description": "자동 충전·복귀·비움·세척·건조 중 실제 제공되는 동작을 입력해 주세요.",
+        "input_format": "자동화 단계 설명과 본체·도크 이미지"
+      }
+    },
+    {
+      "id": "control_personalization",
+      "persuasion_goal": "사용자가 청소 구역·일정·모드를 지정하는 실제 제어 방식을 설명한다.",
+      "priority": "recommended",
+      "cardinality": {"min": 0, "max": 1},
+      "reference_policy": "optional",
+      "reference_asset_roles": ["control_interface"],
+      "supported_media_kinds": ["static"],
+      "placement_candidates": ["inline", "after_explanation"],
+      "allowed_section_types": ["solution", "feature"],
+      "slot_grouping_key": "control_flow",
+      "visual_hint": "실제 앱·리모컨·버튼 자료를 우선하고 제공되지 않은 UI는 실제 화면처럼 만들지 않는다.",
+      "placeholder": {
+        "title": "제어 화면 자료를 추가할 수 있습니다",
+        "description": "앱·리모컨·제품 버튼에서 설정할 수 있는 실제 기능을 입력해 주세요.",
+        "input_format": "화면 캡처 또는 조작 단계와 지원 기능 목록"
+      }
+    },
+    {
+      "id": "evidence_performance",
+      "persuasion_goal": "시험·비교·인증의 조건과 적용 범위를 사실대로 제시한다.",
+      "priority": "recommended",
+      "cardinality": {"min": 0, "max": 2},
+      "reference_policy": "required",
+      "reference_asset_roles": ["provided_evidence"],
+      "supported_media_kinds": ["static"],
+      "placement_candidates": ["after_claim", "section_close"],
+      "allowed_section_types": ["evidence", "comparison"],
+      "slot_grouping_key": "evidence_scope",
+      "visual_hint": "제공된 시험·인증·비교 자료의 조건과 수치를 그대로 사용하며 새 결과를 만들지 않는다.",
+      "placeholder": {
+        "title": "검증 자료를 추가할 수 있습니다",
+        "description": "성능 주장에 연결할 시험 조건·결과·인증 범위를 입력해 주세요.",
+        "input_format": "시험표·인증서·비교 자료와 적용 제품 정보"
+      }
+    },
+    {
+      "id": "configuration_maintenance",
+      "persuasion_goal": "구성품·소모품·세척·교체와 사후 관리 범위를 이해시킨다.",
+      "priority": "optional",
+      "cardinality": {"min": 0, "max": 1},
+      "reference_policy": "optional",
+      "reference_asset_roles": ["accessory"],
+      "supported_media_kinds": ["static"],
+      "placement_candidates": ["inline", "section_close"],
+      "allowed_section_types": ["feature", "reward", "timeline"],
+      "slot_grouping_key": "configuration_maintenance",
+      "visual_hint": "실제 제공 구성품과 관리 절차를 한 장면에 묶고 입력에 없는 부속품을 추가하지 않는다.",
+      "placeholder": {
+        "title": "구성·관리 정보를 추가할 수 있습니다",
+        "description": "기본 구성품, 소모품 교체와 세척 방법을 입력해 주세요.",
+        "input_format": "구성품 목록과 관리 주기 또는 부속품 이미지"
+      }
+    }
+  ]
+}

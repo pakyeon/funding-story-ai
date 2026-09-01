@@ -1,0 +1,1369 @@
+{
+  "schema_version": "semantic-normalization-adjudication-report-v1",
+  "scope": {
+    "case_ids": [
+      "rv_semantic_normal_001",
+      "rv_semantic_normal_002",
+      "rv_semantic_normal_003",
+      "rv_semantic_normal_004",
+      "rv_semantic_normal_005",
+      "rv_semantic_normal_006",
+      "rv_semantic_normal_007",
+      "rv_semantic_normal_008",
+      "rv_semantic_normal_009",
+      "rv_semantic_normal_010",
+      "rv_semantic_normal_011",
+      "rv_semantic_normal_012",
+      "rv_semantic_normal_013",
+      "rv_semantic_normal_014",
+      "rv_semantic_normal_015",
+      "rv_semantic_normal_016"
+    ],
+    "case_count": 16,
+    "fact_count": 147,
+    "annotation_type": "independent_ai_double_annotation",
+    "human_annotation_claimed": false
+  },
+  "annotators": [
+    {
+      "name": "A",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max"
+    },
+    {
+      "name": "B",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "max"
+    }
+  ],
+  "agreement": {
+    "decision_exact_count": 147,
+    "decision_exact_rate": 1.0,
+    "capability_label_set_exact_count": 137,
+    "capability_label_set_exact_rate": 0.9319727891156463,
+    "full_annotation_exact_count": 116,
+    "full_annotation_exact_rate": 0.7891156462585034,
+    "annotator_a_to_provisional_gold_exact_count": 147,
+    "annotator_a_to_provisional_gold_exact_rate": 1.0,
+    "annotator_b_to_provisional_gold_exact_count": 116,
+    "annotator_b_to_provisional_gold_exact_rate": 0.7891156462585034
+  },
+  "provisional_adjudication": {
+    "status": "human_signoff_complete",
+    "human_signoff": {
+      "schema_version": "semantic-normalization-human-signoff-v1",
+      "approved_at": "2026-09-01",
+      "reviewer": "user",
+      "annotation_source": "independent_ai_double_annotation",
+      "human_reannotation_claimed": false,
+      "decision": "approved",
+      "approved_items": [
+        "gold 1건의 evidence_performance → configuration_maintenance 수정",
+        "동일 능력군·상태·근거의 병렬 동작을 하나의 proposition으로 유지하는 절 경계 정책",
+        "방 선택·금지 영역·지도 기반 지정을 control_personalization으로 분류하는 능력군 경계"
+      ],
+      "approval_statement": "AI 이중 주석의 세 가지 잠정 판정을 모두 승인합니다."
+    },
+    "gold_change_count": 1,
+    "gold_changes": [
+      {
+        "case_id": "rv_semantic_normal_006",
+        "fact_id": "f_58c2c007dde6",
+        "before": "evidence_performance",
+        "after": "configuration_maintenance",
+        "reason": "두 독립 주석자가 모두 후기의 출처보다 브러시 관리라는 주장 내용을 분류 대상으로 판단했다."
+      }
+    ],
+    "retained_policies": [
+      "같은 능력군·상태·근거를 공유하는 한 문장 안의 병렬 동작은 하나의 proposition으로 유지한다.",
+      "'그리고'로 연결된 독립 서술이나 서로 다른 능력군·상태·근거를 갖는 절만 분리한다.",
+      "방 선택·금지 영역·지도 기반 재청소 지정은 물리적 주행 능력이 아니라 사용자 설정인 control_personalization으로 분류한다."
+    ],
+    "review_items": [
+      "gold 1건의 evidence_performance → configuration_maintenance 수정 승인",
+      "동일 능력군 병렬 동작을 합쳐 두는 clause boundary 정책 승인",
+      "방 선택·금지 영역·지도 기반 지정의 control_personalization 분류 승인"
+    ]
+  },
+  "disagreement_count": 31,
+  "disagreements": [
+    {
+      "case_id": "rv_semantic_normal_001",
+      "fact_id": "f_fc414f436b42",
+      "statement": "낮은 문턱을 넘고 장애물을 만나면 속도를 낮춰 주행한다.",
+      "types": [
+        "proposition_count",
+        "clause_boundary_or_text"
+      ],
+      "annotator_a": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "낮은 문턱을 넘고 장애물을 만나면 속도를 낮춰 주행한다.",
+            "capability_group": "mobility_coverage"
+          }
+        ]
+      },
+      "annotator_b": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "낮은 문턱을 넘는다.",
+            "capability_group": "mobility_coverage"
+          },
+          {
+            "text": "장애물을 만나면 속도를 낮춰 주행한다.",
+            "capability_group": "mobility_coverage"
+          }
+        ]
+      },
+      "provisional_gold": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "낮은 문턱을 넘고 장애물을 만나면 속도를 낮춰 주행한다.",
+            "capability_group": "mobility_coverage"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "rv_semantic_normal_001",
+      "fact_id": "f_35fd2c358a29",
+      "statement": "먼지통과 필터는 분리해 세척할 수 있고 브러시는 주기적으로 교체한다.",
+      "types": [
+        "proposition_count",
+        "clause_boundary_or_text"
+      ],
+      "annotator_a": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "먼지통과 필터는 분리해 세척할 수 있고 브러시는 주기적으로 교체한다.",
+            "capability_group": "configuration_maintenance"
+          }
+        ]
+      },
+      "annotator_b": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "먼지통과 필터는 분리해 세척할 수 있다.",
+            "capability_group": "configuration_maintenance"
+          },
+          {
+            "text": "브러시는 주기적으로 교체한다.",
+            "capability_group": "configuration_maintenance"
+          }
+        ]
+      },
+      "provisional_gold": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "먼지통과 필터는 분리해 세척할 수 있고 브러시는 주기적으로 교체한다.",
+            "capability_group": "configuration_maintenance"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "rv_semantic_normal_002",
+      "fact_id": "f_4a869d37cf27",
+      "statement": "먼지통과 필터는 분리해 세척할 수 있고 브러시는 주기적으로 교체한다.",
+      "types": [
+        "proposition_count",
+        "clause_boundary_or_text"
+      ],
+      "annotator_a": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "먼지통과 필터는 분리해 세척할 수 있고 브러시는 주기적으로 교체한다.",
+            "capability_group": "configuration_maintenance"
+          }
+        ]
+      },
+      "annotator_b": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "먼지통과 필터는 분리해 세척할 수 있다.",
+            "capability_group": "configuration_maintenance"
+          },
+          {
+            "text": "브러시는 주기적으로 교체한다.",
+            "capability_group": "configuration_maintenance"
+          }
+        ]
+      },
+      "provisional_gold": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "먼지통과 필터는 분리해 세척할 수 있고 브러시는 주기적으로 교체한다.",
+            "capability_group": "configuration_maintenance"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "rv_semantic_normal_002",
+      "fact_id": "f_9fad60947785",
+      "statement": "가구 주변을 돌아가며 여러 구역을 순서대로 지나고 청소한 곳을 표시한다.",
+      "types": [
+        "proposition_count",
+        "clause_boundary_or_text"
+      ],
+      "annotator_a": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "가구 주변을 돌아가며 여러 구역을 순서대로 지나고 청소한 곳을 표시한다.",
+            "capability_group": "mobility_coverage"
+          }
+        ]
+      },
+      "annotator_b": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "가구 주변을 돌아가며 여러 구역을 순서대로 지난다.",
+            "capability_group": "mobility_coverage"
+          },
+          {
+            "text": "청소한 곳을 표시한다.",
+            "capability_group": "mobility_coverage"
+          }
+        ]
+      },
+      "provisional_gold": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "가구 주변을 돌아가며 여러 구역을 순서대로 지나고 청소한 곳을 표시한다.",
+            "capability_group": "mobility_coverage"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "rv_semantic_normal_003",
+      "fact_id": "f_a695a6ba1696",
+      "statement": "방별 일정과 금지 영역을 따로 저장한다.",
+      "types": [
+        "capability_label_set",
+        "proposition_count",
+        "clause_boundary_or_text"
+      ],
+      "annotator_a": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "방별 일정과 금지 영역을 따로 저장한다.",
+            "capability_group": "control_personalization"
+          }
+        ]
+      },
+      "annotator_b": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "방별 일정을 따로 저장한다.",
+            "capability_group": "control_personalization"
+          },
+          {
+            "text": "금지 영역을 따로 저장한다.",
+            "capability_group": "mobility_coverage"
+          }
+        ]
+      },
+      "provisional_gold": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "방별 일정과 금지 영역을 따로 저장한다.",
+            "capability_group": "control_personalization"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "rv_semantic_normal_003",
+      "fact_id": "f_018009c38cb4",
+      "statement": "물걸레 패드는 사용 후 헹구고 완전히 말린 뒤 다시 장착한다 그리고 관리 안내상 분리한 부품은 완전히 건조한 후 다시 장착한다.",
+      "types": [
+        "clause_boundary_or_text"
+      ],
+      "annotator_a": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "물걸레 패드는 사용 후 헹구고 완전히 말린 뒤 다시 장착한다",
+            "capability_group": "configuration_maintenance"
+          },
+          {
+            "text": "관리 안내상 분리한 부품은 완전히 건조한 후 다시 장착한다",
+            "capability_group": "configuration_maintenance"
+          }
+        ]
+      },
+      "annotator_b": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "물걸레 패드는 사용 후 헹구고 완전히 말린 뒤 다시 장착한다.",
+            "capability_group": "configuration_maintenance"
+          },
+          {
+            "text": "분리한 부품은 완전히 건조한 후 다시 장착한다.",
+            "capability_group": "configuration_maintenance"
+          }
+        ]
+      },
+      "provisional_gold": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "물걸레 패드는 사용 후 헹구고 완전히 말린 뒤 다시 장착한다.",
+            "capability_group": "configuration_maintenance"
+          },
+          {
+            "text": "관리 안내상 분리한 부품은 완전히 건조한 후 다시 장착한다.",
+            "capability_group": "configuration_maintenance"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "rv_semantic_normal_004",
+      "fact_id": "f_1cd83a1595ee",
+      "statement": "청소 지도를 확인하면서 특정 방만 다시 청소하도록 지정한다.",
+      "types": [
+        "capability_label_set",
+        "proposition_count",
+        "clause_boundary_or_text"
+      ],
+      "annotator_a": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "청소 지도를 확인하면서 특정 방만 다시 청소하도록 지정한다.",
+            "capability_group": "control_personalization"
+          }
+        ]
+      },
+      "annotator_b": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "청소 지도를 확인한다.",
+            "capability_group": "mobility_coverage"
+          },
+          {
+            "text": "특정 방만 다시 청소하도록 지정한다.",
+            "capability_group": "control_personalization"
+          }
+        ]
+      },
+      "provisional_gold": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "청소 지도를 확인하면서 특정 방만 다시 청소하도록 지정한다.",
+            "capability_group": "control_personalization"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "rv_semantic_normal_004",
+      "fact_id": "f_2a0ce552ec1a",
+      "statement": "앱에서 방별 예약과 금지 구역을 설정할 수 있다.",
+      "types": [
+        "capability_label_set",
+        "proposition_count",
+        "clause_boundary_or_text"
+      ],
+      "annotator_a": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "앱에서 방별 예약과 금지 구역을 설정할 수 있다.",
+            "capability_group": "control_personalization"
+          }
+        ]
+      },
+      "annotator_b": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "앱에서 방별 예약을 설정할 수 있다.",
+            "capability_group": "control_personalization"
+          },
+          {
+            "text": "앱에서 금지 구역을 설정할 수 있다.",
+            "capability_group": "mobility_coverage"
+          }
+        ]
+      },
+      "provisional_gold": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "앱에서 방별 예약과 금지 구역을 설정할 수 있다.",
+            "capability_group": "control_personalization"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "rv_semantic_normal_005",
+      "fact_id": "f_3ad0ae0fb543",
+      "statement": "가구 주변을 돌아가며 여러 구역을 순서대로 지나고 청소한 곳을 표시한다.",
+      "types": [
+        "proposition_count",
+        "clause_boundary_or_text"
+      ],
+      "annotator_a": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "가구 주변을 돌아가며 여러 구역을 순서대로 지나고 청소한 곳을 표시한다.",
+            "capability_group": "mobility_coverage"
+          }
+        ]
+      },
+      "annotator_b": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "가구 주변을 돌아가며 여러 구역을 순서대로 지난다.",
+            "capability_group": "mobility_coverage"
+          },
+          {
+            "text": "청소한 곳을 표시한다.",
+            "capability_group": "mobility_coverage"
+          }
+        ]
+      },
+      "provisional_gold": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "가구 주변을 돌아가며 여러 구역을 순서대로 지나고 청소한 곳을 표시한다.",
+            "capability_group": "mobility_coverage"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "rv_semantic_normal_005",
+      "fact_id": "f_8d4127fd361d",
+      "statement": "낮은 문턱을 넘고 장애물을 만나면 속도를 낮춰 주행한다.",
+      "types": [
+        "proposition_count",
+        "clause_boundary_or_text"
+      ],
+      "annotator_a": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "낮은 문턱을 넘고 장애물을 만나면 속도를 낮춰 주행한다.",
+            "capability_group": "mobility_coverage"
+          }
+        ]
+      },
+      "annotator_b": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "낮은 문턱을 넘는다.",
+            "capability_group": "mobility_coverage"
+          },
+          {
+            "text": "장애물을 만나면 속도를 낮춰 주행한다.",
+            "capability_group": "mobility_coverage"
+          }
+        ]
+      },
+      "provisional_gold": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "낮은 문턱을 넘고 장애물을 만나면 속도를 낮춰 주행한다.",
+            "capability_group": "mobility_coverage"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "rv_semantic_normal_005",
+      "fact_id": "f_1a8a3d811d9e",
+      "statement": "자동 먼지 비움이나 추가 도크 동작은 이 승인본에서 제공되지 않는다.",
+      "types": [
+        "proposition_count",
+        "clause_boundary_or_text"
+      ],
+      "annotator_a": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "자동 먼지 비움이나 추가 도크 동작은 이 승인본에서 제공되지 않는다.",
+            "capability_group": "automation_return"
+          }
+        ]
+      },
+      "annotator_b": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "자동 먼지 비움은 이 승인본에서 제공되지 않는다.",
+            "capability_group": "automation_return"
+          },
+          {
+            "text": "추가 도크 동작은 이 승인본에서 제공되지 않는다.",
+            "capability_group": "automation_return"
+          }
+        ]
+      },
+      "provisional_gold": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "자동 먼지 비움이나 추가 도크 동작은 이 승인본에서 제공되지 않는다.",
+            "capability_group": "automation_return"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "rv_semantic_normal_006",
+      "fact_id": "f_8a5a5c6cd128",
+      "statement": "방의 지도를 만든 뒤 정한 경로를 따라 이동하고 낭떠러지를 감지한다.",
+      "types": [
+        "proposition_count",
+        "clause_boundary_or_text"
+      ],
+      "annotator_a": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "방의 지도를 만든 뒤 정한 경로를 따라 이동하고 낭떠러지를 감지한다.",
+            "capability_group": "mobility_coverage"
+          }
+        ]
+      },
+      "annotator_b": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "방의 지도를 만든다.",
+            "capability_group": "mobility_coverage"
+          },
+          {
+            "text": "정한 경로를 따라 이동하고 낭떠러지를 감지한다.",
+            "capability_group": "mobility_coverage"
+          }
+        ]
+      },
+      "provisional_gold": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "방의 지도를 만든 뒤 정한 경로를 따라 이동하고 낭떠러지를 감지한다.",
+            "capability_group": "mobility_coverage"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "rv_semantic_normal_006",
+      "fact_id": "f_b41cf46d60ac",
+      "statement": "방별 일정과 금지 영역을 따로 저장한다.",
+      "types": [
+        "capability_label_set",
+        "proposition_count",
+        "clause_boundary_or_text"
+      ],
+      "annotator_a": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "방별 일정과 금지 영역을 따로 저장한다.",
+            "capability_group": "control_personalization"
+          }
+        ]
+      },
+      "annotator_b": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "방별 일정을 따로 저장한다.",
+            "capability_group": "control_personalization"
+          },
+          {
+            "text": "금지 영역을 따로 저장한다.",
+            "capability_group": "mobility_coverage"
+          }
+        ]
+      },
+      "provisional_gold": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "방별 일정과 금지 영역을 따로 저장한다.",
+            "capability_group": "control_personalization"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "rv_semantic_normal_006",
+      "fact_id": "f_e22e6d895cef",
+      "statement": "물걸레 패드가 바닥을 닦고 흡입 장치가 마른 먼지를 함께 수거한다.",
+      "types": [
+        "proposition_count",
+        "clause_boundary_or_text"
+      ],
+      "annotator_a": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "물걸레 패드가 바닥을 닦고 흡입 장치가 마른 먼지를 함께 수거한다.",
+            "capability_group": "cleaning_mechanism"
+          }
+        ]
+      },
+      "annotator_b": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "물걸레 패드가 바닥을 닦는다.",
+            "capability_group": "cleaning_mechanism"
+          },
+          {
+            "text": "흡입 장치가 마른 먼지를 함께 수거한다.",
+            "capability_group": "cleaning_mechanism"
+          }
+        ]
+      },
+      "provisional_gold": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "물걸레 패드가 바닥을 닦고 흡입 장치가 마른 먼지를 함께 수거한다.",
+            "capability_group": "cleaning_mechanism"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "rv_semantic_normal_006",
+      "fact_id": "f_2135f21c65e6",
+      "statement": "제어 기능 설명상 방별 일정과 금지 영역을 따로 저장한다 그리고 사용자는 리모컨으로 흡입 모드와 시작 시점을 바꿀 수 있다.",
+      "types": [
+        "capability_label_set",
+        "clause_boundary_or_text"
+      ],
+      "annotator_a": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "제어 기능 설명상 방별 일정과 금지 영역을 따로 저장한다",
+            "capability_group": "control_personalization"
+          },
+          {
+            "text": "사용자는 리모컨으로 흡입 모드와 시작 시점을 바꿀 수 있다",
+            "capability_group": "control_personalization"
+          }
+        ]
+      },
+      "annotator_b": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "금지 영역을 따로 저장한다.",
+            "capability_group": "mobility_coverage"
+          },
+          {
+            "text": "방별 일정을 따로 저장하고 리모컨으로 흡입 모드와 시작 시점을 바꿀 수 있다.",
+            "capability_group": "control_personalization"
+          }
+        ]
+      },
+      "provisional_gold": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "제어 기능 설명상 방별 일정과 금지 영역을 따로 저장한다.",
+            "capability_group": "control_personalization"
+          },
+          {
+            "text": "사용자는 리모컨으로 흡입 모드와 시작 시점을 바꿀 수 있다.",
+            "capability_group": "control_personalization"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "rv_semantic_normal_007",
+      "fact_id": "f_216662ef3df4",
+      "statement": "기본 구성에는 본체, 충전대, 여분 필터가 들어 있으며 소모품은 별도 구매한다.",
+      "types": [
+        "proposition_count",
+        "clause_boundary_or_text"
+      ],
+      "annotator_a": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "기본 구성에는 본체, 충전대, 여분 필터가 들어 있으며 소모품은 별도 구매한다.",
+            "capability_group": "configuration_maintenance"
+          }
+        ]
+      },
+      "annotator_b": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "기본 구성에는 본체, 충전대, 여분 필터가 들어 있다.",
+            "capability_group": "configuration_maintenance"
+          },
+          {
+            "text": "소모품은 별도 구매한다.",
+            "capability_group": "configuration_maintenance"
+          }
+        ]
+      },
+      "provisional_gold": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "기본 구성에는 본체, 충전대, 여분 필터가 들어 있으며 소모품은 별도 구매한다.",
+            "capability_group": "configuration_maintenance"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "rv_semantic_normal_008",
+      "fact_id": "f_1863a21edf8f",
+      "statement": "물걸레 패드가 바닥을 닦고 흡입 장치가 마른 먼지를 함께 수거한다.",
+      "types": [
+        "proposition_count",
+        "clause_boundary_or_text"
+      ],
+      "annotator_a": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "물걸레 패드가 바닥을 닦고 흡입 장치가 마른 먼지를 함께 수거한다.",
+            "capability_group": "cleaning_mechanism"
+          }
+        ]
+      },
+      "annotator_b": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "물걸레 패드가 바닥을 닦는다.",
+            "capability_group": "cleaning_mechanism"
+          },
+          {
+            "text": "흡입 장치가 마른 먼지를 함께 수거한다.",
+            "capability_group": "cleaning_mechanism"
+          }
+        ]
+      },
+      "provisional_gold": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "물걸레 패드가 바닥을 닦고 흡입 장치가 마른 먼지를 함께 수거한다.",
+            "capability_group": "cleaning_mechanism"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "rv_semantic_normal_009",
+      "fact_id": "f_20de5297c387",
+      "statement": "기본 구성에는 본체, 충전대, 여분 필터가 들어 있으며 소모품은 별도 구매한다.",
+      "types": [
+        "proposition_count",
+        "clause_boundary_or_text"
+      ],
+      "annotator_a": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "기본 구성에는 본체, 충전대, 여분 필터가 들어 있으며 소모품은 별도 구매한다.",
+            "capability_group": "configuration_maintenance"
+          }
+        ]
+      },
+      "annotator_b": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "기본 구성에는 본체, 충전대, 여분 필터가 들어 있다.",
+            "capability_group": "configuration_maintenance"
+          },
+          {
+            "text": "소모품은 별도 구매한다.",
+            "capability_group": "configuration_maintenance"
+          }
+        ]
+      },
+      "provisional_gold": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "기본 구성에는 본체, 충전대, 여분 필터가 들어 있으며 소모품은 별도 구매한다.",
+            "capability_group": "configuration_maintenance"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "rv_semantic_normal_010",
+      "fact_id": "f_a46e570ea252",
+      "statement": "배터리가 부족해지면 충전대로 돌아가고 충전 뒤 남은 구역을 이어서 청소한다.",
+      "types": [
+        "proposition_count",
+        "clause_boundary_or_text"
+      ],
+      "annotator_a": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "배터리가 부족해지면 충전대로 돌아가고 충전 뒤 남은 구역을 이어서 청소한다.",
+            "capability_group": "automation_return"
+          }
+        ]
+      },
+      "annotator_b": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "배터리가 부족해지면 충전대로 돌아간다.",
+            "capability_group": "automation_return"
+          },
+          {
+            "text": "충전 뒤 남은 구역을 이어서 청소한다.",
+            "capability_group": "automation_return"
+          }
+        ]
+      },
+      "provisional_gold": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "배터리가 부족해지면 충전대로 돌아가고 충전 뒤 남은 구역을 이어서 청소한다.",
+            "capability_group": "automation_return"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "rv_semantic_normal_011",
+      "fact_id": "f_722cde069489",
+      "statement": "물걸레 패드가 바닥을 닦고 흡입 장치가 마른 먼지를 함께 수거한다.",
+      "types": [
+        "proposition_count",
+        "clause_boundary_or_text"
+      ],
+      "annotator_a": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "물걸레 패드가 바닥을 닦고 흡입 장치가 마른 먼지를 함께 수거한다.",
+            "capability_group": "cleaning_mechanism"
+          }
+        ]
+      },
+      "annotator_b": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "물걸레 패드가 바닥을 닦는다.",
+            "capability_group": "cleaning_mechanism"
+          },
+          {
+            "text": "흡입 장치가 마른 먼지를 함께 수거한다.",
+            "capability_group": "cleaning_mechanism"
+          }
+        ]
+      },
+      "provisional_gold": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "물걸레 패드가 바닥을 닦고 흡입 장치가 마른 먼지를 함께 수거한다.",
+            "capability_group": "cleaning_mechanism"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "rv_semantic_normal_012",
+      "fact_id": "f_081016e0382d",
+      "statement": "방별 일정과 금지 영역을 따로 저장한다.",
+      "types": [
+        "capability_label_set",
+        "proposition_count",
+        "clause_boundary_or_text"
+      ],
+      "annotator_a": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "방별 일정과 금지 영역을 따로 저장한다.",
+            "capability_group": "control_personalization"
+          }
+        ]
+      },
+      "annotator_b": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "방별 일정을 따로 저장한다.",
+            "capability_group": "control_personalization"
+          },
+          {
+            "text": "금지 영역을 따로 저장한다.",
+            "capability_group": "mobility_coverage"
+          }
+        ]
+      },
+      "provisional_gold": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "방별 일정과 금지 영역을 따로 저장한다.",
+            "capability_group": "control_personalization"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "rv_semantic_normal_012",
+      "fact_id": "f_071b58cc321e",
+      "statement": "제어 기능 설명상 방별 일정과 금지 영역을 따로 저장한다 그리고 음성 명령과 본체 버튼으로 간단한 청소 동작을 실행한다.",
+      "types": [
+        "capability_label_set",
+        "clause_boundary_or_text"
+      ],
+      "annotator_a": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "제어 기능 설명상 방별 일정과 금지 영역을 따로 저장한다",
+            "capability_group": "control_personalization"
+          },
+          {
+            "text": "음성 명령과 본체 버튼으로 간단한 청소 동작을 실행한다.",
+            "capability_group": "control_personalization"
+          }
+        ]
+      },
+      "annotator_b": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "금지 영역을 따로 저장한다.",
+            "capability_group": "mobility_coverage"
+          },
+          {
+            "text": "방별 일정을 따로 저장하고 음성 명령과 본체 버튼으로 간단한 청소 동작을 실행한다.",
+            "capability_group": "control_personalization"
+          }
+        ]
+      },
+      "provisional_gold": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "제어 기능 설명상 방별 일정과 금지 영역을 따로 저장한다.",
+            "capability_group": "control_personalization"
+          },
+          {
+            "text": "음성 명령과 본체 버튼으로 간단한 청소 동작을 실행한다.",
+            "capability_group": "control_personalization"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "rv_semantic_normal_012",
+      "fact_id": "f_47243647f3e7",
+      "statement": "앱·조작 안내에는 방별 일정과 금지 영역을 따로 저장한다.",
+      "types": [
+        "capability_label_set",
+        "proposition_count",
+        "clause_boundary_or_text"
+      ],
+      "annotator_a": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "앱·조작 안내에는 방별 일정과 금지 영역을 따로 저장한다.",
+            "capability_group": "control_personalization"
+          }
+        ]
+      },
+      "annotator_b": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "방별 일정을 따로 저장한다.",
+            "capability_group": "control_personalization"
+          },
+          {
+            "text": "금지 영역을 따로 저장한다.",
+            "capability_group": "mobility_coverage"
+          }
+        ]
+      },
+      "provisional_gold": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "앱·조작 안내에는 방별 일정과 금지 영역을 따로 저장한다.",
+            "capability_group": "control_personalization"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "rv_semantic_normal_013",
+      "fact_id": "f_4e448e93fe32",
+      "statement": "물걸레 패드가 바닥을 닦고 흡입 장치가 마른 먼지를 함께 수거한다.",
+      "types": [
+        "proposition_count",
+        "clause_boundary_or_text"
+      ],
+      "annotator_a": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "물걸레 패드가 바닥을 닦고 흡입 장치가 마른 먼지를 함께 수거한다.",
+            "capability_group": "cleaning_mechanism"
+          }
+        ]
+      },
+      "annotator_b": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "물걸레 패드가 바닥을 닦는다.",
+            "capability_group": "cleaning_mechanism"
+          },
+          {
+            "text": "흡입 장치가 마른 먼지를 함께 수거한다.",
+            "capability_group": "cleaning_mechanism"
+          }
+        ]
+      },
+      "provisional_gold": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "물걸레 패드가 바닥을 닦고 흡입 장치가 마른 먼지를 함께 수거한다.",
+            "capability_group": "cleaning_mechanism"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "rv_semantic_normal_013",
+      "fact_id": "f_e7259b3c75ec",
+      "statement": "낮은 문턱을 넘고 장애물을 만나면 속도를 낮춰 주행한다.",
+      "types": [
+        "proposition_count",
+        "clause_boundary_or_text"
+      ],
+      "annotator_a": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "낮은 문턱을 넘고 장애물을 만나면 속도를 낮춰 주행한다.",
+            "capability_group": "mobility_coverage"
+          }
+        ]
+      },
+      "annotator_b": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "낮은 문턱을 넘는다.",
+            "capability_group": "mobility_coverage"
+          },
+          {
+            "text": "장애물을 만나면 속도를 낮춰 주행한다.",
+            "capability_group": "mobility_coverage"
+          }
+        ]
+      },
+      "provisional_gold": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "낮은 문턱을 넘고 장애물을 만나면 속도를 낮춰 주행한다.",
+            "capability_group": "mobility_coverage"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "rv_semantic_normal_013",
+      "fact_id": "f_907fe122f304",
+      "statement": "먼지통과 필터는 분리해 세척할 수 있고 브러시는 주기적으로 교체한다.",
+      "types": [
+        "proposition_count",
+        "clause_boundary_or_text"
+      ],
+      "annotator_a": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "먼지통과 필터는 분리해 세척할 수 있고 브러시는 주기적으로 교체한다.",
+            "capability_group": "configuration_maintenance"
+          }
+        ]
+      },
+      "annotator_b": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "먼지통과 필터는 분리해 세척할 수 있다.",
+            "capability_group": "configuration_maintenance"
+          },
+          {
+            "text": "브러시는 주기적으로 교체한다.",
+            "capability_group": "configuration_maintenance"
+          }
+        ]
+      },
+      "provisional_gold": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "먼지통과 필터는 분리해 세척할 수 있고 브러시는 주기적으로 교체한다.",
+            "capability_group": "configuration_maintenance"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "rv_semantic_normal_014",
+      "fact_id": "f_66b843c4cff0",
+      "statement": "청소 지도를 확인하면서 특정 방만 다시 청소하도록 지정한다.",
+      "types": [
+        "capability_label_set",
+        "proposition_count",
+        "clause_boundary_or_text"
+      ],
+      "annotator_a": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "청소 지도를 확인하면서 특정 방만 다시 청소하도록 지정한다.",
+            "capability_group": "control_personalization"
+          }
+        ]
+      },
+      "annotator_b": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "청소 지도를 확인한다.",
+            "capability_group": "mobility_coverage"
+          },
+          {
+            "text": "특정 방만 다시 청소하도록 지정한다.",
+            "capability_group": "control_personalization"
+          }
+        ]
+      },
+      "provisional_gold": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "청소 지도를 확인하면서 특정 방만 다시 청소하도록 지정한다.",
+            "capability_group": "control_personalization"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "rv_semantic_normal_015",
+      "fact_id": "f_2785afec5a53",
+      "statement": "방별 일정과 금지 영역을 따로 저장한다 그리고 사용자는 리모컨으로 흡입 모드와 시작 시점을 바꿀 수 있다.",
+      "types": [
+        "capability_label_set",
+        "clause_boundary_or_text"
+      ],
+      "annotator_a": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "방별 일정과 금지 영역을 따로 저장한다",
+            "capability_group": "control_personalization"
+          },
+          {
+            "text": "사용자는 리모컨으로 흡입 모드와 시작 시점을 바꿀 수 있다",
+            "capability_group": "control_personalization"
+          }
+        ]
+      },
+      "annotator_b": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "방별 일정을 따로 저장하고 리모컨으로 흡입 모드와 시작 시점을 바꿀 수 있다.",
+            "capability_group": "control_personalization"
+          },
+          {
+            "text": "금지 영역을 따로 저장한다.",
+            "capability_group": "mobility_coverage"
+          }
+        ]
+      },
+      "provisional_gold": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "방별 일정과 금지 영역을 따로 저장한다.",
+            "capability_group": "control_personalization"
+          },
+          {
+            "text": "사용자는 리모컨으로 흡입 모드와 시작 시점을 바꿀 수 있다.",
+            "capability_group": "control_personalization"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "rv_semantic_normal_015",
+      "fact_id": "f_aa7fae610ec1",
+      "statement": "기본 구성에는 본체, 충전대, 여분 필터가 들어 있으며 소모품은 별도 구매한다.",
+      "types": [
+        "proposition_count",
+        "clause_boundary_or_text"
+      ],
+      "annotator_a": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "기본 구성에는 본체, 충전대, 여분 필터가 들어 있으며 소모품은 별도 구매한다.",
+            "capability_group": "configuration_maintenance"
+          }
+        ]
+      },
+      "annotator_b": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "기본 구성에는 본체, 충전대, 여분 필터가 들어 있다.",
+            "capability_group": "configuration_maintenance"
+          },
+          {
+            "text": "소모품은 별도 구매한다.",
+            "capability_group": "configuration_maintenance"
+          }
+        ]
+      },
+      "provisional_gold": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "기본 구성에는 본체, 충전대, 여분 필터가 들어 있으며 소모품은 별도 구매한다.",
+            "capability_group": "configuration_maintenance"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "rv_semantic_normal_015",
+      "fact_id": "f_60f7c4e974e3",
+      "statement": "낮은 문턱을 넘고 장애물을 만나면 속도를 낮춰 주행한다.",
+      "types": [
+        "proposition_count",
+        "clause_boundary_or_text"
+      ],
+      "annotator_a": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "낮은 문턱을 넘고 장애물을 만나면 속도를 낮춰 주행한다.",
+            "capability_group": "mobility_coverage"
+          }
+        ]
+      },
+      "annotator_b": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "낮은 문턱을 넘는다.",
+            "capability_group": "mobility_coverage"
+          },
+          {
+            "text": "장애물을 만나면 속도를 낮춰 주행한다.",
+            "capability_group": "mobility_coverage"
+          }
+        ]
+      },
+      "provisional_gold": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "낮은 문턱을 넘고 장애물을 만나면 속도를 낮춰 주행한다.",
+            "capability_group": "mobility_coverage"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "rv_semantic_normal_016",
+      "fact_id": "f_d4c2ab85ba0a",
+      "statement": "물걸레 패드가 바닥을 닦고 흡입 장치가 마른 먼지를 함께 수거한다.",
+      "types": [
+        "proposition_count",
+        "clause_boundary_or_text"
+      ],
+      "annotator_a": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "물걸레 패드가 바닥을 닦고 흡입 장치가 마른 먼지를 함께 수거한다.",
+            "capability_group": "cleaning_mechanism"
+          }
+        ]
+      },
+      "annotator_b": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "물걸레 패드가 바닥을 닦는다.",
+            "capability_group": "cleaning_mechanism"
+          },
+          {
+            "text": "흡입 장치가 마른 먼지를 함께 수거한다.",
+            "capability_group": "cleaning_mechanism"
+          }
+        ]
+      },
+      "provisional_gold": {
+        "decision": "classify",
+        "propositions": [
+          {
+            "text": "물걸레 패드가 바닥을 닦고 흡입 장치가 마른 먼지를 함께 수거한다.",
+            "capability_group": "cleaning_mechanism"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "schema_version": "robot-vacuum-semantic-normalization-adversarial-manifest-v1",
+  "dataset_status": "synthetic_adversarial_fixture",
+  "observed_attack_data": false,
+  "purpose": "명령처럼 보이는 승인 데이터와 여러 위치의 위조 참조를 분리해 경계·의미 처리를 검증한다.",
+  "summary": {
+    "case_count": 64,
+    "variant_counts": {
+      "all_in_one_dock": 16,
+      "auto_empty_dock": 16,
+      "basic_vacuum": 16,
+      "vacuum_mop": 16
+    },
+    "decision_counts": {
+      "accepted": 32,
+      "reject_forged_reference": 32
+    },
+    "prompt_injection_count": 32,
+    "forged_reference_count": 32,
+    "language_counts": {
+      "language_en": 11,
+      "language_ko": 11,
+      "language_mixed": 10
+    },
+    "position_counts": {
+      "position_end": 10,
+      "position_front": 11,
+      "position_middle": 11
+    },
+    "format_counts": {
+      "format_html_fragment": 6,
+      "format_json_record": 7,
+      "format_markdown_quote": 6,
+      "format_role_alias": 7,
+      "format_tool_quote": 6
+    },
+    "forged_target_counts": {
+      "ref_target_asset_source_refs": 4,
+      "ref_target_entity_asset_refs": 4,
+      "ref_target_entity_evidence_refs": 4,
+      "ref_target_entity_source_refs": 4,
+      "ref_target_evidence_source_refs": 4,
+      "ref_target_fact_asset_refs": 4,
+      "ref_target_fact_evidence_refs": 4,
+      "ref_target_fact_source_refs": 4
+    },
+    "rejected_semantic_invocation_count": 0,
+    "unresolved_case_count": 32,
+    "unresolved_reference_count": 32,
+    "cross_split_id_overlap_count": {
+      "asset": 0,
+      "entity": 0,
+      "evidence": 0,
+      "fact": 0,
+      "proposition": 0,
+      "source": 0
+    },
+    "cross_split_fact_overlap_count": 0,
+    "cross_split_proposition_overlap_count": 0
+  },
+  "limitations": [
+    "합성 공격 문자열이며 실제 공격 로그나 완전한 보안 평가가 아니다.",
+    "도구 실행 권한 탈취, 인코딩 우회, 다중 턴 간접 주입은 포함하지 않는다.",
+    "accepted injection 사례의 제어 문자열은 의미 gold에서 제외한다."
+  ]
+}

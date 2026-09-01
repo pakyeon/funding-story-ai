@@ -1,75 +1,62 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://funding-story-ai.local/schemas/story-image-manifest.schema.json",
-  "title": "Story Section Image Manifest",
+  "title": "Planned story image manifest",
   "type": "object",
   "additionalProperties": false,
   "required": [
-    "schema_version",
-    "run_id",
-    "story_sha256",
-    "reference_sha256",
-    "model",
-    "size",
-    "quality",
-    "requested",
-    "succeeded",
-    "failed",
-    "assets"
+    "schema_version", "run_id", "media_plan_digest", "generation_package_digest",
+    "primary_model", "fallback_model", "image_size", "aspect_ratio",
+    "requested", "succeeded", "failed", "assets"
   ],
   "properties": {
-    "schema_version": { "const": "story-image-manifest-v1" },
-    "run_id": { "type": "string", "minLength": 1 },
-    "story_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
-    "reference_sha256": {
-      "type": ["string", "null"],
-      "pattern": "^[0-9a-f]{64}$"
-    },
-    "input_mode": {
-      "enum": ["reference-edit", "text-generate", "text-seeded-edit"]
-    },
-    "generated_seed_sha256": {
-      "type": ["string", "null"],
-      "pattern": "^[0-9a-f]{64}$"
-    },
-    "model": { "type": "string", "minLength": 1 },
-    "size": { "type": "string", "pattern": "^[0-9]+x[0-9]+$" },
-    "quality": { "enum": ["low", "medium", "high"] },
-    "requested": { "type": "integer", "minimum": 0 },
-    "succeeded": { "type": "integer", "minimum": 0 },
-    "failed": { "type": "integer", "minimum": 0 },
+    "schema_version": {"const": "story-image-manifest-v2"},
+    "run_id": {"type": "string", "minLength": 1},
+    "media_plan_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "generation_package_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "primary_model": {"type": "string", "minLength": 1},
+    "fallback_model": {"type": "string", "minLength": 1},
+    "image_size": {"type": "string", "minLength": 1},
+    "aspect_ratio": {"type": "string", "pattern": "^[0-9]+:[0-9]+$"},
+    "requested": {"type": "integer", "minimum": 0, "maximum": 8},
+    "succeeded": {"type": "integer", "minimum": 0, "maximum": 8},
+    "failed": {"type": "integer", "minimum": 0, "maximum": 8},
     "assets": {
       "type": "array",
+      "maxItems": 8,
       "items": {
         "type": "object",
         "additionalProperties": false,
         "required": [
-          "section_id",
-          "status",
-          "path",
-          "sha256",
-          "error_type",
-          "qa_status",
-          "qa_notes",
-          "provider",
-          "model",
-          "mime_type",
-          "attempts",
+          "slot_id", "section_id", "capability_group", "reference_asset_ids",
+          "prompt_digest", "status", "path", "sha256", "error_type", "qa_status",
+          "qa_notes", "review_checks", "provider", "model", "mime_type", "attempts",
           "ai_metadata_embedded"
         ],
         "properties": {
-          "section_id": { "type": "string", "minLength": 1 },
-          "status": { "enum": ["success", "error"] },
-          "path": { "type": ["string", "null"] },
-          "sha256": {
-            "type": ["string", "null"],
-            "pattern": "^[0-9a-f]{64}$"
+          "slot_id": {"type": "string", "pattern": "^slot_[a-z0-9_]+$"},
+          "section_id": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"},
+          "capability_group": {"type": "string", "minLength": 1},
+          "reference_asset_ids": {
+            "type": "array", "uniqueItems": true,
+            "items": {"type": "string", "minLength": 1}
           },
-          "error_type": { "type": ["string", "null"] },
-          "qa_status": { "enum": ["pending", "pass", "conditional", "fail"] },
-          "qa_notes": {
-            "type": "array",
-            "items": { "type": "string", "minLength": 1 }
+          "prompt_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+          "status": {"enum": ["success", "error"]},
+          "path": {"type": ["string", "null"]},
+          "sha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+          "error_type": {"type": ["string", "null"]},
+          "qa_status": {"enum": ["pending", "pass", "conditional", "fail"]},
+          "qa_notes": {"type": "array", "items": {"type": "string", "minLength": 1}},
+          "review_checks": {
+            "type": "object", "additionalProperties": false,
+            "required": ["scene_distinctness", "product_fidelity", "text_legibility", "claim_grounding"],
+            "properties": {
+              "scene_distinctness": {"enum": ["pending", "pass", "fail", "not_applicable"]},
+              "product_fidelity": {"enum": ["pending", "pass", "fail", "not_applicable"]},
+              "text_legibility": {"enum": ["pending", "pass", "fail", "not_applicable"]},
+              "claim_grounding": {"enum": ["pending", "pass", "fail", "not_applicable"]}
+            }
           },
           "provider": {"type": ["string", "null"]},
           "model": {"type": ["string", "null"]},
@@ -77,7 +64,7 @@
             "type": ["string", "null"],
             "enum": ["image/jpeg", "image/png", "image/webp", null]
           },
-          "attempts": {"type": "integer", "minimum": 1},
+          "attempts": {"type": "integer", "minimum": 1, "maximum": 3},
           "ai_metadata_embedded": {"type": "boolean"}
         }
       }

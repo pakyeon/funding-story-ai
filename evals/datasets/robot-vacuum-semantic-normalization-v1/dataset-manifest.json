@@ -1,0 +1,416 @@
+{
+  "schema_version": "robot-vacuum-semantic-normalization-dataset-v1",
+  "status": "development_smoke",
+  "created_at": "2026-08-31",
+  "purpose": "Evaluate MediaFacts construction from an approved_entity_projection-v1 derived from story-brief entities plus the same-revision worker projection; raw conversation extraction is out of scope.",
+  "files": {
+    "schema": "semantic-normalization-case.schema.json",
+    "normal": "normal-cases.json",
+    "defensive": "defensive-cases.json",
+    "readme": "README.md"
+  },
+  "model_view": {
+    "included": [
+      "facts: fact_id, entity_kind, statement"
+    ],
+    "excluded": [
+      "approved_revision",
+      "asset_refs",
+      "assets",
+      "availability",
+      "boundary",
+      "brief_digest",
+      "brief_revision",
+      "capability_group",
+      "case_id",
+      "case_kind",
+      "collection_state",
+      "digest",
+      "entity_id",
+      "evidence",
+      "evidence_refs",
+      "expected",
+      "gold_group",
+      "notes",
+      "projection_revision",
+      "revision",
+      "source_boundary",
+      "source_refs",
+      "sources",
+      "support_level",
+      "tags",
+      "template_id",
+      "variant",
+      "worker_projection_digest",
+      "worker_revision"
+    ],
+    "llm_owns": [
+      "atomic proposition decomposition",
+      "capability_group classification"
+    ],
+    "adapter_owns": [
+      "availability",
+      "support_level",
+      "collection_state",
+      "approved source/evidence/asset reference joins",
+      "revision/digest/boundary validation",
+      "forged-link rejection"
+    ],
+    "raw_conversation": "never included",
+    "opaque_id_rule": "The LLM sees only opaque fact IDs; raw projection and gold IDs also encode no group or order.",
+    "order_rule": "Model-view facts and expected propositions are independently shuffled per case; raw catalogs remain outside the LLM view.",
+    "fact_view_role": "The LLM receives only fact_id, entity_kind, and statement. The deterministic adapter joins approved source/evidence/asset references after proposition classification."
+  },
+  "normal": {
+    "case_count": 64,
+    "variant_counts": {
+      "all_in_one_dock": 16,
+      "auto_empty_dock": 16,
+      "basic_vacuum": 16,
+      "vacuum_mop": 16
+    },
+    "fact_count_histogram": {
+      "4": 5,
+      "5": 6,
+      "6": 6,
+      "7": 6,
+      "8": 5,
+      "9": 6,
+      "10": 6,
+      "11": 6,
+      "12": 6,
+      "13": 6,
+      "14": 6
+    },
+    "entity_count_histogram": {
+      "4": 5,
+      "7": 6,
+      "9": 6,
+      "10": 5,
+      "11": 12,
+      "12": 6,
+      "13": 12,
+      "14": 12
+    },
+    "fact_count_min": 4,
+    "fact_count_max": 14,
+    "entity_count_min": 4,
+    "entity_count_max": 14,
+    "availability_counts": {
+      "explicitly_absent": 21,
+      "provided": 538,
+      "unknown": 23
+    },
+    "support_level_counts": {
+      "maker_stated": 343,
+      "none": 44,
+      "supported": 195
+    },
+    "collection_state_counts": {
+      "resolved": 559,
+      "skipped": 23
+    },
+    "adapter_decision_counts": {
+      "accepted": 64
+    },
+    "capability_group_counts": {
+      "automation_return": 76,
+      "cleaning_mechanism": 73,
+      "configuration_maintenance": 77,
+      "control_personalization": 79,
+      "evidence_performance": 67,
+      "mobility_coverage": 82,
+      "problem_environment": 59,
+      "product_identity_outcome": 72
+    },
+    "invalid_links_observed": 0,
+    "unique_model_fact_orders": 64,
+    "model_view_leakage_errors": 0,
+    "group_position_pair_count": 176,
+    "duplicate_id_errors": 0,
+    "state_join_errors": 0,
+    "same_revision_case_count": 64,
+    "conflict_case_count": 0,
+    "tag_counts": {
+      "compound_sentence": 19,
+      "distractor": 16,
+      "explicit_absence": 20,
+      "opaque_ids": 64,
+      "order_shuffled": 64,
+      "repeated_capability_group": 58,
+      "semantic_normalization": 64,
+      "unknown_skipped": 22
+    },
+    "maker_stated_fact_count": 343,
+    "supported_fact_count": 195,
+    "supported_evidence_fact_count": 195,
+    "maker_supported_evidence_balance": {
+      "maker_stated": 343,
+      "supported_evidence": 195,
+      "absolute_difference": 148
+    },
+    "maker_supported_balance": {
+      "maker_stated": 343,
+      "supported": 195,
+      "absolute_difference": 148
+    },
+    "distractor_case_count": 16,
+    "compound_sentence_case_count": 19,
+    "repeated_group_case_count": 58,
+    "explicit_absence_case_count": 20,
+    "unknown_skipped_case_count": 22,
+    "fact_statement_and_proposition_uniqueness": {
+      "fact_statement_count": 582,
+      "unique_fact_statement_count": 186,
+      "atomic_proposition_count": 585,
+      "unique_atomic_proposition_text_count": 170,
+      "compound_fact_count": 19,
+      "compound_fact_count_min_per_case": 0,
+      "compound_fact_count_max_per_case": 1,
+      "compound_sentence_case_count": 19,
+      "within_case_duplicate_fact_statement_count": 0,
+      "within_case_duplicate_atomic_proposition_text_count": 0
+    },
+    "invalid_link_occurrences": 0,
+    "entity_kind_counts": {
+      "claim": 64,
+      "distractor": 16,
+      "evidence": 57,
+      "feature": 330,
+      "problem": 51,
+      "product": 64
+    },
+    "claim_group_counts": {
+      "automation_return": 8,
+      "cleaning_mechanism": 8,
+      "configuration_maintenance": 9,
+      "control_personalization": 8,
+      "evidence_performance": 7,
+      "mobility_coverage": 8,
+      "problem_environment": 8,
+      "product_identity_outcome": 8
+    },
+    "claim_support_level_counts": {
+      "maker_stated": 28,
+      "supported": 36
+    }
+  },
+  "defensive": {
+    "case_count": 64,
+    "variant_counts": {
+      "all_in_one_dock": 16,
+      "auto_empty_dock": 16,
+      "basic_vacuum": 16,
+      "vacuum_mop": 16
+    },
+    "fact_count_histogram": {
+      "4": 6,
+      "5": 6,
+      "6": 5,
+      "7": 6,
+      "8": 6,
+      "9": 6,
+      "10": 6,
+      "11": 6,
+      "12": 6,
+      "13": 5,
+      "14": 6
+    },
+    "entity_count_histogram": {
+      "6": 5,
+      "8": 6,
+      "9": 12,
+      "11": 12,
+      "12": 6,
+      "13": 11,
+      "14": 12
+    },
+    "fact_count_min": 4,
+    "fact_count_max": 14,
+    "entity_count_min": 6,
+    "entity_count_max": 14,
+    "availability_counts": {
+      "conflicting": 32,
+      "provided": 543
+    },
+    "support_level_counts": {
+      "maker_stated": 389,
+      "none": 32,
+      "supported": 154
+    },
+    "collection_state_counts": {
+      "resolved": 575
+    },
+    "adapter_decision_counts": {
+      "accepted": 8,
+      "reject_conflict": 32,
+      "reject_digest_mismatch": 8,
+      "reject_forged_reference": 8,
+      "reject_stale_revision": 8
+    },
+    "capability_group_counts": {
+      "automation_return": 11,
+      "cleaning_mechanism": 6,
+      "configuration_maintenance": 10,
+      "control_personalization": 10,
+      "evidence_performance": 8,
+      "mobility_coverage": 11,
+      "problem_environment": 8,
+      "product_identity_outcome": 6
+    },
+    "invalid_links_observed": 8,
+    "invalid_link_occurrences": 16,
+    "unique_model_fact_orders": 64,
+    "model_view_leakage_errors": 0,
+    "group_position_pair_count": 177,
+    "duplicate_id_errors": 0,
+    "state_join_errors": 0,
+    "same_revision_case_count": 56,
+    "conflict_case_count": 32,
+    "tag_counts": {
+      "boundary_defect": 32,
+      "conflict": 32,
+      "digest_mismatch": 8,
+      "forged_link": 8,
+      "forged_refs_assets_evidence": 8,
+      "instruction_like_text_is_data": 8,
+      "opaque_ids": 64,
+      "order_shuffled": 64,
+      "prompt_injection": 8,
+      "semantic_normalization": 64,
+      "stale_or_digest_mismatch": 16,
+      "stale_revision": 8
+    },
+    "primary_type_counts": {
+      "conflict": 32,
+      "digest_mismatch": 8,
+      "forged_link": 8,
+      "prompt_injection": 8,
+      "stale_revision": 8
+    },
+    "aggregate_counts": {
+      "conflict": 32,
+      "stale_or_digest_mismatch": 16,
+      "forged_refs_assets_evidence": 8,
+      "prompt_injection": 8
+    },
+    "prompt_injection_expected_decision": "accepted; quoted instruction-like text is data and is not followed",
+    "intentional_invalid_link_case_count": 8,
+    "fact_statement_and_proposition_uniqueness": {
+      "fact_statement_count": 575,
+      "unique_fact_statement_count": 175,
+      "atomic_proposition_count": 70,
+      "unique_atomic_proposition_text_count": 48,
+      "compound_fact_count": 0,
+      "compound_fact_count_min_per_case": 0,
+      "compound_fact_count_max_per_case": 0,
+      "compound_sentence_case_count": 0,
+      "within_case_duplicate_fact_statement_count": 0,
+      "within_case_duplicate_atomic_proposition_text_count": 0
+    },
+    "entity_kind_counts": {
+      "claim": 64,
+      "distractor": 10,
+      "evidence": 60,
+      "feature": 330,
+      "problem": 51,
+      "product": 60
+    },
+    "claim_group_counts": {
+      "product_identity_outcome": 1,
+      "problem_environment": 1,
+      "cleaning_mechanism": 1,
+      "mobility_coverage": 1,
+      "automation_return": 1,
+      "control_personalization": 1,
+      "evidence_performance": 1,
+      "configuration_maintenance": 1
+    },
+    "claim_support_level_counts": {
+      "maker_stated": 6,
+      "supported": 2
+    }
+  },
+  "integrity": {
+    "schema": "semantic-normalization-case.schema.json",
+    "command": "uv run --no-sync python evals/validate_semantic_normalization_dataset.py",
+    "schema_errors": 0,
+    "duplicate_case_ids": 0,
+    "duplicate_entity_fact_source_evidence_asset_ids": 0,
+    "unresolved_links_normal_and_prompt_injection": 0,
+    "intentional_unresolved_links_defensive_forged": 8,
+    "intentional_unresolved_link_reference_count_defensive_forged": 8,
+    "intentional_unresolved_link_occurrences_defensive_forged": 16,
+    "model_view_leakage_errors": 0,
+    "normal_conflict_cases": 0,
+    "same_revision_normal_cases": 64,
+    "normal_digest_errors": 0,
+    "prompt_injection_digest_errors": 0,
+    "normal_state_join_errors": 0,
+    "unique_model_fact_orders": 128,
+    "group_position_pair_count": 113
+  },
+  "limitations": [
+    "Synthetic Korean paraphrases are a contract smoke set, not observed customer conversations or a final holdout.",
+    "The fixture recombines a limited phrase inventory; repeated surface forms make it unsuitable as a standalone generalization score.",
+    "Sixteen cases have independent AI double annotation; the three provisional adjudication decisions received user signoff on 2026-09-01, without claiming human double annotation.",
+    "The worker projection is represented as a compact evaluation fixture; runtime integration must calculate and verify the real canonical brief/projection digests.",
+    "Prompt-injection cases test instruction/data separation but do not measure adversarial multilingual or tool-call injection coverage.",
+    "Forged-link cases intentionally contain eight unresolved references; these are expected defensive failures, not accidental data corruption.",
+    "The dataset does not evaluate media-slot cardinality or rendered image quality; it ends at MediaFacts normalization."
+  ],
+  "semantic_invariants": {
+    "entity_kind_to_allowed_capability_groups": {
+      "product": [
+        "product_identity_outcome"
+      ],
+      "problem": [
+        "problem_environment"
+      ],
+      "evidence": [
+        "evidence_performance"
+      ],
+      "claim": [
+        "product_identity_outcome",
+        "problem_environment",
+        "cleaning_mechanism",
+        "mobility_coverage",
+        "automation_return",
+        "control_personalization",
+        "evidence_performance",
+        "configuration_maintenance"
+      ],
+      "feature": [
+        "cleaning_mechanism",
+        "mobility_coverage",
+        "automation_return",
+        "control_personalization",
+        "configuration_maintenance"
+      ],
+      "distractor": []
+    },
+    "non_claim_group_source_type": {
+      "product_identity_outcome": "maker-input",
+      "problem_environment": "maker-input",
+      "cleaning_mechanism": "document",
+      "mobility_coverage": "document",
+      "automation_return": "document",
+      "control_personalization": "document",
+      "evidence_performance": "test-report",
+      "configuration_maintenance": "document"
+    },
+    "non_claim_group_asset_type": {
+      "product_identity_outcome": "product",
+      "problem_environment": "lifestyle",
+      "cleaning_mechanism": "feature",
+      "mobility_coverage": "feature",
+      "automation_return": "feature",
+      "control_personalization": "app",
+      "evidence_performance": "evidence",
+      "configuration_maintenance": "feature"
+    },
+    "distractor_rule": "distractors have no atomic propositions and appear only in ignored_fact_ids",
+    "compound_rule": "each case has zero to three facts with more than one atomic proposition; tagged normal compound cases have one to three",
+    "uniqueness_rule": "exact duplicate fact statements and exact duplicate atomic proposition texts are zero within every case; global unique-text counts are recorded separately from row counts"
+  }
+}

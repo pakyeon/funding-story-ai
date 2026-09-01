@@ -1,0 +1,1345 @@
+{
+  "schema_version": "story-worker-collection-evaluation-v1",
+  "cases": [
+    {
+      "id": "collection-001",
+      "message": "권장 순서대로 모두 입력할게.",
+      "expected_directive": {
+        "action": "continue_recommended"
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "continue_recommended"
+      ]
+    },
+    {
+      "id": "collection-002",
+      "message": "추천하는 순서로 선택 정보를 채우자.",
+      "expected_directive": {
+        "action": "continue_recommended"
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "continue_recommended"
+      ]
+    },
+    {
+      "id": "collection-003",
+      "message": "네가 권장하는 흐름으로 전부 진행해줘.",
+      "expected_directive": {
+        "action": "continue_recommended"
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "continue_recommended"
+      ]
+    },
+    {
+      "id": "collection-004",
+      "message": "선택 항목을 처음부터 차례대로 물어봐 줘.",
+      "expected_directive": {
+        "action": "continue_recommended"
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "continue_recommended"
+      ]
+    },
+    {
+      "id": "collection-005",
+      "message": "모든 추가 정보를 순서대로 입력하겠습니다.",
+      "expected_directive": {
+        "action": "continue_recommended"
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "continue_recommended"
+      ]
+    },
+    {
+      "id": "collection-006",
+      "message": "전체 항목을 권장 순서로 진행할래.",
+      "expected_directive": {
+        "action": "continue_recommended"
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "continue_recommended"
+      ]
+    },
+    {
+      "id": "collection-007",
+      "message": "빠짐없이 하나씩 질문해줘.",
+      "expected_directive": {
+        "action": "continue_recommended"
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "continue_recommended"
+      ]
+    },
+    {
+      "id": "collection-008",
+      "message": "네, 선택 정보 모두 작성하겠습니다.",
+      "expected_directive": {
+        "action": "continue_recommended"
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "continue_recommended"
+      ]
+    },
+    {
+      "id": "collection-009",
+      "message": "추천 방식으로 계속하자.",
+      "expected_directive": {
+        "action": "continue_recommended"
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "continue_recommended"
+      ]
+    },
+    {
+      "id": "collection-010",
+      "message": "네 가지 그룹을 전부 순서대로 입력할게.",
+      "expected_directive": {
+        "action": "continue_recommended"
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "continue_recommended"
+      ]
+    },
+    {
+      "id": "collection-011",
+      "message": "선택 정보는 전부 생략할게.",
+      "expected_directive": {
+        "action": "skip_all_optional"
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "skip_all_optional"
+      ]
+    },
+    {
+      "id": "collection-012",
+      "message": "추가 항목 11개는 모두 이번 생성에서 빼줘.",
+      "expected_directive": {
+        "action": "skip_all_optional"
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "skip_all_optional"
+      ]
+    },
+    {
+      "id": "collection-013",
+      "message": "선택 정보 전체를 건너뛰겠습니다.",
+      "expected_directive": {
+        "action": "skip_all_optional"
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "skip_all_optional"
+      ]
+    },
+    {
+      "id": "collection-014",
+      "message": "필수 정보만 쓰고 나머지는 전부 생략해.",
+      "expected_directive": {
+        "action": "skip_all_optional"
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "skip_all_optional"
+      ]
+    },
+    {
+      "id": "collection-015",
+      "message": "네 그룹 모두 작성하지 않을게.",
+      "expected_directive": {
+        "action": "skip_all_optional"
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "skip_all_optional"
+      ]
+    },
+    {
+      "id": "collection-016",
+      "message": "추가 질문 없이 선택 항목을 모두 스킵해줘.",
+      "expected_directive": {
+        "action": "skip_all_optional"
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "skip_all_optional"
+      ]
+    },
+    {
+      "id": "collection-017",
+      "message": "선택 정보는 하나도 제공하지 않겠습니다.",
+      "expected_directive": {
+        "action": "skip_all_optional"
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "skip_all_optional"
+      ]
+    },
+    {
+      "id": "collection-018",
+      "message": "남은 선택 항목 전체 생략을 확정할게.",
+      "expected_directive": {
+        "action": "skip_all_optional"
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "skip_all_optional"
+      ]
+    },
+    {
+      "id": "collection-019",
+      "message": "이번 생성에서는 추가 정보를 전부 제외해.",
+      "expected_directive": {
+        "action": "skip_all_optional"
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "skip_all_optional"
+      ]
+    },
+    {
+      "id": "collection-020",
+      "message": "선택 사항 전체를 생략하고 다음으로 가자.",
+      "expected_directive": {
+        "action": "skip_all_optional"
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "skip_all_optional"
+      ]
+    },
+    {
+      "id": "collection-021",
+      "message": "아까 생략한 선택 정보를 다시 입력할게.",
+      "expected_directive": {
+        "action": "return_to_optional"
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "return_to_optional"
+      ]
+    },
+    {
+      "id": "collection-022",
+      "message": "선택 정보 입력 단계로 돌아가자.",
+      "expected_directive": {
+        "action": "return_to_optional"
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "return_to_optional"
+      ]
+    },
+    {
+      "id": "collection-023",
+      "message": "생략을 취소하고 추가 항목을 작성하겠습니다.",
+      "expected_directive": {
+        "action": "return_to_optional"
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "return_to_optional"
+      ]
+    },
+    {
+      "id": "collection-024",
+      "message": "다시 선택 정보부터 보완하고 싶어.",
+      "expected_directive": {
+        "action": "return_to_optional"
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "return_to_optional"
+      ]
+    },
+    {
+      "id": "collection-025",
+      "message": "건너뛴 항목을 다시 열어줘.",
+      "expected_directive": {
+        "action": "return_to_optional"
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "return_to_optional"
+      ]
+    },
+    {
+      "id": "collection-026",
+      "message": "추가 정보 입력으로 되돌아갈게.",
+      "expected_directive": {
+        "action": "return_to_optional"
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "return_to_optional"
+      ]
+    },
+    {
+      "id": "collection-027",
+      "message": "선택 항목을 다시 작성할 수 있게 해줘.",
+      "expected_directive": {
+        "action": "return_to_optional"
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "return_to_optional"
+      ]
+    },
+    {
+      "id": "collection-028",
+      "message": "이전 생략을 취소할래.",
+      "expected_directive": {
+        "action": "return_to_optional"
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "return_to_optional"
+      ]
+    },
+    {
+      "id": "collection-029",
+      "message": "선택 정보 수집을 재개하자.",
+      "expected_directive": {
+        "action": "return_to_optional"
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "return_to_optional"
+      ]
+    },
+    {
+      "id": "collection-030",
+      "message": "아까 스킵한 부분을 다시 채우겠습니다.",
+      "expected_directive": {
+        "action": "return_to_optional"
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "return_to_optional"
+      ]
+    },
+    {
+      "id": "collection-031",
+      "message": "스토리 설득 정보에 해당하는 그룹 전체부터 입력할게.",
+      "expected_directive": {
+        "action": "select_groups",
+        "groups": [
+          "story_persuasion"
+        ]
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "select_groups",
+        "story_persuasion"
+      ]
+    },
+    {
+      "id": "collection-032",
+      "message": "문제와 신뢰 근거에 해당하는 그룹 전체부터 입력할게.",
+      "expected_directive": {
+        "action": "select_groups",
+        "groups": [
+          "story_persuasion"
+        ]
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "select_groups",
+        "story_persuasion"
+      ]
+    },
+    {
+      "id": "collection-033",
+      "message": "메이커 소개 그룹에 해당하는 그룹 전체부터 입력할게.",
+      "expected_directive": {
+        "action": "select_groups",
+        "groups": [
+          "story_persuasion"
+        ]
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "select_groups",
+        "story_persuasion"
+      ]
+    },
+    {
+      "id": "collection-034",
+      "message": "스토리 설득 정보에 해당하는 그룹 전체부터 입력할게.",
+      "expected_directive": {
+        "action": "select_groups",
+        "groups": [
+          "story_persuasion"
+        ]
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "select_groups",
+        "story_persuasion"
+      ]
+    },
+    {
+      "id": "collection-035",
+      "message": "펀딩 구성에 해당하는 그룹 전체부터 입력할게.",
+      "expected_directive": {
+        "action": "select_groups",
+        "groups": [
+          "funding_configuration"
+        ]
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "select_groups",
+        "funding_configuration"
+      ]
+    },
+    {
+      "id": "collection-036",
+      "message": "리워드와 일정에 해당하는 그룹 전체부터 입력할게.",
+      "expected_directive": {
+        "action": "select_groups",
+        "groups": [
+          "funding_configuration"
+        ]
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "select_groups",
+        "funding_configuration"
+      ]
+    },
+    {
+      "id": "collection-037",
+      "message": "가격과 발송 정보에 해당하는 그룹 전체부터 입력할게.",
+      "expected_directive": {
+        "action": "select_groups",
+        "groups": [
+          "funding_configuration"
+        ]
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "select_groups",
+        "funding_configuration"
+      ]
+    },
+    {
+      "id": "collection-038",
+      "message": "펀딩 구성에 해당하는 그룹 전체부터 입력할게.",
+      "expected_directive": {
+        "action": "select_groups",
+        "groups": [
+          "funding_configuration"
+        ]
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "select_groups",
+        "funding_configuration"
+      ]
+    },
+    {
+      "id": "collection-039",
+      "message": "정책 그룹에 해당하는 그룹 전체부터 입력할게.",
+      "expected_directive": {
+        "action": "select_groups",
+        "groups": [
+          "policy"
+        ]
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "select_groups",
+        "policy"
+      ]
+    },
+    {
+      "id": "collection-040",
+      "message": "환불과 A/S에 해당하는 그룹 전체부터 입력할게.",
+      "expected_directive": {
+        "action": "select_groups",
+        "groups": [
+          "policy"
+        ]
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "select_groups",
+        "policy"
+      ]
+    },
+    {
+      "id": "collection-041",
+      "message": "교환·보증 정보에 해당하는 그룹 전체부터 입력할게.",
+      "expected_directive": {
+        "action": "select_groups",
+        "groups": [
+          "policy"
+        ]
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "select_groups",
+        "policy"
+      ]
+    },
+    {
+      "id": "collection-042",
+      "message": "정책 그룹에 해당하는 그룹 전체부터 입력할게.",
+      "expected_directive": {
+        "action": "select_groups",
+        "groups": [
+          "policy"
+        ]
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "select_groups",
+        "policy"
+      ]
+    },
+    {
+      "id": "collection-043",
+      "message": "프로젝트 설명에 해당하는 그룹 전체부터 입력할게.",
+      "expected_directive": {
+        "action": "select_groups",
+        "groups": [
+          "project_explanation"
+        ]
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "select_groups",
+        "project_explanation"
+      ]
+    },
+    {
+      "id": "collection-044",
+      "message": "펀딩 목적과 위험에 해당하는 그룹 전체부터 입력할게.",
+      "expected_directive": {
+        "action": "select_groups",
+        "groups": [
+          "project_explanation"
+        ]
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "select_groups",
+        "project_explanation"
+      ]
+    },
+    {
+      "id": "collection-045",
+      "message": "플랫폼 선택 이유 그룹에 해당하는 그룹 전체부터 입력할게.",
+      "expected_directive": {
+        "action": "select_groups",
+        "groups": [
+          "project_explanation"
+        ]
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "select_groups",
+        "project_explanation"
+      ]
+    },
+    {
+      "id": "collection-046",
+      "message": "프로젝트 설명에 해당하는 그룹 전체부터 입력할게.",
+      "expected_directive": {
+        "action": "select_groups",
+        "groups": [
+          "project_explanation"
+        ]
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "select_groups",
+        "project_explanation"
+      ]
+    },
+    {
+      "id": "collection-047",
+      "message": "해결하려는 문제만 입력할게.",
+      "expected_directive": {
+        "action": "select_fields",
+        "fields": [
+          "problem_context"
+        ]
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "select_fields",
+        "problem_context"
+      ]
+    },
+    {
+      "id": "collection-048",
+      "message": "신뢰 근거부터 작성하자.",
+      "expected_directive": {
+        "action": "select_fields",
+        "fields": [
+          "trust_elements"
+        ]
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "select_fields",
+        "trust_elements"
+      ]
+    },
+    {
+      "id": "collection-049",
+      "message": "메이커 소개 항목을 선택할게.",
+      "expected_directive": {
+        "action": "select_fields",
+        "fields": [
+          "maker_team_intro"
+        ]
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "select_fields",
+        "maker_team_intro"
+      ]
+    },
+    {
+      "id": "collection-050",
+      "message": "리워드 구성만 알려줄게.",
+      "expected_directive": {
+        "action": "select_fields",
+        "fields": [
+          "rewards"
+        ]
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "select_fields",
+        "rewards"
+      ]
+    },
+    {
+      "id": "collection-051",
+      "message": "펀딩 종료 일정부터 입력할래.",
+      "expected_directive": {
+        "action": "select_fields",
+        "fields": [
+          "funding_end"
+        ]
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "select_fields",
+        "funding_end"
+      ]
+    },
+    {
+      "id": "collection-052",
+      "message": "발송 시작 일정을 선택해줘.",
+      "expected_directive": {
+        "action": "select_fields",
+        "fields": [
+          "shipping_start"
+        ]
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "select_fields",
+        "shipping_start"
+      ]
+    },
+    {
+      "id": "collection-053",
+      "message": "교환·환불 정책만 작성하겠습니다.",
+      "expected_directive": {
+        "action": "select_fields",
+        "fields": [
+          "refund_policy"
+        ]
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "select_fields",
+        "refund_policy"
+      ]
+    },
+    {
+      "id": "collection-054",
+      "message": "보증과 사후지원 내용을 입력할게.",
+      "expected_directive": {
+        "action": "select_fields",
+        "fields": [
+          "as_policy"
+        ]
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "select_fields",
+        "as_policy"
+      ]
+    },
+    {
+      "id": "collection-055",
+      "message": "펀딩금 사용 계획부터 작성하자.",
+      "expected_directive": {
+        "action": "select_fields",
+        "fields": [
+          "funding_plan"
+        ]
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "select_fields",
+        "funding_plan"
+      ]
+    },
+    {
+      "id": "collection-056",
+      "message": "와디즈 선택 이유를 입력할래.",
+      "expected_directive": {
+        "action": "select_fields",
+        "fields": [
+          "platform_choice"
+        ]
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "select_fields",
+        "platform_choice"
+      ]
+    },
+    {
+      "id": "collection-057",
+      "message": "위험과 대응 계획만 보완할게.",
+      "expected_directive": {
+        "action": "select_fields",
+        "fields": [
+          "risk_response"
+        ]
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "select_fields",
+        "risk_response"
+      ]
+    },
+    {
+      "id": "collection-058",
+      "message": "이번에는 해결하려는 문제만 입력할게.",
+      "expected_directive": {
+        "action": "select_fields",
+        "fields": [
+          "problem_context"
+        ]
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "select_fields",
+        "problem_context"
+      ]
+    },
+    {
+      "id": "collection-059",
+      "message": "이번에는 신뢰 근거부터 작성하자.",
+      "expected_directive": {
+        "action": "select_fields",
+        "fields": [
+          "trust_elements"
+        ]
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "select_fields",
+        "trust_elements"
+      ]
+    },
+    {
+      "id": "collection-060",
+      "message": "이번에는 메이커 소개 항목을 선택할게.",
+      "expected_directive": {
+        "action": "select_fields",
+        "fields": [
+          "maker_team_intro"
+        ]
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "select_fields",
+        "maker_team_intro"
+      ]
+    },
+    {
+      "id": "collection-061",
+      "message": "이번에는 리워드 구성만 알려줄게.",
+      "expected_directive": {
+        "action": "select_fields",
+        "fields": [
+          "rewards"
+        ]
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "select_fields",
+        "rewards"
+      ]
+    },
+    {
+      "id": "collection-062",
+      "message": "이번에는 펀딩 종료 일정부터 입력할래.",
+      "expected_directive": {
+        "action": "select_fields",
+        "fields": [
+          "funding_end"
+        ]
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "select_fields",
+        "funding_end"
+      ]
+    },
+    {
+      "id": "collection-063",
+      "message": "이번에는 발송 시작 일정을 선택해줘.",
+      "expected_directive": {
+        "action": "select_fields",
+        "fields": [
+          "shipping_start"
+        ]
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "select_fields",
+        "shipping_start"
+      ]
+    },
+    {
+      "id": "collection-064",
+      "message": "이번에는 교환·환불 정책만 작성하겠습니다.",
+      "expected_directive": {
+        "action": "select_fields",
+        "fields": [
+          "refund_policy"
+        ]
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "select_fields",
+        "refund_policy"
+      ]
+    },
+    {
+      "id": "collection-065",
+      "message": "이번에는 보증과 사후지원 내용을 입력할게.",
+      "expected_directive": {
+        "action": "select_fields",
+        "fields": [
+          "as_policy"
+        ]
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "select_fields",
+        "as_policy"
+      ]
+    },
+    {
+      "id": "collection-066",
+      "message": "이번에는 펀딩금 사용 계획부터 작성하자.",
+      "expected_directive": {
+        "action": "select_fields",
+        "fields": [
+          "funding_plan"
+        ]
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "select_fields",
+        "funding_plan"
+      ]
+    },
+    {
+      "id": "collection-067",
+      "message": "이번에는 와디즈 선택 이유를 입력할래.",
+      "expected_directive": {
+        "action": "select_fields",
+        "fields": [
+          "platform_choice"
+        ]
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "select_fields",
+        "platform_choice"
+      ]
+    },
+    {
+      "id": "collection-068",
+      "message": "이번에는 위험과 대응 계획만 보완할게.",
+      "expected_directive": {
+        "action": "select_fields",
+        "fields": [
+          "risk_response"
+        ]
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "select_fields",
+        "risk_response"
+      ]
+    },
+    {
+      "id": "collection-069",
+      "message": "해결하려는 문제 항목은 이번에 생략할게.",
+      "expected_directive": {
+        "action": "skip_fields",
+        "fields": [
+          "problem_context"
+        ]
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "skip_fields"
+      ]
+    },
+    {
+      "id": "collection-070",
+      "message": "신뢰 근거는 빼고 진행하자.",
+      "expected_directive": {
+        "action": "skip_fields",
+        "fields": [
+          "trust_elements"
+        ]
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "skip_fields"
+      ]
+    },
+    {
+      "id": "collection-071",
+      "message": "메이커 소개는 이번 생성에서 제외해.",
+      "expected_directive": {
+        "action": "skip_fields",
+        "fields": [
+          "maker_team_intro"
+        ]
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "skip_fields"
+      ]
+    },
+    {
+      "id": "collection-072",
+      "message": "리워드 구성은 생략하겠습니다.",
+      "expected_directive": {
+        "action": "skip_fields",
+        "fields": [
+          "rewards"
+        ]
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "skip_fields"
+      ]
+    },
+    {
+      "id": "collection-073",
+      "message": "종료일과 발송 일정은 둘 다 생략할게.",
+      "expected_directive": {
+        "action": "skip_fields",
+        "fields": [
+          "funding_end",
+          "shipping_start"
+        ]
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "skip_fields"
+      ]
+    },
+    {
+      "id": "collection-074",
+      "message": "환불과 A/S 정책은 이번에 건너뛰자.",
+      "expected_directive": {
+        "action": "skip_fields",
+        "fields": [
+          "refund_policy",
+          "as_policy"
+        ]
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "skip_fields"
+      ]
+    },
+    {
+      "id": "collection-075",
+      "message": "펀딩금 사용 계획은 빼줘.",
+      "expected_directive": {
+        "action": "skip_fields",
+        "fields": [
+          "funding_plan"
+        ]
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "skip_fields"
+      ]
+    },
+    {
+      "id": "collection-076",
+      "message": "플랫폼 선택 이유는 생략할래.",
+      "expected_directive": {
+        "action": "skip_fields",
+        "fields": [
+          "platform_choice"
+        ]
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "skip_fields"
+      ]
+    },
+    {
+      "id": "collection-077",
+      "message": "위험 대응 계획은 이번에 작성하지 않겠어.",
+      "expected_directive": {
+        "action": "skip_fields",
+        "fields": [
+          "risk_response"
+        ]
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "skip_fields"
+      ]
+    },
+    {
+      "id": "collection-078",
+      "message": "스토리 설득 정보 그룹 전체를 생략해.",
+      "expected_directive": {
+        "action": "skip_fields",
+        "fields": [
+          "problem_context",
+          "trust_elements",
+          "maker_team_intro"
+        ]
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "skip_fields"
+      ]
+    },
+    {
+      "id": "collection-079",
+      "message": "펀딩 구성 그룹은 전부 건너뛰어.",
+      "expected_directive": {
+        "action": "skip_fields",
+        "fields": [
+          "rewards",
+          "funding_end",
+          "shipping_start"
+        ]
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "skip_fields"
+      ]
+    },
+    {
+      "id": "collection-080",
+      "message": "정책 그룹 전체를 제외할게.",
+      "expected_directive": {
+        "action": "skip_fields",
+        "fields": [
+          "refund_policy",
+          "as_policy"
+        ]
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "skip_fields"
+      ]
+    },
+    {
+      "id": "collection-081",
+      "message": "프로젝트 설명 그룹은 모두 생략하자.",
+      "expected_directive": {
+        "action": "skip_fields",
+        "fields": [
+          "funding_plan",
+          "platform_choice",
+          "risk_response"
+        ]
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "skip_fields"
+      ]
+    },
+    {
+      "id": "collection-082",
+      "message": "리워드와 환불 정책만 이번에 빼줘.",
+      "expected_directive": {
+        "action": "skip_fields",
+        "fields": [
+          "rewards",
+          "refund_policy"
+        ]
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "skip_fields"
+      ]
+    },
+    {
+      "id": "collection-083",
+      "message": "팀 소개와 플랫폼 선택 이유는 생략할게.",
+      "expected_directive": {
+        "action": "skip_fields",
+        "fields": [
+          "maker_team_intro",
+          "platform_choice"
+        ]
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "skip_fields"
+      ]
+    },
+    {
+      "id": "collection-084",
+      "message": "신뢰 근거와 위험 대응 계획은 건너뛰자.",
+      "expected_directive": {
+        "action": "skip_fields",
+        "fields": [
+          "trust_elements",
+          "risk_response"
+        ]
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "skip_fields"
+      ]
+    },
+    {
+      "id": "collection-085",
+      "message": "괜찮아.",
+      "expected_directive": {
+        "action": "none",
+        "requires_clarification": true
+      },
+      "expected_intent": "unclear",
+      "tags": [
+        "ambiguous",
+        "clarification"
+      ]
+    },
+    {
+      "id": "collection-086",
+      "message": "그냥 진행해줘.",
+      "expected_directive": {
+        "action": "none",
+        "requires_clarification": true
+      },
+      "expected_intent": "unclear",
+      "tags": [
+        "ambiguous",
+        "clarification"
+      ]
+    },
+    {
+      "id": "collection-087",
+      "message": "다음으로 가자.",
+      "expected_directive": {
+        "action": "none",
+        "requires_clarification": true
+      },
+      "expected_intent": "unclear",
+      "tags": [
+        "ambiguous",
+        "clarification"
+      ]
+    },
+    {
+      "id": "collection-088",
+      "message": "이 정도면 됐어.",
+      "expected_directive": {
+        "action": "none",
+        "requires_clarification": true
+      },
+      "expected_intent": "unclear",
+      "tags": [
+        "ambiguous",
+        "clarification"
+      ]
+    },
+    {
+      "id": "collection-089",
+      "message": "알아서 해줘.",
+      "expected_directive": {
+        "action": "none",
+        "requires_clarification": true
+      },
+      "expected_intent": "unclear",
+      "tags": [
+        "ambiguous",
+        "clarification"
+      ]
+    },
+    {
+      "id": "collection-090",
+      "message": "더 묻지 않아도 될 것 같아.",
+      "expected_directive": {
+        "action": "none",
+        "requires_clarification": true
+      },
+      "expected_intent": "unclear",
+      "tags": [
+        "ambiguous",
+        "clarification"
+      ]
+    },
+    {
+      "id": "collection-091",
+      "message": "가능하면 넘어가자.",
+      "expected_directive": {
+        "action": "none",
+        "requires_clarification": true
+      },
+      "expected_intent": "unclear",
+      "tags": [
+        "ambiguous",
+        "clarification"
+      ]
+    },
+    {
+      "id": "collection-092",
+      "message": "일단 계속해.",
+      "expected_directive": {
+        "action": "none",
+        "requires_clarification": true
+      },
+      "expected_intent": "unclear",
+      "tags": [
+        "ambiguous",
+        "clarification"
+      ]
+    },
+    {
+      "id": "collection-093",
+      "message": "응, 좋아.",
+      "expected_directive": {
+        "action": "none",
+        "requires_clarification": true
+      },
+      "expected_intent": "unclear",
+      "tags": [
+        "ambiguous",
+        "clarification"
+      ]
+    },
+    {
+      "id": "collection-094",
+      "message": "그 부분은 됐고 다음 단계로.",
+      "expected_directive": {
+        "action": "none",
+        "requires_clarification": true
+      },
+      "expected_intent": "unclear",
+      "tags": [
+        "ambiguous",
+        "clarification"
+      ]
+    },
+    {
+      "id": "collection-095",
+      "message": "필요한 것만 알아서 처리해줘.",
+      "expected_directive": {
+        "action": "none",
+        "requires_clarification": true
+      },
+      "expected_intent": "unclear",
+      "tags": [
+        "ambiguous",
+        "clarification"
+      ]
+    },
+    {
+      "id": "collection-096",
+      "message": "뭐든 괜찮으니 진행해.",
+      "expected_directive": {
+        "action": "none",
+        "requires_clarification": true
+      },
+      "expected_intent": "unclear",
+      "tags": [
+        "ambiguous",
+        "clarification"
+      ]
+    },
+    {
+      "id": "collection-097",
+      "message": "제품의 핵심 강점을 추가로 말할게.",
+      "expected_directive": {
+        "action": "none"
+      },
+      "expected_intent": "provide_information",
+      "tags": [
+        "none",
+        "provide_information"
+      ]
+    },
+    {
+      "id": "collection-098",
+      "message": "스토리를 생성해줘.",
+      "expected_directive": {
+        "action": "none"
+      },
+      "expected_intent": "request_generation",
+      "tags": [
+        "none",
+        "request_generation"
+      ]
+    },
+    {
+      "id": "collection-099",
+      "message": "지금까지 입력한 정보를 보여줘.",
+      "expected_directive": {
+        "action": "none"
+      },
+      "expected_intent": "ask_question",
+      "tags": [
+        "none",
+        "ask_question"
+      ]
+    },
+    {
+      "id": "collection-100",
+      "message": "작성을 취소할게.",
+      "expected_directive": {
+        "action": "none"
+      },
+      "expected_intent": "cancel",
+      "tags": [
+        "none",
+        "cancel"
+      ]
+    }
+  ]
+}

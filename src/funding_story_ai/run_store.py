@@ -106,6 +106,16 @@ class LocalRunStore:
             self._write_json_atomic(self.root / f"{run_id}.json", record)
             return record
 
+    def update_result(self, run_id: str, result: dict[str, Any]) -> dict[str, Any]:
+        """Persist a post-generation review update without rerunning the job."""
+        with self._lock:
+            record = self.get(run_id)
+            if record["status"] != "completed":
+                raise ValueError("Only completed runs can receive a review update")
+            record.update({"updated_at": _now(), "result": result})
+            self._write_json_atomic(self.root / f"{run_id}.json", record)
+            return record
+
     def fail(self, run_id: str, error: Exception) -> dict[str, Any]:
         with self._lock:
             record = self.get(run_id)

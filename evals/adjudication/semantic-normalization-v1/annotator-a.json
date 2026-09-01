@@ -1,0 +1,1704 @@
+{
+  "annotator": "A",
+  "model": "gpt-5.6-luna",
+  "reasoning_effort": "max",
+  "cases": [
+    {
+      "case_id": "rv_semantic_normal_001",
+      "annotations": [
+        {
+          "fact_id": "f_fc414f436b42",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "낮은 문턱을 넘고 장애물을 만나면 속도를 낮춰 주행한다.",
+              "capability_group": "mobility_coverage"
+            }
+          ],
+          "rationale": "문턱 통과와 장애물 대응 주행은 이동·주행 능력이다."
+        },
+        {
+          "fact_id": "f_0dff23871a58",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "음성 명령과 본체 버튼으로 간단한 청소 동작을 실행한다.",
+              "capability_group": "control_personalization"
+            }
+          ],
+          "rationale": "음성 명령과 본체 버튼은 사용자 조작 방식이다."
+        },
+        {
+          "fact_id": "f_1b2b83731324",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "제공된 시험표에는 정해진 먼지량과 바닥 조건에서의 수거 결과가 기록되어 있다.",
+              "capability_group": "evidence_performance"
+            }
+          ],
+          "rationale": "시험 조건과 수거 결과를 기록한 근거는 성능 증거다."
+        },
+        {
+          "fact_id": "f_35fd2c358a29",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "먼지통과 필터는 분리해 세척할 수 있고 브러시는 주기적으로 교체한다.",
+              "capability_group": "configuration_maintenance"
+            }
+          ],
+          "rationale": "분리 세척과 브러시 교체는 제품 관리·유지보수 정보다."
+        },
+        {
+          "fact_id": "f_3879cde7cbbb",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "비교 자료는 동일한 주행 시간과 면적에서 측정한 결과임을 설명한다.",
+              "capability_group": "evidence_performance"
+            }
+          ],
+          "rationale": "동일 조건의 측정 결과를 설명하는 비교 자료다."
+        },
+        {
+          "fact_id": "f_d33c9bd23818",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "흡입 모듈과 가장자리 브러시가 서로 다른 방향에서 바닥의 이물질을 모은다.",
+              "capability_group": "cleaning_mechanism"
+            }
+          ],
+          "rationale": "흡입 모듈과 브러시의 이물질 수거 방식은 청소 메커니즘이다."
+        },
+        {
+          "fact_id": "f_9f385f25240a",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "걸레를 세척하고 건조하는 과정까지 도크에서 자동으로 처리한다.",
+              "capability_group": "automation_return"
+            }
+          ],
+          "rationale": "도크가 걸레 세척·건조를 자동 처리한다는 내용이다."
+        },
+        {
+          "fact_id": "f_6a16ccc95d73",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "이 승인본에는 해당 청소 모듈의 동작이 포함되지 않는다.",
+              "capability_group": "cleaning_mechanism"
+            }
+          ],
+          "rationale": "청소 모듈 동작의 포함 여부를 말하는 청소 메커니즘 사실이다."
+        },
+        {
+          "fact_id": "f_918a490bb332",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "인증 문서는 특정 안전 기준을 통과했다는 사실만 확인해 준다.",
+              "capability_group": "evidence_performance"
+            }
+          ],
+          "rationale": "인증 문서가 확인하는 기준 통과 사실은 외부 근거다."
+        },
+        {
+          "fact_id": "f_7d429407c0ff",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "가족이 머무는 먼지가 잘 보이는 밝은 거실에는 과자 부스러기와 먼지가 함께 생긴다.",
+              "capability_group": "problem_environment"
+            }
+          ],
+          "rationale": "거실에서 발생하는 부스러기와 먼지는 사용 환경의 문제다."
+        },
+        {
+          "fact_id": "f_ef7ff88a2421",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "제품 소개에는 모델-L37가 집 안의 먼지 청소를 대신해 생활 시간을 돌려준다고 적혀 있다.",
+              "capability_group": "product_identity_outcome"
+            }
+          ],
+          "rationale": "모델과 제품의 용도·기대 효과를 소개하는 제품 정체성·결과 서술이다."
+        }
+      ]
+    },
+    {
+      "case_id": "rv_semantic_normal_002",
+      "annotations": [
+        {
+          "fact_id": "f_da6394341fa4",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "걸레를 세척하고 건조하는 과정까지 도크에서 자동으로 처리한다.",
+              "capability_group": "automation_return"
+            }
+          ],
+          "rationale": "도크의 걸레 세척·건조 자동 처리는 자동화 기능이다."
+        },
+        {
+          "fact_id": "f_21952b781f89",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "도크에서 먼지통을 비우는 기능이 있어 사용자가 비우는 횟수를 줄인다.",
+              "capability_group": "automation_return"
+            }
+          ],
+          "rationale": "도크의 먼지통 비움과 사용자 개입 감소는 자동화·도크 동작이다."
+        },
+        {
+          "fact_id": "f_4a869d37cf27",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "먼지통과 필터는 분리해 세척할 수 있고 브러시는 주기적으로 교체한다.",
+              "capability_group": "configuration_maintenance"
+            }
+          ],
+          "rationale": "부품 세척과 교체 주기는 유지보수 구성 정보다."
+        },
+        {
+          "fact_id": "f_81975694cab4",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "바닥 종류에 따라 흡입 세기와 브러시 동작을 조절한다.",
+              "capability_group": "cleaning_mechanism"
+            }
+          ],
+          "rationale": "바닥에 맞춰 흡입과 브러시를 조절하는 청소 방식이다."
+        },
+        {
+          "fact_id": "f_3c38d95c06c9",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "모델-W74는 문을 자주 여닫는 현관 중심 공간의 바닥 관리를 자동화하는 로봇청소기다.",
+              "capability_group": "product_identity_outcome"
+            }
+          ],
+          "rationale": "모델의 정체성과 용도·효과를 설명하는 제품 서술이다."
+        },
+        {
+          "fact_id": "f_89a40e6abaaa",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "자동화 사양상 걸레를 세척하고 건조하는 과정까지 도크에서 자동으로 처리한다.",
+              "capability_group": "automation_return"
+            }
+          ],
+          "rationale": "자동화 사양과 도크의 걸레 관리 동작을 설명한다."
+        },
+        {
+          "fact_id": "f_9fad60947785",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "가구 주변을 돌아가며 여러 구역을 순서대로 지나고 청소한 곳을 표시한다.",
+              "capability_group": "mobility_coverage"
+            }
+          ],
+          "rationale": "구역을 순회하고 청소 범위를 표시하는 이동·커버리지 동작이다."
+        }
+      ]
+    },
+    {
+      "case_id": "rv_semantic_normal_003",
+      "annotations": [
+        {
+          "fact_id": "f_fa96f26cf42f",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "사용자는 리모컨으로 흡입 모드와 시작 시점을 바꿀 수 있다.",
+              "capability_group": "control_personalization"
+            }
+          ],
+          "rationale": "리모컨을 통한 모드·시점 변경은 사용자 제어다."
+        },
+        {
+          "fact_id": "f_caf25b675a1d",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "메이커는 모델-H11를 바닥 청소 부담을 줄이는 제품으로 소개한다.",
+              "capability_group": "product_identity_outcome"
+            }
+          ],
+          "rationale": "메이커가 모델의 용도와 기대 효과를 소개한다."
+        },
+        {
+          "fact_id": "f_beb1f925f72d",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "도크에 돌아온 뒤 예약된 작업을 준비한다.",
+              "capability_group": "automation_return"
+            }
+          ],
+          "rationale": "도크 복귀 후 예약 작업을 준비하는 자동화 흐름이다."
+        },
+        {
+          "fact_id": "f_1b58d017cb9c",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "브러시와 흡입 세기는 바닥 조건에 맞춰 조절된다.",
+              "capability_group": "cleaning_mechanism"
+            }
+          ],
+          "rationale": "바닥 조건에 따른 브러시·흡입 조절은 청소 메커니즘이다."
+        },
+        {
+          "fact_id": "f_33a730659c89",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "분리한 부품은 완전히 건조한 후 다시 장착한다.",
+              "capability_group": "configuration_maintenance"
+            }
+          ],
+          "rationale": "부품 건조와 재장착은 관리 절차다."
+        },
+        {
+          "fact_id": "f_81584bbab420",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "가구 아래와 가장자리처럼 손이 닿기 어려운 곳도 대상에 포함한다.",
+              "capability_group": "mobility_coverage"
+            }
+          ],
+          "rationale": "도달하기 어려운 구역까지 포함하는 주행·커버리지 범위다."
+        },
+        {
+          "fact_id": "f_a695a6ba1696",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "방별 일정과 금지 영역을 따로 저장한다.",
+              "capability_group": "control_personalization"
+            }
+          ],
+          "rationale": "방별 일정과 금지 영역의 저장은 개인화 설정이다."
+        },
+        {
+          "fact_id": "f_a2a7e58a32b3",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "청소 모듈 설명상 브러시와 흡입 세기는 바닥 조건에 맞춰 조절된다.",
+              "capability_group": "cleaning_mechanism"
+            }
+          ],
+          "rationale": "청소 모듈의 브러시·흡입 조절 방식이다."
+        },
+        {
+          "fact_id": "f_72dbca6bc420",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "승인된 제품 자료에 따르면, 메이커는 모델-H11를 바닥 청소 부담을 줄이는 제품으로 소개한다.",
+              "capability_group": "product_identity_outcome"
+            }
+          ],
+          "rationale": "제품 자료가 모델의 용도와 기대 효과를 소개한다."
+        },
+        {
+          "fact_id": "f_78595b81793d",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "이 기기는 반려동물과 지내는 거실에서 반복 청소를 맡는 가정용 로봇으로 설명된다.",
+              "capability_group": "product_identity_outcome"
+            }
+          ],
+          "rationale": "기기의 제품 용도와 정체성을 설명하는 서술이다."
+        },
+        {
+          "fact_id": "f_a271fe3a11cd",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "금지 구역을 피하면서 가장자리와 중앙 영역을 나누어 순회한다.",
+              "capability_group": "mobility_coverage"
+            }
+          ],
+          "rationale": "금지 구역 회피와 영역 순회는 이동·커버리지 동작이다."
+        },
+        {
+          "fact_id": "f_058365960302",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "측정 조건과 결과 표가 함께 보관되어 있다.",
+              "capability_group": "evidence_performance"
+            }
+          ],
+          "rationale": "측정 조건과 결과 표를 보관한 성능 근거다."
+        },
+        {
+          "fact_id": "f_fc260eec584a",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "제품 사진은 실제 본체의 외형을 보여준다.",
+              "capability_group": "product_identity_outcome"
+            }
+          ],
+          "rationale": "제품 사진으로 본체 외형을 확인하는 제품 정체성 정보다."
+        },
+        {
+          "fact_id": "f_018009c38cb4",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "물걸레 패드는 사용 후 헹구고 완전히 말린 뒤 다시 장착한다",
+              "capability_group": "configuration_maintenance"
+            },
+            {
+              "text": "관리 안내상 분리한 부품은 완전히 건조한 후 다시 장착한다",
+              "capability_group": "configuration_maintenance"
+            }
+          ],
+          "rationale": "물걸레 패드와 분리 부품의 세척·건조·장착 관리 절차가 두 문장에 있다."
+        }
+      ]
+    },
+    {
+      "case_id": "rv_semantic_normal_004",
+      "annotations": [
+        {
+          "fact_id": "f_6ced21ed0e87",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "음성 명령과 본체 버튼으로 간단한 청소 동작을 실행한다.",
+              "capability_group": "control_personalization"
+            }
+          ],
+          "rationale": "음성 명령과 버튼은 사용자 조작 인터페이스다."
+        },
+        {
+          "fact_id": "f_19d05c63a716",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "도크에서 먼지통을 비우는 기능이 있어 사용자가 비우는 횟수를 줄인다.",
+              "capability_group": "automation_return"
+            }
+          ],
+          "rationale": "도크의 먼지통 비움은 자동화·도크 동작이다."
+        },
+        {
+          "fact_id": "f_7bb1cca44355",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "인증 문서는 특정 안전 기준을 통과했다는 사실만 확인해 준다.",
+              "capability_group": "evidence_performance"
+            }
+          ],
+          "rationale": "인증 문서의 기준 통과 확인은 외부 증거다."
+        },
+        {
+          "fact_id": "f_9c7c7bd269ee",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "사용 환경의 문턱과 가구 다리 때문에 여러 방을 오가는 가족 공간의 바닥을 빠짐없이 관리하기 어렵다.",
+              "capability_group": "problem_environment"
+            }
+          ],
+          "rationale": "문턱과 가구 다리 때문에 생기는 바닥 관리 어려움은 환경 문제다."
+        },
+        {
+          "fact_id": "f_6fe1d44d4e5e",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "모델-S48는 여러 방을 오가는 가족 공간의 바닥 관리를 자동화하는 로봇청소기다.",
+              "capability_group": "product_identity_outcome"
+            }
+          ],
+          "rationale": "모델의 제품 정체성과 용도를 설명한다."
+        },
+        {
+          "fact_id": "f_1cd83a1595ee",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "청소 지도를 확인하면서 특정 방만 다시 청소하도록 지정한다.",
+              "capability_group": "control_personalization"
+            }
+          ],
+          "rationale": "지도에서 특정 방 재청소를 지정하는 사용자 제어다."
+        },
+        {
+          "fact_id": "f_6afde20595c4",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "흡입 모듈과 가장자리 브러시가 서로 다른 방향에서 바닥의 이물질을 모은다.",
+              "capability_group": "cleaning_mechanism"
+            }
+          ],
+          "rationale": "흡입과 브러시의 이물질 수거는 청소 메커니즘이다."
+        },
+        {
+          "fact_id": "f_507b3fc9a57b",
+          "decision": "ignore",
+          "propositions": [],
+          "rationale": "포장 잉크 색상은 청소 성능과 무관한 명시적 부수 정보다."
+        },
+        {
+          "fact_id": "f_d17512e83b3a",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "주행 범위와 장애물 대응 관련 세부 조건은 아직 확인되지 않았고 이번 생성에서는 생략한다.",
+              "capability_group": "mobility_coverage"
+            }
+          ],
+          "rationale": "주행 범위와 장애물 대응이라는 이동 능력의 확인 상태를 말한다."
+        },
+        {
+          "fact_id": "f_2a0ce552ec1a",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "앱에서 방별 예약과 금지 구역을 설정할 수 있다.",
+              "capability_group": "control_personalization"
+            }
+          ],
+          "rationale": "앱으로 예약과 금지 구역을 설정하는 개인화 제어다."
+        }
+      ]
+    },
+    {
+      "case_id": "rv_semantic_normal_005",
+      "annotations": [
+        {
+          "fact_id": "f_3ad0ae0fb543",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "가구 주변을 돌아가며 여러 구역을 순서대로 지나고 청소한 곳을 표시한다.",
+              "capability_group": "mobility_coverage"
+            }
+          ],
+          "rationale": "여러 구역을 순서대로 주행하고 청소 위치를 표시하는 커버리지 동작이다."
+        },
+        {
+          "fact_id": "f_8d4127fd361d",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "낮은 문턱을 넘고 장애물을 만나면 속도를 낮춰 주행한다.",
+              "capability_group": "mobility_coverage"
+            }
+          ],
+          "rationale": "문턱 통과와 장애물 대응은 이동 능력이다."
+        },
+        {
+          "fact_id": "f_3426cce7f9ef",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "반려동물 털이 남는 좁은 통로와 넓은 방이 섞인 주거 공간에서는 짧은 청소 주기를 유지하기가 번거롭다.",
+              "capability_group": "problem_environment"
+            }
+          ],
+          "rationale": "털이 남는 주거 공간에서 반복 청소가 번거로운 환경 문제다."
+        },
+        {
+          "fact_id": "f_5b0e7f4e6f09",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "금지 구역을 피하면서 가장자리와 중앙 영역을 나누어 순회한다.",
+              "capability_group": "mobility_coverage"
+            }
+          ],
+          "rationale": "금지 구역을 회피하며 영역을 순회하는 주행·커버리지 동작이다."
+        },
+        {
+          "fact_id": "f_1a8a3d811d9e",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "자동 먼지 비움이나 추가 도크 동작은 이 승인본에서 제공되지 않는다.",
+              "capability_group": "automation_return"
+            }
+          ],
+          "rationale": "자동 먼지 비움과 도크 동작의 제공 여부를 말하는 자동화 사실이다."
+        },
+        {
+          "fact_id": "f_9a00164cffc4",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "바닥 종류에 따라 흡입 세기와 브러시 동작을 조절한다.",
+              "capability_group": "cleaning_mechanism"
+            }
+          ],
+          "rationale": "바닥 조건에 따른 흡입·브러시 조절은 청소 메커니즘이다."
+        }
+      ]
+    },
+    {
+      "case_id": "rv_semantic_normal_006",
+      "annotations": [
+        {
+          "fact_id": "f_58c2c007dde6",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "사용 후기에는 반복 사용 후에도 브러시 관리가 편했다는 관찰이 담겨 있다.",
+              "capability_group": "configuration_maintenance"
+            }
+          ],
+          "rationale": "브러시 관리 편의성에 관한 사용 후기는 유지보수 정보다."
+        },
+        {
+          "fact_id": "f_65102f68780c",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "물걸레 패드는 사용 후 헹구고 완전히 말린 뒤 다시 장착한다.",
+              "capability_group": "configuration_maintenance"
+            }
+          ],
+          "rationale": "물걸레 패드의 헹굼·건조·재장착은 관리 절차다."
+        },
+        {
+          "fact_id": "f_8a5a5c6cd128",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "방의 지도를 만든 뒤 정한 경로를 따라 이동하고 낭떠러지를 감지한다.",
+              "capability_group": "mobility_coverage"
+            }
+          ],
+          "rationale": "지도·경로 이동과 낭떠러지 감지는 주행·커버리지 능력이다."
+        },
+        {
+          "fact_id": "f_b41cf46d60ac",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "방별 일정과 금지 영역을 따로 저장한다.",
+              "capability_group": "control_personalization"
+            }
+          ],
+          "rationale": "방별 일정과 금지 영역을 저장하는 개인화 설정이다."
+        },
+        {
+          "fact_id": "f_72863e2c5f45",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "카펫과 마룻바닥이 이어진 복도에서는 머리카락과 잔먼지가 매일 쌓여 사람이 자주 치워야 한다.",
+              "capability_group": "problem_environment"
+            }
+          ],
+          "rationale": "복도에 머리카락과 먼지가 쌓여 수동 청소가 필요한 환경 문제다."
+        },
+        {
+          "fact_id": "f_cc19cddbf823",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "제품 소개에는 모델-O22가 집 안의 먼지 청소를 대신해 생활 시간을 돌려준다고 적혀 있다.",
+              "capability_group": "product_identity_outcome"
+            }
+          ],
+          "rationale": "모델의 제품 용도와 기대 효과를 설명하는 제품 서술이다."
+        },
+        {
+          "fact_id": "f_e22e6d895cef",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "물걸레 패드가 바닥을 닦고 흡입 장치가 마른 먼지를 함께 수거한다.",
+              "capability_group": "cleaning_mechanism"
+            }
+          ],
+          "rationale": "물걸레와 흡입 장치의 청소 작동 방식이다."
+        },
+        {
+          "fact_id": "f_3df9dc02a11f",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "청소한 구역과 남은 구역을 지도에서 구분한다.",
+              "capability_group": "mobility_coverage"
+            }
+          ],
+          "rationale": "지도에서 청소 범위를 구분하는 커버리지 추적이다."
+        },
+        {
+          "fact_id": "f_2ee4e135b118",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "분리한 부품은 완전히 건조한 후 다시 장착한다.",
+              "capability_group": "configuration_maintenance"
+            }
+          ],
+          "rationale": "분리 부품의 건조와 재장착은 유지보수 절차다."
+        },
+        {
+          "fact_id": "f_a36f6be6dcfb",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "도크 주변에 여유 공간을 두고 브러시와 센서 창을 닦아야 한다.",
+              "capability_group": "configuration_maintenance"
+            }
+          ],
+          "rationale": "도크 설치 공간과 브러시·센서 청소는 관리 정보다."
+        },
+        {
+          "fact_id": "f_2135f21c65e6",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "제어 기능 설명상 방별 일정과 금지 영역을 따로 저장한다",
+              "capability_group": "control_personalization"
+            },
+            {
+              "text": "사용자는 리모컨으로 흡입 모드와 시작 시점을 바꿀 수 있다",
+              "capability_group": "control_personalization"
+            }
+          ],
+          "rationale": "방별 설정 저장과 리모컨 변경은 각각 사용자 개인화 제어다."
+        },
+        {
+          "fact_id": "f_428bf6451593",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "도크에 돌아온 뒤 예약된 작업을 준비한다.",
+              "capability_group": "automation_return"
+            }
+          ],
+          "rationale": "도크 복귀 후 예약 작업 준비는 자동화 흐름이다."
+        },
+        {
+          "fact_id": "f_ace569d95e78",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "관리 안내상 분리한 부품은 완전히 건조한 후 다시 장착한다.",
+              "capability_group": "configuration_maintenance"
+            }
+          ],
+          "rationale": "관리 안내의 부품 건조·재장착 절차다."
+        }
+      ]
+    },
+    {
+      "case_id": "rv_semantic_normal_007",
+      "annotations": [
+        {
+          "fact_id": "f_60cfcc1123ac",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "사용 환경의 문턱과 가구 다리 때문에 긴 털이 바닥에 남는 반려동물 가정의 바닥을 빠짐없이 관리하기 어렵다.",
+              "capability_group": "problem_environment"
+            }
+          ],
+          "rationale": "문턱·가구 다리와 반려동물 털로 인한 바닥 관리 어려움이다."
+        },
+        {
+          "fact_id": "f_e078a3c526e0",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "긴 털이 바닥에 남는 반려동물 가정에서는 머리카락과 잔먼지가 매일 쌓여 사람이 자주 치워야 한다.",
+              "capability_group": "problem_environment"
+            }
+          ],
+          "rationale": "반려동물 털과 먼지가 쌓여 자주 치워야 하는 환경 문제다."
+        },
+        {
+          "fact_id": "f_cb725bca1e16",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "청소가 끝나면 도크로 복귀해 다음 예약을 기다린다.",
+              "capability_group": "automation_return"
+            }
+          ],
+          "rationale": "청소 후 도크 복귀와 다음 예약 대기는 자동화·복귀 동작이다."
+        },
+        {
+          "fact_id": "f_06024522d268",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "비교 자료는 동일한 주행 시간과 면적에서 측정한 결과임을 설명한다.",
+              "capability_group": "evidence_performance"
+            }
+          ],
+          "rationale": "동일 조건 측정 결과를 설명하는 성능 근거다."
+        },
+        {
+          "fact_id": "f_d3e4f4a66950",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "승인된 자료는 제품의 용도와 기대 효과에 관한 제품 동작을 설명한다.",
+              "capability_group": "product_identity_outcome"
+            }
+          ],
+          "rationale": "승인 자료가 제품의 용도와 기대 효과를 설명한다."
+        },
+        {
+          "fact_id": "f_103fc41c0c06",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "흡입 모듈과 가장자리 브러시가 서로 다른 방향에서 바닥의 이물질을 모은다.",
+              "capability_group": "cleaning_mechanism"
+            }
+          ],
+          "rationale": "흡입 모듈과 브러시의 이물질 수거는 청소 메커니즘이다."
+        },
+        {
+          "fact_id": "f_c6ff45030281",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "사용자는 리모컨으로 흡입 모드와 시작 시점을 바꿀 수 있다.",
+              "capability_group": "control_personalization"
+            }
+          ],
+          "rationale": "리모컨을 통한 모드·시점 변경은 사용자 제어다."
+        },
+        {
+          "fact_id": "f_b82a432c6bc8",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "반려동물 털이 남는 긴 털이 바닥에 남는 반려동물 가정에서는 짧은 청소 주기를 유지하기가 번거롭다.",
+              "capability_group": "problem_environment"
+            }
+          ],
+          "rationale": "반려동물 털이 남아 반복 청소가 번거로운 환경 문제다."
+        },
+        {
+          "fact_id": "f_216662ef3df4",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "기본 구성에는 본체, 충전대, 여분 필터가 들어 있으며 소모품은 별도 구매한다.",
+              "capability_group": "configuration_maintenance"
+            }
+          ],
+          "rationale": "기본 구성품과 소모품 구매 조건은 구성·유지보수 정보다."
+        }
+      ]
+    },
+    {
+      "case_id": "rv_semantic_normal_008",
+      "annotations": [
+        {
+          "fact_id": "f_7585d74daf89",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "반려동물 털이 남는 알레르기 관리가 중요한 가족의 집에서는 짧은 청소 주기를 유지하기가 번거롭다.",
+              "capability_group": "problem_environment"
+            }
+          ],
+          "rationale": "반려동물 털과 알레르기 관리 때문에 반복 청소가 번거로운 환경 문제다."
+        },
+        {
+          "fact_id": "f_4daded6a3c03",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "금지 구역을 피하면서 가장자리와 중앙 영역을 나누어 순회한다.",
+              "capability_group": "mobility_coverage"
+            }
+          ],
+          "rationale": "금지 구역 회피와 영역 순회는 이동·커버리지 동작이다."
+        },
+        {
+          "fact_id": "f_dfafe0708ed8",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "제품의 용도와 기대 효과 관련 세부 조건은 아직 확인되지 않았고 이번 생성에서는 생략한다.",
+              "capability_group": "product_identity_outcome"
+            }
+          ],
+          "rationale": "제품 용도와 기대 효과의 확인 여부를 말하는 제품 서술이다."
+        },
+        {
+          "fact_id": "f_1863a21edf8f",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "물걸레 패드가 바닥을 닦고 흡입 장치가 마른 먼지를 함께 수거한다.",
+              "capability_group": "cleaning_mechanism"
+            }
+          ],
+          "rationale": "물걸레와 흡입 장치의 청소 작동을 설명하는 제품 주장이다."
+        },
+        {
+          "fact_id": "f_388de44318bb",
+          "decision": "ignore",
+          "propositions": [],
+          "rationale": "포장 잉크 색상은 청소 성능과 무관한 부수 정보다."
+        }
+      ]
+    },
+    {
+      "case_id": "rv_semantic_normal_009",
+      "annotations": [
+        {
+          "fact_id": "f_ba7000ceead7",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "음성 명령과 본체 버튼으로 간단한 청소 동작을 실행한다.",
+              "capability_group": "control_personalization"
+            }
+          ],
+          "rationale": "음성 명령과 본체 버튼은 사용자 제어 방식이다."
+        },
+        {
+          "fact_id": "f_8b3537a8b4bc",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "측정 조건과 결과 표가 함께 보관되어 있다.",
+              "capability_group": "evidence_performance"
+            }
+          ],
+          "rationale": "측정 조건과 결과 표를 보관한 성능 근거다."
+        },
+        {
+          "fact_id": "f_0b93dcf34c38",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "브러시와 흡입 세기는 바닥 조건에 맞춰 조절된다",
+              "capability_group": "cleaning_mechanism"
+            },
+            {
+              "text": "회전 브러시가 먼지를 모으고 흡입구가 먼지통으로 빨아들인다.",
+              "capability_group": "cleaning_mechanism"
+            }
+          ],
+          "rationale": "바닥 조건에 따른 조절과 브러시·흡입구의 수거는 청소 메커니즘의 두 절이다."
+        },
+        {
+          "fact_id": "f_20de5297c387",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "기본 구성에는 본체, 충전대, 여분 필터가 들어 있으며 소모품은 별도 구매한다.",
+              "capability_group": "configuration_maintenance"
+            }
+          ],
+          "rationale": "기본 구성품과 소모품 조건은 구성·유지보수 정보다."
+        },
+        {
+          "fact_id": "f_df04c52cebb1",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "근거 자료에는 측정 조건과 결과 표가 함께 보관되어 있다.",
+              "capability_group": "evidence_performance"
+            }
+          ],
+          "rationale": "근거 자료의 측정 조건과 결과 표는 성능 증거다."
+        },
+        {
+          "fact_id": "f_8b2cd19dcca0",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "검증 자료의 요지는 측정 조건과 결과 표가 함께 보관되어 있다.",
+              "capability_group": "evidence_performance"
+            }
+          ],
+          "rationale": "검증 자료가 측정 조건과 결과 표를 근거로 제시한다."
+        },
+        {
+          "fact_id": "f_ddac87d06b78",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "반려동물 털이 남는 문턱이 많은 복층 주택에서는 짧은 청소 주기를 유지하기가 번거롭다.",
+              "capability_group": "problem_environment"
+            }
+          ],
+          "rationale": "문턱과 반려동물 털로 반복 청소가 번거로운 주거 환경 문제다."
+        },
+        {
+          "fact_id": "f_91f1604c6013",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "사용 환경과 반복 청소 문제 관련 세부 조건은 아직 확인되지 않았고 이번 생성에서는 생략한다.",
+              "capability_group": "problem_environment"
+            }
+          ],
+          "rationale": "사용 환경과 반복 청소 문제의 확인 여부를 말하는 환경 사실이다."
+        },
+        {
+          "fact_id": "f_87cdf8e1edfc",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "청소한 구역과 남은 구역을 지도에서 구분한다.",
+              "capability_group": "mobility_coverage"
+            }
+          ],
+          "rationale": "지도에서 청소·미청소 구역을 구분하는 커버리지 추적이다."
+        },
+        {
+          "fact_id": "f_b45617d25d69",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "이 기기는 문턱이 많은 복층 주택에서 반복 청소를 맡는 가정용 로봇으로 설명된다.",
+              "capability_group": "product_identity_outcome"
+            }
+          ],
+          "rationale": "기기의 제품 정체성과 사용 용도를 설명한다."
+        },
+        {
+          "fact_id": "f_645de60262e5",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "이 승인본에는 해당 청소 모듈의 동작이 포함되지 않는다.",
+              "capability_group": "cleaning_mechanism"
+            }
+          ],
+          "rationale": "청소 모듈 동작의 포함 여부를 말하는 청소 메커니즘 사실이다."
+        },
+        {
+          "fact_id": "f_136ee32f83b3",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "도크에서 먼지통을 비우는 기능이 있어 사용자가 비우는 횟수를 줄인다.",
+              "capability_group": "automation_return"
+            }
+          ],
+          "rationale": "도크의 먼지통 비움과 사용자 개입 감소는 자동화 기능이다."
+        }
+      ]
+    },
+    {
+      "case_id": "rv_semantic_normal_010",
+      "annotations": [
+        {
+          "fact_id": "f_78ab2649cde1",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "흡입 모듈과 가장자리 브러시가 서로 다른 방향에서 바닥의 이물질을 모은다.",
+              "capability_group": "cleaning_mechanism"
+            }
+          ],
+          "rationale": "흡입과 브러시의 수거 방식은 청소 메커니즘이다."
+        },
+        {
+          "fact_id": "f_75d25c81db05",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "물걸레 패드는 사용 후 헹구고 완전히 말린 뒤 다시 장착한다.",
+              "capability_group": "configuration_maintenance"
+            }
+          ],
+          "rationale": "물걸레 패드 관리 절차는 유지보수 정보다."
+        },
+        {
+          "fact_id": "f_e31da18b4ba6",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "가족이 머무는 가구 다리가 촘촘한 서재에는 과자 부스러기와 먼지가 함께 생긴다.",
+              "capability_group": "problem_environment"
+            }
+          ],
+          "rationale": "서재에서 부스러기와 먼지가 생기는 사용 환경 문제다."
+        },
+        {
+          "fact_id": "f_cc01cac5fb05",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "금지 구역을 피하면서 가장자리와 중앙 영역을 나누어 순회한다.",
+              "capability_group": "mobility_coverage"
+            }
+          ],
+          "rationale": "금지 구역을 피하고 영역을 순회하는 주행 동작이다."
+        },
+        {
+          "fact_id": "f_70090b4cd9cb",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "모델-G70는 가구 다리가 촘촘한 서재의 바닥 관리를 자동화하는 로봇청소기다.",
+              "capability_group": "product_identity_outcome"
+            }
+          ],
+          "rationale": "모델의 정체성과 바닥 관리 용도를 설명한다."
+        },
+        {
+          "fact_id": "f_9cefd03c95fa",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "도크에서 먼지통을 비우는 기능이 있어 사용자가 비우는 횟수를 줄인다.",
+              "capability_group": "automation_return"
+            }
+          ],
+          "rationale": "도크의 먼지통 비움은 자동화 기능이다."
+        },
+        {
+          "fact_id": "f_95a4cc2a2ad4",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "걸레를 세척하고 건조하는 과정까지 도크에서 자동으로 처리한다.",
+              "capability_group": "automation_return"
+            }
+          ],
+          "rationale": "도크가 걸레 세척·건조를 자동 처리한다."
+        },
+        {
+          "fact_id": "f_a46e570ea252",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "배터리가 부족해지면 충전대로 돌아가고 충전 뒤 남은 구역을 이어서 청소한다.",
+              "capability_group": "automation_return"
+            }
+          ],
+          "rationale": "배터리 부족 시 복귀하고 작업을 재개하는 자동화·복귀 흐름이다."
+        }
+      ]
+    },
+    {
+      "case_id": "rv_semantic_normal_011",
+      "annotations": [
+        {
+          "fact_id": "f_722cde069489",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "물걸레 패드가 바닥을 닦고 흡입 장치가 마른 먼지를 함께 수거한다.",
+              "capability_group": "cleaning_mechanism"
+            }
+          ],
+          "rationale": "물걸레와 흡입 장치의 청소 작동이다."
+        },
+        {
+          "fact_id": "f_a3330ab34c46",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "메이커는 모델-R07를 바닥 청소 부담을 줄이는 제품으로 소개한다.",
+              "capability_group": "product_identity_outcome"
+            }
+          ],
+          "rationale": "메이커가 모델의 용도와 기대 효과를 소개한다."
+        },
+        {
+          "fact_id": "f_f9b10b3eac75",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "독립 시험 결과나 인증 자료는 이 승인본에서 제공되지 않는다.",
+              "capability_group": "evidence_performance"
+            }
+          ],
+          "rationale": "독립 시험·인증 자료의 제공 여부를 말하는 성능 근거 사실이다."
+        },
+        {
+          "fact_id": "f_95222ed84a43",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "금지 구역을 피하면서 가장자리와 중앙 영역을 나누어 순회한다.",
+              "capability_group": "mobility_coverage"
+            }
+          ],
+          "rationale": "금지 구역 회피와 영역 순회는 이동·커버리지 동작이다."
+        }
+      ]
+    },
+    {
+      "case_id": "rv_semantic_normal_012",
+      "annotations": [
+        {
+          "fact_id": "f_081016e0382d",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "방별 일정과 금지 영역을 따로 저장한다.",
+              "capability_group": "control_personalization"
+            }
+          ],
+          "rationale": "방별 일정과 금지 영역을 저장하는 개인화 설정이다."
+        },
+        {
+          "fact_id": "f_4994f7677dbb",
+          "decision": "ignore",
+          "propositions": [],
+          "rationale": "포장 잉크 색상은 청소 성능과 무관한 부수 정보다."
+        },
+        {
+          "fact_id": "f_ae113b053b42",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "흡입 모듈과 가장자리 브러시가 서로 다른 방향에서 바닥의 이물질을 모은다.",
+              "capability_group": "cleaning_mechanism"
+            }
+          ],
+          "rationale": "흡입과 브러시의 이물질 수거는 청소 메커니즘이다."
+        },
+        {
+          "fact_id": "f_8951d02d5e31",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "분리한 부품은 완전히 건조한 후 다시 장착한다.",
+              "capability_group": "configuration_maintenance"
+            }
+          ],
+          "rationale": "부품 건조와 재장착은 유지보수 절차다."
+        },
+        {
+          "fact_id": "f_b0e782d082cc",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "가족이 머무는 아이 장난감이 자주 흩어지는 놀이방에는 과자 부스러기와 먼지가 함께 생긴다.",
+              "capability_group": "problem_environment"
+            }
+          ],
+          "rationale": "놀이방에서 부스러기와 먼지가 생기는 사용 환경 문제다."
+        },
+        {
+          "fact_id": "f_85b5017df53a",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "시험 조건과 성능 근거 관련 세부 조건은 아직 확인되지 않았고 이번 생성에서는 생략한다.",
+              "capability_group": "evidence_performance"
+            }
+          ],
+          "rationale": "시험 조건과 성능 근거의 확인 여부를 말하는 증거 사실이다."
+        },
+        {
+          "fact_id": "f_213867bb10dd",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "측정 조건과 결과 표가 함께 보관되어 있다.",
+              "capability_group": "evidence_performance"
+            }
+          ],
+          "rationale": "측정 조건과 결과 표를 보관한 성능 근거다."
+        },
+        {
+          "fact_id": "f_3473fc4609e7",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "제품 사진은 실제 본체의 외형을 보여준다.",
+              "capability_group": "product_identity_outcome"
+            }
+          ],
+          "rationale": "제품 사진으로 본체 외형을 확인하는 제품 정체성 정보다."
+        },
+        {
+          "fact_id": "f_071b58cc321e",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "제어 기능 설명상 방별 일정과 금지 영역을 따로 저장한다",
+              "capability_group": "control_personalization"
+            },
+            {
+              "text": "음성 명령과 본체 버튼으로 간단한 청소 동작을 실행한다.",
+              "capability_group": "control_personalization"
+            }
+          ],
+          "rationale": "방별 설정 저장과 음성·버튼 조작은 사용자 제어의 두 절이다."
+        },
+        {
+          "fact_id": "f_47243647f3e7",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "앱·조작 안내에는 방별 일정과 금지 영역을 따로 저장한다.",
+              "capability_group": "control_personalization"
+            }
+          ],
+          "rationale": "앱·조작 안내의 방별 일정·금지 영역 저장은 개인화 제어다."
+        },
+        {
+          "fact_id": "f_e28026961985",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "도크에서 먼지통을 비우는 기능이 있어 사용자가 비우는 횟수를 줄인다.",
+              "capability_group": "automation_return"
+            }
+          ],
+          "rationale": "도크의 먼지통 비움은 자동화 기능이다."
+        }
+      ]
+    },
+    {
+      "case_id": "rv_semantic_normal_013",
+      "annotations": [
+        {
+          "fact_id": "f_4e448e93fe32",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "물걸레 패드가 바닥을 닦고 흡입 장치가 마른 먼지를 함께 수거한다.",
+              "capability_group": "cleaning_mechanism"
+            }
+          ],
+          "rationale": "물걸레와 흡입 장치의 청소 작동이다."
+        },
+        {
+          "fact_id": "f_26de3c921101",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "금지 구역을 피하면서 가장자리와 중앙 영역을 나누어 순회한다.",
+              "capability_group": "mobility_coverage"
+            }
+          ],
+          "rationale": "금지 구역 회피와 영역 순회는 이동·커버리지 동작이다."
+        },
+        {
+          "fact_id": "f_e7259b3c75ec",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "낮은 문턱을 넘고 장애물을 만나면 속도를 낮춰 주행한다.",
+              "capability_group": "mobility_coverage"
+            }
+          ],
+          "rationale": "문턱 통과와 장애물 대응은 이동 능력이다."
+        },
+        {
+          "fact_id": "f_94ab6af36df9",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "제품의 최종 판매명과 대표 결과 이미지는 이 승인본에서 제공되지 않는다.",
+              "capability_group": "product_identity_outcome"
+            }
+          ],
+          "rationale": "제품 판매명과 대표 이미지의 제공 여부는 제품 정체성 정보다."
+        },
+        {
+          "fact_id": "f_d8dff7ebaacc",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "승인된 자료는 주행 범위와 장애물 대응에 관한 제품 동작을 설명한다.",
+              "capability_group": "mobility_coverage"
+            }
+          ],
+          "rationale": "주행 범위와 장애물 대응을 설명하는 이동·커버리지 주장이다."
+        },
+        {
+          "fact_id": "f_907fe122f304",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "먼지통과 필터는 분리해 세척할 수 있고 브러시는 주기적으로 교체한다.",
+              "capability_group": "configuration_maintenance"
+            }
+          ],
+          "rationale": "부품 세척과 브러시 교체 주기는 유지보수 정보다."
+        },
+        {
+          "fact_id": "f_45b49d5c1fe6",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "도크에서 먼지통을 비우는 기능이 있어 사용자가 비우는 횟수를 줄인다.",
+              "capability_group": "automation_return"
+            }
+          ],
+          "rationale": "도크의 먼지통 비움은 자동화 기능이다."
+        }
+      ]
+    },
+    {
+      "case_id": "rv_semantic_normal_014",
+      "annotations": [
+        {
+          "fact_id": "f_16f68b657d6a",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "청소가 끝나면 도크로 복귀해 다음 예약을 기다린다.",
+              "capability_group": "automation_return"
+            }
+          ],
+          "rationale": "청소 후 도크 복귀와 다음 예약 대기는 자동화·복귀 동작이다."
+        },
+        {
+          "fact_id": "f_71e14cc199a2",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "자동화 사양상 청소가 끝나면 도크로 복귀해 다음 예약을 기다린다.",
+              "capability_group": "automation_return"
+            }
+          ],
+          "rationale": "자동화 사양으로 청소 후 복귀·대기를 설명한다."
+        },
+        {
+          "fact_id": "f_9c01c24ef645",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "승인된 자료는 시험 조건과 성능 근거에 관한 제품 동작을 설명한다.",
+              "capability_group": "evidence_performance"
+            }
+          ],
+          "rationale": "시험 조건과 성능 근거를 설명하는 증거 자료다."
+        },
+        {
+          "fact_id": "f_8625594b8cf3",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "비교 자료는 동일한 주행 시간과 면적에서 측정한 결과임을 설명한다.",
+              "capability_group": "evidence_performance"
+            }
+          ],
+          "rationale": "동일 조건 측정 결과를 설명하는 성능 근거다."
+        },
+        {
+          "fact_id": "f_682431f8986d",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "금지 구역을 피하면서 가장자리와 중앙 영역을 나누어 순회한다.",
+              "capability_group": "mobility_coverage"
+            }
+          ],
+          "rationale": "금지 구역 회피와 영역 순회는 이동·커버리지 동작이다."
+        },
+        {
+          "fact_id": "f_c4287002dfaf",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "흡입 모듈과 가장자리 브러시가 서로 다른 방향에서 바닥의 이물질을 모은다.",
+              "capability_group": "cleaning_mechanism"
+            }
+          ],
+          "rationale": "흡입과 브러시의 이물질 수거는 청소 메커니즘이다."
+        },
+        {
+          "fact_id": "f_3ed467c19d48",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "청소 모듈 설명상 흡입 모듈과 가장자리 브러시가 서로 다른 방향에서 바닥의 이물질을 모은다.",
+              "capability_group": "cleaning_mechanism"
+            }
+          ],
+          "rationale": "청소 모듈의 흡입·브러시 수거 방식이다."
+        },
+        {
+          "fact_id": "f_d1cee599eb03",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "모델-Y18는 낮에는 비어 있고 밤에 생활하는 집의 바닥 관리를 자동화하는 로봇청소기다.",
+              "capability_group": "product_identity_outcome"
+            }
+          ],
+          "rationale": "모델의 제품 정체성과 사용 용도를 설명한다."
+        },
+        {
+          "fact_id": "f_c5f8d119fcbd",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "물걸레 패드는 사용 후 헹구고 완전히 말린 뒤 다시 장착한다.",
+              "capability_group": "configuration_maintenance"
+            }
+          ],
+          "rationale": "물걸레 패드의 헹굼·건조·재장착은 유지보수 절차다."
+        },
+        {
+          "fact_id": "f_726da543cd06",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "도크 주변에 여유 공간을 두고 브러시와 센서 창을 닦아야 한다.",
+              "capability_group": "configuration_maintenance"
+            }
+          ],
+          "rationale": "도크 설치 공간과 브러시·센서 청소는 관리 정보다."
+        },
+        {
+          "fact_id": "f_bfa32da2ca98",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "낮에는 비어 있고 밤에 생활하는 집에서는 머리카락과 잔먼지가 매일 쌓여 사람이 자주 치워야 한다.",
+              "capability_group": "problem_environment"
+            }
+          ],
+          "rationale": "집에 머리카락과 먼지가 쌓여 자주 치워야 하는 환경 문제다."
+        },
+        {
+          "fact_id": "f_07bd4ba4c2a1",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "관리 안내상 도크 주변에 여유 공간을 두고 브러시와 센서 창을 닦아야 한다.",
+              "capability_group": "configuration_maintenance"
+            }
+          ],
+          "rationale": "관리 안내의 도크 공간·브러시·센서 청소 절차다."
+        },
+        {
+          "fact_id": "f_66b843c4cff0",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "청소 지도를 확인하면서 특정 방만 다시 청소하도록 지정한다.",
+              "capability_group": "control_personalization"
+            }
+          ],
+          "rationale": "지도에서 특정 방 재청소를 지정하는 사용자 제어다."
+        },
+        {
+          "fact_id": "f_98936c216859",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "설치·정비 자료에는 도크 주변에 여유 공간을 두고 브러시와 센서 창을 닦아야 한다.",
+              "capability_group": "configuration_maintenance"
+            }
+          ],
+          "rationale": "설치·정비 자료의 도크와 부품 관리 절차다."
+        }
+      ]
+    },
+    {
+      "case_id": "rv_semantic_normal_015",
+      "annotations": [
+        {
+          "fact_id": "f_e112f1ae9335",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "사용 후기에는 반복 사용 후에도 브러시 관리가 편했다는 관찰이 담겨 있다.",
+              "capability_group": "evidence_performance"
+            }
+          ],
+          "rationale": "사용 후기라는 근거 자료가 관찰 결과를 담고 있다."
+        },
+        {
+          "fact_id": "f_72b6c848a5d5",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "브러시와 흡입 세기는 바닥 조건에 맞춰 조절된다.",
+              "capability_group": "cleaning_mechanism"
+            }
+          ],
+          "rationale": "바닥 조건에 따른 브러시·흡입 조절은 청소 메커니즘이다."
+        },
+        {
+          "fact_id": "f_506b7e4cb680",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "반려동물 털이 남는 퇴근 뒤 관리 시간이 짧은 맞벌이 가정에서는 짧은 청소 주기를 유지하기가 번거롭다.",
+              "capability_group": "problem_environment"
+            }
+          ],
+          "rationale": "털이 남고 관리 시간이 짧아 반복 청소가 번거로운 환경 문제다."
+        },
+        {
+          "fact_id": "f_400a0b436cab",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "가구 아래와 가장자리처럼 손이 닿기 어려운 곳도 대상에 포함한다.",
+              "capability_group": "mobility_coverage"
+            }
+          ],
+          "rationale": "손이 닿기 어려운 구역까지 포함하는 이동·커버리지 범위다."
+        },
+        {
+          "fact_id": "f_c621beed24ea",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "제품 사진은 실제 본체의 외형을 보여준다.",
+              "capability_group": "product_identity_outcome"
+            }
+          ],
+          "rationale": "제품 사진으로 본체 외형을 확인하는 제품 정체성 정보다."
+        },
+        {
+          "fact_id": "f_2785afec5a53",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "방별 일정과 금지 영역을 따로 저장한다",
+              "capability_group": "control_personalization"
+            },
+            {
+              "text": "사용자는 리모컨으로 흡입 모드와 시작 시점을 바꿀 수 있다",
+              "capability_group": "control_personalization"
+            }
+          ],
+          "rationale": "방별 설정 저장과 리모컨 변경은 사용자 개인화 제어의 두 절이다."
+        },
+        {
+          "fact_id": "f_aa7fae610ec1",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "기본 구성에는 본체, 충전대, 여분 필터가 들어 있으며 소모품은 별도 구매한다.",
+              "capability_group": "configuration_maintenance"
+            }
+          ],
+          "rationale": "기본 구성품과 소모품 조건은 구성·유지보수 정보다."
+        },
+        {
+          "fact_id": "f_fee1d8e229a9",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "도크에 돌아온 뒤 예약된 작업을 준비한다.",
+              "capability_group": "automation_return"
+            }
+          ],
+          "rationale": "도크 복귀 후 예약 작업을 준비하는 자동화 흐름이다."
+        },
+        {
+          "fact_id": "f_3c3b5fdc3c06",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "주행 사양상 가구 아래와 가장자리처럼 손이 닿기 어려운 곳도 대상에 포함한다.",
+              "capability_group": "mobility_coverage"
+            }
+          ],
+          "rationale": "주행 사양에서 도달하기 어려운 구역을 포함하는 이동 범위다."
+        },
+        {
+          "fact_id": "f_60f7c4e974e3",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "낮은 문턱을 넘고 장애물을 만나면 속도를 낮춰 주행한다.",
+              "capability_group": "mobility_coverage"
+            }
+          ],
+          "rationale": "문턱 통과와 장애물 대응은 이동 능력이다."
+        }
+      ]
+    },
+    {
+      "case_id": "rv_semantic_normal_016",
+      "annotations": [
+        {
+          "fact_id": "f_30a5af8304da",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "흡입 모듈과 가장자리 브러시가 서로 다른 방향에서 바닥의 이물질을 모은다.",
+              "capability_group": "cleaning_mechanism"
+            }
+          ],
+          "rationale": "흡입과 브러시의 이물질 수거는 청소 메커니즘이다."
+        },
+        {
+          "fact_id": "f_d4c2ab85ba0a",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "물걸레 패드가 바닥을 닦고 흡입 장치가 마른 먼지를 함께 수거한다.",
+              "capability_group": "cleaning_mechanism"
+            }
+          ],
+          "rationale": "물걸레와 흡입 장치의 청소 작동이다."
+        },
+        {
+          "fact_id": "f_c304a766f4b7",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "도크에서 먼지통을 비우는 기능이 있어 사용자가 비우는 횟수를 줄인다.",
+              "capability_group": "automation_return"
+            }
+          ],
+          "rationale": "도크의 먼지통 비움과 사용자 개입 감소는 자동화 기능이다."
+        },
+        {
+          "fact_id": "f_d97b4c5da27b",
+          "decision": "ignore",
+          "propositions": [],
+          "rationale": "포장 잉크 색상은 청소 성능과 무관한 부수 정보다."
+        },
+        {
+          "fact_id": "f_da08f9259118",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "브러시와 흡입 방식 관련 세부 조건은 아직 확인되지 않았고 이번 생성에서는 생략한다.",
+              "capability_group": "cleaning_mechanism"
+            }
+          ],
+          "rationale": "브러시와 흡입 방식의 확인 여부를 말하는 청소 메커니즘 사실이다."
+        },
+        {
+          "fact_id": "f_762bed78af27",
+          "decision": "classify",
+          "propositions": [
+            {
+              "text": "사용 환경의 문턱과 가구 다리 때문에 침실과 거실을 구분해 관리하는 집의 바닥을 빠짐없이 관리하기 어렵다.",
+              "capability_group": "problem_environment"
+            }
+          ],
+          "rationale": "문턱·가구 다리 때문에 방별 바닥 관리가 어려운 환경 문제다."
+        }
+      ]
+    }
+  ]
+}

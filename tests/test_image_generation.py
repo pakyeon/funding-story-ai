@@ -1,93 +1,99 @@
-import base64
 from types import SimpleNamespace
 
+import pytest
+
 from funding_story_ai.image_generation import (
-    ImageResult,
+    GeminiImageAdapter,
+    ImageGenerationError,
     ImageSettings,
-    OpenAIImageAdapter,
-    RetryingFallbackImageAdapter,
 )
 
 
-class FakeImages:
-    def __init__(self) -> None:
-        self.kwargs = None
-
-    def edit(self, **kwargs):
-        self.kwargs = kwargs
-        return SimpleNamespace(
-            data=[
-                SimpleNamespace(
-                    b64_json=base64.b64encode(b"fake-image").decode(),
-                    revised_prompt=None,
+def _image_response(data: bytes = b"image") -> SimpleNamespace:
+    return SimpleNamespace(
+        candidates=[
+            SimpleNamespace(
+                content=SimpleNamespace(
+                    parts=[
+                        SimpleNamespace(
+                            inline_data=SimpleNamespace(data=data, mime_type="image/jpeg")
+                        )
+                    ]
                 )
-            ],
-        )
-
-    def generate(self, **kwargs):
-        self.kwargs = kwargs
-        return SimpleNamespace(
-            data=[
-                SimpleNamespace(
-                    b64_json=base64.b64encode(b"generated-image").decode(),
-                    revised_prompt=None,
-                )
-            ],
-        )
-
-
-def test_image_adapter_edits_reference_and_omits_input_fidelity(tmp_path) -> None:
-    reference = tmp_path / "reference.jpg"
-    reference.write_bytes(b"reference")
-    settings = ImageSettings()
-    images = FakeImages()
-    adapter = OpenAIImageAdapter(
-        settings,
-        client=SimpleNamespace(images=images),
-    )
-
-    result = adapter.edit_reference(
-        section_id="hero", reference_path=reference, prompt="제품 히어로 이미지"
-    )
-
-    assert result.image_bytes == b"fake-image"
-    assert "input_fidelity" not in images.kwargs
-
-
-def test_image_adapter_generates_without_reference_image() -> None:
-    settings = ImageSettings()
-    images = FakeImages()
-    adapter = OpenAIImageAdapter(
-        settings,
-        client=SimpleNamespace(images=images),
-    )
-
-    result = adapter.generate_text(section_id="hero", prompt="가상 제품 이미지")
-
-    assert result.image_bytes == b"generated-image"
-    assert "image" not in images.kwargs
-
-
-def test_image_adapter_retries_primary_then_uses_fallback() -> None:
-    class Failing:
-        def generate_text(self, **kwargs):
-            raise RuntimeError("primary unavailable")
-
-    class Fallback:
-        def generate_text(self, *, section_id, prompt):
-            return ImageResult(
-                section_id=section_id,
-                image_bytes=b"fallback",
-                revised_prompt=None,
-                provider="google",
-                model="gemini-image",
             )
-
-    adapter = RetryingFallbackImageAdapter(
-        [Failing(), Fallback()],  # type: ignore[list-item]
-        attempts_per_provider=3,
-        sleep=lambda _: None,
+        ]
     )
-    result = adapter.generate_text(section_id="hero", prompt="image")
-    assert result.provider == "google"
-    assert result.attempts == 4
+
+
+class _Models:
+    def __init__(self, outcomes) -> None:
+        self.outcomes = list(outcomes)
+        self.calls = []
+
+    def generate_content(self, **kwargs):
+        self.calls.append(kwargs)
+        outcome = self.outcomes.pop(0)
+        if isinstance(outcome, Exception):
+            raise outcome
+        return outcome
+
+
+def test_gemini_image_adapter_uses_primary_and_role_specific_references(tmp_path) -> None:
+    product = tmp_path / "product.png"
+    dock = tmp_path / "dock.jpg"
+    product.write_bytes(b"product")
+    dock.write_bytes(b"dock")
+    models = _Models([_image_response()])
+    adapter = GeminiImageAdapter(
+        ImageSettings(), client=SimpleNamespace(models=models), sleep=lambda _: None
+    )
+
+    result = adapter.generate(
+        slot_id="slot_product_identity_outcome_01",
+        prompt="장면",
+        reference_paths=[product, dock],
+    )
+
+    assert result.model == "gemini-3.1-flash-image"
+    assert result.attempts == 1
+    assert models.calls[0]["model"] == "gemini-3.1-flash-image"
+    assert len(models.calls[0]["contents"][0].parts) == 3
+    assert models.calls[0]["config"].image_config.image_size == "1K"
+    assert models.calls[0]["config"].image_config.aspect_ratio == "3:2"
+
+
+def test_transient_primary_failure_retries_then_uses_lite_fallback() -> None:
+    models = _Models(
+        [
+            RuntimeError("503 unavailable"),
+            RuntimeError("429 rate limited"),
+            _image_response(b"lite"),
+        ]
+    )
+    adapter = GeminiImageAdapter(
+        ImageSettings(), client=SimpleNamespace(models=models), sleep=lambda _: None
+    )
+
+    result = adapter.generate(slot_id="slot_problem_environment_01", prompt="장면")
+
+    assert result.model == "gemini-3.1-flash-lite-image"
+    assert result.image_bytes == b"lite"
+    assert result.attempts == 3
+    assert [call["model"] for call in models.calls] == [
+        "gemini-3.1-flash-image",
+        "gemini-3.1-flash-image",
+        "gemini-3.1-flash-lite-image",
+    ]
+
+
+def test_permission_rejection_is_not_retried_or_fallbacked() -> None:
+    models = _Models([RuntimeError("403 permission denied")])
+    adapter = GeminiImageAdapter(
+        ImageSettings(), client=SimpleNamespace(models=models), sleep=lambda _: None
+    )
+
+    with pytest.raises(ImageGenerationError, match="without retry") as error:
+        adapter.generate(slot_id="slot_problem_environment_01", prompt="장면")
+
+    assert error.value.attempts == 1
+    assert len(models.calls) == 1

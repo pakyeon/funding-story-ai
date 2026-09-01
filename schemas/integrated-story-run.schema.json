@@ -5,14 +5,13 @@
   "type": "object",
   "additionalProperties": false,
   "required": [
-    "schema_version", "run_id", "status", "template_id", "model",
-    "input_brief", "story", "images", "preview", "editor", "warning_count", "review_required"
+    "schema_version", "run_id", "status", "template_id", "model", "input_brief",
+    "story", "media_facts", "media_plan", "images", "draft_html", "publishable_html",
+    "warning_count", "review_required"
   ],
   "$defs": {
     "artifact": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": ["path", "sha256"],
+      "type": "object", "additionalProperties": false, "required": ["path", "sha256"],
       "properties": {
         "path": {"type": "string", "minLength": 1},
         "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
@@ -20,30 +19,38 @@
     }
   },
   "properties": {
-    "schema_version": {"const": "integrated-story-run-v1"},
+    "schema_version": {"const": "integrated-story-run-v2"},
     "run_id": {"type": "string", "pattern": "^run-[a-zA-Z0-9-]+$"},
     "status": {"enum": ["complete", "partial"]},
     "template_id": {"type": "string", "pattern": "^t[0-9]{2}_[a-z0-9_]+$"},
     "model": {"type": "string", "minLength": 1},
     "input_brief": {"$ref": "#/$defs/artifact"},
     "story": {"$ref": "#/$defs/artifact"},
-    "images": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "manifest", "requested", "succeeded", "failed",
-        "qa_pending"
-      ],
+    "media_facts": {"$ref": "#/$defs/artifact"},
+    "media_plan": {
+      "type": "object", "additionalProperties": false,
+      "required": ["path", "sha256", "decision"],
       "properties": {
-        "manifest": {"$ref": "#/$defs/artifact"},
-        "requested": {"type": "integer", "minimum": 0},
-        "succeeded": {"type": "integer", "minimum": 0},
-        "failed": {"type": "integer", "minimum": 0},
-        "qa_pending": {"type": "integer", "minimum": 0}
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "decision": {"enum": ["ready", "draft_with_placeholders", "needs_required_information", "needs_reference_assets"]}
       }
     },
-    "preview": {"$ref": "#/$defs/artifact"},
-    "editor": {"$ref": "#/$defs/artifact"},
+    "images": {
+      "type": "object", "additionalProperties": false,
+      "required": ["manifest", "requested", "succeeded", "failed", "qa_pending"],
+      "properties": {
+        "manifest": {"$ref": "#/$defs/artifact"},
+        "requested": {"type": "integer", "minimum": 0, "maximum": 8},
+        "succeeded": {"type": "integer", "minimum": 0, "maximum": 8},
+        "failed": {"type": "integer", "minimum": 0, "maximum": 8},
+        "qa_pending": {"type": "integer", "minimum": 0, "maximum": 8}
+      }
+    },
+    "draft_html": {"$ref": "#/$defs/artifact"},
+    "publishable_html": {
+      "anyOf": [{"$ref": "#/$defs/artifact"}, {"type": "null"}]
+    },
     "warning_count": {"type": "integer", "minimum": 0},
     "review_required": {"const": true}
   }

@@ -9,10 +9,10 @@ from typing import Any
 
 from .data_repository import DataRepository
 from .image_generation import ImageAdapter, ImageSettings
+from .media_projection import canonical_digest
 
 
 def _embed_ai_metadata(data: bytes, *, mime_type: str, model: str) -> tuple[bytes, bool]:
-    """Embed a compact AI marker in PNG tEXt or JPEG COM when bytes are valid."""
     marker = json.dumps(
         {"AI-Generated": True, "model": model}, ensure_ascii=True, separators=(",", ":")
     ).encode("ascii")
@@ -28,9 +28,9 @@ def _embed_ai_metadata(data: bytes, *, mime_type: str, model: str) -> tuple[byte
     return data, False
 
 
-def _extension(mime_type: str, fallback: str) -> str:
+def _extension(mime_type: str) -> str:
     return {"image/jpeg": "jpeg", "image/png": "png", "image/webp": "webp"}.get(
-        mime_type, fallback
+        mime_type, "bin"
     )
 
 
@@ -42,165 +42,174 @@ def file_sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
-def build_section_image_prompt(
+def build_slot_image_prompt(
     *,
-    section: dict[str, Any],
-    template: dict[str, Any],
-    reference_available: bool = True,
-    visual_identity: str | None = None,
+    slot: dict[str, Any],
+    media_facts: dict[str, Any],
+    reference_available: bool,
 ) -> str:
-    palette = ", ".join(template["style"]["color_palette"])
-    section_id = section["template_section_id"]
-    template_section = next(
-        item for item in template["layout"] if item["id"] == section_id
-    )
-    visual_strategy = template_section["visual_hint"]
-    input_instruction = (
-        "참조 이미지에 있는 가상 제품 디자인을 동일한 제품으로 인식할 수 있게 보존하여"
+    proposition_by_id = {
+        item["proposition_id"]: item for item in media_facts["propositions"]
+    }
+    approved = [proposition_by_id[item]["text"] for item in slot["proposition_ids"]]
+    reference_rule = (
+        "첨부된 제품 참조 자산의 본체·도크·부속품 외형을 동일하게 보존하세요."
         if reference_available
-        else "입력 제품 설명만을 바탕으로 가상의 제품 외관을 일관된 디자인으로 설정하여"
+        else "실제 제품 외형을 표방하지 않는 설명용 비제품 그래픽으로 만드세요."
     )
-    fidelity_constraint = (
-        "- 참조 이미지에서 확인되는 제품 형태·색·구성을 유지"
-        if reference_available
-        else (
-            "- 같은 실행의 모든 섹션에서 동일 제품으로 보이도록 "
-            "본체·센서·도크의 형태와 색을 일관되게 표현"
-        )
+    text_rule = (
+        "이미지 내 문자는 허용하되 아래 승인 문구만 그대로 사용하세요."
+        if slot["scene"]["text_policy"] == "allowed_grounded_only"
+        else "이미지 안에 문자·숫자·로고를 넣지 마세요."
     )
-    return f"""{input_instruction}, 한국 크라우드펀딩 상세페이지의
-`{section_id}` 섹션용 가로 이미지를 만드세요.
+    return f"""한국 크라우드펀딩 상세 페이지용 독립 장면 한 장을 생성하세요.
 
-섹션 목적: {section['image_intent']['purpose']}
-안전한 시각 전략: {visual_strategy}
-템플릿 무드: {template['style']['visual_mood']}
-색 팔레트 참고: {palette}
-제품 시각 정체성(사용자 입력·brief 범위): {visual_identity or '구체 외형 미제공'}
+슬롯: {slot['slot_id']}
+설득 목적: {slot['persuasion_goal']}
+장면 요약: {slot['scene']['summary']}
+시각 방향: {slot['scene']['visual_direction']}
+승인 사실: {json.dumps(approved, ensure_ascii=False)}
 
-필수 제약:
-{fidelity_constraint}
-- 입력이 합성 예제이면 실제 판매 제품이나 브랜드가 아닌 가상 디자인으로 표현
-- 읽을 수 있는 텍스트, 로고, 숫자, 가격, 인증, 수상, UI 글자, 워터마크를 넣지 않음
-- 사람, 반려동물, 입력에 없는 추가 구성품을 넣지 않음
-- 입력에 없는 성능을 암시하는 과장 효과나 시험 장면을 넣지 않음
-- 분할 패널, 연속 동작 프레임, 화살표, 이동 경로선, 센서 광선, 투시 효과를 넣지 않음
-- 같은 제품을 불필요하게 복제하지 않음
-- 충분한 여백과 사실적인 제품 사진 또는 단순한 비문자 시각 흐름으로 구성
-- 모든 제목, 설명, 성능 수치와 시험 조건은 이미지 밖의 편집 가능한 HTML로 표현
-- 이미지 안에는 타이포그래피를 만들지 않음
+제약:
+- {reference_rule}
+- {text_rule}
+- 승인 사실에 없는 성능·수치·인증·가격·구성품·UI를 만들지 마세요.
+- 다른 슬롯의 장면을 이어받거나 동일한 구도와 배경을 반복하지 마세요.
+- 사람, 반려동물은 승인 사실이나 장면 명세가 요구할 때만 포함하세요.
+- 충분한 여백과 자연스러운 3:2 가로 구도로 구성하세요.
 """
 
 
-def planned_image_sections(
-    story: dict[str, Any],
-    template: dict[str, Any],
-    section_ids: set[str] | None = None,
-    *,
-    reference_available: bool = True,
-    visual_identity: str | None = None,
-) -> list[dict[str, str]]:
-    available = {
-        section["template_section_id"]
-        for section in story["sections"]
-        if section["image_intent"]["required"]
-    }
-    unknown = (section_ids or set()) - available
+def planned_image_slots(
+    media_plan: dict[str, Any], *, slot_ids: set[str] | None = None
+) -> list[dict[str, Any]]:
+    available = {slot["slot_id"] for slot in media_plan["slots"]}
+    unknown = (slot_ids or set()) - available
     if unknown:
-        raise ValueError(f"Unknown or image-optional section ids: {sorted(unknown)}")
-    plans = []
-    for section in story["sections"]:
-        if not section["image_intent"]["required"]:
-            continue
-        if section_ids is not None and section["template_section_id"] not in section_ids:
-            continue
-        prompt = build_section_image_prompt(
-            section=section,
-            template=template,
-            reference_available=reference_available,
-            visual_identity=visual_identity,
-        )
-        plans.append(
-            {
-                "section_id": section["template_section_id"],
-                "prompt": prompt,
-            }
-        )
-    return plans
+        raise ValueError(f"Unknown media slot ids: {sorted(unknown)}")
+    return [
+        slot
+        for slot in media_plan["slots"]
+        if slot_ids is None or slot["slot_id"] in slot_ids
+    ]
 
 
-def generate_section_images(
+def empty_image_manifest(
     *,
-    story_path: Path,
-    reference_path: Path | None,
+    media_plan: dict[str, Any],
+    generation_package: dict[str, Any],
+    settings: ImageSettings,
+    run_id: str,
+) -> dict[str, Any]:
+    return {
+        "schema_version": "story-image-manifest-v2",
+        "run_id": run_id,
+        "media_plan_digest": canonical_digest(media_plan),
+        "generation_package_digest": canonical_digest(generation_package),
+        "primary_model": settings.primary_model,
+        "fallback_model": settings.fallback_model,
+        "image_size": settings.image_size,
+        "aspect_ratio": settings.aspect_ratio,
+        "requested": 0,
+        "succeeded": 0,
+        "failed": 0,
+        "assets": [],
+    }
+
+
+def generate_planned_images(
+    *,
+    media_plan: dict[str, Any],
+    media_facts: dict[str, Any],
+    generation_package: dict[str, Any],
     output_dir: Path,
     repository: DataRepository,
     adapter: ImageAdapter,
     settings: ImageSettings,
-    section_ids: set[str] | None = None,
+    slot_ids: set[str] | None = None,
     run_id: str | None = None,
-    visual_identity: str | None = None,
 ) -> dict[str, Any]:
-    story = repository.load_story_result(story_path)
-    template = repository.get_template(story["template_id"])
-    reference_available = reference_path is not None
-    plans = planned_image_sections(
-        story,
-        template,
-        section_ids,
-        reference_available=reference_available,
-        visual_identity=visual_identity,
-    )
+    repository.validate_media_plan(media_plan)
+    repository.validate_media_facts(media_facts)
+    repository.validate_approved_generation_package(generation_package)
+    if media_plan["brief_id"] != media_facts["brief_id"]:
+        raise ValueError("Media plan and MediaFacts brief ids do not match")
+    if not media_plan["generation_allowed"]:
+        raise ValueError("Media plan does not allow image generation")
+    slots = planned_image_slots(media_plan, slot_ids=slot_ids)
+    local_paths = {
+        asset_id: Path(path)
+        for asset_id, path in generation_package["local_asset_paths"].items()
+    }
+    for path in local_paths.values():
+        if not path.is_file():
+            raise FileNotFoundError(path)
+    fact_ids = {item["fact_id"] for item in media_facts["facts"]}
+    proposition_ids = {
+        item["proposition_id"] for item in media_facts["propositions"]
+    }
+    asset_ids = {item["asset_id"] for item in media_facts["assets"]}
+    for slot in slots:
+        if not set(slot["fact_ids"]).issubset(fact_ids):
+            raise ValueError(f"{slot['slot_id']} references an unknown fact")
+        if not set(slot["proposition_ids"]).issubset(proposition_ids):
+            raise ValueError(f"{slot['slot_id']} references an unknown proposition")
+        if not set(slot["reference_asset_ids"]).issubset(asset_ids):
+            raise ValueError(f"{slot['slot_id']} references an unknown asset")
+        if slot["reference_policy"] == "required" and not any(
+            asset_id in local_paths for asset_id in slot["reference_asset_ids"]
+        ):
+            raise ValueError(f"{slot['slot_id']} is missing a local reference asset")
+
     output_dir.mkdir(parents=True, exist_ok=False)
     assets: list[dict[str, Any]] = []
-    generated_seed_path: Path | None = None
-    generated_seed_sha256: str | None = None
-    sections_by_id = {
-        section["template_section_id"]: section for section in story["sections"]
-    }
-    for plan in plans:
+    for slot in slots:
+        reference_paths = [
+            local_paths[asset_id]
+            for asset_id in slot["reference_asset_ids"]
+            if asset_id in local_paths
+        ]
+        prompt = build_slot_image_prompt(
+            slot=slot,
+            media_facts=media_facts,
+            reference_available=bool(reference_paths),
+        )
+        base = {
+            "slot_id": slot["slot_id"],
+            "section_id": slot["section_id"],
+            "capability_group": slot["capability_group"],
+            "reference_asset_ids": slot["reference_asset_ids"],
+            "prompt_digest": canonical_digest(prompt),
+        }
         try:
-            active_reference = reference_path or generated_seed_path
-            if active_reference is None:
-                result = adapter.generate_text(
-                    section_id=plan["section_id"],
-                    prompt=plan["prompt"],
-                )
-            else:
-                if reference_path is None:
-                    prompt = build_section_image_prompt(
-                        section=sections_by_id[plan["section_id"]],
-                        template=template,
-                        reference_available=True,
-                        visual_identity=visual_identity,
-                    )
-                    plan["prompt"] = prompt
-                result = adapter.edit_reference(
-                    section_id=plan["section_id"],
-                    reference_path=active_reference,
-                    prompt=plan["prompt"],
-                )
+            result = adapter.generate(
+                slot_id=slot["slot_id"],
+                prompt=prompt,
+                reference_paths=reference_paths,
+            )
             image_bytes, metadata_embedded = _embed_ai_metadata(
                 result.image_bytes,
                 mime_type=result.mime_type,
                 model=result.model,
             )
-            filename = (
-                f"{plan['section_id']}.{_extension(result.mime_type, settings.output_format)}"
-            )
+            filename = f"{slot['slot_id']}.{_extension(result.mime_type)}"
             target = output_dir / filename
             target.write_bytes(image_bytes)
-            if reference_path is None and generated_seed_path is None:
-                generated_seed_path = target
-                generated_seed_sha256 = hashlib.sha256(image_bytes).hexdigest()
             assets.append(
                 {
-                    "section_id": plan["section_id"],
+                    **base,
                     "status": "success",
                     "path": filename,
                     "sha256": hashlib.sha256(image_bytes).hexdigest(),
                     "error_type": None,
                     "qa_status": "pending",
-                    "qa_notes": ["게시 전 사람의 사실·품질 검토가 필요합니다."],
+                    "qa_notes": ["게시 전 사람의 사실·외형·문자 품질 검토가 필요합니다."],
+                    "review_checks": {
+                        "scene_distinctness": "pending",
+                        "product_fidelity": "pending",
+                        "text_legibility": "pending",
+                        "claim_grounding": "pending",
+                    },
                     "provider": result.provider,
                     "model": result.model,
                     "mime_type": result.mime_type,
@@ -211,13 +220,19 @@ def generate_section_images(
         except Exception as exc:
             assets.append(
                 {
-                    "section_id": plan["section_id"],
+                    **base,
                     "status": "error",
                     "path": None,
                     "sha256": None,
                     "error_type": type(exc).__name__,
                     "qa_status": "fail",
-                    "qa_notes": ["생성 오류로 미리보기 사용 불가"],
+                    "qa_notes": ["생성 오류로 초안 이미지를 만들지 못했습니다."],
+                    "review_checks": {
+                        "scene_distinctness": "not_applicable",
+                        "product_fidelity": "not_applicable",
+                        "text_legibility": "not_applicable",
+                        "claim_grounding": "not_applicable",
+                    },
                     "provider": None,
                     "model": None,
                     "mime_type": None,
@@ -227,23 +242,21 @@ def generate_section_images(
             )
 
     manifest = {
-        "schema_version": "story-image-manifest-v1",
+        "schema_version": "story-image-manifest-v2",
         "run_id": run_id or output_dir.name,
-        "story_sha256": file_sha256(story_path),
-        "reference_sha256": file_sha256(reference_path) if reference_path else None,
-        "input_mode": "reference-edit" if reference_path else "text-seeded-edit",
-        "generated_seed_sha256": generated_seed_sha256,
-        "model": settings.model,
-        "size": settings.size,
-        "quality": settings.quality,
-        "requested": len(plans),
-        "succeeded": sum(asset["status"] == "success" for asset in assets),
-        "failed": sum(asset["status"] == "error" for asset in assets),
+        "media_plan_digest": canonical_digest(media_plan),
+        "generation_package_digest": canonical_digest(generation_package),
+        "primary_model": settings.primary_model,
+        "fallback_model": settings.fallback_model,
+        "image_size": settings.image_size,
+        "aspect_ratio": settings.aspect_ratio,
+        "requested": len(slots),
+        "succeeded": sum(item["status"] == "success" for item in assets),
+        "failed": sum(item["status"] == "error" for item in assets),
         "assets": assets,
     }
     repository.validate_story_image_manifest(manifest)
-    manifest_path = output_dir / "manifest.json"
-    manifest_path.write_text(
+    (output_dir / "manifest.json").write_text(
         json.dumps(manifest, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
     )

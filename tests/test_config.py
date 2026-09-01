@@ -34,3 +34,24 @@ def test_settings_use_default_models(
     settings = RuntimeSettings.from_env()
     assert settings.primary_model == "gemini-3.7-flash"
     assert settings.fallback_model == "gemini-3.6-flash"
+    assert settings.thinking_level == "MEDIUM"
+    assert settings.max_output_tokens == 24576
+
+
+@pytest.mark.parametrize("level", ["LOW", "MEDIUM", "HIGH"])
+def test_settings_accept_supported_thinking_levels(
+    monkeypatch: pytest.MonkeyPatch,
+    level: str,
+) -> None:
+    monkeypatch.setenv("GOOGLE_CLOUD_PROJECT", "test-project")
+    monkeypatch.setenv("GEMINI_THINKING_LEVEL", level.lower())
+    assert RuntimeSettings.from_env().thinking_level == level
+
+
+def test_settings_reject_minimal_for_gemini_37_flash(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setenv("GOOGLE_CLOUD_PROJECT", "test-project")
+    monkeypatch.setenv("GEMINI_THINKING_LEVEL", "MINIMAL")
+    with pytest.raises(ValueError, match="LOW, MEDIUM, or HIGH"):
+        RuntimeSettings.from_env()

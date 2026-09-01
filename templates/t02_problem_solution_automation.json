@@ -5,6 +5,7 @@
   "category": "테크·가전",
   "language": "ko",
   "generation_source": "manual-analysis",
+  "media_profile_ref": "robotic-floor-cleaner-v1",
   "target": "청소 과정의 반복 작업과 관리 부담을 줄이는 자동화 기능을 우선하는 사용자",
   "default_word_count": 2000,
   "narration_mode": "problem_solution",

@@ -1,227 +1,300 @@
-import json
+import hashlib
+from copy import deepcopy
+
+import pytest
 
 from funding_story_ai.data_repository import DataRepository
 from funding_story_ai.image_generation import ImageResult, ImageSettings
-from funding_story_ai.image_pipeline import generate_section_images, planned_image_sections
-from funding_story_ai.preview import render_story_html
+from funding_story_ai.image_pipeline import (
+    build_slot_image_prompt,
+    generate_planned_images,
+    planned_image_slots,
+)
+from funding_story_ai.media_projection import build_approved_generation_package
+from funding_story_ai.preview import (
+    can_render_publishable,
+    render_funding_story_html,
+)
+
+
+def _package(repository: DataRepository, reference) -> dict:
+    return build_approved_generation_package(
+        repository=repository,
+        input_id="image-pipeline-test",
+        thread_id="image-pipeline-thread",
+        state={
+            "workflow_stage": "generation-ready",
+            "summary_version": 1,
+            "approved_summary_version": 1,
+            "facts_revision": 1,
+            "collection_revision": 1,
+            "facts": {},
+        },
+        brief=repository.load_brief(),
+        local_asset_paths={"asset_product_hero": reference},
+    )
+
+
+def _facts_and_plan(package: dict) -> tuple[dict, dict]:
+    group_by_kind = {
+        "product": "product_identity_outcome",
+        "problem": "problem_environment",
+        "feature": "cleaning_mechanism",
+        "evidence": "evidence_performance",
+    }
+    selected = {}
+    for fact in package["entity_projection"]["facts"]:
+        if fact["entity_kind"] in group_by_kind and fact["entity_kind"] not in selected:
+            selected[fact["entity_kind"]] = fact
+    propositions = []
+    facts = []
+    for kind, group in group_by_kind.items():
+        source = selected[kind]
+        proposition_id = "p_" + hashlib.sha256(source["fact_id"].encode()).hexdigest()[:12]
+        propositions.append(
+            {
+                "proposition_id": proposition_id,
+                "fact_id": source["fact_id"],
+                "text": source["statement"],
+                "capability_group": group,
+            }
+        )
+        state = next(
+            item
+            for item in package["worker_projection"]["fact_states"]
+            if item["fact_id"] == source["fact_id"]
+        )
+        facts.append(
+            {
+                "fact_id": source["fact_id"],
+                "proposition_ids": [proposition_id],
+                "source_refs": source["source_refs"],
+                "evidence_refs": source["evidence_refs"],
+                "asset_refs": source["asset_refs"],
+                "reference_roles": source["reference_roles"],
+                "availability": state["availability"],
+                "support_level": state["support_level"],
+                "collection_state": state["collection_state"],
+            }
+        )
+    media_facts = {
+        "schema_version": "media-facts-v1",
+        "brief_id": package["brief"]["brief_id"],
+        "approved_revision": 1,
+        "brief_digest": package["brief_digest"],
+        "worker_projection_digest": package["worker_projection_digest"],
+        "propositions": propositions,
+        "facts": facts,
+        "sources": package["entity_projection"]["sources"],
+        "evidence": package["entity_projection"]["evidence"],
+        "assets": package["entity_projection"]["assets"],
+        "ignored_fact_ids": [],
+    }
+    section_by_group = {
+        "product_identity_outcome": "hero",
+        "problem_environment": "problem",
+        "cleaning_mechanism": "solution",
+        "evidence_performance": "social_proof",
+    }
+    slots = []
+    for proposition, fact in zip(propositions, facts, strict=True):
+        group = proposition["capability_group"]
+        refs = (
+            fact["asset_refs"]
+            if group in {"product_identity_outcome", "cleaning_mechanism"}
+            else []
+        )
+        slots.append(
+            {
+                "slot_id": f"slot_{group}_01",
+                "capability_group": group,
+                "grouping_key": group,
+                "section_id": section_by_group[group],
+                "persuasion_goal": "승인 사실 전달",
+                "priority": "required",
+                "placement": "section_lead",
+                "media_kind": "static",
+                "reference_policy": "required" if refs else "none",
+                "reference_asset_ids": refs,
+                "fact_ids": [fact["fact_id"]],
+                "proposition_ids": [proposition["proposition_id"]],
+                "scene": {
+                    "summary": proposition["text"],
+                    "visual_direction": "각 슬롯마다 서로 다른 가로 장면",
+                    "text_policy": "allowed_grounded_only",
+                },
+            }
+        )
+    plan = {
+        "schema_version": "media-plan-v1",
+        "brief_id": media_facts["brief_id"],
+        "template_id": "t04_full_campaign",
+        "media_profile_id": "robotic-floor-cleaner-v1",
+        "decision": "ready",
+        "publishable": True,
+        "generation_allowed": True,
+        "active_groups": list(group_by_kind.values()),
+        "inactive_groups": [],
+        "placeholder_groups": [],
+        "missing_reference_roles": [],
+        "slots": slots,
+        "placeholders": [],
+        "reasons": ["검증 가능"],
+    }
+    return media_facts, plan
+
+
+class _Images:
+    def __init__(self, fail_slot: str | None = None) -> None:
+        self.fail_slot = fail_slot
+        self.calls = []
+
+    def generate(self, *, slot_id, prompt, reference_paths=()):
+        self.calls.append((slot_id, tuple(reference_paths), prompt))
+        if slot_id == self.fail_slot:
+            raise RuntimeError("image failure")
+        return ImageResult(
+            slot_id=slot_id,
+            image_bytes=f"image-{slot_id}".encode(),
+            model="gemini-image-test",
+        )
 
 
 def _story(repository: DataRepository) -> dict:
-    template = repository.get_template("t02_problem_solution_automation")
-    sections = [
-        {
-            "template_section_id": section["id"],
-            "type": section["type"],
-            "heading": section["label"],
-            "body": "클린포지 R1 입력 사실을 설명합니다.",
-            "source_fields": ["product.name"],
-            "image_intent": {
-                "required": section["image_required"],
-                "purpose": "제품 시각화" if section["image_required"] else "",
-                "visual_hint": section["visual_hint"] if section["image_required"] else "",
-                "source_fields": ["asset_product_hero"]
-                if section["image_required"]
-                else [],
-            },
-        }
-        for section in template["layout"]
-    ]
-    return {
-        "schema_version": "story-result-v1",
-        "language": "ko",
-        "template_id": template["id"],
-        "template_version": "0.1.0",
-        "model": "gemini-3.7-flash",
-        "title_candidates": ["클린포지 R1"],
-        "sections": sections,
-        "warnings": [],
-        "automated_validation_passed": True,
-        "review_required": True,
-    }
-
-
-class FakeImageAdapter:
-    def edit_reference(self, *, section_id, reference_path, prompt):
-        return ImageResult(
-            section_id=section_id,
-            image_bytes=f"image-{section_id}".encode(),
-            revised_prompt=None,
-        )
-
-    def generate_text(self, *, section_id, prompt):
-        return ImageResult(
-            section_id=section_id,
-            image_bytes=f"generated-{section_id}".encode(),
-            revised_prompt=None,
-        )
-
-
-def test_t02_template_plans_its_five_required_images() -> None:
-    repository = DataRepository()
-    story = _story(repository)
-    plans = planned_image_sections(story, repository.get_template(story["template_id"]))
-    assert [plan["section_id"] for plan in plans] == [
-        "hero",
-        "solution",
-        "features",
-        "social_proof",
-        "timeline",
-    ]
-
-
-def test_template_image_count_is_driven_by_the_selected_layout() -> None:
-    repository = DataRepository()
     template = repository.get_template("t04_full_campaign")
-    story = {
+    return {
+        "title_candidates": ["클린포지 R1"],
         "sections": [
             {
                 "template_section_id": section["id"],
-                "image_intent": {
-                    "required": section["image_required"],
-                    "purpose": "제품 시각화" if section["image_required"] else "",
-                },
+                "heading": section["label"],
+                "body": "**승인된 사실**을 설명합니다.",
             }
             for section in template["layout"]
-        ]
+        ],
     }
 
-    plans = planned_image_sections(story, template)
 
-    assert [plan["section_id"] for plan in plans] == [
-        "hero", "solution", "features", "funding_plan", "timeline", "team"
-    ]
-    features_prompt = next(plan["prompt"] for plan in plans if plan["section_id"] == "features")
-    assert "입력에 없는 추가 구성품을 넣지 않음" in features_prompt
-
-
-def test_solution_prompt_keeps_metrics_out_of_raster_image() -> None:
+@pytest.mark.parametrize("image_count", [4, 6, 8])
+def test_plan_drives_bounded_independent_images_without_generated_chaining(
+    tmp_path, image_count: int
+) -> None:
     repository = DataRepository()
-    story = _story(repository)
-    story["sections"][4]["body"] = "최대 8,000Pa와 180분을 보여 줍니다."
-    plans = planned_image_sections(
-        story,
-        repository.get_template(story["template_id"]),
-        {"solution"},
-    )
-    assert len(plans) == 1
-    assert "8,000" not in plans[0]["prompt"]
-    assert "타이포그래피를 만들지 않음" in plans[0]["prompt"]
-
-
-def test_generate_images_writes_valid_manifest_and_preview(tmp_path) -> None:
-    repository = DataRepository()
-    story = _story(repository)
-    story_path = tmp_path / "story.json"
-    story_path.write_text(json.dumps(story, ensure_ascii=False), encoding="utf-8")
-    reference = tmp_path / "reference.jpg"
+    reference = tmp_path / "product.jpg"
     reference.write_bytes(b"reference")
-    output = tmp_path / "preview-run"
-    settings = ImageSettings()
+    package = _package(repository, reference)
+    facts, plan = _facts_and_plan(package)
+    while len(plan["slots"]) < image_count:
+        slot = deepcopy(plan["slots"][0])
+        slot["slot_id"] = f"slot_product_identity_outcome_{len(plan['slots']) + 1:02d}"
+        plan["slots"].append(slot)
+    images = _Images()
 
-    manifest = generate_section_images(
-        story_path=story_path,
-        reference_path=reference,
-        output_dir=output,
+    manifest = generate_planned_images(
+        media_plan=plan,
+        media_facts=facts,
+        generation_package=package,
+        output_dir=tmp_path / "images",
         repository=repository,
-        adapter=FakeImageAdapter(),
-        settings=settings,
+        adapter=images,
+        settings=ImageSettings(),
+        run_id="run-image-test",
     )
 
-    assert manifest["requested"] == 5
-    assert manifest["succeeded"] == 5
-    assert manifest["failed"] == 0
+    assert manifest["requested"] == image_count
+    assert manifest["succeeded"] == image_count
     assert {asset["qa_status"] for asset in manifest["assets"]} == {"pending"}
+    assert all("review_checks" in asset for asset in manifest["assets"])
+    assert images.calls[1][1] == ()
+    assert all(path == reference for _, paths, _ in images.calls for path in paths)
     repository.validate_story_image_manifest(manifest)
 
-    html = render_story_html(
-        story=story,
-        template=repository.get_template(story["template_id"]),
-        manifest=manifest,
-        fallback_image="reference.jpg",
-    )
-    assert "본문 HTML 복사" in html
-    assert 'src="hero.jpeg"' in html
-    assert "사람 검토 대기" in html
-    manifest["assets"][0]["qa_status"] = "pass"
-    html_after_qa = render_story_html(
-        story=story,
-        template=repository.get_template(story["template_id"]),
-        manifest=manifest,
-        fallback_image="reference.jpg",
-    )
-    assert 'src="hero.jpeg"' in html_after_qa
-    assert "검토 필수" in html
 
-
-def test_generate_images_accepts_text_only_input_without_reference(tmp_path) -> None:
+def test_prompt_allows_only_grounded_text_and_unknown_slot_is_rejected(tmp_path) -> None:
     repository = DataRepository()
-    story = _story(repository)
-    story_path = tmp_path / "story.json"
-    story_path.write_text(json.dumps(story, ensure_ascii=False), encoding="utf-8")
-    output = tmp_path / "text-only-run"
+    reference = tmp_path / "product.jpg"
+    reference.write_bytes(b"reference")
+    package = _package(repository, reference)
+    facts, plan = _facts_and_plan(package)
 
-    manifest = generate_section_images(
-        story_path=story_path,
-        reference_path=None,
-        output_dir=output,
+    prompt = build_slot_image_prompt(
+        slot=plan["slots"][0], media_facts=facts, reference_available=True
+    )
+    assert "이미지 내 문자는 허용" in prompt
+    assert facts["propositions"][0]["text"] in prompt
+    with pytest.raises(ValueError, match="Unknown media slot"):
+        planned_image_slots(plan, slot_ids={"slot_unknown_01"})
+
+
+def test_image_failure_is_isolated_in_manifest(tmp_path) -> None:
+    repository = DataRepository()
+    reference = tmp_path / "product.jpg"
+    reference.write_bytes(b"reference")
+    package = _package(repository, reference)
+    facts, plan = _facts_and_plan(package)
+    manifest = generate_planned_images(
+        media_plan=plan,
+        media_facts=facts,
+        generation_package=package,
+        output_dir=tmp_path / "images",
         repository=repository,
-        adapter=FakeImageAdapter(),
+        adapter=_Images(fail_slot=plan["slots"][0]["slot_id"]),
         settings=ImageSettings(),
     )
-
-    assert manifest["reference_sha256"] is None
-    assert manifest["input_mode"] == "text-seeded-edit"
-    assert manifest["generated_seed_sha256"] is not None
-    assert manifest["succeeded"] == 5
-    assert (output / "hero.jpeg").read_bytes() == b"generated-hero"
-    repository.validate_story_image_manifest(manifest)
+    assert manifest["failed"] == 1
+    assert manifest["succeeded"] == 3
 
 
-def test_text_only_prompt_does_not_claim_a_reference_image() -> None:
+def test_draft_is_pure_740px_html_and_publishable_requires_review(tmp_path) -> None:
     repository = DataRepository()
-    story = _story(repository)
-    plans = planned_image_sections(
-        story,
-        repository.get_template(story["template_id"]),
-        reference_available=False,
+    reference = tmp_path / "product.jpg"
+    reference.write_bytes(b"reference")
+    package = _package(repository, reference)
+    facts, plan = _facts_and_plan(package)
+    manifest = generate_planned_images(
+        media_plan=plan,
+        media_facts=facts,
+        generation_package=package,
+        output_dir=tmp_path / "images",
+        repository=repository,
+        adapter=_Images(),
+        settings=ImageSettings(),
     )
-
-    assert all("참조 이미지" not in plan["prompt"] for plan in plans)
-    assert all("입력 제품 설명" in plan["prompt"] for plan in plans)
-
-
-def test_preview_escapes_generated_markup() -> None:
-    repository = DataRepository()
+    for asset in manifest["assets"]:
+        asset["path"] = f"images/{asset['path']}"
     story = _story(repository)
-    story["sections"][0]["body"] = '<script>alert("x")</script>'
-    rendered = render_story_html(
+    template = repository.get_template("t04_full_campaign")
+
+    draft = render_funding_story_html(
+        story=story, template=template, media_plan=plan, manifest=manifest
+    )
+    assert "max-width:740px" in draft
+    assert "@media(max-width:768px)" in draft
+    assert "toolbar" not in draft
+    assert "출처 필드" not in draft
+    assert "&lt;script&gt;" in render_funding_story_html(
+        story={**story, "sections": [{**story["sections"][0], "body": "<script>x</script>"}]},
+        template=template,
+        media_plan={**plan, "slots": []},
+        manifest={**manifest, "assets": [], "requested": 0, "succeeded": 0},
+    )
+    assert can_render_publishable(media_plan=plan, manifest=manifest) is False
+    with pytest.raises(ValueError, match="Publishable HTML"):
+        render_funding_story_html(
+            story=story,
+            template=template,
+            media_plan=plan,
+            manifest=manifest,
+            mode="publishable",
+        )
+    for asset in manifest["assets"]:
+        asset["qa_status"] = "pass"
+    assert can_render_publishable(media_plan=plan, manifest=manifest) is True
+    published = render_funding_story_html(
         story=story,
-        template=repository.get_template(story["template_id"]),
-        fallback_image="reference.jpg",
+        template=template,
+        media_plan=plan,
+        manifest=manifest,
+        mode="publishable",
     )
-    assert "&lt;script&gt;" in rendered
-    assert '<script>alert("x")</script>' not in rendered
-
-
-def test_preview_renders_safe_structured_markdown_blocks() -> None:
-    repository = DataRepository()
-    story = _story(repository)
-    story["sections"][0]["body"] = (
-        "**핵심 성능**과 ==시험 조건==, *검토 안내*\n\n"
-        "- 입력 사실\n- 미확인 정보\n\n"
-        "| 항목 | 상태 |\n| --- | --- |\n| 인증 | 미입력 |\n\n"
-        "> 검토가 필요합니다."
-    )
-
-    rendered = render_story_html(
-        story=story,
-        template=repository.get_template(story["template_id"]),
-        fallback_image="reference.jpg",
-    )
-
-    assert "<strong>핵심 성능</strong>" in rendered
-    assert "<mark>시험 조건</mark>" in rendered
-    assert "<em>검토 안내</em>" in rendered
-    assert "<ul><li>입력 사실</li><li>미확인 정보</li></ul>" in rendered
-    assert "<table><thead>" in rendered
-    assert "<blockquote>검토가 필요합니다.</blockquote>" in rendered
+    assert 'data-render-mode="publishable"' in published

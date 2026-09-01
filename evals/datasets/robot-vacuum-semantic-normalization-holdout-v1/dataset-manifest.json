@@ -1,0 +1,77 @@
+{
+  "schema_version": "robot-vacuum-semantic-normalization-holdout-manifest-v1",
+  "dataset_status": "sealed_synthetic_holdout",
+  "observed_user_data": false,
+  "development_prompt_tuning_allowed": false,
+  "human_gold_signoff_complete": false,
+  "purpose": "개발 fixture와 다른 문장 원형에서 의미 분해·능력군 분류·adapter join을 최종 점검한다.",
+  "summary": {
+    "case_count": 64,
+    "variant_counts": {
+      "all_in_one_dock": 16,
+      "auto_empty_dock": 16,
+      "basic_vacuum": 16,
+      "vacuum_mop": 16
+    },
+    "decision_counts": {
+      "accepted": 64
+    },
+    "fact_count_min": 6,
+    "fact_count_max": 11,
+    "entity_count_min": 6,
+    "entity_count_max": 11,
+    "split_fact_count": 18,
+    "unique_model_fact_orders": 64,
+    "capability_group_counts": {
+      "automation_return": 38,
+      "cleaning_mechanism": 97,
+      "configuration_maintenance": 56,
+      "control_personalization": 49,
+      "evidence_performance": 40,
+      "mobility_coverage": 74,
+      "problem_environment": 72,
+      "product_identity_outcome": 72
+    },
+    "entity_kind_counts": {
+      "claim": 64,
+      "distractor": 16,
+      "evidence": 32,
+      "feature": 256,
+      "problem": 64,
+      "product": 64
+    },
+    "unresolved_case_count": 0,
+    "unresolved_reference_count": 0,
+    "claim_group_counts": {
+      "automation_return": 8,
+      "cleaning_mechanism": 8,
+      "configuration_maintenance": 8,
+      "control_personalization": 8,
+      "evidence_performance": 8,
+      "mobility_coverage": 8,
+      "problem_environment": 8,
+      "product_identity_outcome": 8
+    },
+    "distractor_case_count": 16,
+    "exact_development_fact_overlap_count": 0,
+    "exact_development_proposition_overlap_count": 0,
+    "maximum_development_surface_jaccard_4gram": 0.08823529411764706,
+    "maximum_development_surface_pair": [
+      "손님방과 이어진 복도에서는 바닥 틈에 손님방 섬유 흔적이 남아 손님을 배웅한 뒤 손질이 번거롭다.",
+      "반려동물 털이 남는 카펫과 마룻바닥이 이어진 복도에서는 짧은 청소 주기를 유지하기가 번거롭다."
+    ],
+    "development_id_overlap_count": {
+      "asset": 0,
+      "entity": 0,
+      "evidence": 0,
+      "fact": 0,
+      "proposition": 0,
+      "source": 0
+    }
+  },
+  "limitations": [
+    "합성 로봇청소기 입력이므로 실제 사용자 표현과 제품 단위 외부 타당성을 대신하지 않는다.",
+    "독립 생성·검증용으로 봉인했지만 사람 주석 gold는 아니다.",
+    "이 자료의 정답이나 실패 사례를 본 뒤 프롬프트를 조정하면 더 이상 holdout으로 사용할 수 없다."
+  ]
+}

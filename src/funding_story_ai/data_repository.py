@@ -21,6 +21,7 @@ class DataRepository:
         self.root = root or Path(__file__).resolve().parents[2]
         self.schemas_dir = self.root / "schemas"
         self.templates_dir = self.root / "templates"
+        self.media_profiles_dir = self.root / "media_profiles"
         self.examples_dir = self.root / "examples"
         self._schemas = {
             "section": self._read_json(
@@ -50,6 +51,18 @@ class DataRepository:
             ),
             "intake_semantic_state": self._read_json(
                 self.schemas_dir / "story-intake-semantic-state.schema.json"
+            ),
+            "approved_generation_package": self._read_json(
+                self.schemas_dir / "approved-generation-package.schema.json"
+            ),
+            "media_facts": self._read_json(
+                self.schemas_dir / "media-facts.schema.json"
+            ),
+            "media_profile": self._read_json(
+                self.schemas_dir / "media-profile.schema.json"
+            ),
+            "media_plan": self._read_json(
+                self.schemas_dir / "media-plan.schema.json"
             ),
         }
         self._registry = Registry().with_resource(
@@ -117,6 +130,43 @@ class DataRepository:
         )
         return catalog
 
+    def load_media_profiles(self) -> list[dict[str, Any]]:
+        profiles = [
+            self._read_json(path)
+            for path in sorted(self.media_profiles_dir.glob("*.json"))
+        ]
+        if not profiles:
+            raise DataValidationError("No media profiles found")
+        for profile in profiles:
+            self.validate_media_profile(profile)
+            self._require_unique(
+                (group["id"] for group in profile["capability_groups"]),
+                f"{profile['id']} capability group id",
+            )
+        self._require_unique((profile["id"] for profile in profiles), "media profile id")
+        return profiles
+
+    def get_media_profile(self, profile_id: str) -> dict[str, Any]:
+        for profile in self.load_media_profiles():
+            if profile["id"] == profile_id:
+                return profile
+        raise DataValidationError(f"Unknown media profile id: {profile_id}")
+
+    def validate_template_media_profile_links(self) -> None:
+        profiles = {profile["id"]: profile for profile in self.load_media_profiles()}
+        for template in self.load_templates():
+            profile_id = template["media_profile_ref"]
+            if profile_id not in profiles:
+                raise DataValidationError(
+                    f"{template['id']} references unknown media profile: {profile_id}"
+                )
+            section_types = {section["type"] for section in template["layout"]}
+            for group in profiles[profile_id]["capability_groups"]:
+                if not section_types.intersection(group["allowed_section_types"]):
+                    raise DataValidationError(
+                        f"{template['id']} has no section for capability group {group['id']}"
+                    )
+
     def get_template_version(self, template_id: str) -> str:
         for entry in self.load_catalog()["templates"]:
             if entry["template_id"] == template_id:
@@ -169,9 +219,63 @@ class DataRepository:
 
     def validate_story_image_manifest(self, value: dict[str, Any]) -> None:
         self._validate(value, "story_image_manifest", "story image manifest")
+        if value["requested"] != len(value["assets"]):
+            raise DataValidationError("image manifest requested count does not match assets")
+        if value["succeeded"] + value["failed"] != value["requested"]:
+            raise DataValidationError("image manifest success and failure counts do not add up")
+        self._require_unique(
+            (asset["slot_id"] for asset in value["assets"]),
+            "image manifest slot id",
+        )
 
     def validate_integrated_story_run(self, value: dict[str, Any]) -> None:
         self._validate(value, "integrated_story_run", "integrated story run")
+
+    def validate_approved_generation_package(self, value: dict[str, Any]) -> None:
+        self._validate(
+            value,
+            "approved_generation_package",
+            value.get("input_id", "approved generation package"),
+        )
+        self.validate_story_brief(value["brief"])
+
+    def validate_media_facts(self, value: dict[str, Any]) -> None:
+        self._validate(value, "media_facts", value.get("brief_id", "media facts"))
+        proposition_ids = {item["proposition_id"] for item in value["propositions"]}
+        fact_ids = {item["fact_id"] for item in value["facts"]}
+        if len(proposition_ids) != len(value["propositions"]):
+            raise DataValidationError("media facts contain duplicate proposition ids")
+        if len(fact_ids) != len(value["facts"]):
+            raise DataValidationError("media facts contain duplicate fact ids")
+        for proposition in value["propositions"]:
+            if proposition["fact_id"] not in fact_ids:
+                raise DataValidationError("media proposition references an unknown fact")
+        linked = {
+            proposition_id
+            for fact in value["facts"]
+            for proposition_id in fact["proposition_ids"]
+        }
+        if linked != proposition_ids:
+            raise DataValidationError("media fact proposition links are incomplete")
+
+    def validate_media_profile(self, value: dict[str, Any]) -> None:
+        self._validate(value, "media_profile", value.get("id", "media profile"))
+        self._require_unique(
+            (group["id"] for group in value["capability_groups"]),
+            f"{value['id']} capability group id",
+        )
+        for group in value["capability_groups"]:
+            bounds = group["cardinality"]
+            if bounds["min"] > bounds["max"]:
+                raise DataValidationError(
+                    f"{value['id']} {group['id']} cardinality min exceeds max"
+                )
+
+    def validate_media_plan(self, value: dict[str, Any]) -> None:
+        self._validate(value, "media_plan", value.get("brief_id", "media plan"))
+        self._require_unique(
+            (slot["slot_id"] for slot in value["slots"]), "media plan slot id"
+        )
 
     def load_template_retrieval_index(self) -> dict[str, Any]:
         value = self._read_json(self.templates_dir / "retrieval-index.json")

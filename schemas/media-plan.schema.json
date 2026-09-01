@@ -1,0 +1,136 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://funding-story-ai.local/schemas/media-plan.schema.json",
+  "title": "Story media plan",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "brief_id",
+    "template_id",
+    "media_profile_id",
+    "decision",
+    "publishable",
+    "generation_allowed",
+    "active_groups",
+    "inactive_groups",
+    "placeholder_groups",
+    "missing_reference_roles",
+    "slots",
+    "placeholders",
+    "reasons"
+  ],
+  "$defs": {
+    "capability_group": {
+      "enum": [
+        "product_identity_outcome",
+        "problem_environment",
+        "cleaning_mechanism",
+        "mobility_coverage",
+        "automation_return",
+        "control_personalization",
+        "evidence_performance",
+        "configuration_maintenance"
+      ]
+    },
+    "capability_list": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/capability_group"}
+    }
+  },
+  "properties": {
+    "schema_version": {"const": "media-plan-v1"},
+    "brief_id": {"type": "string", "minLength": 1},
+    "template_id": {"type": "string", "pattern": "^t[0-9]{2}_[a-z0-9_]+$"},
+    "media_profile_id": {"type": "string", "minLength": 1},
+    "decision": {"enum": ["ready", "draft_with_placeholders", "needs_required_information", "needs_reference_assets"]},
+    "publishable": {"type": "boolean"},
+    "generation_allowed": {"type": "boolean"},
+    "active_groups": {"$ref": "#/$defs/capability_list"},
+    "inactive_groups": {"$ref": "#/$defs/capability_list"},
+    "placeholder_groups": {"$ref": "#/$defs/capability_list"},
+    "missing_reference_roles": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"enum": ["product_body", "dock", "accessory", "control_interface", "provided_evidence"]}
+    },
+    "slots": {
+      "type": "array",
+      "maxItems": 8,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "slot_id",
+          "capability_group",
+          "grouping_key",
+          "section_id",
+          "persuasion_goal",
+          "priority",
+          "placement",
+          "media_kind",
+          "reference_policy",
+          "reference_asset_ids",
+          "fact_ids",
+          "proposition_ids",
+          "scene"
+        ],
+        "properties": {
+          "slot_id": {"type": "string", "pattern": "^slot_[a-z0-9_]+$"},
+          "capability_group": {"$ref": "#/$defs/capability_group"},
+          "grouping_key": {"type": "string", "minLength": 1},
+          "section_id": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"},
+          "persuasion_goal": {"type": "string", "minLength": 1},
+          "priority": {"enum": ["required", "recommended", "optional"]},
+          "placement": {"enum": ["section_lead", "inline", "after_claim", "after_explanation", "section_close"]},
+          "media_kind": {"enum": ["static", "loop_motion"]},
+          "reference_policy": {"enum": ["required", "optional", "none"]},
+          "reference_asset_ids": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {"type": "string", "minLength": 1}
+          },
+          "fact_ids": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {"type": "string", "pattern": "^f_[a-f0-9]{12}$"}
+          },
+          "proposition_ids": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {"type": "string", "pattern": "^p_[a-f0-9]{12}$"}
+          },
+          "scene": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["summary", "visual_direction", "text_policy"],
+            "properties": {
+              "summary": {"type": "string", "minLength": 1},
+              "visual_direction": {"type": "string", "minLength": 1},
+              "text_policy": {"enum": ["allowed_grounded_only", "no_text"]}
+            }
+          }
+        }
+      }
+    },
+    "placeholders": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["capability_group", "section_id", "title", "description", "input_format"],
+        "properties": {
+          "capability_group": {"$ref": "#/$defs/capability_group"},
+          "section_id": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"},
+          "title": {"type": "string", "minLength": 1},
+          "description": {"type": "string", "minLength": 1},
+          "input_format": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "reasons": {"type": "array", "items": {"type": "string", "minLength": 1}}
+  }
+}

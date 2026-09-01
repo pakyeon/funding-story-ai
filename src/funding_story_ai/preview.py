@@ -1,11 +1,10 @@
 # ruff: noqa: E501
-# HTML/CSS literals intentionally keep individual rules intact for readable previews.
 from __future__ import annotations
 
 import html
 import re
 from pathlib import Path
-from typing import Any
+from typing import Any, Literal
 
 
 def _escape(value: object) -> str:
@@ -32,8 +31,6 @@ def _is_table_separator(line: str) -> bool:
 
 
 def _render_markdown_body(value: str) -> str:
-    """Render the small, escaped Markdown subset allowed by the generation prompt."""
-
     lines = value.splitlines()
     blocks: list[str] = []
     index = 0
@@ -42,11 +39,7 @@ def _render_markdown_body(value: str) -> str:
         if not line:
             index += 1
             continue
-        if (
-            "|" in line
-            and index + 1 < len(lines)
-            and _is_table_separator(lines[index + 1])
-        ):
+        if "|" in line and index + 1 < len(lines) and _is_table_separator(lines[index + 1]):
             headers = _table_cells(line)
             index += 2
             rows: list[list[str]] = []
@@ -55,9 +48,7 @@ def _render_markdown_body(value: str) -> str:
                 index += 1
             head = "".join(f"<th>{_render_inline(cell)}</th>" for cell in headers)
             body = "".join(
-                "<tr>"
-                + "".join(f"<td>{_render_inline(cell)}</td>" for cell in row)
-                + "</tr>"
+                "<tr>" + "".join(f"<td>{_render_inline(cell)}</td>" for cell in row) + "</tr>"
                 for row in rows
             )
             blocks.append(f"<table><thead><tr>{head}</tr></thead><tbody>{body}</tbody></table>")
@@ -88,55 +79,93 @@ def _render_markdown_body(value: str) -> str:
     return "".join(blocks)
 
 
-def render_story_html(
+def _media_html(
+    *,
+    section_id: str,
+    media_plan: dict[str, Any],
+    manifest: dict[str, Any],
+    mode: Literal["draft", "publishable"],
+) -> str:
+    asset_by_slot = {
+        asset["slot_id"]: asset
+        for asset in manifest["assets"]
+        if asset["status"] == "success" and asset["qa_status"] != "fail"
+    }
+    blocks: list[str] = []
+    for slot in media_plan["slots"]:
+        if slot["section_id"] != section_id:
+            continue
+        asset = asset_by_slot.get(slot["slot_id"])
+        if asset and (mode == "draft" or asset["qa_status"] == "pass"):
+            blocks.append(
+                f'<figure data-media-slot="{_escape(slot["slot_id"])}">'
+                f'<img src="{_escape(asset["path"])}" alt="{_escape(slot["scene"]["summary"])}">'
+                "</figure>"
+            )
+        elif mode == "draft":
+            blocks.append(
+                f'<div class="media-placeholder" data-media-slot="{_escape(slot["slot_id"])}">'
+                f'<strong>이미지 자리</strong><p>{_escape(slot["scene"]["visual_direction"])}</p>'
+                "</div>"
+            )
+    if mode == "draft":
+        for placeholder in media_plan["placeholders"]:
+            if placeholder["section_id"] != section_id:
+                continue
+            blocks.append(
+                '<aside class="content-placeholder">'
+                f'<strong>{_escape(placeholder["title"])}</strong>'
+                f'<p>{_escape(placeholder["description"])}</p>'
+                f'<small>{_escape(placeholder["input_format"])}</small>'
+                "</aside>"
+            )
+    return "".join(blocks)
+
+
+def can_render_publishable(
+    *,
+    media_plan: dict[str, Any],
+    manifest: dict[str, Any],
+    story: dict[str, Any] | None = None,
+) -> bool:
+    assets = manifest["assets"]
+    return bool(
+        media_plan["publishable"]
+        and not media_plan["placeholders"]
+        and manifest["requested"] == manifest["succeeded"]
+        and all(asset["qa_status"] == "pass" for asset in assets)
+        and (story is None or not story.get("warnings"))
+    )
+
+
+def render_funding_story_html(
     *,
     story: dict[str, Any],
     template: dict[str, Any],
-    manifest: dict[str, Any] | None = None,
-    fallback_image: str | None = None,
+    media_plan: dict[str, Any],
+    manifest: dict[str, Any],
+    mode: Literal["draft", "publishable"] = "draft",
 ) -> str:
-    assets = {
-        asset["section_id"]: (asset["path"], asset.get("qa_status", "pending"))
-        for asset in (manifest or {}).get("assets", [])
-        if asset["status"] == "success"
-        and asset.get("qa_status") != "fail"
-    }
-    template_by_id = {section["id"]: section for section in template["layout"]}
+    if mode == "publishable" and not can_render_publishable(
+        media_plan=media_plan, manifest=manifest, story=story
+    ):
+        raise ValueError("Publishable HTML requires complete facts, assets, and passed image review")
     colors = template["style"]["color_palette"]
-    section_html: list[str] = []
-    for index, section in enumerate(story["sections"], start=1):
+    sections: list[str] = []
+    for section in story["sections"]:
         section_id = section["template_section_id"]
-        spec = template_by_id[section_id]
-        generated_asset = assets.get(section_id)
-        image_source = generated_asset[0] if generated_asset else None
-        qa_status = generated_asset[1] if generated_asset else None
-        image_status = "generated"
-        if not image_source and section["image_intent"]["required"] and fallback_image:
-            image_source = fallback_image
-            image_status = "fallback"
-        image = ""
-        if image_source:
-            image = (
-                f'<figure class="visual {image_status}">'
-                f'<img src="{_escape(image_source)}" alt="{_escape(section["heading"])}">'
-                f'<figcaption>{_escape(section["image_intent"]["purpose"])}'
-                f'{" · 사람 검토 대기" if qa_status == "pending" else ""}</figcaption>'
-                "</figure>"
-            )
-        body_html = _render_markdown_body(section["body"])
-        source_fields = "".join(
-            f"<code>{_escape(source)}</code>" for source in section["source_fields"]
+        media = _media_html(
+            section_id=section_id,
+            media_plan=media_plan,
+            manifest=manifest,
+            mode=mode,
         )
-        section_html.append(
-            f'<section id="{_escape(section_id)}" class="story-section type-{_escape(section["type"])}">'
-            f'<div class="section-kicker">{index:02d} · {_escape(spec["label"])}</div>'
-            f'<h2>{_escape(section["heading"])}</h2>{image}'
-            f'<div class="body">{body_html}</div>'
-            f'<details><summary>출처 필드</summary><div class="source-fields">{source_fields}</div></details>'
+        sections.append(
+            f'<section data-story-section="{_escape(section_id)}">'
+            f'<h2>{_escape(section["heading"])}</h2>'
+            f'{media}<div class="story-copy">{_render_markdown_body(section["body"])}</div>'
             "</section>"
         )
-    titles = "".join(f"<li>{_escape(title)}</li>" for title in story["title_candidates"])
-    warning_count = len(story["warnings"])
     return f"""<!doctype html>
 <html lang="ko">
 <head>
@@ -144,106 +173,44 @@ def render_story_html(
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{_escape(story['title_candidates'][0])}</title>
 <style>
-:root {{--ink:{colors[0]};--accent:{colors[1]};--surface:{colors[2]};}}
-*{{box-sizing:border-box}} body{{margin:0;background:#eef1f4;color:var(--ink);font-family:Arial,'Noto Sans KR',sans-serif;line-height:1.7}}
-.toolbar{{position:sticky;top:0;z-index:10;display:flex;gap:12px;align-items:center;justify-content:space-between;padding:12px 20px;background:#111827;color:white}}
-.toolbar button{{border:0;border-radius:8px;padding:9px 14px;background:var(--accent);color:white;font-weight:700;cursor:pointer}}
-.notice{{max-width:860px;margin:24px auto 0;padding:16px 20px;border:1px solid #f59e0b;background:#fffbeb;border-radius:12px}}
-.story{{max-width:860px;margin:24px auto 80px;background:white;box-shadow:0 16px 48px #0f172a18}}
-.title-panel{{padding:52px 48px;background:var(--ink);color:white}} .title-panel h1{{margin:0 0 16px;font-size:42px;line-height:1.2}}
-.story-section{{padding:48px;border-bottom:1px solid #e5e7eb}} .section-kicker{{color:var(--accent);font-weight:800;letter-spacing:.06em}}
-h2{{margin:8px 0 24px;font-size:30px;line-height:1.3}} .visual{{margin:0 0 28px}} .visual img{{display:block;width:100%;border-radius:14px}}
-.visual.fallback::before{{content:'기준 이미지 대체 사용';display:inline-block;margin-bottom:8px;padding:3px 8px;background:#fef3c7;border-radius:999px;font-size:12px}}
-figcaption{{margin-top:8px;color:#64748b;font-size:13px}} .body p{{white-space:pre-wrap}} .body li{{margin:6px 0}}
-.body table{{width:100%;border-collapse:collapse;margin:18px 0}} .body th,.body td{{padding:12px;border:1px solid #dbe2ea;text-align:left;vertical-align:top}}
-.body th{{background:var(--surface)}} .body blockquote{{margin:18px 0;padding:14px 18px;border-left:4px solid var(--accent);background:var(--surface)}}
-.body mark{{background:#ccfbf1;padding:0 .15em}}
-details{{margin-top:24px;color:#64748b}} .source-fields{{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}}
-code{{padding:3px 7px;background:#f1f5f9;border-radius:6px}} @media(max-width:700px){{.title-panel,.story-section{{padding:28px 22px}}.title-panel h1{{font-size:32px}}}}
+:root{{--story-ink:{colors[0]};--story-accent:{colors[1]};--story-surface:{colors[2]}}}
+*{{box-sizing:border-box}}body{{margin:0;background:#fff;color:var(--story-ink);font-family:Arial,'Noto Sans KR',sans-serif;line-height:1.72}}
+.funding-story{{width:100%;max-width:740px;margin:0 auto;background:#fff;overflow:hidden}}
+.story-hero{{padding:56px 36px;background:var(--story-ink);color:#fff;text-align:center}}
+.story-hero h1{{margin:0;font-size:38px;line-height:1.25}}
+section{{padding:44px 36px;border-bottom:1px solid #e9edf1}}h2{{margin:0 0 22px;font-size:28px;line-height:1.35;text-align:center}}
+figure{{margin:0 0 26px}}img{{display:block;width:100%;height:auto}}.story-copy p{{white-space:pre-wrap}}
+.story-copy table{{width:100%;border-collapse:collapse;margin:18px 0}}.story-copy th,.story-copy td{{padding:11px;border:1px solid #dbe2ea;text-align:left}}
+.story-copy th{{background:var(--story-surface)}}blockquote{{margin:18px 0;padding:14px 18px;border-left:4px solid var(--story-accent);background:var(--story-surface)}}
+mark{{background:#fff2a8}}.media-placeholder,.content-placeholder{{margin:0 0 24px;padding:24px;border:2px dashed #aab4c0;background:#f8fafc;text-align:center}}
+.media-placeholder p,.content-placeholder p{{margin:8px 0}}.content-placeholder small{{color:#586474}}
+@media(max-width:768px){{.funding-story{{max-width:100%}}.story-hero,section{{padding:32px 20px}}.story-hero h1{{font-size:31px}}h2{{font-size:25px}}}}
 </style>
 </head>
-<body>
-<div class="toolbar"><span>Funding Story AI · 검토 필수</span><button onclick="copyStory()">본문 HTML 복사</button></div>
-<div class="notice"><strong>AI 생성 초안입니다.</strong> 게시 전 사실·정책·이미지를 사람이 확인해야 합니다. 자동 검증 경고: {warning_count}건.</div>
-<main id="story" class="story">
-<header class="title-panel"><div>제목 후보</div><h1>{_escape(story['title_candidates'][0])}</h1><ol>{titles}</ol></header>
-{''.join(section_html)}
-</main>
-<script>
-async function copyStory(){{await navigator.clipboard.writeText(document.getElementById('story').innerHTML);const b=document.querySelector('button');b.textContent='복사 완료';setTimeout(()=>b.textContent='본문 HTML 복사',1400)}}
-</script>
-</body>
+<body><main class="funding-story" data-render-mode="{mode}">
+<header class="story-hero"><h1>{_escape(story['title_candidates'][0])}</h1></header>
+{''.join(sections)}
+</main></body>
 </html>
 """
 
 
-def write_story_preview(
+def write_funding_story_html(
     *,
     target: Path,
     story: dict[str, Any],
     template: dict[str, Any],
-    manifest: dict[str, Any] | None = None,
-    fallback_image: str | None = None,
+    media_plan: dict[str, Any],
+    manifest: dict[str, Any],
+    mode: Literal["draft", "publishable"] = "draft",
 ) -> None:
     target.write_text(
-        render_story_html(
+        render_funding_story_html(
             story=story,
             template=template,
+            media_plan=media_plan,
             manifest=manifest,
-            fallback_image=fallback_image,
-        ),
-        encoding="utf-8",
-    )
-
-
-def render_editor_fragment(
-    *,
-    story: dict[str, Any],
-    manifest: dict[str, Any] | None = None,
-    fallback_image: str | None = None,
-) -> str:
-    """Render conservative, editable HTML suitable for a Froala-style editor import."""
-
-    assets = {
-        asset["section_id"]: asset["path"]
-        for asset in (manifest or {}).get("assets", [])
-        if asset["status"] == "success" and asset.get("qa_status") != "fail"
-    }
-    sections = []
-    for section in story["sections"]:
-        section_id = section["template_section_id"]
-        image_source = assets.get(section_id)
-        if not image_source and section["image_intent"]["required"]:
-            image_source = fallback_image
-        image = (
-            '<p style="text-align: center;">'
-            f'<img src="{_escape(image_source)}" alt="{_escape(section["heading"])}" '
-            'style="width: 100%; max-width: 860px;">'
-            "</p>"
-            if image_source
-            else ""
-        )
-        sections.append(
-            f'<div data-story-section="{_escape(section_id)}">'
-            f'<h2 style="text-align: center;">{_escape(section["heading"])}</h2>'
-            f'{image}{_render_markdown_body(section["body"])}'
-            "</div>"
-        )
-    return "\n".join(sections)
-
-
-def write_editor_fragment(
-    *,
-    target: Path,
-    story: dict[str, Any],
-    manifest: dict[str, Any] | None = None,
-    fallback_image: str | None = None,
-) -> None:
-    target.write_text(
-        render_editor_fragment(
-            story=story,
-            manifest=manifest,
-            fallback_image=fallback_image,
+            mode=mode,
         ),
         encoding="utf-8",
     )

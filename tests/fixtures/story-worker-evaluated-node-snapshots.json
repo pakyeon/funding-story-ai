@@ -1,0 +1,71 @@
+{
+  "schema_version": "story-worker-evaluated-node-snapshots-v1",
+  "source_model": "gemini-3.7-flash",
+  "snapshots": {
+    "field": {
+      "source_case_id": "field-051",
+      "message": "제품명은 오빗클린 V3이고 테크·가전 카테고리의 로봇청소기야. 핵심 강점은 얇은 본체이고 주요 서포터는 맞벌이 가구이야.",
+      "output": {
+        "intent": "provide_information",
+        "fact_patches": [
+          {"field": "product_name", "operation": "replace", "values": ["오빗클린 V3"], "reason": null},
+          {"field": "category", "operation": "replace", "values": ["테크·가전"], "reason": null},
+          {"field": "product_type", "operation": "replace", "values": ["로봇청소기"], "reason": null},
+          {"field": "key_strengths", "operation": "replace", "values": ["얇은 본체"], "reason": null},
+          {"field": "target_supporters", "operation": "replace", "values": ["맞벌이 가구"], "reason": null}
+        ],
+        "collection_directive": {"action": "none", "groups": [], "fields": [], "requires_clarification": false, "clarification_question": null},
+        "unresolved_references": [],
+        "clarification_fields": [],
+        "requires_clarification": false,
+        "clarification_question": null
+      }
+    },
+    "question": {
+      "source_case_id": "question-001",
+      "state": {
+        "question_purpose": "required",
+        "question_candidate_fields": ["category"],
+        "question_group": null,
+        "question_requested_detail": "부족한 필수 제품 정보를 확인합니다."
+      },
+      "output": {
+        "purpose": "required",
+        "requested_fields": ["category"],
+        "requested_group": null,
+        "requested_detail": "부족한 필수 제품 정보를 확인합니다.",
+        "question": "오빗클린 V3 프로젝트를 어떤 카테고리(예: 테크/가전, 디지털가전 등)로 등록할 예정이신가요?",
+        "rationale": "크라우드펀딩 스토리 및 기본 정보 구성을 위해 프로젝트의 필수 정보인 카테고리 확인이 필요합니다."
+      }
+    },
+    "summary": {
+      "source_case_id": "summary-001",
+      "facts": {
+        "product_name": ["오빗클린 V3 1"],
+        "product_type": ["로봇청소기"],
+        "category": ["테크·가전"],
+        "key_strengths": ["얇은 본체"],
+        "target_supporters": ["맞벌이 가구"]
+      },
+      "output": {
+        "headline": "스토리 생성을 위한 확정 정보 요약",
+        "confirmed_facts": {
+          "product_name": ["오빗클린 V3 1"],
+          "product_type": ["로봇청소기"],
+          "category": ["테크·가전"],
+          "key_strengths": ["얇은 본체"],
+          "target_supporters": ["맞벌이 가구"]
+        },
+        "explicitly_absent_fields": [],
+        "skipped_fields": ["problem_context", "trust_elements", "maker_team_intro", "rewards", "funding_end", "shipping_start", "refund_policy", "as_policy", "funding_plan", "platform_choice", "risk_response"],
+        "summary_text": "[확정 정보] 제품명: 오빗클린 V3 1 / 제품 유형: 로봇청소기 / 카테고리: 테크·가전 / 핵심 강점: 얇은 본체 / 타깃 서포터: 맞벌이 가구. [생략 항목] 문제 배경, 신뢰 요소, 메이커 소개, 리워드, 펀딩 종료일, 배송 시작일, 환불 정책, AS 정책, 펀딩 계획, 플랫폼 선택, 위험 대응 항목은 이번 생성에서 생략됩니다. [실제 없음 항목] 확인된 해당 항목이 없습니다.",
+        "confirmation_question": "확인된 위 내용으로 크라우드펀딩 스토리를 생성할까요?"
+      }
+    },
+    "approval": {
+      "source_case_id": "approval-001",
+      "message": "네, 이 요약 그대로 스토리를 생성해 주세요.",
+      "output": {"decision": "approve", "reason": "현재 요약 그대로 생성을 명시적으로 요청했습니다."}
+    }
+  }
+}

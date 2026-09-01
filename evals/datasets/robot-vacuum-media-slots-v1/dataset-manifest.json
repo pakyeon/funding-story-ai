@@ -1,0 +1,71 @@
+{
+  "schema_version": "robot-vacuum-media-slots-v1",
+  "status": "development_reference",
+  "final_holdout": false,
+  "observed_at": "2026-08-31",
+  "strict_mixed": {
+    "page_count": 9,
+    "slot_count": 75,
+    "page_ids": [
+      "12333",
+      "133388",
+      "141218",
+      "152179",
+      "169536",
+      "232896",
+      "64966",
+      "71636",
+      "79621"
+    ],
+    "shards": [
+      "part-a.json",
+      "part-b.json",
+      "part-c.json#/slot_annotations"
+    ],
+    "page_slot_range": {
+      "min": 8,
+      "max": 9
+    },
+    "known_observed_media_count_records": 12,
+    "unknown_observed_media_count_records": 63,
+    "evidence_status_counts": {
+      "observed": 71,
+      "inferred": 3,
+      "unverified": 1
+    },
+    "priority_candidate_counts": {
+      "required": 30,
+      "recommended": 37,
+      "optional": 8
+    },
+    "capability_group_counts": {
+      "product_identity_outcome": { "slots": 9, "pages": 9 },
+      "problem_environment": { "slots": 8, "pages": 8 },
+      "cleaning_mechanism": { "slots": 10, "pages": 8 },
+      "mobility_coverage": { "slots": 12, "pages": 9 },
+      "automation_return": { "slots": 7, "pages": 7 },
+      "control_personalization": { "slots": 7, "pages": 7 },
+      "evidence_performance": { "slots": 10, "pages": 9 },
+      "configuration_maintenance": { "slots": 12, "pages": 9 }
+    }
+  },
+  "visual_heavy_contrast": {
+    "page_count": 6,
+    "page_ids": [
+      "230436",
+      "250201",
+      "252927",
+      "373779",
+      "380419",
+      "399975"
+    ],
+    "source": "part-c.json#/contrast_pages",
+    "is_slot_ground_truth": false
+  },
+  "validation": {
+    "slot_schema": "slot-annotation.schema.json",
+    "contrast_schema": "contrast-page.schema.json",
+    "duplicate_annotation_ids": 0,
+    "schema_errors": 0
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "schema_version": "semantic-normalization-human-signoff-v1",
+  "approved_at": "2026-09-01",
+  "reviewer": "user",
+  "annotation_source": "independent_ai_double_annotation",
+  "human_reannotation_claimed": false,
+  "decision": "approved",
+  "approved_items": [
+    "gold 1건의 evidence_performance → configuration_maintenance 수정",
+    "동일 능력군·상태·근거의 병렬 동작을 하나의 proposition으로 유지하는 절 경계 정책",
+    "방 선택·금지 영역·지도 기반 지정을 control_personalization으로 분류하는 능력군 경계"
+  ],
+  "approval_statement": "AI 이중 주석의 세 가지 잠정 판정을 모두 승인합니다."
+}

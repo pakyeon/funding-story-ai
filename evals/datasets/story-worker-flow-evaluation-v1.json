@@ -1,0 +1,2850 @@
+{
+  "schema_version": "story-worker-flow-evaluation-v1",
+  "cases": [
+    {
+      "id": "flow-001",
+      "scenario": "scenario-0",
+      "turns": [
+        {
+          "message": "제품명은 오빗클린 V3 1이고 테크·가전 카테고리의 로봇청소기야. 핵심 강점은 얇은 본체, 주요 서포터는 맞벌이 가구이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "선택 정보는 모두 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "이 요약 그대로 스토리를 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-002",
+      "scenario": "scenario-1",
+      "turns": [
+        {
+          "message": "제품명은 브리즈팟 2이고 테크·가전 카테고리의 탁상용 공기청정기야. 핵심 강점은 저소음 정화, 주요 서포터는 원룸 거주자이야. 해결 문제는 반복 작업 부담이고, 시험 102회 완료가 신뢰 근거야. 메이커는 관련 개발자 3명으로 구성됐어. 리워드는 얼리버드 2개, 종료일은 2027년 3월 1일, 발송은 4월부터야. 제품 하자는 14일 이내 환불하고 1년 무상 수리할게. 펀딩금은 초도 생산에 사용하고 초기 사용자 피드백을 받기 위해 와디즈를 선택했어. 부품 지연은 공급사 이원화로 대응할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "확인했습니다. 현재 내용 그대로 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-003",
+      "scenario": "scenario-2",
+      "turns": [
+        {
+          "message": "제품명은 슬립온 3이고 제품은 수면 안대야.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "카테고리는 홈·리빙, 강점은 빛 차단 구조, 타깃은 교대 근무자야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "권장 순서로 선택 정보를 모두 입력할게.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "문제는 반복 작업 부담이고 시험 300회 완료, 메이커는 개발자 3명이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "리워드는 얼리버드 50개, 종료는 3월 1일, 발송은 4월부터야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "제품 하자는 14일 이내 환불하고 1년 무상 수리할게.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "펀딩금은 초도 생산에 쓰고 피드백을 위해 와디즈를 선택했으며 공급사 이원화로 대응할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "이 요약 그대로 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-004",
+      "scenario": "scenario-3",
+      "turns": [
+        {
+          "message": "제품명은 트레일라이트 4이고 스포츠·아웃도어 카테고리의 초경량 텐트야. 핵심 강점은 1kg 미만 무게, 주요 서포터는 솔로 캠퍼이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "그냥 진행해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "남은 선택 정보 전체를 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "수정 없이 이 내용으로 스토리 생성을 승인합니다.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-005",
+      "scenario": "scenario-4",
+      "turns": [
+        {
+          "message": "제품명은 데일리결 5이고 뷰티 카테고리의 기초 화장품야. 핵심 강점은 무향 보습, 주요 서포터는 민감성 피부 사용자이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "선택 정보 전체를 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "타깃을 초기 사용자로 바꾼 뒤 다시 요약해줘.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "수정된 요약 그대로 스토리를 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-006",
+      "scenario": "scenario-5",
+      "turns": [
+        {
+          "message": "바로 스토리를 생성해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "바로 스토리를 생성해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "바로 스토리를 생성해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "제품명은 펫세이프 6이고 반려동물 카테고리의 반려동물 급식기야. 핵심 강점은 정량 급여, 주요 서포터는 직장인 반려인이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "선택 정보 전체를 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "현재 요약 그대로 스토리 생성을 승인합니다.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-007",
+      "scenario": "scenario-0",
+      "turns": [
+        {
+          "message": "제품명은 리드메이트 7이고 도서·전자책 카테고리의 전자책 단말기야. 핵심 강점은 눈부심 저감, 주요 서포터는 장시간 독서가이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "선택 정보는 모두 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "이 요약 그대로 스토리를 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-008",
+      "scenario": "scenario-1",
+      "turns": [
+        {
+          "message": "제품명은 키친큐브 8이고 푸드 카테고리의 밀폐용기야. 핵심 강점은 모듈형 적층, 주요 서포터는 소형 주방 사용자이야. 해결 문제는 반복 작업 부담이고, 시험 108회 완료가 신뢰 근거야. 메이커는 관련 개발자 3명으로 구성됐어. 리워드는 얼리버드 8개, 종료일은 2027년 3월 1일, 발송은 4월부터야. 제품 하자는 14일 이내 환불하고 1년 무상 수리할게. 펀딩금은 초도 생산에 사용하고 초기 사용자 피드백을 받기 위해 와디즈를 선택했어. 부품 지연은 공급사 이원화로 대응할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "확인했습니다. 현재 내용 그대로 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-009",
+      "scenario": "scenario-2",
+      "turns": [
+        {
+          "message": "제품명은 워크핏 9이고 제품은 노트북 거치대야.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "카테고리는 테크·가전, 강점은 높이 조절, 타깃은 재택근무자야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "권장 순서로 선택 정보를 모두 입력할게.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "문제는 반복 작업 부담이고 시험 300회 완료, 메이커는 개발자 3명이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "리워드는 얼리버드 50개, 종료는 3월 1일, 발송은 4월부터야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "제품 하자는 14일 이내 환불하고 1년 무상 수리할게.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "펀딩금은 초도 생산에 쓰고 피드백을 위해 와디즈를 선택했으며 공급사 이원화로 대응할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "이 요약 그대로 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-010",
+      "scenario": "scenario-3",
+      "turns": [
+        {
+          "message": "제품명은 뮤트키 10이고 테크·가전 카테고리의 저소음 키보드야. 핵심 강점은 저소음 스위치, 주요 서포터는 공유 사무실 사용자이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "그냥 진행해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "남은 선택 정보 전체를 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "수정 없이 이 내용으로 스토리 생성을 승인합니다.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-011",
+      "scenario": "scenario-4",
+      "turns": [
+        {
+          "message": "제품명은 오빗클린 V3 11이고 테크·가전 카테고리의 로봇청소기야. 핵심 강점은 얇은 본체, 주요 서포터는 맞벌이 가구이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "선택 정보 전체를 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "타깃을 초기 사용자로 바꾼 뒤 다시 요약해줘.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "수정된 요약 그대로 스토리를 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-012",
+      "scenario": "scenario-5",
+      "turns": [
+        {
+          "message": "바로 스토리를 생성해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "바로 스토리를 생성해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "바로 스토리를 생성해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "제품명은 브리즈팟 12이고 테크·가전 카테고리의 탁상용 공기청정기야. 핵심 강점은 저소음 정화, 주요 서포터는 원룸 거주자이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "선택 정보 전체를 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "현재 요약 그대로 스토리 생성을 승인합니다.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-013",
+      "scenario": "scenario-0",
+      "turns": [
+        {
+          "message": "제품명은 슬립온 13이고 홈·리빙 카테고리의 수면 안대야. 핵심 강점은 빛 차단 구조, 주요 서포터는 교대 근무자이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "선택 정보는 모두 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "이 요약 그대로 스토리를 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-014",
+      "scenario": "scenario-1",
+      "turns": [
+        {
+          "message": "제품명은 트레일라이트 14이고 스포츠·아웃도어 카테고리의 초경량 텐트야. 핵심 강점은 1kg 미만 무게, 주요 서포터는 솔로 캠퍼이야. 해결 문제는 반복 작업 부담이고, 시험 114회 완료가 신뢰 근거야. 메이커는 관련 개발자 3명으로 구성됐어. 리워드는 얼리버드 14개, 종료일은 2027년 3월 1일, 발송은 4월부터야. 제품 하자는 14일 이내 환불하고 1년 무상 수리할게. 펀딩금은 초도 생산에 사용하고 초기 사용자 피드백을 받기 위해 와디즈를 선택했어. 부품 지연은 공급사 이원화로 대응할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "확인했습니다. 현재 내용 그대로 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-015",
+      "scenario": "scenario-2",
+      "turns": [
+        {
+          "message": "제품명은 데일리결 15이고 제품은 기초 화장품야.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "카테고리는 뷰티, 강점은 무향 보습, 타깃은 민감성 피부 사용자야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "권장 순서로 선택 정보를 모두 입력할게.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "문제는 반복 작업 부담이고 시험 300회 완료, 메이커는 개발자 3명이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "리워드는 얼리버드 50개, 종료는 3월 1일, 발송은 4월부터야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "제품 하자는 14일 이내 환불하고 1년 무상 수리할게.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "펀딩금은 초도 생산에 쓰고 피드백을 위해 와디즈를 선택했으며 공급사 이원화로 대응할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "이 요약 그대로 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-016",
+      "scenario": "scenario-3",
+      "turns": [
+        {
+          "message": "제품명은 펫세이프 16이고 반려동물 카테고리의 반려동물 급식기야. 핵심 강점은 정량 급여, 주요 서포터는 직장인 반려인이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "그냥 진행해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "남은 선택 정보 전체를 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "수정 없이 이 내용으로 스토리 생성을 승인합니다.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-017",
+      "scenario": "scenario-4",
+      "turns": [
+        {
+          "message": "제품명은 리드메이트 17이고 도서·전자책 카테고리의 전자책 단말기야. 핵심 강점은 눈부심 저감, 주요 서포터는 장시간 독서가이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "선택 정보 전체를 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "타깃을 초기 사용자로 바꾼 뒤 다시 요약해줘.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "수정된 요약 그대로 스토리를 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-018",
+      "scenario": "scenario-5",
+      "turns": [
+        {
+          "message": "바로 스토리를 생성해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "바로 스토리를 생성해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "바로 스토리를 생성해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "제품명은 키친큐브 18이고 푸드 카테고리의 밀폐용기야. 핵심 강점은 모듈형 적층, 주요 서포터는 소형 주방 사용자이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "선택 정보 전체를 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "현재 요약 그대로 스토리 생성을 승인합니다.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-019",
+      "scenario": "scenario-0",
+      "turns": [
+        {
+          "message": "제품명은 워크핏 19이고 테크·가전 카테고리의 노트북 거치대야. 핵심 강점은 높이 조절, 주요 서포터는 재택근무자이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "선택 정보는 모두 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "이 요약 그대로 스토리를 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-020",
+      "scenario": "scenario-1",
+      "turns": [
+        {
+          "message": "제품명은 뮤트키 20이고 테크·가전 카테고리의 저소음 키보드야. 핵심 강점은 저소음 스위치, 주요 서포터는 공유 사무실 사용자이야. 해결 문제는 반복 작업 부담이고, 시험 120회 완료가 신뢰 근거야. 메이커는 관련 개발자 3명으로 구성됐어. 리워드는 얼리버드 20개, 종료일은 2027년 3월 1일, 발송은 4월부터야. 제품 하자는 14일 이내 환불하고 1년 무상 수리할게. 펀딩금은 초도 생산에 사용하고 초기 사용자 피드백을 받기 위해 와디즈를 선택했어. 부품 지연은 공급사 이원화로 대응할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "확인했습니다. 현재 내용 그대로 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-021",
+      "scenario": "scenario-2",
+      "turns": [
+        {
+          "message": "제품명은 오빗클린 V3 21이고 제품은 로봇청소기야.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "카테고리는 테크·가전, 강점은 얇은 본체, 타깃은 맞벌이 가구야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "권장 순서로 선택 정보를 모두 입력할게.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "문제는 반복 작업 부담이고 시험 300회 완료, 메이커는 개발자 3명이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "리워드는 얼리버드 50개, 종료는 3월 1일, 발송은 4월부터야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "제품 하자는 14일 이내 환불하고 1년 무상 수리할게.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "펀딩금은 초도 생산에 쓰고 피드백을 위해 와디즈를 선택했으며 공급사 이원화로 대응할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "이 요약 그대로 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-022",
+      "scenario": "scenario-3",
+      "turns": [
+        {
+          "message": "제품명은 브리즈팟 22이고 테크·가전 카테고리의 탁상용 공기청정기야. 핵심 강점은 저소음 정화, 주요 서포터는 원룸 거주자이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "그냥 진행해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "남은 선택 정보 전체를 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "수정 없이 이 내용으로 스토리 생성을 승인합니다.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-023",
+      "scenario": "scenario-4",
+      "turns": [
+        {
+          "message": "제품명은 슬립온 23이고 홈·리빙 카테고리의 수면 안대야. 핵심 강점은 빛 차단 구조, 주요 서포터는 교대 근무자이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "선택 정보 전체를 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "타깃을 초기 사용자로 바꾼 뒤 다시 요약해줘.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "수정된 요약 그대로 스토리를 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-024",
+      "scenario": "scenario-5",
+      "turns": [
+        {
+          "message": "바로 스토리를 생성해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "바로 스토리를 생성해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "바로 스토리를 생성해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "제품명은 트레일라이트 24이고 스포츠·아웃도어 카테고리의 초경량 텐트야. 핵심 강점은 1kg 미만 무게, 주요 서포터는 솔로 캠퍼이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "선택 정보 전체를 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "현재 요약 그대로 스토리 생성을 승인합니다.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-025",
+      "scenario": "scenario-0",
+      "turns": [
+        {
+          "message": "제품명은 데일리결 25이고 뷰티 카테고리의 기초 화장품야. 핵심 강점은 무향 보습, 주요 서포터는 민감성 피부 사용자이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "선택 정보는 모두 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "이 요약 그대로 스토리를 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-026",
+      "scenario": "scenario-1",
+      "turns": [
+        {
+          "message": "제품명은 펫세이프 26이고 반려동물 카테고리의 반려동물 급식기야. 핵심 강점은 정량 급여, 주요 서포터는 직장인 반려인이야. 해결 문제는 반복 작업 부담이고, 시험 126회 완료가 신뢰 근거야. 메이커는 관련 개발자 3명으로 구성됐어. 리워드는 얼리버드 26개, 종료일은 2027년 3월 1일, 발송은 4월부터야. 제품 하자는 14일 이내 환불하고 1년 무상 수리할게. 펀딩금은 초도 생산에 사용하고 초기 사용자 피드백을 받기 위해 와디즈를 선택했어. 부품 지연은 공급사 이원화로 대응할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "확인했습니다. 현재 내용 그대로 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-027",
+      "scenario": "scenario-2",
+      "turns": [
+        {
+          "message": "제품명은 리드메이트 27이고 제품은 전자책 단말기야.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "카테고리는 도서·전자책, 강점은 눈부심 저감, 타깃은 장시간 독서가야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "권장 순서로 선택 정보를 모두 입력할게.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "문제는 반복 작업 부담이고 시험 300회 완료, 메이커는 개발자 3명이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "리워드는 얼리버드 50개, 종료는 3월 1일, 발송은 4월부터야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "제품 하자는 14일 이내 환불하고 1년 무상 수리할게.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "펀딩금은 초도 생산에 쓰고 피드백을 위해 와디즈를 선택했으며 공급사 이원화로 대응할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "이 요약 그대로 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-028",
+      "scenario": "scenario-3",
+      "turns": [
+        {
+          "message": "제품명은 키친큐브 28이고 푸드 카테고리의 밀폐용기야. 핵심 강점은 모듈형 적층, 주요 서포터는 소형 주방 사용자이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "그냥 진행해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "남은 선택 정보 전체를 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "수정 없이 이 내용으로 스토리 생성을 승인합니다.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-029",
+      "scenario": "scenario-4",
+      "turns": [
+        {
+          "message": "제품명은 워크핏 29이고 테크·가전 카테고리의 노트북 거치대야. 핵심 강점은 높이 조절, 주요 서포터는 재택근무자이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "선택 정보 전체를 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "타깃을 초기 사용자로 바꾼 뒤 다시 요약해줘.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "수정된 요약 그대로 스토리를 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-030",
+      "scenario": "scenario-5",
+      "turns": [
+        {
+          "message": "바로 스토리를 생성해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "바로 스토리를 생성해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "바로 스토리를 생성해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "제품명은 뮤트키 30이고 테크·가전 카테고리의 저소음 키보드야. 핵심 강점은 저소음 스위치, 주요 서포터는 공유 사무실 사용자이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "선택 정보 전체를 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "현재 요약 그대로 스토리 생성을 승인합니다.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-031",
+      "scenario": "scenario-0",
+      "turns": [
+        {
+          "message": "제품명은 오빗클린 V3 31이고 테크·가전 카테고리의 로봇청소기야. 핵심 강점은 얇은 본체, 주요 서포터는 맞벌이 가구이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "선택 정보는 모두 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "이 요약 그대로 스토리를 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-032",
+      "scenario": "scenario-1",
+      "turns": [
+        {
+          "message": "제품명은 브리즈팟 32이고 테크·가전 카테고리의 탁상용 공기청정기야. 핵심 강점은 저소음 정화, 주요 서포터는 원룸 거주자이야. 해결 문제는 반복 작업 부담이고, 시험 132회 완료가 신뢰 근거야. 메이커는 관련 개발자 3명으로 구성됐어. 리워드는 얼리버드 32개, 종료일은 2027년 3월 1일, 발송은 4월부터야. 제품 하자는 14일 이내 환불하고 1년 무상 수리할게. 펀딩금은 초도 생산에 사용하고 초기 사용자 피드백을 받기 위해 와디즈를 선택했어. 부품 지연은 공급사 이원화로 대응할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "확인했습니다. 현재 내용 그대로 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-033",
+      "scenario": "scenario-2",
+      "turns": [
+        {
+          "message": "제품명은 슬립온 33이고 제품은 수면 안대야.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "카테고리는 홈·리빙, 강점은 빛 차단 구조, 타깃은 교대 근무자야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "권장 순서로 선택 정보를 모두 입력할게.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "문제는 반복 작업 부담이고 시험 300회 완료, 메이커는 개발자 3명이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "리워드는 얼리버드 50개, 종료는 3월 1일, 발송은 4월부터야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "제품 하자는 14일 이내 환불하고 1년 무상 수리할게.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "펀딩금은 초도 생산에 쓰고 피드백을 위해 와디즈를 선택했으며 공급사 이원화로 대응할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "이 요약 그대로 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-034",
+      "scenario": "scenario-3",
+      "turns": [
+        {
+          "message": "제품명은 트레일라이트 34이고 스포츠·아웃도어 카테고리의 초경량 텐트야. 핵심 강점은 1kg 미만 무게, 주요 서포터는 솔로 캠퍼이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "그냥 진행해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "남은 선택 정보 전체를 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "수정 없이 이 내용으로 스토리 생성을 승인합니다.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-035",
+      "scenario": "scenario-4",
+      "turns": [
+        {
+          "message": "제품명은 데일리결 35이고 뷰티 카테고리의 기초 화장품야. 핵심 강점은 무향 보습, 주요 서포터는 민감성 피부 사용자이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "선택 정보 전체를 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "타깃을 초기 사용자로 바꾼 뒤 다시 요약해줘.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "수정된 요약 그대로 스토리를 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-036",
+      "scenario": "scenario-5",
+      "turns": [
+        {
+          "message": "바로 스토리를 생성해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "바로 스토리를 생성해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "바로 스토리를 생성해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "제품명은 펫세이프 36이고 반려동물 카테고리의 반려동물 급식기야. 핵심 강점은 정량 급여, 주요 서포터는 직장인 반려인이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "선택 정보 전체를 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "현재 요약 그대로 스토리 생성을 승인합니다.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-037",
+      "scenario": "scenario-0",
+      "turns": [
+        {
+          "message": "제품명은 리드메이트 37이고 도서·전자책 카테고리의 전자책 단말기야. 핵심 강점은 눈부심 저감, 주요 서포터는 장시간 독서가이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "선택 정보는 모두 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "이 요약 그대로 스토리를 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-038",
+      "scenario": "scenario-1",
+      "turns": [
+        {
+          "message": "제품명은 키친큐브 38이고 푸드 카테고리의 밀폐용기야. 핵심 강점은 모듈형 적층, 주요 서포터는 소형 주방 사용자이야. 해결 문제는 반복 작업 부담이고, 시험 138회 완료가 신뢰 근거야. 메이커는 관련 개발자 3명으로 구성됐어. 리워드는 얼리버드 38개, 종료일은 2027년 3월 1일, 발송은 4월부터야. 제품 하자는 14일 이내 환불하고 1년 무상 수리할게. 펀딩금은 초도 생산에 사용하고 초기 사용자 피드백을 받기 위해 와디즈를 선택했어. 부품 지연은 공급사 이원화로 대응할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "확인했습니다. 현재 내용 그대로 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-039",
+      "scenario": "scenario-2",
+      "turns": [
+        {
+          "message": "제품명은 워크핏 39이고 제품은 노트북 거치대야.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "카테고리는 테크·가전, 강점은 높이 조절, 타깃은 재택근무자야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "권장 순서로 선택 정보를 모두 입력할게.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "문제는 반복 작업 부담이고 시험 300회 완료, 메이커는 개발자 3명이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "리워드는 얼리버드 50개, 종료는 3월 1일, 발송은 4월부터야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "제품 하자는 14일 이내 환불하고 1년 무상 수리할게.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "펀딩금은 초도 생산에 쓰고 피드백을 위해 와디즈를 선택했으며 공급사 이원화로 대응할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "이 요약 그대로 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-040",
+      "scenario": "scenario-3",
+      "turns": [
+        {
+          "message": "제품명은 뮤트키 40이고 테크·가전 카테고리의 저소음 키보드야. 핵심 강점은 저소음 스위치, 주요 서포터는 공유 사무실 사용자이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "그냥 진행해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "남은 선택 정보 전체를 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "수정 없이 이 내용으로 스토리 생성을 승인합니다.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-041",
+      "scenario": "scenario-4",
+      "turns": [
+        {
+          "message": "제품명은 오빗클린 V3 41이고 테크·가전 카테고리의 로봇청소기야. 핵심 강점은 얇은 본체, 주요 서포터는 맞벌이 가구이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "선택 정보 전체를 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "타깃을 초기 사용자로 바꾼 뒤 다시 요약해줘.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "수정된 요약 그대로 스토리를 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-042",
+      "scenario": "scenario-5",
+      "turns": [
+        {
+          "message": "바로 스토리를 생성해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "바로 스토리를 생성해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "바로 스토리를 생성해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "제품명은 브리즈팟 42이고 테크·가전 카테고리의 탁상용 공기청정기야. 핵심 강점은 저소음 정화, 주요 서포터는 원룸 거주자이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "선택 정보 전체를 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "현재 요약 그대로 스토리 생성을 승인합니다.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-043",
+      "scenario": "scenario-0",
+      "turns": [
+        {
+          "message": "제품명은 슬립온 43이고 홈·리빙 카테고리의 수면 안대야. 핵심 강점은 빛 차단 구조, 주요 서포터는 교대 근무자이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "선택 정보는 모두 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "이 요약 그대로 스토리를 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-044",
+      "scenario": "scenario-1",
+      "turns": [
+        {
+          "message": "제품명은 트레일라이트 44이고 스포츠·아웃도어 카테고리의 초경량 텐트야. 핵심 강점은 1kg 미만 무게, 주요 서포터는 솔로 캠퍼이야. 해결 문제는 반복 작업 부담이고, 시험 144회 완료가 신뢰 근거야. 메이커는 관련 개발자 3명으로 구성됐어. 리워드는 얼리버드 44개, 종료일은 2027년 3월 1일, 발송은 4월부터야. 제품 하자는 14일 이내 환불하고 1년 무상 수리할게. 펀딩금은 초도 생산에 사용하고 초기 사용자 피드백을 받기 위해 와디즈를 선택했어. 부품 지연은 공급사 이원화로 대응할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "확인했습니다. 현재 내용 그대로 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-045",
+      "scenario": "scenario-2",
+      "turns": [
+        {
+          "message": "제품명은 데일리결 45이고 제품은 기초 화장품야.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "카테고리는 뷰티, 강점은 무향 보습, 타깃은 민감성 피부 사용자야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "권장 순서로 선택 정보를 모두 입력할게.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "문제는 반복 작업 부담이고 시험 300회 완료, 메이커는 개발자 3명이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "리워드는 얼리버드 50개, 종료는 3월 1일, 발송은 4월부터야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "제품 하자는 14일 이내 환불하고 1년 무상 수리할게.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "펀딩금은 초도 생산에 쓰고 피드백을 위해 와디즈를 선택했으며 공급사 이원화로 대응할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "이 요약 그대로 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-046",
+      "scenario": "scenario-3",
+      "turns": [
+        {
+          "message": "제품명은 펫세이프 46이고 반려동물 카테고리의 반려동물 급식기야. 핵심 강점은 정량 급여, 주요 서포터는 직장인 반려인이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "그냥 진행해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "남은 선택 정보 전체를 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "수정 없이 이 내용으로 스토리 생성을 승인합니다.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-047",
+      "scenario": "scenario-4",
+      "turns": [
+        {
+          "message": "제품명은 리드메이트 47이고 도서·전자책 카테고리의 전자책 단말기야. 핵심 강점은 눈부심 저감, 주요 서포터는 장시간 독서가이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "선택 정보 전체를 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "타깃을 초기 사용자로 바꾼 뒤 다시 요약해줘.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "수정된 요약 그대로 스토리를 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-048",
+      "scenario": "scenario-5",
+      "turns": [
+        {
+          "message": "바로 스토리를 생성해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "바로 스토리를 생성해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "바로 스토리를 생성해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "제품명은 키친큐브 48이고 푸드 카테고리의 밀폐용기야. 핵심 강점은 모듈형 적층, 주요 서포터는 소형 주방 사용자이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "선택 정보 전체를 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "현재 요약 그대로 스토리 생성을 승인합니다.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-049",
+      "scenario": "scenario-0",
+      "turns": [
+        {
+          "message": "제품명은 워크핏 49이고 테크·가전 카테고리의 노트북 거치대야. 핵심 강점은 높이 조절, 주요 서포터는 재택근무자이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "선택 정보는 모두 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "이 요약 그대로 스토리를 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-050",
+      "scenario": "scenario-1",
+      "turns": [
+        {
+          "message": "제품명은 뮤트키 50이고 테크·가전 카테고리의 저소음 키보드야. 핵심 강점은 저소음 스위치, 주요 서포터는 공유 사무실 사용자이야. 해결 문제는 반복 작업 부담이고, 시험 150회 완료가 신뢰 근거야. 메이커는 관련 개발자 3명으로 구성됐어. 리워드는 얼리버드 50개, 종료일은 2027년 3월 1일, 발송은 4월부터야. 제품 하자는 14일 이내 환불하고 1년 무상 수리할게. 펀딩금은 초도 생산에 사용하고 초기 사용자 피드백을 받기 위해 와디즈를 선택했어. 부품 지연은 공급사 이원화로 대응할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "확인했습니다. 현재 내용 그대로 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-051",
+      "scenario": "scenario-2",
+      "turns": [
+        {
+          "message": "제품명은 오빗클린 V3 51이고 제품은 로봇청소기야.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "카테고리는 테크·가전, 강점은 얇은 본체, 타깃은 맞벌이 가구야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "권장 순서로 선택 정보를 모두 입력할게.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "문제는 반복 작업 부담이고 시험 300회 완료, 메이커는 개발자 3명이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "리워드는 얼리버드 50개, 종료는 3월 1일, 발송은 4월부터야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "제품 하자는 14일 이내 환불하고 1년 무상 수리할게.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "펀딩금은 초도 생산에 쓰고 피드백을 위해 와디즈를 선택했으며 공급사 이원화로 대응할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "이 요약 그대로 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-052",
+      "scenario": "scenario-3",
+      "turns": [
+        {
+          "message": "제품명은 브리즈팟 52이고 테크·가전 카테고리의 탁상용 공기청정기야. 핵심 강점은 저소음 정화, 주요 서포터는 원룸 거주자이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "그냥 진행해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "남은 선택 정보 전체를 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "수정 없이 이 내용으로 스토리 생성을 승인합니다.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-053",
+      "scenario": "scenario-4",
+      "turns": [
+        {
+          "message": "제품명은 슬립온 53이고 홈·리빙 카테고리의 수면 안대야. 핵심 강점은 빛 차단 구조, 주요 서포터는 교대 근무자이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "선택 정보 전체를 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "타깃을 초기 사용자로 바꾼 뒤 다시 요약해줘.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "수정된 요약 그대로 스토리를 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-054",
+      "scenario": "scenario-5",
+      "turns": [
+        {
+          "message": "바로 스토리를 생성해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "바로 스토리를 생성해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "바로 스토리를 생성해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "제품명은 트레일라이트 54이고 스포츠·아웃도어 카테고리의 초경량 텐트야. 핵심 강점은 1kg 미만 무게, 주요 서포터는 솔로 캠퍼이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "선택 정보 전체를 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "현재 요약 그대로 스토리 생성을 승인합니다.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-055",
+      "scenario": "scenario-0",
+      "turns": [
+        {
+          "message": "제품명은 데일리결 55이고 뷰티 카테고리의 기초 화장품야. 핵심 강점은 무향 보습, 주요 서포터는 민감성 피부 사용자이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "선택 정보는 모두 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "이 요약 그대로 스토리를 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-056",
+      "scenario": "scenario-1",
+      "turns": [
+        {
+          "message": "제품명은 펫세이프 56이고 반려동물 카테고리의 반려동물 급식기야. 핵심 강점은 정량 급여, 주요 서포터는 직장인 반려인이야. 해결 문제는 반복 작업 부담이고, 시험 156회 완료가 신뢰 근거야. 메이커는 관련 개발자 3명으로 구성됐어. 리워드는 얼리버드 56개, 종료일은 2027년 3월 1일, 발송은 4월부터야. 제품 하자는 14일 이내 환불하고 1년 무상 수리할게. 펀딩금은 초도 생산에 사용하고 초기 사용자 피드백을 받기 위해 와디즈를 선택했어. 부품 지연은 공급사 이원화로 대응할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "확인했습니다. 현재 내용 그대로 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-057",
+      "scenario": "scenario-2",
+      "turns": [
+        {
+          "message": "제품명은 리드메이트 57이고 제품은 전자책 단말기야.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "카테고리는 도서·전자책, 강점은 눈부심 저감, 타깃은 장시간 독서가야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "권장 순서로 선택 정보를 모두 입력할게.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "문제는 반복 작업 부담이고 시험 300회 완료, 메이커는 개발자 3명이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "리워드는 얼리버드 50개, 종료는 3월 1일, 발송은 4월부터야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "제품 하자는 14일 이내 환불하고 1년 무상 수리할게.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "펀딩금은 초도 생산에 쓰고 피드백을 위해 와디즈를 선택했으며 공급사 이원화로 대응할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "이 요약 그대로 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-058",
+      "scenario": "scenario-3",
+      "turns": [
+        {
+          "message": "제품명은 키친큐브 58이고 푸드 카테고리의 밀폐용기야. 핵심 강점은 모듈형 적층, 주요 서포터는 소형 주방 사용자이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "그냥 진행해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "남은 선택 정보 전체를 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "수정 없이 이 내용으로 스토리 생성을 승인합니다.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-059",
+      "scenario": "scenario-4",
+      "turns": [
+        {
+          "message": "제품명은 워크핏 59이고 테크·가전 카테고리의 노트북 거치대야. 핵심 강점은 높이 조절, 주요 서포터는 재택근무자이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "선택 정보 전체를 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "타깃을 초기 사용자로 바꾼 뒤 다시 요약해줘.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "수정된 요약 그대로 스토리를 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-060",
+      "scenario": "scenario-5",
+      "turns": [
+        {
+          "message": "바로 스토리를 생성해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "바로 스토리를 생성해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "바로 스토리를 생성해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "제품명은 뮤트키 60이고 테크·가전 카테고리의 저소음 키보드야. 핵심 강점은 저소음 스위치, 주요 서포터는 공유 사무실 사용자이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "선택 정보 전체를 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "현재 요약 그대로 스토리 생성을 승인합니다.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-061",
+      "scenario": "scenario-0",
+      "turns": [
+        {
+          "message": "제품명은 오빗클린 V3 61이고 테크·가전 카테고리의 로봇청소기야. 핵심 강점은 얇은 본체, 주요 서포터는 맞벌이 가구이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "선택 정보는 모두 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "이 요약 그대로 스토리를 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-062",
+      "scenario": "scenario-1",
+      "turns": [
+        {
+          "message": "제품명은 브리즈팟 62이고 테크·가전 카테고리의 탁상용 공기청정기야. 핵심 강점은 저소음 정화, 주요 서포터는 원룸 거주자이야. 해결 문제는 반복 작업 부담이고, 시험 162회 완료가 신뢰 근거야. 메이커는 관련 개발자 3명으로 구성됐어. 리워드는 얼리버드 62개, 종료일은 2027년 3월 1일, 발송은 4월부터야. 제품 하자는 14일 이내 환불하고 1년 무상 수리할게. 펀딩금은 초도 생산에 사용하고 초기 사용자 피드백을 받기 위해 와디즈를 선택했어. 부품 지연은 공급사 이원화로 대응할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "확인했습니다. 현재 내용 그대로 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-063",
+      "scenario": "scenario-2",
+      "turns": [
+        {
+          "message": "제품명은 슬립온 63이고 제품은 수면 안대야.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "카테고리는 홈·리빙, 강점은 빛 차단 구조, 타깃은 교대 근무자야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "권장 순서로 선택 정보를 모두 입력할게.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "문제는 반복 작업 부담이고 시험 300회 완료, 메이커는 개발자 3명이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "리워드는 얼리버드 50개, 종료는 3월 1일, 발송은 4월부터야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "제품 하자는 14일 이내 환불하고 1년 무상 수리할게.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "펀딩금은 초도 생산에 쓰고 피드백을 위해 와디즈를 선택했으며 공급사 이원화로 대응할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "이 요약 그대로 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-064",
+      "scenario": "scenario-3",
+      "turns": [
+        {
+          "message": "제품명은 트레일라이트 64이고 스포츠·아웃도어 카테고리의 초경량 텐트야. 핵심 강점은 1kg 미만 무게, 주요 서포터는 솔로 캠퍼이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "그냥 진행해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "남은 선택 정보 전체를 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "수정 없이 이 내용으로 스토리 생성을 승인합니다.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-065",
+      "scenario": "scenario-4",
+      "turns": [
+        {
+          "message": "제품명은 데일리결 65이고 뷰티 카테고리의 기초 화장품야. 핵심 강점은 무향 보습, 주요 서포터는 민감성 피부 사용자이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "선택 정보 전체를 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "타깃을 초기 사용자로 바꾼 뒤 다시 요약해줘.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "수정된 요약 그대로 스토리를 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-066",
+      "scenario": "scenario-5",
+      "turns": [
+        {
+          "message": "바로 스토리를 생성해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "바로 스토리를 생성해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "바로 스토리를 생성해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "제품명은 펫세이프 66이고 반려동물 카테고리의 반려동물 급식기야. 핵심 강점은 정량 급여, 주요 서포터는 직장인 반려인이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "선택 정보 전체를 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "현재 요약 그대로 스토리 생성을 승인합니다.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-067",
+      "scenario": "scenario-0",
+      "turns": [
+        {
+          "message": "제품명은 리드메이트 67이고 도서·전자책 카테고리의 전자책 단말기야. 핵심 강점은 눈부심 저감, 주요 서포터는 장시간 독서가이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "선택 정보는 모두 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "이 요약 그대로 스토리를 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-068",
+      "scenario": "scenario-1",
+      "turns": [
+        {
+          "message": "제품명은 키친큐브 68이고 푸드 카테고리의 밀폐용기야. 핵심 강점은 모듈형 적층, 주요 서포터는 소형 주방 사용자이야. 해결 문제는 반복 작업 부담이고, 시험 168회 완료가 신뢰 근거야. 메이커는 관련 개발자 3명으로 구성됐어. 리워드는 얼리버드 68개, 종료일은 2027년 3월 1일, 발송은 4월부터야. 제품 하자는 14일 이내 환불하고 1년 무상 수리할게. 펀딩금은 초도 생산에 사용하고 초기 사용자 피드백을 받기 위해 와디즈를 선택했어. 부품 지연은 공급사 이원화로 대응할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "확인했습니다. 현재 내용 그대로 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-069",
+      "scenario": "scenario-2",
+      "turns": [
+        {
+          "message": "제품명은 워크핏 69이고 제품은 노트북 거치대야.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "카테고리는 테크·가전, 강점은 높이 조절, 타깃은 재택근무자야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "권장 순서로 선택 정보를 모두 입력할게.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "문제는 반복 작업 부담이고 시험 300회 완료, 메이커는 개발자 3명이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "리워드는 얼리버드 50개, 종료는 3월 1일, 발송은 4월부터야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "제품 하자는 14일 이내 환불하고 1년 무상 수리할게.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "펀딩금은 초도 생산에 쓰고 피드백을 위해 와디즈를 선택했으며 공급사 이원화로 대응할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "이 요약 그대로 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-070",
+      "scenario": "scenario-3",
+      "turns": [
+        {
+          "message": "제품명은 뮤트키 70이고 테크·가전 카테고리의 저소음 키보드야. 핵심 강점은 저소음 스위치, 주요 서포터는 공유 사무실 사용자이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "그냥 진행해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "남은 선택 정보 전체를 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "수정 없이 이 내용으로 스토리 생성을 승인합니다.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-071",
+      "scenario": "scenario-4",
+      "turns": [
+        {
+          "message": "제품명은 오빗클린 V3 71이고 테크·가전 카테고리의 로봇청소기야. 핵심 강점은 얇은 본체, 주요 서포터는 맞벌이 가구이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "선택 정보 전체를 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "타깃을 초기 사용자로 바꾼 뒤 다시 요약해줘.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "수정된 요약 그대로 스토리를 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-072",
+      "scenario": "scenario-5",
+      "turns": [
+        {
+          "message": "바로 스토리를 생성해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "바로 스토리를 생성해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "바로 스토리를 생성해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "제품명은 브리즈팟 72이고 테크·가전 카테고리의 탁상용 공기청정기야. 핵심 강점은 저소음 정화, 주요 서포터는 원룸 거주자이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "선택 정보 전체를 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "현재 요약 그대로 스토리 생성을 승인합니다.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-073",
+      "scenario": "scenario-0",
+      "turns": [
+        {
+          "message": "제품명은 슬립온 73이고 홈·리빙 카테고리의 수면 안대야. 핵심 강점은 빛 차단 구조, 주요 서포터는 교대 근무자이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "선택 정보는 모두 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "이 요약 그대로 스토리를 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-074",
+      "scenario": "scenario-1",
+      "turns": [
+        {
+          "message": "제품명은 트레일라이트 74이고 스포츠·아웃도어 카테고리의 초경량 텐트야. 핵심 강점은 1kg 미만 무게, 주요 서포터는 솔로 캠퍼이야. 해결 문제는 반복 작업 부담이고, 시험 174회 완료가 신뢰 근거야. 메이커는 관련 개발자 3명으로 구성됐어. 리워드는 얼리버드 74개, 종료일은 2027년 3월 1일, 발송은 4월부터야. 제품 하자는 14일 이내 환불하고 1년 무상 수리할게. 펀딩금은 초도 생산에 사용하고 초기 사용자 피드백을 받기 위해 와디즈를 선택했어. 부품 지연은 공급사 이원화로 대응할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "확인했습니다. 현재 내용 그대로 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-075",
+      "scenario": "scenario-2",
+      "turns": [
+        {
+          "message": "제품명은 데일리결 75이고 제품은 기초 화장품야.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "카테고리는 뷰티, 강점은 무향 보습, 타깃은 민감성 피부 사용자야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "권장 순서로 선택 정보를 모두 입력할게.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "문제는 반복 작업 부담이고 시험 300회 완료, 메이커는 개발자 3명이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "리워드는 얼리버드 50개, 종료는 3월 1일, 발송은 4월부터야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "제품 하자는 14일 이내 환불하고 1년 무상 수리할게.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "펀딩금은 초도 생산에 쓰고 피드백을 위해 와디즈를 선택했으며 공급사 이원화로 대응할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "이 요약 그대로 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-076",
+      "scenario": "scenario-3",
+      "turns": [
+        {
+          "message": "제품명은 펫세이프 76이고 반려동물 카테고리의 반려동물 급식기야. 핵심 강점은 정량 급여, 주요 서포터는 직장인 반려인이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "그냥 진행해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "남은 선택 정보 전체를 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "수정 없이 이 내용으로 스토리 생성을 승인합니다.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-077",
+      "scenario": "scenario-4",
+      "turns": [
+        {
+          "message": "제품명은 리드메이트 77이고 도서·전자책 카테고리의 전자책 단말기야. 핵심 강점은 눈부심 저감, 주요 서포터는 장시간 독서가이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "선택 정보 전체를 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "타깃을 초기 사용자로 바꾼 뒤 다시 요약해줘.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "수정된 요약 그대로 스토리를 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-078",
+      "scenario": "scenario-5",
+      "turns": [
+        {
+          "message": "바로 스토리를 생성해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "바로 스토리를 생성해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "바로 스토리를 생성해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "제품명은 키친큐브 78이고 푸드 카테고리의 밀폐용기야. 핵심 강점은 모듈형 적층, 주요 서포터는 소형 주방 사용자이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "선택 정보 전체를 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "현재 요약 그대로 스토리 생성을 승인합니다.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-079",
+      "scenario": "scenario-0",
+      "turns": [
+        {
+          "message": "제품명은 워크핏 79이고 테크·가전 카테고리의 노트북 거치대야. 핵심 강점은 높이 조절, 주요 서포터는 재택근무자이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "선택 정보는 모두 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "이 요약 그대로 스토리를 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-080",
+      "scenario": "scenario-1",
+      "turns": [
+        {
+          "message": "제품명은 뮤트키 80이고 테크·가전 카테고리의 저소음 키보드야. 핵심 강점은 저소음 스위치, 주요 서포터는 공유 사무실 사용자이야. 해결 문제는 반복 작업 부담이고, 시험 180회 완료가 신뢰 근거야. 메이커는 관련 개발자 3명으로 구성됐어. 리워드는 얼리버드 80개, 종료일은 2027년 3월 1일, 발송은 4월부터야. 제품 하자는 14일 이내 환불하고 1년 무상 수리할게. 펀딩금은 초도 생산에 사용하고 초기 사용자 피드백을 받기 위해 와디즈를 선택했어. 부품 지연은 공급사 이원화로 대응할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "확인했습니다. 현재 내용 그대로 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-081",
+      "scenario": "scenario-2",
+      "turns": [
+        {
+          "message": "제품명은 오빗클린 V3 81이고 제품은 로봇청소기야.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "카테고리는 테크·가전, 강점은 얇은 본체, 타깃은 맞벌이 가구야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "권장 순서로 선택 정보를 모두 입력할게.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "문제는 반복 작업 부담이고 시험 300회 완료, 메이커는 개발자 3명이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "리워드는 얼리버드 50개, 종료는 3월 1일, 발송은 4월부터야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "제품 하자는 14일 이내 환불하고 1년 무상 수리할게.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "펀딩금은 초도 생산에 쓰고 피드백을 위해 와디즈를 선택했으며 공급사 이원화로 대응할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "이 요약 그대로 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-082",
+      "scenario": "scenario-3",
+      "turns": [
+        {
+          "message": "제품명은 브리즈팟 82이고 테크·가전 카테고리의 탁상용 공기청정기야. 핵심 강점은 저소음 정화, 주요 서포터는 원룸 거주자이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "그냥 진행해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "남은 선택 정보 전체를 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "수정 없이 이 내용으로 스토리 생성을 승인합니다.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-083",
+      "scenario": "scenario-4",
+      "turns": [
+        {
+          "message": "제품명은 슬립온 83이고 홈·리빙 카테고리의 수면 안대야. 핵심 강점은 빛 차단 구조, 주요 서포터는 교대 근무자이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "선택 정보 전체를 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "타깃을 초기 사용자로 바꾼 뒤 다시 요약해줘.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "수정된 요약 그대로 스토리를 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-084",
+      "scenario": "scenario-5",
+      "turns": [
+        {
+          "message": "바로 스토리를 생성해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "바로 스토리를 생성해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "바로 스토리를 생성해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "제품명은 트레일라이트 84이고 스포츠·아웃도어 카테고리의 초경량 텐트야. 핵심 강점은 1kg 미만 무게, 주요 서포터는 솔로 캠퍼이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "선택 정보 전체를 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "현재 요약 그대로 스토리 생성을 승인합니다.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-085",
+      "scenario": "scenario-0",
+      "turns": [
+        {
+          "message": "제품명은 데일리결 85이고 뷰티 카테고리의 기초 화장품야. 핵심 강점은 무향 보습, 주요 서포터는 민감성 피부 사용자이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "선택 정보는 모두 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "이 요약 그대로 스토리를 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-086",
+      "scenario": "scenario-1",
+      "turns": [
+        {
+          "message": "제품명은 펫세이프 86이고 반려동물 카테고리의 반려동물 급식기야. 핵심 강점은 정량 급여, 주요 서포터는 직장인 반려인이야. 해결 문제는 반복 작업 부담이고, 시험 186회 완료가 신뢰 근거야. 메이커는 관련 개발자 3명으로 구성됐어. 리워드는 얼리버드 86개, 종료일은 2027년 3월 1일, 발송은 4월부터야. 제품 하자는 14일 이내 환불하고 1년 무상 수리할게. 펀딩금은 초도 생산에 사용하고 초기 사용자 피드백을 받기 위해 와디즈를 선택했어. 부품 지연은 공급사 이원화로 대응할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "확인했습니다. 현재 내용 그대로 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-087",
+      "scenario": "scenario-2",
+      "turns": [
+        {
+          "message": "제품명은 리드메이트 87이고 제품은 전자책 단말기야.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "카테고리는 도서·전자책, 강점은 눈부심 저감, 타깃은 장시간 독서가야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "권장 순서로 선택 정보를 모두 입력할게.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "문제는 반복 작업 부담이고 시험 300회 완료, 메이커는 개발자 3명이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "리워드는 얼리버드 50개, 종료는 3월 1일, 발송은 4월부터야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "제품 하자는 14일 이내 환불하고 1년 무상 수리할게.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "펀딩금은 초도 생산에 쓰고 피드백을 위해 와디즈를 선택했으며 공급사 이원화로 대응할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "이 요약 그대로 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-088",
+      "scenario": "scenario-3",
+      "turns": [
+        {
+          "message": "제품명은 키친큐브 88이고 푸드 카테고리의 밀폐용기야. 핵심 강점은 모듈형 적층, 주요 서포터는 소형 주방 사용자이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "그냥 진행해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "남은 선택 정보 전체를 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "수정 없이 이 내용으로 스토리 생성을 승인합니다.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-089",
+      "scenario": "scenario-4",
+      "turns": [
+        {
+          "message": "제품명은 워크핏 89이고 테크·가전 카테고리의 노트북 거치대야. 핵심 강점은 높이 조절, 주요 서포터는 재택근무자이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "선택 정보 전체를 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "타깃을 초기 사용자로 바꾼 뒤 다시 요약해줘.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "수정된 요약 그대로 스토리를 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-090",
+      "scenario": "scenario-5",
+      "turns": [
+        {
+          "message": "바로 스토리를 생성해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "바로 스토리를 생성해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "바로 스토리를 생성해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "제품명은 뮤트키 90이고 테크·가전 카테고리의 저소음 키보드야. 핵심 강점은 저소음 스위치, 주요 서포터는 공유 사무실 사용자이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "선택 정보 전체를 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "현재 요약 그대로 스토리 생성을 승인합니다.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-091",
+      "scenario": "scenario-0",
+      "turns": [
+        {
+          "message": "제품명은 오빗클린 V3 91이고 테크·가전 카테고리의 로봇청소기야. 핵심 강점은 얇은 본체, 주요 서포터는 맞벌이 가구이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "선택 정보는 모두 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "이 요약 그대로 스토리를 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-092",
+      "scenario": "scenario-1",
+      "turns": [
+        {
+          "message": "제품명은 브리즈팟 92이고 테크·가전 카테고리의 탁상용 공기청정기야. 핵심 강점은 저소음 정화, 주요 서포터는 원룸 거주자이야. 해결 문제는 반복 작업 부담이고, 시험 192회 완료가 신뢰 근거야. 메이커는 관련 개발자 3명으로 구성됐어. 리워드는 얼리버드 92개, 종료일은 2027년 3월 1일, 발송은 4월부터야. 제품 하자는 14일 이내 환불하고 1년 무상 수리할게. 펀딩금은 초도 생산에 사용하고 초기 사용자 피드백을 받기 위해 와디즈를 선택했어. 부품 지연은 공급사 이원화로 대응할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "확인했습니다. 현재 내용 그대로 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-093",
+      "scenario": "scenario-2",
+      "turns": [
+        {
+          "message": "제품명은 슬립온 93이고 제품은 수면 안대야.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "카테고리는 홈·리빙, 강점은 빛 차단 구조, 타깃은 교대 근무자야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "권장 순서로 선택 정보를 모두 입력할게.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "문제는 반복 작업 부담이고 시험 300회 완료, 메이커는 개발자 3명이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "리워드는 얼리버드 50개, 종료는 3월 1일, 발송은 4월부터야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "제품 하자는 14일 이내 환불하고 1년 무상 수리할게.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "펀딩금은 초도 생산에 쓰고 피드백을 위해 와디즈를 선택했으며 공급사 이원화로 대응할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "이 요약 그대로 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-094",
+      "scenario": "scenario-3",
+      "turns": [
+        {
+          "message": "제품명은 트레일라이트 94이고 스포츠·아웃도어 카테고리의 초경량 텐트야. 핵심 강점은 1kg 미만 무게, 주요 서포터는 솔로 캠퍼이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "그냥 진행해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "남은 선택 정보 전체를 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "수정 없이 이 내용으로 스토리 생성을 승인합니다.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-095",
+      "scenario": "scenario-4",
+      "turns": [
+        {
+          "message": "제품명은 데일리결 95이고 뷰티 카테고리의 기초 화장품야. 핵심 강점은 무향 보습, 주요 서포터는 민감성 피부 사용자이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "선택 정보 전체를 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "타깃을 초기 사용자로 바꾼 뒤 다시 요약해줘.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "수정된 요약 그대로 스토리를 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-096",
+      "scenario": "scenario-5",
+      "turns": [
+        {
+          "message": "바로 스토리를 생성해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "바로 스토리를 생성해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "바로 스토리를 생성해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "제품명은 펫세이프 96이고 반려동물 카테고리의 반려동물 급식기야. 핵심 강점은 정량 급여, 주요 서포터는 직장인 반려인이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "선택 정보 전체를 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "현재 요약 그대로 스토리 생성을 승인합니다.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-097",
+      "scenario": "scenario-0",
+      "turns": [
+        {
+          "message": "제품명은 리드메이트 97이고 도서·전자책 카테고리의 전자책 단말기야. 핵심 강점은 눈부심 저감, 주요 서포터는 장시간 독서가이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "선택 정보는 모두 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "이 요약 그대로 스토리를 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-098",
+      "scenario": "scenario-1",
+      "turns": [
+        {
+          "message": "제품명은 키친큐브 98이고 푸드 카테고리의 밀폐용기야. 핵심 강점은 모듈형 적층, 주요 서포터는 소형 주방 사용자이야. 해결 문제는 반복 작업 부담이고, 시험 198회 완료가 신뢰 근거야. 메이커는 관련 개발자 3명으로 구성됐어. 리워드는 얼리버드 98개, 종료일은 2027년 3월 1일, 발송은 4월부터야. 제품 하자는 14일 이내 환불하고 1년 무상 수리할게. 펀딩금은 초도 생산에 사용하고 초기 사용자 피드백을 받기 위해 와디즈를 선택했어. 부품 지연은 공급사 이원화로 대응할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "확인했습니다. 현재 내용 그대로 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-099",
+      "scenario": "scenario-2",
+      "turns": [
+        {
+          "message": "제품명은 워크핏 99이고 제품은 노트북 거치대야.",
+          "expected_stage": "collecting",
+          "expected_phase": "required"
+        },
+        {
+          "message": "카테고리는 테크·가전, 강점은 높이 조절, 타깃은 재택근무자야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "권장 순서로 선택 정보를 모두 입력할게.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "문제는 반복 작업 부담이고 시험 300회 완료, 메이커는 개발자 3명이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "리워드는 얼리버드 50개, 종료는 3월 1일, 발송은 4월부터야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "제품 하자는 14일 이내 환불하고 1년 무상 수리할게.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-collect"
+        },
+        {
+          "message": "펀딩금은 초도 생산에 쓰고 피드백을 위해 와디즈를 선택했으며 공급사 이원화로 대응할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "이 요약 그대로 생성해 주세요.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    },
+    {
+      "id": "flow-100",
+      "scenario": "scenario-3",
+      "turns": [
+        {
+          "message": "제품명은 뮤트키 100이고 테크·가전 카테고리의 저소음 키보드야. 핵심 강점은 저소음 스위치, 주요 서포터는 공유 사무실 사용자이야.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "그냥 진행해줘.",
+          "expected_stage": "collecting",
+          "expected_phase": "optional-offer"
+        },
+        {
+          "message": "남은 선택 정보 전체를 생략할게.",
+          "expected_stage": "awaiting-approval",
+          "expected_phase": "approval"
+        },
+        {
+          "message": "수정 없이 이 내용으로 스토리 생성을 승인합니다.",
+          "expected_stage": "generation-ready",
+          "expected_phase": "generation-ready"
+        }
+      ]
+    }
+  ]
+}

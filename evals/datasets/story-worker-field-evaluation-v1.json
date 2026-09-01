@@ -1,0 +1,2990 @@
+{
+  "schema_version": "story-worker-field-evaluation-v1",
+  "cases": [
+    {
+      "id": "field-001",
+      "description": "제품명 단일 입력",
+      "message": "제품명은 오빗클린 V3야.",
+      "expected": {
+        "intent": "provide_information",
+        "fact_patches": [
+          {
+            "field": "product_name",
+            "operation": "replace",
+            "values": [
+              "오빗클린 V3"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "initial",
+        "product_name"
+      ]
+    },
+    {
+      "id": "field-002",
+      "description": "제품 유형 단일 입력",
+      "message": "우리가 펀딩하려는 제품은 로봇청소기야.",
+      "expected": {
+        "intent": "provide_information",
+        "fact_patches": [
+          {
+            "field": "product_type",
+            "operation": "replace",
+            "values": [
+              "로봇청소기"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "initial",
+        "product_type"
+      ]
+    },
+    {
+      "id": "field-003",
+      "description": "카테고리 단일 입력",
+      "message": "와디즈 카테고리는 테크·가전으로 진행할게.",
+      "expected": {
+        "intent": "provide_information",
+        "fact_patches": [
+          {
+            "field": "category",
+            "operation": "replace",
+            "values": [
+              "테크·가전"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "initial",
+        "category"
+      ]
+    },
+    {
+      "id": "field-004",
+      "description": "복수 핵심 강점 입력",
+      "message": "핵심 강점은 8.2cm의 얇은 본체와 자동 먼지 비움이야.",
+      "expected": {
+        "intent": "provide_information",
+        "fact_patches": [
+          {
+            "field": "key_strengths",
+            "operation": "replace",
+            "values": [
+              "8.2cm의 얇은 본체",
+              "자동 먼지 비움"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "initial",
+        "key_strengths",
+        "multiple-values"
+      ]
+    },
+    {
+      "id": "field-005",
+      "description": "핵심 타깃 입력",
+      "message": "핵심 타깃은 가구 아래 청소가 어려운 20~40대 맞벌이 가구야.",
+      "expected": {
+        "intent": "provide_information",
+        "fact_patches": [
+          {
+            "field": "target_supporters",
+            "operation": "replace",
+            "values": [
+              "20~40대 맞벌이 가구"
+            ]
+          },
+          {
+            "field": "problem_context",
+            "operation": "replace",
+            "values": [
+              "가구 아래 청소가 어려움"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "initial",
+        "target_supporters"
+      ]
+    },
+    {
+      "id": "field-006",
+      "description": "문제 상황 입력",
+      "message": "소파와 침대 아래에 먼지가 쌓여도 일반 청소기가 들어가지 못하는 문제가 있어.",
+      "expected": {
+        "intent": "provide_information",
+        "fact_patches": [
+          {
+            "field": "problem_context",
+            "operation": "replace",
+            "values": [
+              "소파와 침대 아래에 먼지가 쌓여도 일반 청소기가 들어가지 못함"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "initial",
+        "problem_context"
+      ]
+    },
+    {
+      "id": "field-007",
+      "description": "신뢰 근거 입력",
+      "message": "KC 인증을 완료했고 1,000시간 주행 테스트도 통과했어.",
+      "expected": {
+        "intent": "provide_information",
+        "fact_patches": [
+          {
+            "field": "trust_elements",
+            "operation": "replace",
+            "values": [
+              "KC 인증 완료",
+              "1,000시간 주행 테스트 통과"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "initial",
+        "trust_elements",
+        "multiple-values"
+      ]
+    },
+    {
+      "id": "field-008",
+      "description": "메이커 소개 입력",
+      "message": "우리는 생활가전 엔지니어 4명이 만든 클린랩 팀이야.",
+      "expected": {
+        "intent": "provide_information",
+        "fact_patches": [
+          {
+            "field": "maker_team_intro",
+            "operation": "replace",
+            "values": [
+              "생활가전 엔지니어 4명이 만든 클린랩 팀"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "initial",
+        "maker_team_intro"
+      ]
+    },
+    {
+      "id": "field-009",
+      "description": "리워드 입력",
+      "message": "얼리버드 리워드는 본체 1대에 49만 9천 원이야.",
+      "expected": {
+        "intent": "provide_information",
+        "fact_patches": [
+          {
+            "field": "rewards",
+            "operation": "replace",
+            "values": [
+              "얼리버드 본체 1대 49만 9천 원"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "initial",
+        "rewards"
+      ]
+    },
+    {
+      "id": "field-010",
+      "description": "펀딩 종료일 입력",
+      "message": "펀딩 종료일은 2026년 10월 15일로 확정했어.",
+      "expected": {
+        "intent": "provide_information",
+        "fact_patches": [
+          {
+            "field": "funding_end",
+            "operation": "replace",
+            "values": [
+              "2026년 10월 15일"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "initial",
+        "funding_end"
+      ]
+    },
+    {
+      "id": "field-011",
+      "description": "발송 시작일 입력",
+      "message": "리워드는 2026년 11월 2일부터 순차 발송할 예정이야.",
+      "expected": {
+        "intent": "provide_information",
+        "fact_patches": [
+          {
+            "field": "shipping_start",
+            "operation": "replace",
+            "values": [
+              "2026년 11월 2일부터 순차 발송"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "initial",
+        "shipping_start"
+      ]
+    },
+    {
+      "id": "field-012",
+      "description": "환불 정책 입력",
+      "message": "제품 하자는 수령 후 14일 이내 교환 또는 환불해 줄게.",
+      "expected": {
+        "intent": "provide_information",
+        "fact_patches": [
+          {
+            "field": "refund_policy",
+            "operation": "replace",
+            "values": [
+              "제품 하자는 수령 후 14일 이내 교환 또는 환불"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "initial",
+        "refund_policy"
+      ]
+    },
+    {
+      "id": "field-013",
+      "description": "A/S 정책 입력",
+      "message": "무상 A/S 기간은 배송 완료일부터 1년이야.",
+      "expected": {
+        "intent": "provide_information",
+        "fact_patches": [
+          {
+            "field": "as_policy",
+            "operation": "replace",
+            "values": [
+              "배송 완료일부터 1년 무상 A/S"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "initial",
+        "as_policy"
+      ]
+    },
+    {
+      "id": "field-014",
+      "description": "펀딩금 사용 계획 입력",
+      "message": "모인 펀딩금은 금형 제작과 초도 생산에 사용할 계획이야.",
+      "expected": {
+        "intent": "provide_information",
+        "fact_patches": [
+          {
+            "field": "funding_plan",
+            "operation": "replace",
+            "values": [
+              "금형 제작",
+              "초도 생산"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "initial",
+        "funding_plan",
+        "multiple-values"
+      ]
+    },
+    {
+      "id": "field-015",
+      "description": "플랫폼 선택 이유 입력",
+      "message": "초기 사용자의 피드백을 받아 제품을 개선하기 위해 와디즈를 선택했어.",
+      "expected": {
+        "intent": "provide_information",
+        "fact_patches": [
+          {
+            "field": "platform_choice",
+            "operation": "replace",
+            "values": [
+              "초기 사용자의 피드백을 받아 제품을 개선하기 위해 와디즈 선택"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "initial",
+        "platform_choice"
+      ]
+    },
+    {
+      "id": "field-016",
+      "description": "생산 리스크와 대응 입력",
+      "message": "부품 수급이 늦어질 수 있어 핵심 부품을 두 공급사에서 조달하기로 했어.",
+      "expected": {
+        "intent": "provide_information",
+        "fact_patches": [
+          {
+            "field": "risk_response",
+            "operation": "replace",
+            "values": [
+              "부품 수급 지연 가능성",
+              "핵심 부품 이원화 조달"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "initial",
+        "risk_response",
+        "multiple-values"
+      ]
+    },
+    {
+      "id": "field-017",
+      "description": "다섯 필수 필드 동시 입력",
+      "message": "오빗클린 V3는 테크·가전 카테고리의 로봇청소기이고, 얇은 본체와 자동 먼지 비움이 강점이며 가구 아래 청소가 필요한 맞벌이 가구를 위한 제품이야.",
+      "expected": {
+        "intent": "provide_information",
+        "fact_patches": [
+          {
+            "field": "product_name",
+            "operation": "replace",
+            "values": [
+              "오빗클린 V3"
+            ]
+          },
+          {
+            "field": "product_type",
+            "operation": "replace",
+            "values": [
+              "로봇청소기"
+            ]
+          },
+          {
+            "field": "category",
+            "operation": "replace",
+            "values": [
+              "테크·가전"
+            ]
+          },
+          {
+            "field": "key_strengths",
+            "operation": "replace",
+            "values": [
+              "얇은 본체",
+              "자동 먼지 비움"
+            ]
+          },
+          {
+            "field": "target_supporters",
+            "operation": "replace",
+            "values": [
+              "맞벌이 가구"
+            ]
+          },
+          {
+            "field": "problem_context",
+            "operation": "replace",
+            "values": [
+              "가구 아래 청소 필요"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "initial",
+        "required-fields",
+        "multiple-fields"
+      ]
+    },
+    {
+      "id": "field-018",
+      "description": "강점과 문제 상황 동시 입력",
+      "message": "기존 로봇청소기가 못 들어가는 낮은 가구 밑을 청소하기 위해 높이를 8.2cm로 낮췄어.",
+      "expected": {
+        "intent": "provide_information",
+        "fact_patches": [
+          {
+            "field": "problem_context",
+            "operation": "replace",
+            "values": [
+              "기존 로봇청소기가 낮은 가구 밑에 들어가지 못함"
+            ]
+          },
+          {
+            "field": "key_strengths",
+            "operation": "replace",
+            "values": [
+              "8.2cm 높이의 얇은 본체"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "initial",
+        "problem_context",
+        "key_strengths",
+        "multiple-fields"
+      ]
+    },
+    {
+      "id": "field-019",
+      "description": "신뢰 근거와 팀 소개 동시 입력",
+      "message": "클린랩은 생활가전 개발 경력 10년 이상의 엔지니어 4명으로 구성됐고 KC 인증도 완료했어.",
+      "expected": {
+        "intent": "provide_information",
+        "fact_patches": [
+          {
+            "field": "maker_team_intro",
+            "operation": "replace",
+            "values": [
+              "생활가전 개발 경력 10년 이상의 엔지니어 4명으로 구성된 클린랩"
+            ]
+          },
+          {
+            "field": "trust_elements",
+            "operation": "replace",
+            "values": [
+              "KC 인증 완료"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "initial",
+        "maker_team_intro",
+        "trust_elements",
+        "multiple-fields"
+      ]
+    },
+    {
+      "id": "field-020",
+      "description": "리워드와 일정 동시 입력",
+      "message": "얼리버드는 본체 1대 49만 9천 원이고 펀딩은 10월 15일에 끝나며 11월 2일부터 발송해.",
+      "expected": {
+        "intent": "provide_information",
+        "fact_patches": [
+          {
+            "field": "rewards",
+            "operation": "replace",
+            "values": [
+              "얼리버드 본체 1대 49만 9천 원"
+            ]
+          },
+          {
+            "field": "funding_end",
+            "operation": "replace",
+            "values": [
+              "10월 15일"
+            ]
+          },
+          {
+            "field": "shipping_start",
+            "operation": "replace",
+            "values": [
+              "11월 2일부터 발송"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "initial",
+        "rewards",
+        "schedule",
+        "multiple-fields"
+      ]
+    },
+    {
+      "id": "field-021",
+      "description": "생성 요청과 제품 정보 동시 입력",
+      "message": "슬림봇 R1이라는 로봇청소기야. 얇은 본체가 강점이고 원룸 거주자를 타깃으로 바로 스토리를 만들어줘.",
+      "expected": {
+        "intent": "request_generation",
+        "fact_patches": [
+          {
+            "field": "product_name",
+            "operation": "replace",
+            "values": [
+              "슬림봇 R1"
+            ]
+          },
+          {
+            "field": "product_type",
+            "operation": "replace",
+            "values": [
+              "로봇청소기"
+            ]
+          },
+          {
+            "field": "key_strengths",
+            "operation": "replace",
+            "values": [
+              "얇은 본체"
+            ]
+          },
+          {
+            "field": "target_supporters",
+            "operation": "replace",
+            "values": [
+              "원룸 거주자"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "request-generation",
+        "multiple-fields"
+      ]
+    },
+    {
+      "id": "field-022",
+      "description": "제품 정보가 없는 사용자 질문",
+      "message": "어떤 정보를 먼저 알려주면 돼?",
+      "expected": {
+        "intent": "ask_question",
+        "fact_patches": []
+      },
+      "tags": [
+        "no-patch",
+        "ask-question"
+      ]
+    },
+    {
+      "id": "field-023",
+      "description": "세션 취소 요청",
+      "message": "지금 작성하던 건 취소하고 세션을 종료해줘.",
+      "expected": {
+        "intent": "cancel",
+        "fact_patches": []
+      },
+      "tags": [
+        "no-patch",
+        "cancel"
+      ]
+    },
+    {
+      "id": "field-024",
+      "description": "수정 대상이 없는 모호한 지시",
+      "message": "아까 말한 그 부분을 다른 걸로 바꿔줘.",
+      "expected": {
+        "intent": "revise_information",
+        "fact_patches": [],
+        "unresolved_references": [
+          "그 부분",
+          "다른 것"
+        ],
+        "requires_clarification": true,
+        "clarification_question": "어떤 정보를 무엇으로 변경할지 알려주세요."
+      },
+      "tags": [
+        "no-patch",
+        "ambiguous-reference",
+        "clarification"
+      ]
+    },
+    {
+      "id": "field-025",
+      "description": "제품 정보 없는 즉시 생성 요청",
+      "message": "질문은 나중에 하고 일단 스토리부터 만들어줘.",
+      "expected": {
+        "intent": "request_generation",
+        "fact_patches": []
+      },
+      "tags": [
+        "no-patch",
+        "request-generation"
+      ]
+    },
+    {
+      "id": "field-026",
+      "description": "기존 제품명 수정",
+      "prior_facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "오빗클린 V2"
+          ]
+        }
+      },
+      "message": "제품명은 오빗클린 V2가 아니라 오빗클린 V3로 바꿀게.",
+      "expected": {
+        "intent": "revise_information",
+        "fact_patches": [
+          {
+            "field": "product_name",
+            "operation": "replace",
+            "values": [
+              "오빗클린 V3"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "revision",
+        "replace",
+        "product_name"
+      ]
+    },
+    {
+      "id": "field-027",
+      "description": "기존 강점에 새 강점 추가",
+      "prior_facts": {
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "얇은 본체"
+          ]
+        }
+      },
+      "message": "강점에 자동 먼지 비움도 추가해줘.",
+      "expected": {
+        "intent": "revise_information",
+        "fact_patches": [
+          {
+            "field": "key_strengths",
+            "operation": "append",
+            "values": [
+              "자동 먼지 비움"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "revision",
+        "append",
+        "key_strengths"
+      ]
+    },
+    {
+      "id": "field-028",
+      "description": "핵심 타깃 교체",
+      "prior_facts": {
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "맞벌이 가구"
+          ]
+        }
+      },
+      "message": "타깃은 맞벌이 가구 대신 20~40대 반려동물 가구로 변경할게.",
+      "expected": {
+        "intent": "revise_information",
+        "fact_patches": [
+          {
+            "field": "target_supporters",
+            "operation": "replace",
+            "values": [
+              "20~40대 반려동물 가구"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "revision",
+        "replace",
+        "target_supporters"
+      ]
+    },
+    {
+      "id": "field-029",
+      "description": "확정했던 종료일을 미정으로 되돌림",
+      "prior_facts": {
+        "funding_end": {
+          "status": "provided",
+          "values": [
+            "2026년 10월 15일"
+          ]
+        }
+      },
+      "message": "펀딩 종료일은 다시 검토해야 해서 미정으로 돌려줘.",
+      "expected": {
+        "intent": "revise_information",
+        "fact_patches": [
+          {
+            "field": "funding_end",
+            "operation": "clear",
+            "values": []
+          }
+        ]
+      },
+      "tags": [
+        "revision",
+        "clear",
+        "funding_end"
+      ]
+    },
+    {
+      "id": "field-030",
+      "description": "A/S 미제공 명시",
+      "prior_facts": {
+        "as_policy": {
+          "status": "unknown",
+          "values": []
+        }
+      },
+      "message": "이 제품은 별도 A/S를 제공하지 않아.",
+      "expected": {
+        "intent": "provide_information",
+        "fact_patches": [
+          {
+            "field": "as_policy",
+            "operation": "mark_absent",
+            "values": []
+          }
+        ]
+      },
+      "tags": [
+        "mark-absent",
+        "as_policy"
+      ]
+    },
+    {
+      "id": "field-031",
+      "description": "기존 리워드에 새로운 옵션 추가",
+      "prior_facts": {
+        "rewards": {
+          "status": "provided",
+          "values": [
+            "본체 1대 49만 9천 원"
+          ]
+        }
+      },
+      "message": "리워드에 본체 2대 세트 89만 9천 원 옵션도 추가해줘.",
+      "expected": {
+        "intent": "revise_information",
+        "fact_patches": [
+          {
+            "field": "rewards",
+            "operation": "append",
+            "values": [
+              "본체 2대 세트 89만 9천 원"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "revision",
+        "append",
+        "rewards"
+      ]
+    },
+    {
+      "id": "field-032",
+      "description": "발송 시작 일정 교체",
+      "prior_facts": {
+        "shipping_start": {
+          "status": "provided",
+          "values": [
+            "2026년 11월 2일"
+          ]
+        }
+      },
+      "message": "발송 시작은 11월 2일에서 11월 16일로 연기됐어.",
+      "expected": {
+        "intent": "revise_information",
+        "fact_patches": [
+          {
+            "field": "shipping_start",
+            "operation": "replace",
+            "values": [
+              "2026년 11월 16일"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "revision",
+        "replace",
+        "shipping_start"
+      ]
+    },
+    {
+      "id": "field-033",
+      "description": "카테고리 수정",
+      "prior_facts": {
+        "category": {
+          "status": "provided",
+          "values": [
+            "홈·리빙"
+          ]
+        }
+      },
+      "message": "카테고리는 홈·리빙이 아니라 테크·가전이 맞아.",
+      "expected": {
+        "intent": "revise_information",
+        "fact_patches": [
+          {
+            "field": "category",
+            "operation": "replace",
+            "values": [
+              "테크·가전"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "revision",
+        "replace",
+        "category"
+      ]
+    },
+    {
+      "id": "field-034",
+      "description": "확정된 신뢰 근거가 없음을 명시",
+      "prior_facts": {
+        "trust_elements": {
+          "status": "unknown",
+          "values": []
+        }
+      },
+      "message": "아직 공개할 수 있는 인증이나 시험 결과는 없어.",
+      "expected": {
+        "intent": "provide_information",
+        "fact_patches": [
+          {
+            "field": "trust_elements",
+            "operation": "mark_absent",
+            "values": []
+          }
+        ]
+      },
+      "tags": [
+        "mark-absent",
+        "trust_elements"
+      ]
+    },
+    {
+      "id": "field-035",
+      "description": "복수 사실 동시 수정",
+      "prior_facts": {
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "맞벌이 가구"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "얇은 본체"
+          ]
+        }
+      },
+      "message": "타깃은 반려동물 가구로 바꾸고 강점에는 저소음 운전도 추가해줘.",
+      "expected": {
+        "intent": "revise_information",
+        "fact_patches": [
+          {
+            "field": "target_supporters",
+            "operation": "replace",
+            "values": [
+              "반려동물 가구"
+            ]
+          },
+          {
+            "field": "key_strengths",
+            "operation": "append",
+            "values": [
+              "저소음 운전"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "revision",
+        "replace",
+        "append",
+        "multiple-fields"
+      ]
+    },
+    {
+      "id": "field-036",
+      "description": "부정 정정문에서 강점 교체",
+      "prior_facts": {
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "저소음 운전"
+          ]
+        }
+      },
+      "message": "저소음이 핵심이라는 건 취소할게. 핵심 강점은 강한 흡입력이야.",
+      "expected": {
+        "intent": "revise_information",
+        "fact_patches": [
+          {
+            "field": "key_strengths",
+            "operation": "replace",
+            "values": [
+              "강한 흡입력"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "revision",
+        "replace",
+        "negation",
+        "key_strengths"
+      ]
+    },
+    {
+      "id": "field-037",
+      "description": "후속 답변으로 문제 상황 추가",
+      "history": [
+        {
+          "role": "assistant",
+          "content": "이 제품이 해결하려는 불편은 무엇인가요?"
+        }
+      ],
+      "prior_facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "오빗클린 V3"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "로봇청소기"
+          ]
+        }
+      },
+      "message": "침대 아래에 먼지가 쌓이지만 손으로 청소하기 어려운 문제를 해결하려고 해.",
+      "expected": {
+        "intent": "provide_information",
+        "fact_patches": [
+          {
+            "field": "problem_context",
+            "operation": "replace",
+            "values": [
+              "침대 아래에 먼지가 쌓이지만 손으로 청소하기 어려움"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "follow-up",
+        "problem_context",
+        "context"
+      ]
+    },
+    {
+      "id": "field-038",
+      "description": "환불과 A/S 정책 동시 입력",
+      "message": "제품 하자는 수령 후 14일 이내 환불하고, 배송 완료일부터 1년간 무상 A/S를 제공해.",
+      "expected": {
+        "intent": "provide_information",
+        "fact_patches": [
+          {
+            "field": "refund_policy",
+            "operation": "replace",
+            "values": [
+              "제품 하자는 수령 후 14일 이내 환불"
+            ]
+          },
+          {
+            "field": "as_policy",
+            "operation": "replace",
+            "values": [
+              "배송 완료일부터 1년간 무상 A/S"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "refund_policy",
+        "as_policy",
+        "multiple-fields"
+      ]
+    },
+    {
+      "id": "field-039",
+      "description": "경쟁사 설명을 자사 제품 사실로 저장하지 않음",
+      "message": "경쟁사 제품은 물걸레 자동 세척이 된다는데 우리 제품도 그런지는 아직 확인하지 못했어.",
+      "expected": {
+        "intent": "provide_information",
+        "fact_patches": [],
+        "unresolved_references": [],
+        "requires_clarification": false
+      },
+      "tags": [
+        "no-patch",
+        "negative-grounding",
+        "competitor"
+      ]
+    },
+    {
+      "id": "field-040",
+      "description": "미확정 리워드 정보를 초기화",
+      "prior_facts": {
+        "rewards": {
+          "status": "provided",
+          "values": [
+            "본체 1대 49만 9천 원"
+          ]
+        }
+      },
+      "message": "리워드 구성과 가격은 다시 논의 중이라 아직 미정이야.",
+      "expected": {
+        "intent": "revise_information",
+        "fact_patches": [
+          {
+            "field": "rewards",
+            "operation": "clear",
+            "values": []
+          }
+        ]
+      },
+      "tags": [
+        "revision",
+        "clear",
+        "rewards"
+      ]
+    },
+    {
+      "id": "field-041",
+      "description": "제한된 환불 정책을 제공된 사실로 저장",
+      "message": "단순 변심 환불은 어렵지만 제품 하자가 확인되면 환불해 줄게.",
+      "expected": {
+        "intent": "provide_information",
+        "fact_patches": [
+          {
+            "field": "refund_policy",
+            "operation": "replace",
+            "values": [
+              "단순 변심 환불 불가",
+              "제품 하자 확인 시 환불"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "refund_policy",
+        "negation",
+        "multiple-values"
+      ]
+    },
+    {
+      "id": "field-042",
+      "description": "플랫폼 선택 이유 후속 입력",
+      "history": [
+        {
+          "role": "assistant",
+          "content": "왜 와디즈에서 펀딩하려고 하나요?"
+        }
+      ],
+      "message": "양산 전에 실제 서포터 반응을 확인하고 개선 의견을 받기 위해서야.",
+      "expected": {
+        "intent": "provide_information",
+        "fact_patches": [
+          {
+            "field": "platform_choice",
+            "operation": "replace",
+            "values": [
+              "양산 전 실제 서포터 반응 확인",
+              "개선 의견 수집"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "follow-up",
+        "platform_choice",
+        "context"
+      ]
+    },
+    {
+      "id": "field-043",
+      "description": "생산 리스크와 일정 동시 입력",
+      "message": "모터 수급이 늦어지면 발송이 지연될 수 있어 대체 공급사를 확보했고, 현재 발송 시작일은 11월 16일이야.",
+      "expected": {
+        "intent": "provide_information",
+        "fact_patches": [
+          {
+            "field": "risk_response",
+            "operation": "replace",
+            "values": [
+              "모터 수급 지연 시 발송 지연 가능성",
+              "대체 공급사 확보"
+            ]
+          },
+          {
+            "field": "shipping_start",
+            "operation": "replace",
+            "values": [
+              "11월 16일"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "risk_response",
+        "shipping_start",
+        "multiple-fields"
+      ]
+    },
+    {
+      "id": "field-044",
+      "description": "두 일정 날짜 구분",
+      "message": "펀딩은 2026년 10월 31일에 종료하고 리워드는 2026년 12월 1일부터 발송해.",
+      "expected": {
+        "intent": "provide_information",
+        "fact_patches": [
+          {
+            "field": "funding_end",
+            "operation": "replace",
+            "values": [
+              "2026년 10월 31일"
+            ]
+          },
+          {
+            "field": "shipping_start",
+            "operation": "replace",
+            "values": [
+              "2026년 12월 1일부터 발송"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "funding_end",
+        "shipping_start",
+        "multiple-fields"
+      ]
+    },
+    {
+      "id": "field-045",
+      "description": "기존 타깃에 새로운 세그먼트 추가",
+      "prior_facts": {
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "맞벌이 가구"
+          ]
+        }
+      },
+      "message": "핵심 타깃에 반려동물 가구도 추가해줘.",
+      "expected": {
+        "intent": "revise_information",
+        "fact_patches": [
+          {
+            "field": "target_supporters",
+            "operation": "append",
+            "values": [
+              "반려동물 가구"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "revision",
+        "append",
+        "target_supporters"
+      ]
+    },
+    {
+      "id": "field-046",
+      "description": "기존 리스크 대응에 추가 조치",
+      "prior_facts": {
+        "risk_response": {
+          "status": "provided",
+          "values": [
+            "핵심 부품 이원화 조달"
+          ]
+        }
+      },
+      "message": "리스크 대응에 매주 공급 일정 점검도 추가해줘.",
+      "expected": {
+        "intent": "revise_information",
+        "fact_patches": [
+          {
+            "field": "risk_response",
+            "operation": "append",
+            "values": [
+              "매주 공급 일정 점검"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "revision",
+        "append",
+        "risk_response"
+      ]
+    },
+    {
+      "id": "field-047",
+      "description": "기존 A/S 정책을 미정으로 초기화",
+      "prior_facts": {
+        "as_policy": {
+          "status": "provided",
+          "values": [
+            "1년 무상 A/S"
+          ]
+        }
+      },
+      "message": "A/S 기간은 다시 협의 중이니 기존 1년 정책은 지워줘.",
+      "expected": {
+        "intent": "revise_information",
+        "fact_patches": [
+          {
+            "field": "as_policy",
+            "operation": "clear",
+            "values": []
+          }
+        ]
+      },
+      "tags": [
+        "revision",
+        "clear",
+        "as_policy"
+      ]
+    },
+    {
+      "id": "field-048",
+      "description": "문맥상 복수 후보를 가리키는 모호한 수정",
+      "history": [
+        {
+          "role": "user",
+          "content": "강점은 얇은 본체고 타깃은 맞벌이 가구야."
+        },
+        {
+          "role": "assistant",
+          "content": "강점과 타깃을 확인했습니다."
+        }
+      ],
+      "prior_facts": {
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "얇은 본체"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "맞벌이 가구"
+          ]
+        }
+      },
+      "message": "그건 반려동물 가구로 바꿔줘.",
+      "expected": {
+        "intent": "revise_information",
+        "fact_patches": [],
+        "unresolved_references": [
+          "그건"
+        ],
+        "requires_clarification": true,
+        "clarification_question": "강점과 타깃 중 어떤 정보를 반려동물 가구로 변경할지 알려주세요."
+      },
+      "tags": [
+        "revision",
+        "ambiguous-reference",
+        "clarification",
+        "context"
+      ]
+    },
+    {
+      "id": "field-049",
+      "description": "필수 정보와 즉시 생성 요청 동시 입력",
+      "message": "클린봇 S는 테크·가전의 로봇청소기야. 저소음 운전이 강점이고 소음에 민감한 가구가 타깃이니 이 정보로 생성해줘.",
+      "expected": {
+        "intent": "request_generation",
+        "fact_patches": [
+          {
+            "field": "product_name",
+            "operation": "replace",
+            "values": [
+              "클린봇 S"
+            ]
+          },
+          {
+            "field": "product_type",
+            "operation": "replace",
+            "values": [
+              "로봇청소기"
+            ]
+          },
+          {
+            "field": "category",
+            "operation": "replace",
+            "values": [
+              "테크·가전"
+            ]
+          },
+          {
+            "field": "key_strengths",
+            "operation": "replace",
+            "values": [
+              "저소음 운전"
+            ]
+          },
+          {
+            "field": "target_supporters",
+            "operation": "replace",
+            "values": [
+              "소음에 민감한 가구"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "request-generation",
+        "required-fields",
+        "multiple-fields"
+      ]
+    },
+    {
+      "id": "field-050",
+      "description": "전체 16개 필드 장문 입력",
+      "message": "오빗클린 V3는 테크·가전 카테고리의 로봇청소기야. 8.2cm 얇은 본체와 자동 먼지 비움이 강점이고, 낮은 가구 아래를 청소하기 어려운 20~40대 맞벌이 가구를 위한 제품이야. KC 인증과 1,000시간 주행 테스트를 완료했고 생활가전 엔지니어 4명의 클린랩이 만들었어. 얼리버드는 본체 1대 49만 9천 원이고 2026년 10월 15일에 펀딩을 종료해 11월 2일부터 발송할 거야. 제품 하자는 수령 후 14일 이내 환불하고 배송 완료일부터 1년간 무상 A/S를 제공해. 펀딩금은 금형 제작과 초도 생산에 사용하고, 양산 전 서포터 의견을 받기 위해 와디즈를 선택했어. 부품 수급 지연에 대비해 핵심 부품 공급사를 이원화했어.",
+      "expected": {
+        "intent": "provide_information",
+        "fact_patches": [
+          {
+            "field": "product_name",
+            "operation": "replace",
+            "values": [
+              "오빗클린 V3"
+            ]
+          },
+          {
+            "field": "product_type",
+            "operation": "replace",
+            "values": [
+              "로봇청소기"
+            ]
+          },
+          {
+            "field": "category",
+            "operation": "replace",
+            "values": [
+              "테크·가전"
+            ]
+          },
+          {
+            "field": "key_strengths",
+            "operation": "replace",
+            "values": [
+              "8.2cm 얇은 본체",
+              "자동 먼지 비움"
+            ]
+          },
+          {
+            "field": "target_supporters",
+            "operation": "replace",
+            "values": [
+              "낮은 가구 아래를 청소하기 어려운 20~40대 맞벌이 가구"
+            ]
+          },
+          {
+            "field": "problem_context",
+            "operation": "replace",
+            "values": [
+              "낮은 가구 아래를 청소하기 어려움"
+            ]
+          },
+          {
+            "field": "trust_elements",
+            "operation": "replace",
+            "values": [
+              "KC 인증 완료",
+              "1,000시간 주행 테스트 완료"
+            ]
+          },
+          {
+            "field": "maker_team_intro",
+            "operation": "replace",
+            "values": [
+              "생활가전 엔지니어 4명의 클린랩"
+            ]
+          },
+          {
+            "field": "rewards",
+            "operation": "replace",
+            "values": [
+              "얼리버드 본체 1대 49만 9천 원"
+            ]
+          },
+          {
+            "field": "funding_end",
+            "operation": "replace",
+            "values": [
+              "2026년 10월 15일"
+            ]
+          },
+          {
+            "field": "shipping_start",
+            "operation": "replace",
+            "values": [
+              "2026년 11월 2일부터 발송"
+            ]
+          },
+          {
+            "field": "refund_policy",
+            "operation": "replace",
+            "values": [
+              "제품 하자는 수령 후 14일 이내 환불"
+            ]
+          },
+          {
+            "field": "as_policy",
+            "operation": "replace",
+            "values": [
+              "배송 완료일부터 1년간 무상 A/S"
+            ]
+          },
+          {
+            "field": "funding_plan",
+            "operation": "replace",
+            "values": [
+              "금형 제작",
+              "초도 생산"
+            ]
+          },
+          {
+            "field": "platform_choice",
+            "operation": "replace",
+            "values": [
+              "양산 전 서포터 의견을 받기 위해 와디즈 선택"
+            ]
+          },
+          {
+            "field": "risk_response",
+            "operation": "replace",
+            "values": [
+              "부품 수급 지연 대비 핵심 부품 공급사 이원화"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "initial",
+        "all-fields",
+        "long-input",
+        "multiple-fields"
+      ]
+    },
+    {
+      "id": "field-051",
+      "description": "로봇청소기 필수 정보 장문 입력",
+      "message": "제품명은 오빗클린 V3이고 테크·가전 카테고리의 로봇청소기야. 핵심 강점은 얇은 본체이고 주요 서포터는 맞벌이 가구이야.",
+      "expected": {
+        "intent": "provide_information",
+        "fact_patches": [
+          {
+            "field": "product_name",
+            "operation": "replace",
+            "values": [
+              "오빗클린 V3"
+            ]
+          },
+          {
+            "field": "product_type",
+            "operation": "replace",
+            "values": [
+              "로봇청소기"
+            ]
+          },
+          {
+            "field": "category",
+            "operation": "replace",
+            "values": [
+              "테크·가전"
+            ]
+          },
+          {
+            "field": "key_strengths",
+            "operation": "replace",
+            "values": [
+              "얇은 본체"
+            ]
+          },
+          {
+            "field": "target_supporters",
+            "operation": "replace",
+            "values": [
+              "맞벌이 가구"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "initial",
+        "required-fields",
+        "long-input",
+        "로봇청소기"
+      ]
+    },
+    {
+      "id": "field-052",
+      "description": "탁상용 공기청정기 필수 정보 장문 입력",
+      "message": "제품명은 브리즈팟이고 테크·가전 카테고리의 탁상용 공기청정기야. 핵심 강점은 저소음 정화이고 주요 서포터는 원룸 거주자이야.",
+      "expected": {
+        "intent": "provide_information",
+        "fact_patches": [
+          {
+            "field": "product_name",
+            "operation": "replace",
+            "values": [
+              "브리즈팟"
+            ]
+          },
+          {
+            "field": "product_type",
+            "operation": "replace",
+            "values": [
+              "탁상용 공기청정기"
+            ]
+          },
+          {
+            "field": "category",
+            "operation": "replace",
+            "values": [
+              "테크·가전"
+            ]
+          },
+          {
+            "field": "key_strengths",
+            "operation": "replace",
+            "values": [
+              "저소음 정화"
+            ]
+          },
+          {
+            "field": "target_supporters",
+            "operation": "replace",
+            "values": [
+              "원룸 거주자"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "initial",
+        "required-fields",
+        "long-input",
+        "탁상용 공기청정기"
+      ]
+    },
+    {
+      "id": "field-053",
+      "description": "수면 안대 필수 정보 장문 입력",
+      "message": "제품명은 슬립온이고 홈·리빙 카테고리의 수면 안대야. 핵심 강점은 빛 차단 구조이고 주요 서포터는 교대 근무자이야.",
+      "expected": {
+        "intent": "provide_information",
+        "fact_patches": [
+          {
+            "field": "product_name",
+            "operation": "replace",
+            "values": [
+              "슬립온"
+            ]
+          },
+          {
+            "field": "product_type",
+            "operation": "replace",
+            "values": [
+              "수면 안대"
+            ]
+          },
+          {
+            "field": "category",
+            "operation": "replace",
+            "values": [
+              "홈·리빙"
+            ]
+          },
+          {
+            "field": "key_strengths",
+            "operation": "replace",
+            "values": [
+              "빛 차단 구조"
+            ]
+          },
+          {
+            "field": "target_supporters",
+            "operation": "replace",
+            "values": [
+              "교대 근무자"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "initial",
+        "required-fields",
+        "long-input",
+        "수면 안대"
+      ]
+    },
+    {
+      "id": "field-054",
+      "description": "초경량 텐트 필수 정보 장문 입력",
+      "message": "제품명은 트레일라이트이고 스포츠·아웃도어 카테고리의 초경량 텐트야. 핵심 강점은 1kg 미만 무게이고 주요 서포터는 솔로 캠퍼이야.",
+      "expected": {
+        "intent": "provide_information",
+        "fact_patches": [
+          {
+            "field": "product_name",
+            "operation": "replace",
+            "values": [
+              "트레일라이트"
+            ]
+          },
+          {
+            "field": "product_type",
+            "operation": "replace",
+            "values": [
+              "초경량 텐트"
+            ]
+          },
+          {
+            "field": "category",
+            "operation": "replace",
+            "values": [
+              "스포츠·아웃도어"
+            ]
+          },
+          {
+            "field": "key_strengths",
+            "operation": "replace",
+            "values": [
+              "1kg 미만 무게"
+            ]
+          },
+          {
+            "field": "target_supporters",
+            "operation": "replace",
+            "values": [
+              "솔로 캠퍼"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "initial",
+        "required-fields",
+        "long-input",
+        "초경량 텐트"
+      ]
+    },
+    {
+      "id": "field-055",
+      "description": "기초 화장품 필수 정보 장문 입력",
+      "message": "제품명은 데일리결이고 뷰티 카테고리의 기초 화장품야. 핵심 강점은 무향 보습이고 주요 서포터는 민감성 피부 사용자이야.",
+      "expected": {
+        "intent": "provide_information",
+        "fact_patches": [
+          {
+            "field": "product_name",
+            "operation": "replace",
+            "values": [
+              "데일리결"
+            ]
+          },
+          {
+            "field": "product_type",
+            "operation": "replace",
+            "values": [
+              "기초 화장품"
+            ]
+          },
+          {
+            "field": "category",
+            "operation": "replace",
+            "values": [
+              "뷰티"
+            ]
+          },
+          {
+            "field": "key_strengths",
+            "operation": "replace",
+            "values": [
+              "무향 보습"
+            ]
+          },
+          {
+            "field": "target_supporters",
+            "operation": "replace",
+            "values": [
+              "민감성 피부 사용자"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "initial",
+        "required-fields",
+        "long-input",
+        "기초 화장품"
+      ]
+    },
+    {
+      "id": "field-056",
+      "description": "반려동물 급식기 필수 정보 장문 입력",
+      "message": "제품명은 펫세이프이고 반려동물 카테고리의 반려동물 급식기야. 핵심 강점은 정량 급여이고 주요 서포터는 직장인 반려인이야.",
+      "expected": {
+        "intent": "provide_information",
+        "fact_patches": [
+          {
+            "field": "product_name",
+            "operation": "replace",
+            "values": [
+              "펫세이프"
+            ]
+          },
+          {
+            "field": "product_type",
+            "operation": "replace",
+            "values": [
+              "반려동물 급식기"
+            ]
+          },
+          {
+            "field": "category",
+            "operation": "replace",
+            "values": [
+              "반려동물"
+            ]
+          },
+          {
+            "field": "key_strengths",
+            "operation": "replace",
+            "values": [
+              "정량 급여"
+            ]
+          },
+          {
+            "field": "target_supporters",
+            "operation": "replace",
+            "values": [
+              "직장인 반려인"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "initial",
+        "required-fields",
+        "long-input",
+        "반려동물 급식기"
+      ]
+    },
+    {
+      "id": "field-057",
+      "description": "전자책 단말기 필수 정보 장문 입력",
+      "message": "제품명은 리드메이트이고 도서·전자책 카테고리의 전자책 단말기야. 핵심 강점은 눈부심 저감이고 주요 서포터는 장시간 독서가이야.",
+      "expected": {
+        "intent": "provide_information",
+        "fact_patches": [
+          {
+            "field": "product_name",
+            "operation": "replace",
+            "values": [
+              "리드메이트"
+            ]
+          },
+          {
+            "field": "product_type",
+            "operation": "replace",
+            "values": [
+              "전자책 단말기"
+            ]
+          },
+          {
+            "field": "category",
+            "operation": "replace",
+            "values": [
+              "도서·전자책"
+            ]
+          },
+          {
+            "field": "key_strengths",
+            "operation": "replace",
+            "values": [
+              "눈부심 저감"
+            ]
+          },
+          {
+            "field": "target_supporters",
+            "operation": "replace",
+            "values": [
+              "장시간 독서가"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "initial",
+        "required-fields",
+        "long-input",
+        "전자책 단말기"
+      ]
+    },
+    {
+      "id": "field-058",
+      "description": "밀폐용기 필수 정보 장문 입력",
+      "message": "제품명은 키친큐브이고 푸드 카테고리의 밀폐용기야. 핵심 강점은 모듈형 적층이고 주요 서포터는 소형 주방 사용자이야.",
+      "expected": {
+        "intent": "provide_information",
+        "fact_patches": [
+          {
+            "field": "product_name",
+            "operation": "replace",
+            "values": [
+              "키친큐브"
+            ]
+          },
+          {
+            "field": "product_type",
+            "operation": "replace",
+            "values": [
+              "밀폐용기"
+            ]
+          },
+          {
+            "field": "category",
+            "operation": "replace",
+            "values": [
+              "푸드"
+            ]
+          },
+          {
+            "field": "key_strengths",
+            "operation": "replace",
+            "values": [
+              "모듈형 적층"
+            ]
+          },
+          {
+            "field": "target_supporters",
+            "operation": "replace",
+            "values": [
+              "소형 주방 사용자"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "initial",
+        "required-fields",
+        "long-input",
+        "밀폐용기"
+      ]
+    },
+    {
+      "id": "field-059",
+      "description": "노트북 거치대 필수 정보 장문 입력",
+      "message": "제품명은 워크핏이고 테크·가전 카테고리의 노트북 거치대야. 핵심 강점은 높이 조절이고 주요 서포터는 재택근무자이야.",
+      "expected": {
+        "intent": "provide_information",
+        "fact_patches": [
+          {
+            "field": "product_name",
+            "operation": "replace",
+            "values": [
+              "워크핏"
+            ]
+          },
+          {
+            "field": "product_type",
+            "operation": "replace",
+            "values": [
+              "노트북 거치대"
+            ]
+          },
+          {
+            "field": "category",
+            "operation": "replace",
+            "values": [
+              "테크·가전"
+            ]
+          },
+          {
+            "field": "key_strengths",
+            "operation": "replace",
+            "values": [
+              "높이 조절"
+            ]
+          },
+          {
+            "field": "target_supporters",
+            "operation": "replace",
+            "values": [
+              "재택근무자"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "initial",
+        "required-fields",
+        "long-input",
+        "노트북 거치대"
+      ]
+    },
+    {
+      "id": "field-060",
+      "description": "저소음 키보드 필수 정보 장문 입력",
+      "message": "제품명은 뮤트키이고 테크·가전 카테고리의 저소음 키보드야. 핵심 강점은 저소음 스위치이고 주요 서포터는 공유 사무실 사용자이야.",
+      "expected": {
+        "intent": "provide_information",
+        "fact_patches": [
+          {
+            "field": "product_name",
+            "operation": "replace",
+            "values": [
+              "뮤트키"
+            ]
+          },
+          {
+            "field": "product_type",
+            "operation": "replace",
+            "values": [
+              "저소음 키보드"
+            ]
+          },
+          {
+            "field": "category",
+            "operation": "replace",
+            "values": [
+              "테크·가전"
+            ]
+          },
+          {
+            "field": "key_strengths",
+            "operation": "replace",
+            "values": [
+              "저소음 스위치"
+            ]
+          },
+          {
+            "field": "target_supporters",
+            "operation": "replace",
+            "values": [
+              "공유 사무실 사용자"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "initial",
+        "required-fields",
+        "long-input",
+        "저소음 키보드"
+      ]
+    },
+    {
+      "id": "field-061",
+      "description": "선택 필드 problem_context 자연어 입력",
+      "message": "해결하려는 문제는 매일 반복되는 바닥 청소 시간이 부담된다는 점이야.",
+      "expected": {
+        "intent": "provide_information",
+        "fact_patches": [
+          {
+            "field": "problem_context",
+            "operation": "replace",
+            "values": [
+              "매일 반복되는 바닥 청소 시간이 부담됨"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "initial",
+        "optional-field",
+        "problem_context"
+      ]
+    },
+    {
+      "id": "field-062",
+      "description": "선택 필드 trust_elements 자연어 입력",
+      "message": "신뢰 근거로 KC 인증을 완료했어.",
+      "expected": {
+        "intent": "provide_information",
+        "fact_patches": [
+          {
+            "field": "trust_elements",
+            "operation": "replace",
+            "values": [
+              "KC 인증 완료"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "initial",
+        "optional-field",
+        "trust_elements"
+      ]
+    },
+    {
+      "id": "field-063",
+      "description": "선택 필드 maker_team_intro 자연어 입력",
+      "message": "메이커는 생활가전 개발자 3명으로 구성된 팀이야.",
+      "expected": {
+        "intent": "provide_information",
+        "fact_patches": [
+          {
+            "field": "maker_team_intro",
+            "operation": "replace",
+            "values": [
+              "생활가전 개발자 3명으로 구성된 팀"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "initial",
+        "optional-field",
+        "maker_team_intro"
+      ]
+    },
+    {
+      "id": "field-064",
+      "description": "선택 필드 rewards 자연어 입력",
+      "message": "리워드는 얼리버드 1대 39만 원이야.",
+      "expected": {
+        "intent": "provide_information",
+        "fact_patches": [
+          {
+            "field": "rewards",
+            "operation": "replace",
+            "values": [
+              "얼리버드 1대 39만 원"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "initial",
+        "optional-field",
+        "rewards"
+      ]
+    },
+    {
+      "id": "field-065",
+      "description": "선택 필드 funding_end 자연어 입력",
+      "message": "펀딩 종료일은 2026년 11월 30일이야.",
+      "expected": {
+        "intent": "provide_information",
+        "fact_patches": [
+          {
+            "field": "funding_end",
+            "operation": "replace",
+            "values": [
+              "2026년 11월 30일"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "initial",
+        "optional-field",
+        "funding_end"
+      ]
+    },
+    {
+      "id": "field-066",
+      "description": "선택 필드 shipping_start 자연어 입력",
+      "message": "리워드는 2026년 12월 15일부터 순차 발송할게.",
+      "expected": {
+        "intent": "provide_information",
+        "fact_patches": [
+          {
+            "field": "shipping_start",
+            "operation": "replace",
+            "values": [
+              "2026년 12월 15일부터 순차 발송"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "initial",
+        "optional-field",
+        "shipping_start"
+      ]
+    },
+    {
+      "id": "field-067",
+      "description": "선택 필드 refund_policy 자연어 입력",
+      "message": "환불 정책은 제품 하자가 있으면 수령 후 14일 이내 환불이야.",
+      "expected": {
+        "intent": "provide_information",
+        "fact_patches": [
+          {
+            "field": "refund_policy",
+            "operation": "replace",
+            "values": [
+              "제품 하자는 수령 후 14일 이내 환불"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "initial",
+        "optional-field",
+        "refund_policy"
+      ]
+    },
+    {
+      "id": "field-068",
+      "description": "선택 필드 as_policy 자연어 입력",
+      "message": "A/S는 배송 완료일부터 1년간 무상 수리로 제공해.",
+      "expected": {
+        "intent": "provide_information",
+        "fact_patches": [
+          {
+            "field": "as_policy",
+            "operation": "replace",
+            "values": [
+              "배송 완료일부터 1년 무상 수리"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "initial",
+        "optional-field",
+        "as_policy"
+      ]
+    },
+    {
+      "id": "field-069",
+      "description": "선택 필드 funding_plan 자연어 입력",
+      "message": "모인 펀딩금은 초도 생산과 품질 검사에 사용할 계획이야.",
+      "expected": {
+        "intent": "provide_information",
+        "fact_patches": [
+          {
+            "field": "funding_plan",
+            "operation": "replace",
+            "values": [
+              "초도 생산과 품질 검사"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "initial",
+        "optional-field",
+        "funding_plan"
+      ]
+    },
+    {
+      "id": "field-070",
+      "description": "선택 필드 risk_response 자연어 입력",
+      "message": "부품 수급 지연 위험에는 공급사 이원화로 대응할게.",
+      "expected": {
+        "intent": "provide_information",
+        "fact_patches": [
+          {
+            "field": "risk_response",
+            "operation": "replace",
+            "values": [
+              "부품 공급사 이원화로 수급 지연 대응"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "initial",
+        "optional-field",
+        "risk_response"
+      ]
+    },
+    {
+      "id": "field-071",
+      "description": "product_name 최신값 교체",
+      "history": [
+        {
+          "role": "user",
+          "content": "이전 입력 값은 오빗클린 V2이야."
+        }
+      ],
+      "prior_facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "오빗클린 V2"
+          ]
+        }
+      },
+      "message": "제품명은 오빗클린 V2가 아니라 오빗클린 V4로 바꿀게.",
+      "expected": {
+        "intent": "revise_information",
+        "fact_patches": [
+          {
+            "field": "product_name",
+            "operation": "replace",
+            "values": [
+              "오빗클린 V4"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "follow-up",
+        "revision",
+        "product_name"
+      ]
+    },
+    {
+      "id": "field-072",
+      "description": "product_type 최신값 교체",
+      "history": [
+        {
+          "role": "user",
+          "content": "이전 입력 값은 로봇청소기이야."
+        }
+      ],
+      "prior_facts": {
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "로봇청소기"
+          ]
+        }
+      },
+      "message": "제품 종류는 로봇청소기에서 물걸레 로봇청소기로 바꿀게.",
+      "expected": {
+        "intent": "revise_information",
+        "fact_patches": [
+          {
+            "field": "product_type",
+            "operation": "replace",
+            "values": [
+              "물걸레 로봇청소기"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "follow-up",
+        "revision",
+        "product_type"
+      ]
+    },
+    {
+      "id": "field-073",
+      "description": "category 최신값 교체",
+      "history": [
+        {
+          "role": "user",
+          "content": "이전 입력 값은 홈·리빙이야."
+        }
+      ],
+      "prior_facts": {
+        "category": {
+          "status": "provided",
+          "values": [
+            "홈·리빙"
+          ]
+        }
+      },
+      "message": "카테고리는 홈·리빙이 아니라 테크·가전으로 수정할게.",
+      "expected": {
+        "intent": "revise_information",
+        "fact_patches": [
+          {
+            "field": "category",
+            "operation": "replace",
+            "values": [
+              "테크·가전"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "follow-up",
+        "revision",
+        "category"
+      ]
+    },
+    {
+      "id": "field-074",
+      "description": "key_strengths 최신값 교체",
+      "history": [
+        {
+          "role": "user",
+          "content": "이전 입력 값은 자동 먼지 비움이야."
+        }
+      ],
+      "prior_facts": {
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "자동 먼지 비움"
+          ]
+        }
+      },
+      "message": "핵심 강점은 자동 먼지 비움 대신 8.0cm 초슬림 본체로 바꿀게.",
+      "expected": {
+        "intent": "revise_information",
+        "fact_patches": [
+          {
+            "field": "key_strengths",
+            "operation": "replace",
+            "values": [
+              "8.0cm 초슬림 본체"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "follow-up",
+        "revision",
+        "key_strengths"
+      ]
+    },
+    {
+      "id": "field-075",
+      "description": "target_supporters 최신값 교체",
+      "history": [
+        {
+          "role": "user",
+          "content": "이전 입력 값은 1인 가구이야."
+        }
+      ],
+      "prior_facts": {
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "1인 가구"
+          ]
+        }
+      },
+      "message": "핵심 타깃은 1인 가구에서 반려동물과 사는 맞벌이 가구로 바꿀게.",
+      "expected": {
+        "intent": "revise_information",
+        "fact_patches": [
+          {
+            "field": "target_supporters",
+            "operation": "replace",
+            "values": [
+              "반려동물과 사는 맞벌이 가구"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "follow-up",
+        "revision",
+        "target_supporters"
+      ]
+    },
+    {
+      "id": "field-076",
+      "description": "rewards 최신값 교체",
+      "history": [
+        {
+          "role": "user",
+          "content": "이전 입력 값은 본체 1대 49만 원이야."
+        }
+      ],
+      "prior_facts": {
+        "rewards": {
+          "status": "provided",
+          "values": [
+            "본체 1대 49만 원"
+          ]
+        }
+      },
+      "message": "리워드는 본체 1대 49만 원에서 45만 원으로 변경할게.",
+      "expected": {
+        "intent": "revise_information",
+        "fact_patches": [
+          {
+            "field": "rewards",
+            "operation": "replace",
+            "values": [
+              "본체 1대 45만 원"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "follow-up",
+        "revision",
+        "rewards"
+      ]
+    },
+    {
+      "id": "field-077",
+      "description": "funding_end 최신값 교체",
+      "history": [
+        {
+          "role": "user",
+          "content": "이전 입력 값은 2026년 10월 10일이야."
+        }
+      ],
+      "prior_facts": {
+        "funding_end": {
+          "status": "provided",
+          "values": [
+            "2026년 10월 10일"
+          ]
+        }
+      },
+      "message": "펀딩 종료일은 2026년 10월 10일에서 20일로 변경할게.",
+      "expected": {
+        "intent": "revise_information",
+        "fact_patches": [
+          {
+            "field": "funding_end",
+            "operation": "replace",
+            "values": [
+              "2026년 10월 20일"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "follow-up",
+        "revision",
+        "funding_end"
+      ]
+    },
+    {
+      "id": "field-078",
+      "description": "shipping_start 최신값 교체",
+      "history": [
+        {
+          "role": "user",
+          "content": "이전 입력 값은 2026년 11월 1일이야."
+        }
+      ],
+      "prior_facts": {
+        "shipping_start": {
+          "status": "provided",
+          "values": [
+            "2026년 11월 1일"
+          ]
+        }
+      },
+      "message": "발송 시작일은 2026년 11월 1일에서 15일로 변경할게.",
+      "expected": {
+        "intent": "revise_information",
+        "fact_patches": [
+          {
+            "field": "shipping_start",
+            "operation": "replace",
+            "values": [
+              "2026년 11월 15일"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "follow-up",
+        "revision",
+        "shipping_start"
+      ]
+    },
+    {
+      "id": "field-079",
+      "description": "refund_policy 최신값 교체",
+      "history": [
+        {
+          "role": "user",
+          "content": "이전 입력 값은 7일 이내 환불이야."
+        }
+      ],
+      "prior_facts": {
+        "refund_policy": {
+          "status": "provided",
+          "values": [
+            "7일 이내 환불"
+          ]
+        }
+      },
+      "message": "환불 가능 기간은 7일에서 14일로 늘릴게.",
+      "expected": {
+        "intent": "revise_information",
+        "fact_patches": [
+          {
+            "field": "refund_policy",
+            "operation": "replace",
+            "values": [
+              "14일 이내 환불"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "follow-up",
+        "revision",
+        "refund_policy"
+      ]
+    },
+    {
+      "id": "field-080",
+      "description": "as_policy 최신값 교체",
+      "history": [
+        {
+          "role": "user",
+          "content": "이전 입력 값은 6개월 무상 수리이야."
+        }
+      ],
+      "prior_facts": {
+        "as_policy": {
+          "status": "provided",
+          "values": [
+            "6개월 무상 수리"
+          ]
+        }
+      },
+      "message": "무상 수리 기간은 6개월에서 1년으로 늘릴게.",
+      "expected": {
+        "intent": "revise_information",
+        "fact_patches": [
+          {
+            "field": "as_policy",
+            "operation": "replace",
+            "values": [
+              "1년 무상 수리"
+            ]
+          }
+        ]
+      },
+      "tags": [
+        "follow-up",
+        "revision",
+        "as_policy"
+      ]
+    },
+    {
+      "id": "field-081",
+      "description": "trust_elements mark_absent",
+      "prior_facts": {
+        "trust_elements": {
+          "status": "provided",
+          "values": [
+            "이전에 입력한 값"
+          ]
+        }
+      },
+      "message": "인증 자료는 아직 없어.",
+      "expected": {
+        "intent": "revise_information",
+        "fact_patches": [
+          {
+            "field": "trust_elements",
+            "operation": "mark_absent",
+            "values": []
+          }
+        ]
+      },
+      "tags": [
+        "follow-up",
+        "mark_absent",
+        "trust_elements"
+      ]
+    },
+    {
+      "id": "field-082",
+      "description": "maker_team_intro mark_absent",
+      "prior_facts": {
+        "maker_team_intro": {
+          "status": "provided",
+          "values": [
+            "이전에 입력한 값"
+          ]
+        }
+      },
+      "message": "팀 소개는 이번에는 제공하지 않을게.",
+      "expected": {
+        "intent": "provide_information",
+        "fact_patches": [],
+        "collection_directive": {
+          "action": "skip_fields",
+          "fields": [
+            "maker_team_intro"
+          ]
+        }
+      },
+      "tags": [
+        "follow-up",
+        "skip_fields",
+        "maker_team_intro"
+      ]
+    },
+    {
+      "id": "field-083",
+      "description": "refund_policy clear",
+      "prior_facts": {
+        "refund_policy": {
+          "status": "provided",
+          "values": [
+            "이전에 입력한 값"
+          ]
+        }
+      },
+      "message": "환불 정책은 아직 정하지 못했어.",
+      "expected": {
+        "intent": "revise_information",
+        "fact_patches": [
+          {
+            "field": "refund_policy",
+            "operation": "clear",
+            "values": []
+          }
+        ]
+      },
+      "tags": [
+        "follow-up",
+        "clear",
+        "refund_policy"
+      ]
+    },
+    {
+      "id": "field-084",
+      "description": "as_policy clear",
+      "prior_facts": {
+        "as_policy": {
+          "status": "provided",
+          "values": [
+            "이전에 입력한 값"
+          ]
+        }
+      },
+      "message": "A/S 기간은 미정으로 돌려줘.",
+      "expected": {
+        "intent": "revise_information",
+        "fact_patches": [
+          {
+            "field": "as_policy",
+            "operation": "clear",
+            "values": []
+          }
+        ]
+      },
+      "tags": [
+        "follow-up",
+        "clear",
+        "as_policy"
+      ]
+    },
+    {
+      "id": "field-085",
+      "description": "platform_choice mark_absent",
+      "prior_facts": {
+        "platform_choice": {
+          "status": "provided",
+          "values": [
+            "이전에 입력한 값"
+          ]
+        }
+      },
+      "message": "플랫폼 선택 이유는 따로 없어.",
+      "expected": {
+        "intent": "revise_information",
+        "fact_patches": [
+          {
+            "field": "platform_choice",
+            "operation": "mark_absent",
+            "values": []
+          }
+        ]
+      },
+      "tags": [
+        "follow-up",
+        "mark_absent",
+        "platform_choice"
+      ]
+    },
+    {
+      "id": "field-086",
+      "description": "risk_response mark_absent",
+      "prior_facts": {
+        "risk_response": {
+          "status": "provided",
+          "values": [
+            "이전에 입력한 값"
+          ]
+        }
+      },
+      "message": "위험 대응 계획은 현재 없어.",
+      "expected": {
+        "intent": "revise_information",
+        "fact_patches": [
+          {
+            "field": "risk_response",
+            "operation": "mark_absent",
+            "values": []
+          }
+        ]
+      },
+      "tags": [
+        "follow-up",
+        "mark_absent",
+        "risk_response"
+      ]
+    },
+    {
+      "id": "field-087",
+      "description": "funding_plan clear",
+      "prior_facts": {
+        "funding_plan": {
+          "status": "provided",
+          "values": [
+            "이전에 입력한 값"
+          ]
+        }
+      },
+      "message": "사용 계획은 아직 미정이야.",
+      "expected": {
+        "intent": "revise_information",
+        "fact_patches": [
+          {
+            "field": "funding_plan",
+            "operation": "clear",
+            "values": []
+          }
+        ]
+      },
+      "tags": [
+        "follow-up",
+        "clear",
+        "funding_plan"
+      ]
+    },
+    {
+      "id": "field-088",
+      "description": "rewards clear",
+      "prior_facts": {
+        "rewards": {
+          "status": "provided",
+          "values": [
+            "이전에 입력한 값"
+          ]
+        }
+      },
+      "message": "리워드 가격은 미정으로 바꿔줘.",
+      "expected": {
+        "intent": "revise_information",
+        "fact_patches": [
+          {
+            "field": "rewards",
+            "operation": "clear",
+            "values": []
+          }
+        ]
+      },
+      "tags": [
+        "follow-up",
+        "clear",
+        "rewards"
+      ]
+    },
+    {
+      "id": "field-089",
+      "description": "shipping_start clear",
+      "prior_facts": {
+        "shipping_start": {
+          "status": "provided",
+          "values": [
+            "이전에 입력한 값"
+          ]
+        }
+      },
+      "message": "발송 일정은 아직 없어.",
+      "expected": {
+        "intent": "revise_information",
+        "fact_patches": [
+          {
+            "field": "shipping_start",
+            "operation": "clear",
+            "values": []
+          }
+        ]
+      },
+      "tags": [
+        "follow-up",
+        "clear",
+        "shipping_start"
+      ]
+    },
+    {
+      "id": "field-090",
+      "description": "problem_context clear",
+      "prior_facts": {
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "이전에 입력한 값"
+          ]
+        }
+      },
+      "message": "해결 문제는 우선 미정으로 둘게.",
+      "expected": {
+        "intent": "revise_information",
+        "fact_patches": [
+          {
+            "field": "problem_context",
+            "operation": "clear",
+            "values": []
+          }
+        ]
+      },
+      "tags": [
+        "follow-up",
+        "clear",
+        "problem_context"
+      ]
+    },
+    {
+      "id": "field-091",
+      "description": "의도 분류 request_generation",
+      "message": "이제 바로 스토리를 생성해줘.",
+      "expected": {
+        "intent": "request_generation",
+        "fact_patches": []
+      },
+      "tags": [
+        "intent",
+        "request_generation"
+      ]
+    },
+    {
+      "id": "field-092",
+      "description": "의도 분류 cancel",
+      "message": "스토리 생성은 취소할게.",
+      "expected": {
+        "intent": "cancel",
+        "fact_patches": []
+      },
+      "tags": [
+        "intent",
+        "cancel"
+      ]
+    },
+    {
+      "id": "field-093",
+      "description": "의도 분류 ask_question",
+      "message": "지금 확인된 정보가 뭐야?",
+      "expected": {
+        "intent": "ask_question",
+        "fact_patches": []
+      },
+      "tags": [
+        "intent",
+        "ask_question"
+      ]
+    },
+    {
+      "id": "field-094",
+      "description": "의도 분류 unclear",
+      "message": "그건 아까 말한 걸로 해줘.",
+      "expected": {
+        "intent": "unclear",
+        "fact_patches": [],
+        "requires_clarification": true,
+        "clarification_question": "어떤 정보를 뜻하는지 구체적으로 알려주세요."
+      },
+      "tags": [
+        "intent",
+        "unclear"
+      ]
+    },
+    {
+      "id": "field-095",
+      "description": "의도 분류 unclear",
+      "message": "조금 더 좋은 방향으로 알아서 정리해줘.",
+      "expected": {
+        "intent": "unclear",
+        "fact_patches": [],
+        "requires_clarification": true,
+        "clarification_question": "어떤 정보를 뜻하는지 구체적으로 알려주세요."
+      },
+      "tags": [
+        "intent",
+        "unclear"
+      ]
+    },
+    {
+      "id": "field-096",
+      "description": "의도 분류 provide_information",
+      "message": "와디즈에서 진행할 거야.",
+      "expected": {
+        "intent": "provide_information",
+        "fact_patches": []
+      },
+      "tags": [
+        "intent",
+        "provide_information"
+      ]
+    },
+    {
+      "id": "field-097",
+      "description": "의도 분류 ask_question",
+      "message": "제품 설명 예시를 하나 보여줘.",
+      "expected": {
+        "intent": "ask_question",
+        "fact_patches": []
+      },
+      "tags": [
+        "intent",
+        "ask_question"
+      ]
+    },
+    {
+      "id": "field-098",
+      "description": "의도 분류 cancel",
+      "message": "생성하지 말고 여기서 멈춰.",
+      "expected": {
+        "intent": "cancel",
+        "fact_patches": []
+      },
+      "tags": [
+        "intent",
+        "cancel"
+      ]
+    },
+    {
+      "id": "field-099",
+      "description": "의도 분류 unclear",
+      "message": "앞의 값은 지우고 아직 미정으로 해줘.",
+      "expected": {
+        "intent": "unclear",
+        "fact_patches": [],
+        "requires_clarification": true,
+        "clarification_question": "어떤 정보를 뜻하는지 구체적으로 알려주세요."
+      },
+      "tags": [
+        "intent",
+        "unclear"
+      ]
+    },
+    {
+      "id": "field-100",
+      "description": "의도 분류 ask_question",
+      "message": "이 정보로 생성할 수 있는지 알려줘.",
+      "expected": {
+        "intent": "ask_question",
+        "fact_patches": []
+      },
+      "tags": [
+        "intent",
+        "ask_question"
+      ]
+    }
+  ]
+}

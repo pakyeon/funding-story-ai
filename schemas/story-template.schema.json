@@ -12,6 +12,7 @@
     "category",
     "language",
     "generation_source",
+    "media_profile_ref",
     "target",
     "default_word_count",
     "narration_mode",
@@ -27,6 +28,10 @@
     "language": { "const": "ko" },
     "generation_source": {
       "enum": ["manual-analysis", "research-derived", "gemini-assisted"]
+    },
+    "media_profile_ref": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]+$"
     },
     "target": { "type": "string", "minLength": 1 },
     "default_word_count": { "type": "integer", "minimum": 500, "maximum": 5000 },

@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://funding-story-ai.local/evals/robot-vacuum-media-contrast-page-v1.schema.json",
+  "title": "Robot Vacuum Visual-heavy Contrast Page v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "page_id",
+    "page_tier",
+    "product_variant",
+    "success_evidence",
+    "dom_image_count",
+    "dom_loop_motion_count",
+    "core_text_level",
+    "render_width_observed",
+    "source_widths_observed",
+    "allowed_uses",
+    "prohibited_uses",
+    "notes"
+  ],
+  "properties": {
+    "page_id": { "type": "string", "pattern": "^[0-9]+$" },
+    "page_tier": { "const": "visual_heavy_contrast" },
+    "product_variant": { "type": "string", "minLength": 1 },
+    "success_evidence": { "type": "string", "minLength": 1 },
+    "dom_image_count": { "type": ["integer", "null"], "minimum": 0 },
+    "dom_loop_motion_count": { "type": ["integer", "null"], "minimum": 0 },
+    "core_text_level": { "enum": ["minimal", "low", "medium"] },
+    "render_width_observed": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "integer", "minimum": 1 }
+    },
+    "source_widths_observed": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "integer", "minimum": 1 }
+    },
+    "allowed_uses": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "prohibited_uses": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "notes": { "type": "string" }
+  }
+}

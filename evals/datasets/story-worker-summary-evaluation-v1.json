@@ -1,0 +1,6945 @@
+{
+  "schema_version": "story-worker-summary-evaluation-v1",
+  "cases": [
+    {
+      "id": "summary-001",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "오빗클린 V3 1"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "로봇청소기"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "테크·가전"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "얇은 본체"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "맞벌이 가구"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "skipped",
+        "trust_elements": "skipped",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "skipped",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-0"
+      ]
+    },
+    {
+      "id": "summary-002",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "브리즈팟 2"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "탁상용 공기청정기"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "테크·가전"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "저소음 정화"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "원룸 거주자"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 2시간이 소요됨"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "skipped",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "skipped",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-1"
+      ]
+    },
+    {
+      "id": "summary-003",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "슬립온 3"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "수면 안대"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "홈·리빙"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "빛 차단 구조"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "교대 근무자"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 3시간이 소요됨"
+          ]
+        },
+        "trust_elements": {
+          "status": "provided",
+          "values": [
+            "내구성 시험 102회 완료"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "resolved",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "skipped",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-2"
+      ]
+    },
+    {
+      "id": "summary-004",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "트레일라이트 4"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "초경량 텐트"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "스포츠·아웃도어"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "1kg 미만 무게"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "솔로 캠퍼"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 4시간이 소요됨"
+          ]
+        },
+        "trust_elements": {
+          "status": "provided",
+          "values": [
+            "내구성 시험 103회 완료"
+          ]
+        },
+        "refund_policy": {
+          "status": "explicitly-absent",
+          "values": []
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "resolved",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "resolved",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-3"
+      ]
+    },
+    {
+      "id": "summary-005",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "데일리결 5"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "기초 화장품"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "뷰티"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "무향 보습"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "민감성 피부 사용자"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 5시간이 소요됨"
+          ]
+        },
+        "trust_elements": {
+          "status": "provided",
+          "values": [
+            "내구성 시험 104회 완료"
+          ]
+        },
+        "refund_policy": {
+          "status": "explicitly-absent",
+          "values": []
+        },
+        "rewards": {
+          "status": "provided",
+          "values": [
+            "얼리버드 5개 한정"
+          ]
+        },
+        "shipping_start": {
+          "status": "provided",
+          "values": [
+            "2027년 5월 순차 발송"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "resolved",
+        "maker_team_intro": "skipped",
+        "rewards": "resolved",
+        "funding_end": "skipped",
+        "shipping_start": "resolved",
+        "refund_policy": "resolved",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-4"
+      ]
+    },
+    {
+      "id": "summary-006",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "펫세이프 6"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "반려동물 급식기"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "반려동물"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "정량 급여"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "직장인 반려인"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "skipped",
+        "trust_elements": "skipped",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "skipped",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-0"
+      ]
+    },
+    {
+      "id": "summary-007",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "리드메이트 7"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "전자책 단말기"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "도서·전자책"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "눈부심 저감"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "장시간 독서가"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 7시간이 소요됨"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "skipped",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "skipped",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-1"
+      ]
+    },
+    {
+      "id": "summary-008",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "키친큐브 8"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "밀폐용기"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "푸드"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "모듈형 적층"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "소형 주방 사용자"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 1시간이 소요됨"
+          ]
+        },
+        "trust_elements": {
+          "status": "provided",
+          "values": [
+            "내구성 시험 107회 완료"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "resolved",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "skipped",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-2"
+      ]
+    },
+    {
+      "id": "summary-009",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "워크핏 9"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "노트북 거치대"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "테크·가전"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "높이 조절"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "재택근무자"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 2시간이 소요됨"
+          ]
+        },
+        "trust_elements": {
+          "status": "provided",
+          "values": [
+            "내구성 시험 108회 완료"
+          ]
+        },
+        "refund_policy": {
+          "status": "explicitly-absent",
+          "values": []
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "resolved",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "resolved",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-3"
+      ]
+    },
+    {
+      "id": "summary-010",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "뮤트키 10"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "저소음 키보드"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "테크·가전"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "저소음 스위치"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "공유 사무실 사용자"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 3시간이 소요됨"
+          ]
+        },
+        "trust_elements": {
+          "status": "provided",
+          "values": [
+            "내구성 시험 109회 완료"
+          ]
+        },
+        "refund_policy": {
+          "status": "explicitly-absent",
+          "values": []
+        },
+        "rewards": {
+          "status": "provided",
+          "values": [
+            "얼리버드 10개 한정"
+          ]
+        },
+        "shipping_start": {
+          "status": "provided",
+          "values": [
+            "2027년 10월 순차 발송"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "resolved",
+        "maker_team_intro": "skipped",
+        "rewards": "resolved",
+        "funding_end": "skipped",
+        "shipping_start": "resolved",
+        "refund_policy": "resolved",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-4"
+      ]
+    },
+    {
+      "id": "summary-011",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "오빗클린 V3 11"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "로봇청소기"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "테크·가전"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "얇은 본체"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "맞벌이 가구"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "skipped",
+        "trust_elements": "skipped",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "skipped",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-0"
+      ]
+    },
+    {
+      "id": "summary-012",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "브리즈팟 12"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "탁상용 공기청정기"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "테크·가전"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "저소음 정화"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "원룸 거주자"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 5시간이 소요됨"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "skipped",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "skipped",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-1"
+      ]
+    },
+    {
+      "id": "summary-013",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "슬립온 13"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "수면 안대"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "홈·리빙"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "빛 차단 구조"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "교대 근무자"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 6시간이 소요됨"
+          ]
+        },
+        "trust_elements": {
+          "status": "provided",
+          "values": [
+            "내구성 시험 112회 완료"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "resolved",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "skipped",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-2"
+      ]
+    },
+    {
+      "id": "summary-014",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "트레일라이트 14"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "초경량 텐트"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "스포츠·아웃도어"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "1kg 미만 무게"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "솔로 캠퍼"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 7시간이 소요됨"
+          ]
+        },
+        "trust_elements": {
+          "status": "provided",
+          "values": [
+            "내구성 시험 113회 완료"
+          ]
+        },
+        "refund_policy": {
+          "status": "explicitly-absent",
+          "values": []
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "resolved",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "resolved",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-3"
+      ]
+    },
+    {
+      "id": "summary-015",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "데일리결 15"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "기초 화장품"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "뷰티"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "무향 보습"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "민감성 피부 사용자"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 1시간이 소요됨"
+          ]
+        },
+        "trust_elements": {
+          "status": "provided",
+          "values": [
+            "내구성 시험 114회 완료"
+          ]
+        },
+        "refund_policy": {
+          "status": "explicitly-absent",
+          "values": []
+        },
+        "rewards": {
+          "status": "provided",
+          "values": [
+            "얼리버드 15개 한정"
+          ]
+        },
+        "shipping_start": {
+          "status": "provided",
+          "values": [
+            "2027년 3월 순차 발송"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "resolved",
+        "maker_team_intro": "skipped",
+        "rewards": "resolved",
+        "funding_end": "skipped",
+        "shipping_start": "resolved",
+        "refund_policy": "resolved",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-4"
+      ]
+    },
+    {
+      "id": "summary-016",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "펫세이프 16"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "반려동물 급식기"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "반려동물"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "정량 급여"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "직장인 반려인"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "skipped",
+        "trust_elements": "skipped",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "skipped",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-0"
+      ]
+    },
+    {
+      "id": "summary-017",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "리드메이트 17"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "전자책 단말기"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "도서·전자책"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "눈부심 저감"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "장시간 독서가"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 3시간이 소요됨"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "skipped",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "skipped",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-1"
+      ]
+    },
+    {
+      "id": "summary-018",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "키친큐브 18"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "밀폐용기"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "푸드"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "모듈형 적층"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "소형 주방 사용자"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 4시간이 소요됨"
+          ]
+        },
+        "trust_elements": {
+          "status": "provided",
+          "values": [
+            "내구성 시험 117회 완료"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "resolved",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "skipped",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-2"
+      ]
+    },
+    {
+      "id": "summary-019",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "워크핏 19"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "노트북 거치대"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "테크·가전"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "높이 조절"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "재택근무자"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 5시간이 소요됨"
+          ]
+        },
+        "trust_elements": {
+          "status": "provided",
+          "values": [
+            "내구성 시험 118회 완료"
+          ]
+        },
+        "refund_policy": {
+          "status": "explicitly-absent",
+          "values": []
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "resolved",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "resolved",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-3"
+      ]
+    },
+    {
+      "id": "summary-020",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "뮤트키 20"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "저소음 키보드"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "테크·가전"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "저소음 스위치"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "공유 사무실 사용자"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 6시간이 소요됨"
+          ]
+        },
+        "trust_elements": {
+          "status": "provided",
+          "values": [
+            "내구성 시험 119회 완료"
+          ]
+        },
+        "refund_policy": {
+          "status": "explicitly-absent",
+          "values": []
+        },
+        "rewards": {
+          "status": "provided",
+          "values": [
+            "얼리버드 20개 한정"
+          ]
+        },
+        "shipping_start": {
+          "status": "provided",
+          "values": [
+            "2027년 8월 순차 발송"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "resolved",
+        "maker_team_intro": "skipped",
+        "rewards": "resolved",
+        "funding_end": "skipped",
+        "shipping_start": "resolved",
+        "refund_policy": "resolved",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-4"
+      ]
+    },
+    {
+      "id": "summary-021",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "오빗클린 V3 21"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "로봇청소기"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "테크·가전"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "얇은 본체"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "맞벌이 가구"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "skipped",
+        "trust_elements": "skipped",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "skipped",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-0"
+      ]
+    },
+    {
+      "id": "summary-022",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "브리즈팟 22"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "탁상용 공기청정기"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "테크·가전"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "저소음 정화"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "원룸 거주자"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 1시간이 소요됨"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "skipped",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "skipped",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-1"
+      ]
+    },
+    {
+      "id": "summary-023",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "슬립온 23"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "수면 안대"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "홈·리빙"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "빛 차단 구조"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "교대 근무자"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 2시간이 소요됨"
+          ]
+        },
+        "trust_elements": {
+          "status": "provided",
+          "values": [
+            "내구성 시험 122회 완료"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "resolved",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "skipped",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-2"
+      ]
+    },
+    {
+      "id": "summary-024",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "트레일라이트 24"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "초경량 텐트"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "스포츠·아웃도어"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "1kg 미만 무게"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "솔로 캠퍼"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 3시간이 소요됨"
+          ]
+        },
+        "trust_elements": {
+          "status": "provided",
+          "values": [
+            "내구성 시험 123회 완료"
+          ]
+        },
+        "refund_policy": {
+          "status": "explicitly-absent",
+          "values": []
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "resolved",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "resolved",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-3"
+      ]
+    },
+    {
+      "id": "summary-025",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "데일리결 25"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "기초 화장품"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "뷰티"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "무향 보습"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "민감성 피부 사용자"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 4시간이 소요됨"
+          ]
+        },
+        "trust_elements": {
+          "status": "provided",
+          "values": [
+            "내구성 시험 124회 완료"
+          ]
+        },
+        "refund_policy": {
+          "status": "explicitly-absent",
+          "values": []
+        },
+        "rewards": {
+          "status": "provided",
+          "values": [
+            "얼리버드 25개 한정"
+          ]
+        },
+        "shipping_start": {
+          "status": "provided",
+          "values": [
+            "2027년 1월 순차 발송"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "resolved",
+        "maker_team_intro": "skipped",
+        "rewards": "resolved",
+        "funding_end": "skipped",
+        "shipping_start": "resolved",
+        "refund_policy": "resolved",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-4"
+      ]
+    },
+    {
+      "id": "summary-026",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "펫세이프 26"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "반려동물 급식기"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "반려동물"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "정량 급여"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "직장인 반려인"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "skipped",
+        "trust_elements": "skipped",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "skipped",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-0"
+      ]
+    },
+    {
+      "id": "summary-027",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "리드메이트 27"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "전자책 단말기"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "도서·전자책"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "눈부심 저감"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "장시간 독서가"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 6시간이 소요됨"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "skipped",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "skipped",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-1"
+      ]
+    },
+    {
+      "id": "summary-028",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "키친큐브 28"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "밀폐용기"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "푸드"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "모듈형 적층"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "소형 주방 사용자"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 7시간이 소요됨"
+          ]
+        },
+        "trust_elements": {
+          "status": "provided",
+          "values": [
+            "내구성 시험 127회 완료"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "resolved",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "skipped",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-2"
+      ]
+    },
+    {
+      "id": "summary-029",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "워크핏 29"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "노트북 거치대"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "테크·가전"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "높이 조절"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "재택근무자"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 1시간이 소요됨"
+          ]
+        },
+        "trust_elements": {
+          "status": "provided",
+          "values": [
+            "내구성 시험 128회 완료"
+          ]
+        },
+        "refund_policy": {
+          "status": "explicitly-absent",
+          "values": []
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "resolved",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "resolved",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-3"
+      ]
+    },
+    {
+      "id": "summary-030",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "뮤트키 30"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "저소음 키보드"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "테크·가전"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "저소음 스위치"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "공유 사무실 사용자"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 2시간이 소요됨"
+          ]
+        },
+        "trust_elements": {
+          "status": "provided",
+          "values": [
+            "내구성 시험 129회 완료"
+          ]
+        },
+        "refund_policy": {
+          "status": "explicitly-absent",
+          "values": []
+        },
+        "rewards": {
+          "status": "provided",
+          "values": [
+            "얼리버드 30개 한정"
+          ]
+        },
+        "shipping_start": {
+          "status": "provided",
+          "values": [
+            "2027년 6월 순차 발송"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "resolved",
+        "maker_team_intro": "skipped",
+        "rewards": "resolved",
+        "funding_end": "skipped",
+        "shipping_start": "resolved",
+        "refund_policy": "resolved",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-4"
+      ]
+    },
+    {
+      "id": "summary-031",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "오빗클린 V3 31"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "로봇청소기"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "테크·가전"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "얇은 본체"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "맞벌이 가구"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "skipped",
+        "trust_elements": "skipped",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "skipped",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-0"
+      ]
+    },
+    {
+      "id": "summary-032",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "브리즈팟 32"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "탁상용 공기청정기"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "테크·가전"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "저소음 정화"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "원룸 거주자"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 4시간이 소요됨"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "skipped",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "skipped",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-1"
+      ]
+    },
+    {
+      "id": "summary-033",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "슬립온 33"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "수면 안대"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "홈·리빙"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "빛 차단 구조"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "교대 근무자"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 5시간이 소요됨"
+          ]
+        },
+        "trust_elements": {
+          "status": "provided",
+          "values": [
+            "내구성 시험 132회 완료"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "resolved",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "skipped",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-2"
+      ]
+    },
+    {
+      "id": "summary-034",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "트레일라이트 34"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "초경량 텐트"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "스포츠·아웃도어"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "1kg 미만 무게"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "솔로 캠퍼"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 6시간이 소요됨"
+          ]
+        },
+        "trust_elements": {
+          "status": "provided",
+          "values": [
+            "내구성 시험 133회 완료"
+          ]
+        },
+        "refund_policy": {
+          "status": "explicitly-absent",
+          "values": []
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "resolved",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "resolved",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-3"
+      ]
+    },
+    {
+      "id": "summary-035",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "데일리결 35"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "기초 화장품"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "뷰티"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "무향 보습"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "민감성 피부 사용자"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 7시간이 소요됨"
+          ]
+        },
+        "trust_elements": {
+          "status": "provided",
+          "values": [
+            "내구성 시험 134회 완료"
+          ]
+        },
+        "refund_policy": {
+          "status": "explicitly-absent",
+          "values": []
+        },
+        "rewards": {
+          "status": "provided",
+          "values": [
+            "얼리버드 35개 한정"
+          ]
+        },
+        "shipping_start": {
+          "status": "provided",
+          "values": [
+            "2027년 11월 순차 발송"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "resolved",
+        "maker_team_intro": "skipped",
+        "rewards": "resolved",
+        "funding_end": "skipped",
+        "shipping_start": "resolved",
+        "refund_policy": "resolved",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-4"
+      ]
+    },
+    {
+      "id": "summary-036",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "펫세이프 36"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "반려동물 급식기"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "반려동물"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "정량 급여"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "직장인 반려인"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "skipped",
+        "trust_elements": "skipped",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "skipped",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-0"
+      ]
+    },
+    {
+      "id": "summary-037",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "리드메이트 37"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "전자책 단말기"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "도서·전자책"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "눈부심 저감"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "장시간 독서가"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 2시간이 소요됨"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "skipped",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "skipped",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-1"
+      ]
+    },
+    {
+      "id": "summary-038",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "키친큐브 38"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "밀폐용기"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "푸드"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "모듈형 적층"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "소형 주방 사용자"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 3시간이 소요됨"
+          ]
+        },
+        "trust_elements": {
+          "status": "provided",
+          "values": [
+            "내구성 시험 137회 완료"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "resolved",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "skipped",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-2"
+      ]
+    },
+    {
+      "id": "summary-039",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "워크핏 39"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "노트북 거치대"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "테크·가전"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "높이 조절"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "재택근무자"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 4시간이 소요됨"
+          ]
+        },
+        "trust_elements": {
+          "status": "provided",
+          "values": [
+            "내구성 시험 138회 완료"
+          ]
+        },
+        "refund_policy": {
+          "status": "explicitly-absent",
+          "values": []
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "resolved",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "resolved",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-3"
+      ]
+    },
+    {
+      "id": "summary-040",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "뮤트키 40"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "저소음 키보드"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "테크·가전"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "저소음 스위치"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "공유 사무실 사용자"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 5시간이 소요됨"
+          ]
+        },
+        "trust_elements": {
+          "status": "provided",
+          "values": [
+            "내구성 시험 139회 완료"
+          ]
+        },
+        "refund_policy": {
+          "status": "explicitly-absent",
+          "values": []
+        },
+        "rewards": {
+          "status": "provided",
+          "values": [
+            "얼리버드 40개 한정"
+          ]
+        },
+        "shipping_start": {
+          "status": "provided",
+          "values": [
+            "2027년 4월 순차 발송"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "resolved",
+        "maker_team_intro": "skipped",
+        "rewards": "resolved",
+        "funding_end": "skipped",
+        "shipping_start": "resolved",
+        "refund_policy": "resolved",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-4"
+      ]
+    },
+    {
+      "id": "summary-041",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "오빗클린 V3 41"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "로봇청소기"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "테크·가전"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "얇은 본체"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "맞벌이 가구"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "skipped",
+        "trust_elements": "skipped",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "skipped",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-0"
+      ]
+    },
+    {
+      "id": "summary-042",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "브리즈팟 42"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "탁상용 공기청정기"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "테크·가전"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "저소음 정화"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "원룸 거주자"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 7시간이 소요됨"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "skipped",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "skipped",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-1"
+      ]
+    },
+    {
+      "id": "summary-043",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "슬립온 43"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "수면 안대"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "홈·리빙"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "빛 차단 구조"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "교대 근무자"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 1시간이 소요됨"
+          ]
+        },
+        "trust_elements": {
+          "status": "provided",
+          "values": [
+            "내구성 시험 142회 완료"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "resolved",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "skipped",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-2"
+      ]
+    },
+    {
+      "id": "summary-044",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "트레일라이트 44"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "초경량 텐트"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "스포츠·아웃도어"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "1kg 미만 무게"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "솔로 캠퍼"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 2시간이 소요됨"
+          ]
+        },
+        "trust_elements": {
+          "status": "provided",
+          "values": [
+            "내구성 시험 143회 완료"
+          ]
+        },
+        "refund_policy": {
+          "status": "explicitly-absent",
+          "values": []
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "resolved",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "resolved",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-3"
+      ]
+    },
+    {
+      "id": "summary-045",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "데일리결 45"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "기초 화장품"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "뷰티"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "무향 보습"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "민감성 피부 사용자"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 3시간이 소요됨"
+          ]
+        },
+        "trust_elements": {
+          "status": "provided",
+          "values": [
+            "내구성 시험 144회 완료"
+          ]
+        },
+        "refund_policy": {
+          "status": "explicitly-absent",
+          "values": []
+        },
+        "rewards": {
+          "status": "provided",
+          "values": [
+            "얼리버드 45개 한정"
+          ]
+        },
+        "shipping_start": {
+          "status": "provided",
+          "values": [
+            "2027년 9월 순차 발송"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "resolved",
+        "maker_team_intro": "skipped",
+        "rewards": "resolved",
+        "funding_end": "skipped",
+        "shipping_start": "resolved",
+        "refund_policy": "resolved",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-4"
+      ]
+    },
+    {
+      "id": "summary-046",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "펫세이프 46"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "반려동물 급식기"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "반려동물"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "정량 급여"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "직장인 반려인"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "skipped",
+        "trust_elements": "skipped",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "skipped",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-0"
+      ]
+    },
+    {
+      "id": "summary-047",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "리드메이트 47"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "전자책 단말기"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "도서·전자책"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "눈부심 저감"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "장시간 독서가"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 5시간이 소요됨"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "skipped",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "skipped",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-1"
+      ]
+    },
+    {
+      "id": "summary-048",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "키친큐브 48"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "밀폐용기"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "푸드"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "모듈형 적층"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "소형 주방 사용자"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 6시간이 소요됨"
+          ]
+        },
+        "trust_elements": {
+          "status": "provided",
+          "values": [
+            "내구성 시험 147회 완료"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "resolved",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "skipped",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-2"
+      ]
+    },
+    {
+      "id": "summary-049",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "워크핏 49"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "노트북 거치대"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "테크·가전"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "높이 조절"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "재택근무자"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 7시간이 소요됨"
+          ]
+        },
+        "trust_elements": {
+          "status": "provided",
+          "values": [
+            "내구성 시험 148회 완료"
+          ]
+        },
+        "refund_policy": {
+          "status": "explicitly-absent",
+          "values": []
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "resolved",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "resolved",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-3"
+      ]
+    },
+    {
+      "id": "summary-050",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "뮤트키 50"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "저소음 키보드"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "테크·가전"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "저소음 스위치"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "공유 사무실 사용자"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 1시간이 소요됨"
+          ]
+        },
+        "trust_elements": {
+          "status": "provided",
+          "values": [
+            "내구성 시험 149회 완료"
+          ]
+        },
+        "refund_policy": {
+          "status": "explicitly-absent",
+          "values": []
+        },
+        "rewards": {
+          "status": "provided",
+          "values": [
+            "얼리버드 50개 한정"
+          ]
+        },
+        "shipping_start": {
+          "status": "provided",
+          "values": [
+            "2027년 2월 순차 발송"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "resolved",
+        "maker_team_intro": "skipped",
+        "rewards": "resolved",
+        "funding_end": "skipped",
+        "shipping_start": "resolved",
+        "refund_policy": "resolved",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-4"
+      ]
+    },
+    {
+      "id": "summary-051",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "오빗클린 V3 51"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "로봇청소기"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "테크·가전"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "얇은 본체"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "맞벌이 가구"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "skipped",
+        "trust_elements": "skipped",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "skipped",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-0"
+      ]
+    },
+    {
+      "id": "summary-052",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "브리즈팟 52"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "탁상용 공기청정기"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "테크·가전"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "저소음 정화"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "원룸 거주자"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 3시간이 소요됨"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "skipped",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "skipped",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-1"
+      ]
+    },
+    {
+      "id": "summary-053",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "슬립온 53"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "수면 안대"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "홈·리빙"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "빛 차단 구조"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "교대 근무자"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 4시간이 소요됨"
+          ]
+        },
+        "trust_elements": {
+          "status": "provided",
+          "values": [
+            "내구성 시험 152회 완료"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "resolved",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "skipped",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-2"
+      ]
+    },
+    {
+      "id": "summary-054",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "트레일라이트 54"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "초경량 텐트"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "스포츠·아웃도어"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "1kg 미만 무게"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "솔로 캠퍼"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 5시간이 소요됨"
+          ]
+        },
+        "trust_elements": {
+          "status": "provided",
+          "values": [
+            "내구성 시험 153회 완료"
+          ]
+        },
+        "refund_policy": {
+          "status": "explicitly-absent",
+          "values": []
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "resolved",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "resolved",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-3"
+      ]
+    },
+    {
+      "id": "summary-055",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "데일리결 55"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "기초 화장품"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "뷰티"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "무향 보습"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "민감성 피부 사용자"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 6시간이 소요됨"
+          ]
+        },
+        "trust_elements": {
+          "status": "provided",
+          "values": [
+            "내구성 시험 154회 완료"
+          ]
+        },
+        "refund_policy": {
+          "status": "explicitly-absent",
+          "values": []
+        },
+        "rewards": {
+          "status": "provided",
+          "values": [
+            "얼리버드 55개 한정"
+          ]
+        },
+        "shipping_start": {
+          "status": "provided",
+          "values": [
+            "2027년 7월 순차 발송"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "resolved",
+        "maker_team_intro": "skipped",
+        "rewards": "resolved",
+        "funding_end": "skipped",
+        "shipping_start": "resolved",
+        "refund_policy": "resolved",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-4"
+      ]
+    },
+    {
+      "id": "summary-056",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "펫세이프 56"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "반려동물 급식기"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "반려동물"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "정량 급여"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "직장인 반려인"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "skipped",
+        "trust_elements": "skipped",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "skipped",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-0"
+      ]
+    },
+    {
+      "id": "summary-057",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "리드메이트 57"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "전자책 단말기"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "도서·전자책"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "눈부심 저감"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "장시간 독서가"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 1시간이 소요됨"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "skipped",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "skipped",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-1"
+      ]
+    },
+    {
+      "id": "summary-058",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "키친큐브 58"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "밀폐용기"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "푸드"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "모듈형 적층"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "소형 주방 사용자"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 2시간이 소요됨"
+          ]
+        },
+        "trust_elements": {
+          "status": "provided",
+          "values": [
+            "내구성 시험 157회 완료"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "resolved",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "skipped",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-2"
+      ]
+    },
+    {
+      "id": "summary-059",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "워크핏 59"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "노트북 거치대"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "테크·가전"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "높이 조절"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "재택근무자"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 3시간이 소요됨"
+          ]
+        },
+        "trust_elements": {
+          "status": "provided",
+          "values": [
+            "내구성 시험 158회 완료"
+          ]
+        },
+        "refund_policy": {
+          "status": "explicitly-absent",
+          "values": []
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "resolved",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "resolved",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-3"
+      ]
+    },
+    {
+      "id": "summary-060",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "뮤트키 60"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "저소음 키보드"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "테크·가전"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "저소음 스위치"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "공유 사무실 사용자"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 4시간이 소요됨"
+          ]
+        },
+        "trust_elements": {
+          "status": "provided",
+          "values": [
+            "내구성 시험 159회 완료"
+          ]
+        },
+        "refund_policy": {
+          "status": "explicitly-absent",
+          "values": []
+        },
+        "rewards": {
+          "status": "provided",
+          "values": [
+            "얼리버드 60개 한정"
+          ]
+        },
+        "shipping_start": {
+          "status": "provided",
+          "values": [
+            "2027년 12월 순차 발송"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "resolved",
+        "maker_team_intro": "skipped",
+        "rewards": "resolved",
+        "funding_end": "skipped",
+        "shipping_start": "resolved",
+        "refund_policy": "resolved",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-4"
+      ]
+    },
+    {
+      "id": "summary-061",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "오빗클린 V3 61"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "로봇청소기"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "테크·가전"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "얇은 본체"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "맞벌이 가구"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "skipped",
+        "trust_elements": "skipped",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "skipped",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-0"
+      ]
+    },
+    {
+      "id": "summary-062",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "브리즈팟 62"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "탁상용 공기청정기"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "테크·가전"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "저소음 정화"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "원룸 거주자"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 6시간이 소요됨"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "skipped",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "skipped",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-1"
+      ]
+    },
+    {
+      "id": "summary-063",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "슬립온 63"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "수면 안대"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "홈·리빙"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "빛 차단 구조"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "교대 근무자"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 7시간이 소요됨"
+          ]
+        },
+        "trust_elements": {
+          "status": "provided",
+          "values": [
+            "내구성 시험 162회 완료"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "resolved",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "skipped",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-2"
+      ]
+    },
+    {
+      "id": "summary-064",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "트레일라이트 64"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "초경량 텐트"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "스포츠·아웃도어"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "1kg 미만 무게"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "솔로 캠퍼"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 1시간이 소요됨"
+          ]
+        },
+        "trust_elements": {
+          "status": "provided",
+          "values": [
+            "내구성 시험 163회 완료"
+          ]
+        },
+        "refund_policy": {
+          "status": "explicitly-absent",
+          "values": []
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "resolved",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "resolved",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-3"
+      ]
+    },
+    {
+      "id": "summary-065",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "데일리결 65"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "기초 화장품"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "뷰티"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "무향 보습"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "민감성 피부 사용자"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 2시간이 소요됨"
+          ]
+        },
+        "trust_elements": {
+          "status": "provided",
+          "values": [
+            "내구성 시험 164회 완료"
+          ]
+        },
+        "refund_policy": {
+          "status": "explicitly-absent",
+          "values": []
+        },
+        "rewards": {
+          "status": "provided",
+          "values": [
+            "얼리버드 65개 한정"
+          ]
+        },
+        "shipping_start": {
+          "status": "provided",
+          "values": [
+            "2027년 5월 순차 발송"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "resolved",
+        "maker_team_intro": "skipped",
+        "rewards": "resolved",
+        "funding_end": "skipped",
+        "shipping_start": "resolved",
+        "refund_policy": "resolved",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-4"
+      ]
+    },
+    {
+      "id": "summary-066",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "펫세이프 66"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "반려동물 급식기"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "반려동물"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "정량 급여"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "직장인 반려인"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "skipped",
+        "trust_elements": "skipped",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "skipped",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-0"
+      ]
+    },
+    {
+      "id": "summary-067",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "리드메이트 67"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "전자책 단말기"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "도서·전자책"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "눈부심 저감"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "장시간 독서가"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 4시간이 소요됨"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "skipped",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "skipped",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-1"
+      ]
+    },
+    {
+      "id": "summary-068",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "키친큐브 68"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "밀폐용기"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "푸드"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "모듈형 적층"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "소형 주방 사용자"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 5시간이 소요됨"
+          ]
+        },
+        "trust_elements": {
+          "status": "provided",
+          "values": [
+            "내구성 시험 167회 완료"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "resolved",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "skipped",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-2"
+      ]
+    },
+    {
+      "id": "summary-069",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "워크핏 69"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "노트북 거치대"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "테크·가전"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "높이 조절"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "재택근무자"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 6시간이 소요됨"
+          ]
+        },
+        "trust_elements": {
+          "status": "provided",
+          "values": [
+            "내구성 시험 168회 완료"
+          ]
+        },
+        "refund_policy": {
+          "status": "explicitly-absent",
+          "values": []
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "resolved",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "resolved",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-3"
+      ]
+    },
+    {
+      "id": "summary-070",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "뮤트키 70"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "저소음 키보드"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "테크·가전"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "저소음 스위치"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "공유 사무실 사용자"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 7시간이 소요됨"
+          ]
+        },
+        "trust_elements": {
+          "status": "provided",
+          "values": [
+            "내구성 시험 169회 완료"
+          ]
+        },
+        "refund_policy": {
+          "status": "explicitly-absent",
+          "values": []
+        },
+        "rewards": {
+          "status": "provided",
+          "values": [
+            "얼리버드 70개 한정"
+          ]
+        },
+        "shipping_start": {
+          "status": "provided",
+          "values": [
+            "2027년 10월 순차 발송"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "resolved",
+        "maker_team_intro": "skipped",
+        "rewards": "resolved",
+        "funding_end": "skipped",
+        "shipping_start": "resolved",
+        "refund_policy": "resolved",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-4"
+      ]
+    },
+    {
+      "id": "summary-071",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "오빗클린 V3 71"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "로봇청소기"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "테크·가전"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "얇은 본체"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "맞벌이 가구"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "skipped",
+        "trust_elements": "skipped",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "skipped",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-0"
+      ]
+    },
+    {
+      "id": "summary-072",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "브리즈팟 72"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "탁상용 공기청정기"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "테크·가전"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "저소음 정화"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "원룸 거주자"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 2시간이 소요됨"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "skipped",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "skipped",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-1"
+      ]
+    },
+    {
+      "id": "summary-073",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "슬립온 73"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "수면 안대"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "홈·리빙"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "빛 차단 구조"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "교대 근무자"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 3시간이 소요됨"
+          ]
+        },
+        "trust_elements": {
+          "status": "provided",
+          "values": [
+            "내구성 시험 172회 완료"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "resolved",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "skipped",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-2"
+      ]
+    },
+    {
+      "id": "summary-074",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "트레일라이트 74"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "초경량 텐트"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "스포츠·아웃도어"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "1kg 미만 무게"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "솔로 캠퍼"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 4시간이 소요됨"
+          ]
+        },
+        "trust_elements": {
+          "status": "provided",
+          "values": [
+            "내구성 시험 173회 완료"
+          ]
+        },
+        "refund_policy": {
+          "status": "explicitly-absent",
+          "values": []
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "resolved",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "resolved",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-3"
+      ]
+    },
+    {
+      "id": "summary-075",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "데일리결 75"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "기초 화장품"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "뷰티"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "무향 보습"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "민감성 피부 사용자"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 5시간이 소요됨"
+          ]
+        },
+        "trust_elements": {
+          "status": "provided",
+          "values": [
+            "내구성 시험 174회 완료"
+          ]
+        },
+        "refund_policy": {
+          "status": "explicitly-absent",
+          "values": []
+        },
+        "rewards": {
+          "status": "provided",
+          "values": [
+            "얼리버드 75개 한정"
+          ]
+        },
+        "shipping_start": {
+          "status": "provided",
+          "values": [
+            "2027년 3월 순차 발송"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "resolved",
+        "maker_team_intro": "skipped",
+        "rewards": "resolved",
+        "funding_end": "skipped",
+        "shipping_start": "resolved",
+        "refund_policy": "resolved",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-4"
+      ]
+    },
+    {
+      "id": "summary-076",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "펫세이프 76"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "반려동물 급식기"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "반려동물"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "정량 급여"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "직장인 반려인"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "skipped",
+        "trust_elements": "skipped",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "skipped",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-0"
+      ]
+    },
+    {
+      "id": "summary-077",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "리드메이트 77"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "전자책 단말기"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "도서·전자책"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "눈부심 저감"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "장시간 독서가"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 7시간이 소요됨"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "skipped",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "skipped",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-1"
+      ]
+    },
+    {
+      "id": "summary-078",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "키친큐브 78"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "밀폐용기"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "푸드"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "모듈형 적층"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "소형 주방 사용자"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 1시간이 소요됨"
+          ]
+        },
+        "trust_elements": {
+          "status": "provided",
+          "values": [
+            "내구성 시험 177회 완료"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "resolved",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "skipped",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-2"
+      ]
+    },
+    {
+      "id": "summary-079",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "워크핏 79"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "노트북 거치대"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "테크·가전"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "높이 조절"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "재택근무자"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 2시간이 소요됨"
+          ]
+        },
+        "trust_elements": {
+          "status": "provided",
+          "values": [
+            "내구성 시험 178회 완료"
+          ]
+        },
+        "refund_policy": {
+          "status": "explicitly-absent",
+          "values": []
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "resolved",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "resolved",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-3"
+      ]
+    },
+    {
+      "id": "summary-080",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "뮤트키 80"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "저소음 키보드"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "테크·가전"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "저소음 스위치"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "공유 사무실 사용자"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 3시간이 소요됨"
+          ]
+        },
+        "trust_elements": {
+          "status": "provided",
+          "values": [
+            "내구성 시험 179회 완료"
+          ]
+        },
+        "refund_policy": {
+          "status": "explicitly-absent",
+          "values": []
+        },
+        "rewards": {
+          "status": "provided",
+          "values": [
+            "얼리버드 80개 한정"
+          ]
+        },
+        "shipping_start": {
+          "status": "provided",
+          "values": [
+            "2027년 8월 순차 발송"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "resolved",
+        "maker_team_intro": "skipped",
+        "rewards": "resolved",
+        "funding_end": "skipped",
+        "shipping_start": "resolved",
+        "refund_policy": "resolved",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-4"
+      ]
+    },
+    {
+      "id": "summary-081",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "오빗클린 V3 81"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "로봇청소기"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "테크·가전"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "얇은 본체"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "맞벌이 가구"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "skipped",
+        "trust_elements": "skipped",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "skipped",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-0"
+      ]
+    },
+    {
+      "id": "summary-082",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "브리즈팟 82"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "탁상용 공기청정기"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "테크·가전"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "저소음 정화"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "원룸 거주자"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 5시간이 소요됨"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "skipped",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "skipped",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-1"
+      ]
+    },
+    {
+      "id": "summary-083",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "슬립온 83"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "수면 안대"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "홈·리빙"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "빛 차단 구조"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "교대 근무자"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 6시간이 소요됨"
+          ]
+        },
+        "trust_elements": {
+          "status": "provided",
+          "values": [
+            "내구성 시험 182회 완료"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "resolved",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "skipped",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-2"
+      ]
+    },
+    {
+      "id": "summary-084",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "트레일라이트 84"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "초경량 텐트"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "스포츠·아웃도어"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "1kg 미만 무게"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "솔로 캠퍼"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 7시간이 소요됨"
+          ]
+        },
+        "trust_elements": {
+          "status": "provided",
+          "values": [
+            "내구성 시험 183회 완료"
+          ]
+        },
+        "refund_policy": {
+          "status": "explicitly-absent",
+          "values": []
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "resolved",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "resolved",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-3"
+      ]
+    },
+    {
+      "id": "summary-085",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "데일리결 85"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "기초 화장품"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "뷰티"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "무향 보습"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "민감성 피부 사용자"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 1시간이 소요됨"
+          ]
+        },
+        "trust_elements": {
+          "status": "provided",
+          "values": [
+            "내구성 시험 184회 완료"
+          ]
+        },
+        "refund_policy": {
+          "status": "explicitly-absent",
+          "values": []
+        },
+        "rewards": {
+          "status": "provided",
+          "values": [
+            "얼리버드 85개 한정"
+          ]
+        },
+        "shipping_start": {
+          "status": "provided",
+          "values": [
+            "2027년 1월 순차 발송"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "resolved",
+        "maker_team_intro": "skipped",
+        "rewards": "resolved",
+        "funding_end": "skipped",
+        "shipping_start": "resolved",
+        "refund_policy": "resolved",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-4"
+      ]
+    },
+    {
+      "id": "summary-086",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "펫세이프 86"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "반려동물 급식기"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "반려동물"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "정량 급여"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "직장인 반려인"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "skipped",
+        "trust_elements": "skipped",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "skipped",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-0"
+      ]
+    },
+    {
+      "id": "summary-087",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "리드메이트 87"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "전자책 단말기"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "도서·전자책"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "눈부심 저감"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "장시간 독서가"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 3시간이 소요됨"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "skipped",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "skipped",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-1"
+      ]
+    },
+    {
+      "id": "summary-088",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "키친큐브 88"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "밀폐용기"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "푸드"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "모듈형 적층"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "소형 주방 사용자"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 4시간이 소요됨"
+          ]
+        },
+        "trust_elements": {
+          "status": "provided",
+          "values": [
+            "내구성 시험 187회 완료"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "resolved",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "skipped",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-2"
+      ]
+    },
+    {
+      "id": "summary-089",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "워크핏 89"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "노트북 거치대"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "테크·가전"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "높이 조절"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "재택근무자"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 5시간이 소요됨"
+          ]
+        },
+        "trust_elements": {
+          "status": "provided",
+          "values": [
+            "내구성 시험 188회 완료"
+          ]
+        },
+        "refund_policy": {
+          "status": "explicitly-absent",
+          "values": []
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "resolved",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "resolved",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-3"
+      ]
+    },
+    {
+      "id": "summary-090",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "뮤트키 90"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "저소음 키보드"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "테크·가전"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "저소음 스위치"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "공유 사무실 사용자"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 6시간이 소요됨"
+          ]
+        },
+        "trust_elements": {
+          "status": "provided",
+          "values": [
+            "내구성 시험 189회 완료"
+          ]
+        },
+        "refund_policy": {
+          "status": "explicitly-absent",
+          "values": []
+        },
+        "rewards": {
+          "status": "provided",
+          "values": [
+            "얼리버드 90개 한정"
+          ]
+        },
+        "shipping_start": {
+          "status": "provided",
+          "values": [
+            "2027년 6월 순차 발송"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "resolved",
+        "maker_team_intro": "skipped",
+        "rewards": "resolved",
+        "funding_end": "skipped",
+        "shipping_start": "resolved",
+        "refund_policy": "resolved",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-4"
+      ]
+    },
+    {
+      "id": "summary-091",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "오빗클린 V3 91"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "로봇청소기"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "테크·가전"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "얇은 본체"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "맞벌이 가구"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "skipped",
+        "trust_elements": "skipped",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "skipped",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-0"
+      ]
+    },
+    {
+      "id": "summary-092",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "브리즈팟 92"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "탁상용 공기청정기"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "테크·가전"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "저소음 정화"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "원룸 거주자"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 1시간이 소요됨"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "skipped",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "skipped",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-1"
+      ]
+    },
+    {
+      "id": "summary-093",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "슬립온 93"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "수면 안대"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "홈·리빙"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "빛 차단 구조"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "교대 근무자"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 2시간이 소요됨"
+          ]
+        },
+        "trust_elements": {
+          "status": "provided",
+          "values": [
+            "내구성 시험 192회 완료"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "resolved",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "skipped",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-2"
+      ]
+    },
+    {
+      "id": "summary-094",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "트레일라이트 94"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "초경량 텐트"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "스포츠·아웃도어"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "1kg 미만 무게"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "솔로 캠퍼"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 3시간이 소요됨"
+          ]
+        },
+        "trust_elements": {
+          "status": "provided",
+          "values": [
+            "내구성 시험 193회 완료"
+          ]
+        },
+        "refund_policy": {
+          "status": "explicitly-absent",
+          "values": []
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "resolved",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "resolved",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-3"
+      ]
+    },
+    {
+      "id": "summary-095",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "데일리결 95"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "기초 화장품"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "뷰티"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "무향 보습"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "민감성 피부 사용자"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 4시간이 소요됨"
+          ]
+        },
+        "trust_elements": {
+          "status": "provided",
+          "values": [
+            "내구성 시험 194회 완료"
+          ]
+        },
+        "refund_policy": {
+          "status": "explicitly-absent",
+          "values": []
+        },
+        "rewards": {
+          "status": "provided",
+          "values": [
+            "얼리버드 95개 한정"
+          ]
+        },
+        "shipping_start": {
+          "status": "provided",
+          "values": [
+            "2027년 11월 순차 발송"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "resolved",
+        "maker_team_intro": "skipped",
+        "rewards": "resolved",
+        "funding_end": "skipped",
+        "shipping_start": "resolved",
+        "refund_policy": "resolved",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-4"
+      ]
+    },
+    {
+      "id": "summary-096",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "펫세이프 96"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "반려동물 급식기"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "반려동물"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "정량 급여"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "직장인 반려인"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "skipped",
+        "trust_elements": "skipped",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "skipped",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-0"
+      ]
+    },
+    {
+      "id": "summary-097",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "리드메이트 97"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "전자책 단말기"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "도서·전자책"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "눈부심 저감"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "장시간 독서가"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 6시간이 소요됨"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "skipped",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "skipped",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-1"
+      ]
+    },
+    {
+      "id": "summary-098",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "키친큐브 98"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "밀폐용기"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "푸드"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "모듈형 적층"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "소형 주방 사용자"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 7시간이 소요됨"
+          ]
+        },
+        "trust_elements": {
+          "status": "provided",
+          "values": [
+            "내구성 시험 197회 완료"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "resolved",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "skipped",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-2"
+      ]
+    },
+    {
+      "id": "summary-099",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "워크핏 99"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "노트북 거치대"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "테크·가전"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "높이 조절"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "재택근무자"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 1시간이 소요됨"
+          ]
+        },
+        "trust_elements": {
+          "status": "provided",
+          "values": [
+            "내구성 시험 198회 완료"
+          ]
+        },
+        "refund_policy": {
+          "status": "explicitly-absent",
+          "values": []
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "resolved",
+        "maker_team_intro": "skipped",
+        "rewards": "skipped",
+        "funding_end": "skipped",
+        "shipping_start": "skipped",
+        "refund_policy": "resolved",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-3"
+      ]
+    },
+    {
+      "id": "summary-100",
+      "facts": {
+        "product_name": {
+          "status": "provided",
+          "values": [
+            "뮤트키 100"
+          ]
+        },
+        "product_type": {
+          "status": "provided",
+          "values": [
+            "저소음 키보드"
+          ]
+        },
+        "category": {
+          "status": "provided",
+          "values": [
+            "테크·가전"
+          ]
+        },
+        "key_strengths": {
+          "status": "provided",
+          "values": [
+            "저소음 스위치"
+          ]
+        },
+        "target_supporters": {
+          "status": "provided",
+          "values": [
+            "공유 사무실 사용자"
+          ]
+        },
+        "problem_context": {
+          "status": "provided",
+          "values": [
+            "반복 작업에 하루 2시간이 소요됨"
+          ]
+        },
+        "trust_elements": {
+          "status": "provided",
+          "values": [
+            "내구성 시험 199회 완료"
+          ]
+        },
+        "refund_policy": {
+          "status": "explicitly-absent",
+          "values": []
+        },
+        "rewards": {
+          "status": "provided",
+          "values": [
+            "얼리버드 100개 한정"
+          ]
+        },
+        "shipping_start": {
+          "status": "provided",
+          "values": [
+            "2027년 4월 순차 발송"
+          ]
+        }
+      },
+      "field_states": {
+        "problem_context": "resolved",
+        "trust_elements": "resolved",
+        "maker_team_intro": "skipped",
+        "rewards": "resolved",
+        "funding_end": "skipped",
+        "shipping_start": "resolved",
+        "refund_policy": "resolved",
+        "as_policy": "skipped",
+        "funding_plan": "skipped",
+        "platform_choice": "skipped",
+        "risk_response": "skipped"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "이 정보로 생성 전 내용을 정리해줘."
+        }
+      ],
+      "tags": [
+        "mode-4"
+      ]
+    }
+  ]
+}

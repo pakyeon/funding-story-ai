@@ -1,0 +1,106 @@
+{
+  "schema_version": "robot-vacuum-media-planning-dataset-v1",
+  "status": "development_smoke",
+  "final_holdout": false,
+  "created_at": "2026-08-31",
+  "planner_input_view": {
+    "included": ["input"],
+    "excluded": ["case_id", "case_kind", "variant", "template_id", "expected", "tags", "notes", "source_boundary", "worker_revision", "template_revision", "availability", "support_level", "fact_revision"],
+    "transform": "build_planner_evaluation_views applies authoritative state normalization, injects the prior semantic-stage capability group, removes boundary-only fields, rotates fact/asset order, and reassigns opaque IDs"
+  },
+  "facts_per_case": {
+    "8": 128
+  },
+  "product_variant": {
+    "source": "product-variant-cases.json",
+    "case_count": 64,
+    "fact_count": 512,
+    "input_signature_count": 59,
+    "variant_counts": {
+      "basic_vacuum": 16,
+      "vacuum_mop": 16,
+      "auto_empty_dock": 16,
+      "all_in_one_dock": 16
+    },
+    "planner_state_counts": {
+      "verified": 312,
+      "unverified": 64,
+      "inactive": 136,
+      "unknown": 0,
+      "conflicting": 0
+    },
+    "decision_counts": {
+      "ready": 64
+    }
+  },
+  "defensive": {
+    "source": "defensive-cases.json",
+    "case_count": 64,
+    "fact_count": 512,
+    "input_signature_count": 28,
+    "variant_counts": {
+      "basic_vacuum": 16,
+      "vacuum_mop": 16,
+      "auto_empty_dock": 16,
+      "all_in_one_dock": 16
+    },
+    "primary_type_counts": {
+      "unknown_required_identity": 8,
+      "unknown_required_cleaning": 8,
+      "unknown_required_mobility": 8,
+      "optional_unknown_placeholder": 8,
+      "explicit_absence": 8,
+      "unsupported_evidence": 8,
+      "conflict_boundary": 8,
+      "missing_reference_assets": 8
+    },
+    "planner_state_counts": {
+      "verified": 418,
+      "unverified": 6,
+      "inactive": 48,
+      "unknown": 32,
+      "conflicting": 8
+    },
+    "decision_counts": {
+      "ready": 16,
+      "draft_with_placeholders": 8,
+      "needs_required_information": 24,
+      "needs_reference_assets": 8,
+      "reject_conflict": 8
+    },
+    "placeholder_group_counts": {
+      "problem_environment": 2,
+      "automation_return": 2,
+      "control_personalization": 2,
+      "evidence_performance": 1,
+      "configuration_maintenance": 1
+    },
+    "missing_reference_role_counts": {
+      "product_body": 2,
+      "dock": 2,
+      "accessory": 2,
+      "control_interface": 1,
+      "provided_evidence": 1
+    }
+  },
+  "validation": {
+    "schema": "media-planning-case.schema.json",
+    "command": "uv run --no-sync python evals/validate_media_planning_dataset.py",
+    "schema_errors": 0,
+    "cross_invariant_errors": 0,
+    "duplicate_case_ids": 0
+  },
+  "limitations": [
+    "These are synthetic contract and rule smoke cases, not observed successful campaign pages.",
+    "The same cases must not be used as final orchestration holdout data.",
+    "Every case has exactly eight facts and one fact per capability group; this regularity is unsuitable for semantic normalization evaluation.",
+    "Natural-language paraphrase diversity is limited and does not establish model generalization.",
+    "A separate 64-case semantic normalization set with variable fact counts, ordering, paraphrases, distractors, and repeated groups is still required.",
+    "Planner-state normalization and capability-group assignment are inputs to this rule set, not LLM quality metrics.",
+    "Template IDs are excluded because this smoke set has no real section-order or placement labels; template-aware quality requires the orchestration holdout.",
+    "Input-only logical diversity is 59 signatures for product variants and 28 for defensive cases; expected labels are deliberately excluded from this calculation.",
+    "Persuasion goals, grouping keys, section order, final media kind, and exact placement are outside this smoke set.",
+    "The approved worker projection boundary is specified but has not yet been added to the runtime dispatcher.",
+    "Human image and rendered HTML quality evaluation remains separate."
+  ]
+}

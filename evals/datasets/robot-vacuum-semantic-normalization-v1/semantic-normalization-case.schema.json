@@ -1,0 +1,703 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://funding-story-ai.local/evals/robot-vacuum-semantic-normalization-case-v1.schema.json",
+  "title": "Robot Vacuum Semantic Normalization Evaluation Case v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "case_id",
+    "case_kind",
+    "variant",
+    "tags",
+    "input",
+    "model_view",
+    "expected",
+    "notes"
+  ],
+  "$defs": {
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_id",
+        "source_type",
+        "description"
+      ],
+      "properties": {
+        "source_id": {
+          "type": "string",
+          "pattern": "^s_[a-f0-9]{12}$"
+        },
+        "source_type": {
+          "enum": [
+            "maker-input",
+            "document",
+            "image",
+            "test-report",
+            "public-page"
+          ]
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "evidence_id",
+        "evidence_type",
+        "description",
+        "source_refs"
+      ],
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "pattern": "^v_[a-f0-9]{12}$"
+        },
+        "evidence_type": {
+          "enum": [
+            "test-report",
+            "certification",
+            "review",
+            "demonstration",
+            "page-copy"
+          ]
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_refs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^s_[a-f0-9]{12}$"
+          }
+        }
+      }
+    },
+    "asset": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "asset_id",
+        "asset_type",
+        "description",
+        "source_refs"
+      ],
+      "properties": {
+        "asset_id": {
+          "type": "string",
+          "pattern": "^a_[a-f0-9]{12}$"
+        },
+        "asset_type": {
+          "enum": [
+            "product",
+            "feature",
+            "lifestyle",
+            "app",
+            "evidence",
+            "brand"
+          ]
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_refs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^s_[a-f0-9]{12}$"
+          }
+        }
+      }
+    },
+    "entity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "entity_id",
+        "entity_kind",
+        "text",
+        "source_refs",
+        "evidence_refs",
+        "asset_refs"
+      ],
+      "properties": {
+        "entity_id": {
+          "type": "string",
+          "pattern": "^e_[a-f0-9]{12}$"
+        },
+        "entity_kind": {
+          "enum": [
+            "product",
+            "problem",
+            "feature",
+            "claim",
+            "evidence",
+            "distractor"
+          ]
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_refs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^s_[a-f0-9]{12}$"
+          }
+        },
+        "evidence_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^v_[a-f0-9]{12}$"
+          }
+        },
+        "asset_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^a_[a-f0-9]{12}$"
+          }
+        }
+      }
+    },
+    "brief_fact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "fact_id",
+        "entity_id",
+        "entity_kind",
+        "statement",
+        "source_refs",
+        "evidence_refs",
+        "asset_refs"
+      ],
+      "properties": {
+        "fact_id": {
+          "type": "string",
+          "pattern": "^f_[a-f0-9]{12}$"
+        },
+        "entity_id": {
+          "type": "string",
+          "pattern": "^e_[a-f0-9]{12}$"
+        },
+        "entity_kind": {
+          "enum": [
+            "product",
+            "problem",
+            "feature",
+            "claim",
+            "evidence",
+            "distractor"
+          ]
+        },
+        "statement": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_refs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^s_[a-f0-9]{12}$"
+          }
+        },
+        "evidence_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^v_[a-f0-9]{12}$"
+          }
+        },
+        "asset_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^a_[a-f0-9]{12}$"
+          }
+        }
+      }
+    },
+    "approved_entity_projection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "brief_id",
+        "entities",
+        "facts",
+        "sources",
+        "evidence",
+        "assets"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "approved_entity_projection-v1"
+        },
+        "brief_id": {
+          "type": "string",
+          "pattern": "^brief_[a-f0-9]{12}$"
+        },
+        "entities": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 14,
+          "items": {
+            "$ref": "#/$defs/entity"
+          }
+        },
+        "facts": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 14,
+          "items": {
+            "$ref": "#/$defs/brief_fact"
+          }
+        },
+        "sources": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/source"
+          }
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidence"
+          }
+        },
+        "assets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/asset"
+          }
+        }
+      }
+    },
+    "state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "fact_id",
+        "availability",
+        "support_level",
+        "collection_state",
+        "revision"
+      ],
+      "properties": {
+        "fact_id": {
+          "type": "string",
+          "pattern": "^f_[a-f0-9]{12}$"
+        },
+        "availability": {
+          "enum": [
+            "provided",
+            "explicitly_absent",
+            "unknown",
+            "conflicting"
+          ]
+        },
+        "support_level": {
+          "enum": [
+            "supported",
+            "maker_stated",
+            "none",
+            "rejected"
+          ]
+        },
+        "collection_state": {
+          "enum": [
+            "not_offered",
+            "requested",
+            "resolved",
+            "skipped"
+          ]
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "worker": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "approval_status",
+        "revision",
+        "brief_digest",
+        "fact_states"
+      ],
+      "properties": {
+        "approval_status": {
+          "const": "approved"
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "brief_digest": {
+          "type": "string",
+          "pattern": "^sha256:[a-f0-9]{64}$"
+        },
+        "fact_states": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 14,
+          "items": {
+            "$ref": "#/$defs/state"
+          }
+        }
+      }
+    },
+    "raw_input": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_boundary",
+        "approved_revision",
+        "brief_digest",
+        "worker_projection_digest",
+        "template_id",
+        "approved_entity_projection",
+        "worker_projection"
+      ],
+      "properties": {
+        "source_boundary": {
+          "enum": [
+            "approved_story_brief_worker_projection",
+            "defensive_boundary_injection"
+          ]
+        },
+        "approved_revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "brief_digest": {
+          "type": "string",
+          "pattern": "^sha256:[a-f0-9]{64}$"
+        },
+        "worker_projection_digest": {
+          "type": "string",
+          "pattern": "^sha256:[a-f0-9]{64}$"
+        },
+        "template_id": {
+          "enum": [
+            "t01_performance_value_evidence",
+            "t02_problem_solution_automation",
+            "t03_lifestyle_social_proof",
+            "t04_full_campaign",
+            "t05_value_practical_full_campaign",
+            "t06_trust_maintenance_full_campaign"
+          ]
+        },
+        "approved_entity_projection": {
+          "$ref": "#/$defs/approved_entity_projection"
+        },
+        "worker_projection": {
+          "$ref": "#/$defs/worker"
+        }
+      }
+    },
+    "model_fact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "fact_id",
+        "entity_kind",
+        "statement"
+      ],
+      "properties": {
+        "fact_id": {
+          "type": "string",
+          "pattern": "^f_[a-f0-9]{12}$"
+        },
+        "entity_kind": {
+          "enum": [
+            "product",
+            "problem",
+            "feature",
+            "claim",
+            "evidence",
+            "distractor"
+          ]
+        },
+        "statement": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "model_view": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "facts"
+      ],
+      "properties": {
+        "facts": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 14,
+          "items": {
+            "$ref": "#/$defs/model_fact"
+          }
+        }
+      }
+    },
+    "proposition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "proposition_id",
+        "fact_id",
+        "text",
+        "capability_group"
+      ],
+      "properties": {
+        "proposition_id": {
+          "type": "string",
+          "pattern": "^p_[a-f0-9]{12}$"
+        },
+        "fact_id": {
+          "type": "string",
+          "pattern": "^f_[a-f0-9]{12}$"
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "capability_group": {
+          "enum": [
+            "product_identity_outcome",
+            "problem_environment",
+            "cleaning_mechanism",
+            "mobility_coverage",
+            "automation_return",
+            "control_personalization",
+            "evidence_performance",
+            "configuration_maintenance"
+          ]
+        }
+      }
+    },
+    "media_fact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "fact_id",
+        "proposition_ids",
+        "source_refs",
+        "evidence_refs",
+        "asset_refs",
+        "availability",
+        "support_level",
+        "collection_state"
+      ],
+      "properties": {
+        "fact_id": {
+          "type": "string",
+          "pattern": "^f_[a-f0-9]{12}$"
+        },
+        "proposition_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^p_[a-f0-9]{12}$"
+          }
+        },
+        "source_refs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^s_[a-f0-9]{12}$"
+          }
+        },
+        "evidence_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^v_[a-f0-9]{12}$"
+          }
+        },
+        "asset_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^a_[a-f0-9]{12}$"
+          }
+        },
+        "availability": {
+          "enum": [
+            "provided",
+            "explicitly_absent",
+            "unknown",
+            "conflicting"
+          ]
+        },
+        "support_level": {
+          "enum": [
+            "supported",
+            "maker_stated",
+            "none",
+            "rejected"
+          ]
+        },
+        "collection_state": {
+          "enum": [
+            "not_offered",
+            "requested",
+            "resolved",
+            "skipped"
+          ]
+        }
+      }
+    },
+    "adapter": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "decision",
+        "failure_code",
+        "owns"
+      ],
+      "properties": {
+        "decision": {
+          "enum": [
+            "accepted",
+            "reject_conflict",
+            "reject_stale_revision",
+            "reject_digest_mismatch",
+            "reject_forged_reference"
+          ]
+        },
+        "failure_code": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "owns": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "availability",
+              "support_level",
+              "collection_state"
+            ]
+          }
+        }
+      }
+    },
+    "expected": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "adapter",
+        "atomic_propositions",
+        "media_facts",
+        "ignored_fact_ids"
+      ],
+      "properties": {
+        "adapter": {
+          "$ref": "#/$defs/adapter"
+        },
+        "atomic_propositions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/proposition"
+          }
+        },
+        "media_facts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/media_fact"
+          }
+        },
+        "ignored_fact_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^f_[a-f0-9]{12}$"
+          }
+        }
+      }
+    }
+  },
+  "properties": {
+    "schema_version": {
+      "const": "robot-vacuum-semantic-normalization-case-v1"
+    },
+    "case_id": {
+      "type": "string",
+      "pattern": "^rv_semantic_(normal|defensive|holdout|adversarial)_[0-9]{3}$"
+    },
+    "case_kind": {
+      "enum": [
+        "normal",
+        "defensive"
+      ]
+    },
+    "variant": {
+      "enum": [
+        "basic_vacuum",
+        "vacuum_mop",
+        "auto_empty_dock",
+        "all_in_one_dock"
+      ]
+    },
+    "tags": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9_]*$"
+      }
+    },
+    "input": {
+      "$ref": "#/$defs/raw_input"
+    },
+    "model_view": {
+      "$ref": "#/$defs/model_view"
+    },
+    "expected": {
+      "$ref": "#/$defs/expected"
+    },
+    "notes": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

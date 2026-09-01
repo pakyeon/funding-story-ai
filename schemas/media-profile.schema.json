@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://funding-story-ai.local/schemas/media-profile.schema.json",
+  "title": "Category media profile",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "id", "version", "category", "capability_groups"],
+  "$defs": {
+    "capability_group": {
+      "enum": [
+        "product_identity_outcome",
+        "problem_environment",
+        "cleaning_mechanism",
+        "mobility_coverage",
+        "automation_return",
+        "control_personalization",
+        "evidence_performance",
+        "configuration_maintenance"
+      ]
+    }
+  },
+  "properties": {
+    "schema_version": {"const": "media-profile-v1"},
+    "id": {"type": "string", "pattern": "^[a-z][a-z0-9_-]+$"},
+    "version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "category": {"type": "string", "minLength": 1},
+    "capability_groups": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "persuasion_goal",
+          "priority",
+          "cardinality",
+          "reference_policy",
+          "reference_asset_roles",
+          "supported_media_kinds",
+          "placement_candidates",
+          "allowed_section_types",
+          "slot_grouping_key",
+          "visual_hint",
+          "placeholder"
+        ],
+        "properties": {
+          "id": {"$ref": "#/$defs/capability_group"},
+          "persuasion_goal": {"type": "string", "minLength": 1},
+          "priority": {"enum": ["required", "recommended", "optional"]},
+          "cardinality": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["min", "max"],
+            "properties": {
+              "min": {"type": "integer", "minimum": 0, "maximum": 2},
+              "max": {"type": "integer", "minimum": 0, "maximum": 2}
+            }
+          },
+          "reference_policy": {"enum": ["required", "optional", "none"]},
+          "reference_asset_roles": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {"enum": ["product_body", "dock", "accessory", "control_interface", "provided_evidence"]}
+          },
+          "supported_media_kinds": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {"enum": ["static", "loop_motion", "narrative_video"]}
+          },
+          "placement_candidates": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {"enum": ["section_lead", "inline", "after_claim", "after_explanation", "section_close"]}
+          },
+          "allowed_section_types": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"}
+          },
+          "slot_grouping_key": {"type": "string", "minLength": 1},
+          "visual_hint": {"type": "string", "minLength": 1},
+          "placeholder": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["title", "description", "input_format"],
+            "properties": {
+              "title": {"type": "string", "minLength": 1},
+              "description": {"type": "string", "minLength": 1},
+              "input_format": {"type": "string", "minLength": 1}
+            }
+          }
+        }
+      }
+    }
+  }
+}

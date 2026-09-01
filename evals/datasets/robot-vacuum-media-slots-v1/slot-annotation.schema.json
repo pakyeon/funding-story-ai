@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://funding-story-ai.local/evals/robot-vacuum-media-slot-annotation-v1.schema.json",
+  "title": "Robot Vacuum Media Slot Annotation v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "annotation_id",
+    "page_id",
+    "page_tier",
+    "section_index",
+    "section_role",
+    "section_summary",
+    "capability_group",
+    "persuasion_goal",
+    "observed_media_kind",
+    "observed_media_count",
+    "slot_grouping_key",
+    "reference_policy",
+    "reference_asset_roles",
+    "evidence_status",
+    "priority_candidate",
+    "placement",
+    "source_size_status",
+    "notes"
+  ],
+  "properties": {
+    "annotation_id": {
+      "type": "string",
+      "pattern": "^p[0-9]+-s[0-9]{2}-m[0-9]{2}$"
+    },
+    "page_id": { "type": "string", "pattern": "^[0-9]+$" },
+    "page_tier": { "const": "strict_mixed" },
+    "section_index": { "type": "integer", "minimum": 1 },
+    "section_role": {
+      "enum": [
+        "intro",
+        "problem",
+        "solution",
+        "feature",
+        "evidence",
+        "use_case",
+        "comparison",
+        "configuration",
+        "maintenance",
+        "trust",
+        "operations",
+        "faq"
+      ]
+    },
+    "section_summary": { "type": "string", "minLength": 1 },
+    "capability_group": {
+      "enum": [
+        "product_identity_outcome",
+        "problem_environment",
+        "cleaning_mechanism",
+        "mobility_coverage",
+        "automation_return",
+        "control_personalization",
+        "evidence_performance",
+        "configuration_maintenance"
+      ]
+    },
+    "persuasion_goal": { "type": "string", "minLength": 1 },
+    "observed_media_kind": { "enum": ["static", "loop_motion", "mixed"] },
+    "observed_media_count": { "type": ["integer", "null"], "minimum": 1 },
+    "slot_grouping_key": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+    "reference_policy": { "enum": ["required", "optional", "none"] },
+    "reference_asset_roles": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "product_body",
+          "dock",
+          "accessory",
+          "control_interface",
+          "provided_evidence"
+        ]
+      }
+    },
+    "evidence_status": { "enum": ["observed", "inferred", "unverified"] },
+    "priority_candidate": { "enum": ["required", "recommended", "optional"] },
+    "placement": {
+      "enum": [
+        "section_lead",
+        "inline",
+        "after_claim",
+        "after_explanation",
+        "section_close"
+      ]
+    },
+    "source_size_status": { "enum": ["verified", "partial", "unverified"] },
+    "notes": { "type": "string" }
+  }
+}

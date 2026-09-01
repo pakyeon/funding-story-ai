@@ -5,6 +5,7 @@
   "category": "테크·가전",
   "language": "ko",
   "generation_source": "research-derived",
+  "media_profile_ref": "robotic-floor-cleaner-v1",
   "target": "핵심 성능부터 문제·해결·비교·신뢰·프로젝트 운영 정보까지 한 번에 검토하려는 로봇청소기 관심 사용자",
   "default_word_count": 2200,
   "narration_mode": "performance_problem_solution_full_campaign",

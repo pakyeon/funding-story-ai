@@ -5,7 +5,7 @@ import json
 import os
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
-from typing import Any, Literal
+from typing import Any, Literal, cast
 
 from dotenv import load_dotenv
 from fastmcp import FastMCP
@@ -17,11 +17,12 @@ from .engine import IntegratedStoryMakerExecutor, StoryExecutionInput, StoryExec
 from .image_generation import (
     GeminiImageAdapter,
     ImageSettings,
-    OpenAIImageAdapter,
-    RetryingFallbackImageAdapter,
 )
+from .media_planning import MediaPlanner
+from .media_projection import validate_approved_generation_package
 from .pipeline import StoryPipeline
 from .run_store import LocalRunStore
+from .semantic_normalization import SemanticNormalizer
 from .smoke import build_runtime
 from .template_retrieval import (
     ExactKnnTemplateRetriever,
@@ -34,9 +35,8 @@ from .ui_support import build_run_resource_payload
 class CreateStoryRequest(BaseModel):
     caller_id: str = Field(min_length=1, max_length=128)
     idempotency_key: str = Field(min_length=8, max_length=256)
-    brief: dict[str, Any]
+    generation_package: dict[str, Any]
     template_id: str | None = None
-    reference_image_path: str | None = None
 
 
 class CreateStoryResponse(BaseModel):
@@ -58,13 +58,19 @@ class StoryMakerService:
         *,
         executor: StoryExecutor,
         store: LocalRunStore,
+        repository: DataRepository | None = None,
         pool: ThreadPoolExecutor | None = None,
     ) -> None:
         self.executor = executor
         self.store = store
+        self.repository = repository or DataRepository()
         self.pool = pool or ThreadPoolExecutor(max_workers=2, thread_name_prefix="story-maker")
 
     def create(self, request: CreateStoryRequest) -> CreateStoryResponse:
+        validate_approved_generation_package(
+            repository=self.repository,
+            package=request.generation_package,
+        )
         payload = request.model_dump(exclude={"caller_id", "idempotency_key"}, mode="json")
         record, created = self.store.begin(
             caller_id=request.caller_id,
@@ -80,15 +86,10 @@ class StoryMakerService:
         try:
             result = self.executor.execute(
                 StoryExecutionInput(
-                    brief=request.brief,
+                    generation_package=request.generation_package,
                     template_id=request.template_id,
                     run_id=run_id,
                     output_dir=self.store.root / run_id,
-                    reference_image_path=(
-                        Path(request.reference_image_path)
-                        if request.reference_image_path
-                        else None
-                    ),
                 )
             )
             self.store.complete(run_id, result)
@@ -100,11 +101,14 @@ class StoryMakerService:
         record: dict[str, Any], *, idempotent_replay: bool
     ) -> CreateStoryResponse:
         result = record.get("result")
-        status = {
-            "running": "accepted",
-            "completed": "completed",
-            "failed": "failed",
-        }[record["status"]]
+        status = cast(
+            Literal["accepted", "completed", "failed"],
+            {
+                "running": "accepted",
+                "completed": "completed",
+                "failed": "failed",
+            }[record["status"]],
+        )
         return CreateStoryResponse(
             run_id=record["run_id"],
             status=status,
@@ -160,22 +164,20 @@ def build_live_service(root: Path | None = None) -> StoryMakerService:
         selector=RetrievalTemplateSelector(retriever),
     )
     image_settings = ImageSettings.from_env()
-    image_adapters = []
-    if os.getenv("OPENAI_API_KEY", "").strip():
-        image_adapters.append(OpenAIImageAdapter(image_settings))
-    image_adapters.append(GeminiImageAdapter(image_settings, client=adapter.client))
-    image_adapter = RetryingFallbackImageAdapter(
-        image_adapters,
-        attempts_per_provider=image_settings.attempts_per_provider,
-    )
     executor = IntegratedStoryMakerExecutor(
         repository=repository,
         pipeline=pipeline,
-        image_adapter=image_adapter,
+        semantic_normalizer=SemanticNormalizer(repository=repository, adapter=adapter),
+        media_planner=MediaPlanner(repository=repository, scene_adapter=adapter),
+        image_adapter=GeminiImageAdapter(image_settings, client=adapter.client),
         image_settings=image_settings,
     )
     store_root = Path(os.getenv("STORY_MCP_RUN_STORE", "artifacts/runs"))
-    return StoryMakerService(executor=executor, store=LocalRunStore(store_root))
+    return StoryMakerService(
+        executor=executor,
+        store=LocalRunStore(store_root),
+        repository=repository,
+    )
 
 
 def main() -> None:

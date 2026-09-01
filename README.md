@@ -14,55 +14,59 @@
 </p>
 
 <p align="center">
-  An experimental implementation that turns product conversations into reviewable<br>
-  crowdfunding copy, generated images, and editable HTML.
+  Turn product conversations into reviewable crowdfunding copy,<br>
+  generated images, and editable HTML.
 </p>
 
 ---
 
-Funding Story AI separates conversational intake from story execution. A dialogue model extracts
-maker-provided facts and decides which follow-up question to ask. After explicit confirmation, a
-single FastMCP tool submits an asynchronous run to the template retrieval, text generation, image
-generation, validation, and rendering pipeline.
+Funding Story AI is a review-first pipeline for preparing crowdfunding stories. It collects
+maker-provided product information through a conversation, asks for missing details, and presents
+a grounded summary for approval. A separately approved request then runs template retrieval, text
+generation, image generation, validation, and HTML rendering as an asynchronous job.
 
 [Features](#what-does-funding-story-ai-do) · [Quick Start](#-quick-start) ·
-[Example](#-included-example) · [Architecture](#-architecture) ·
-[Scope](#implementation-scope) · [Limitations](#-current-limitations)
+[Example](#-included-example) · [Architecture](#-architecture) · [Output](#-what-you-get)
 
 ## What does Funding Story AI do?
 
 ### Conversational intake
 
-- Accepts a user message of up to 1,000 characters and one optional JPG, PNG, or WEBP image up to
+- Accepts one user message of up to 1,000 characters and one optional JPG, PNG, or WEBP image up to
   10 MB.
-- Extracts product identity, category, strengths, audience, problems, evidence, maker information,
-  rewards, schedule, policies, funding plan, platform choice, and risk response.
-- Uses the dialogue LLM—not a product profile or UI flag—to decide whether to ask one question,
-  combine closely related fields, or proceed to confirmation.
-- Supports Korean, English, Japanese, and Chinese state and output contracts.
-- Treats images only as evidence for directly visible appearance. It does not infer performance,
-  certification, internal construction, or team history from an image.
+- Collects 16 story inputs, including product identity, category, strengths, audience, problem,
+  evidence, maker information, rewards, schedule, policies, funding plan, platform choice, and
+  risk response.
+- Uses a dialogue model to understand intent, fact changes, optional-information choices, and the
+  next question. LangGraph keeps the conversation state for each `thread_id`.
+- Groups follow-up questions by purpose and asks for no more than three related fields at a time.
+- Separates information that was provided, explicitly absent, or skipped for the current story.
+- Summarizes the collected information and requires explicit approval before the conversation reaches
+  `generation-ready`.
+- Uses an uploaded image only for directly visible appearance. Performance, certification, internal
+  construction, and team history are not inferred from an image.
 
-### Template retrieval and story generation
+### Template-based story generation
 
-- Embeds a product specification and 16 reduced retrieval candidates with
-  `gemini-embedding-001`.
-- Ranks candidates with exact cosine KNN and a default same-category soft boost of `0.15`.
-- Selects the highest-ranked executable template when a research-only candidate has no executable
-  layout.
-- Fills the selected structured template with Gemini. The six local templates contain 10–13
-  sections and request 5–6 images according to their own layout contracts.
+- Builds a product query and ranks structured templates with `gemini-embedding-001` and exact cosine
+  KNN retrieval.
+- Adds a configurable same-category boost to the semantic score and selects an executable template.
+- Fills the selected section layout with structured Gemini output while preserving source fields for
+  review.
+- Produces section-level image instructions from the selected layout.
 
-### Images, review, and editable output
+### Planned images and publishable HTML
 
-- Uses `gpt-image-2` first when an OpenAI key is configured, then falls back to
-  `gemini-2.5-flash-image`; each provider is tried up to three times.
-- Embeds an AI-generation marker in valid PNG or JPEG output and records provider, model, MIME type,
-  attempts, hash, and review state in the image manifest.
-- Displays successfully generated images while clearly marking them as awaiting human review.
-- Records validation warnings without regenerating the whole story.
-- Writes both a standalone review preview and a conservative editor fragment designed for import
-  into a Froala-style HTML editor.
+- Normalizes approved product facts into eight robot-vacuum capability groups.
+- Combines the selected story template with a product-family media profile to create a dynamic
+  `MediaPlan` of up to eight grounded image slots.
+- Uses Nano Banana 2 (`gemini-3.1-flash-image`) with Nano Banana 2 Lite
+  (`gemini-3.1-flash-lite-image`) as a bounded fallback, and sends only each slot's declared
+  reference assets.
+- Records model, attempts, hashes, grounding references, and human-review checks in an image
+  manifest.
+- Always writes a clean 740 px draft page. Publishable HTML is emitted only after required facts,
+  assets, generation, and image review have all passed.
 
 ## 🚀 Quick Start
 
@@ -80,15 +84,15 @@ gcloud auth application-default login
 
 ### 2. Configure
 
-Set your GCP project in `.env`. `OPENAI_API_KEY` is optional; without it, the image path uses the
-configured Gemini fallback.
+Set the Google Cloud project in `.env`.
 
 ```dotenv
 GOOGLE_CLOUD_PROJECT=your-gcp-project
-OPENAI_API_KEY=your-openai-api-key
+GEMINI_IMAGE_MODEL=gemini-3.1-flash-image
+GEMINI_IMAGE_FALLBACK_MODEL=gemini-3.1-flash-lite-image
 ```
 
-See [`.env.example`](.env.example) for models, retry limits, output size, and retrieval settings.
+Model, retry, output, and retrieval settings are listed in [`.env.example`](.env.example).
 
 ### 3. Start the local generation server
 
@@ -96,47 +100,22 @@ See [`.env.example`](.env.example) for models, retry limits, output size, and re
 uv run funding-story server --host 127.0.0.1 --port 8765
 ```
 
-The server binds only to a loopback address.
+The server listens on the local loopback address.
 
-### 4. Generate the included example
+### 4. Submit an approved generation package
 
 Run this in a second terminal:
 
 ```bash
 uv run funding-story submit \
-  --brief-path examples/robot-vacuum/brief.json \
-  --reference-image examples/robot-vacuum/product-reference.png \
+  --generation-package path/to/approved-generation-package.json \
   --idempotency-key robot-vacuum-demo-v2 \
   --live
 ```
 
-The command submits the run and polls its `story://runs/{run_id}` resource until it completes or
-fails. A completed run contains:
-
-```text
-brief.json                 # Grounded structured input
-story.json                 # Generated sections and source fields
-images/manifest.json       # Provider, attempts, hashes, and review states
-images/{section}.{format}  # Five or six images selected by the template
-editor.html                # Conservative editable HTML fragment
-preview.html               # Standalone human-review preview
-```
-
-Repeating the same caller, idempotency key, and request reuses the existing run. Using that key for
-different input returns an idempotency conflict.
-
-### Optional Streamlit demo
-
-This branch includes a local chat interface. Keep the FastMCP server running, then start the UI in
-another terminal:
-
-```bash
-uv run --group ui streamlit run streamlit_app.py
-```
-
-Product text and the optional image are submitted together in the chat input. The UI does not expose
-the internal server URL, retrieval settings, or a product profile. Generated artifacts are read
-through the FastMCP run resource rather than by opening the server's run directory in the UI.
+The package is produced by `StoryGenerationDispatcher` only after the conversation's current
+summary is explicitly approved. The command submits that immutable package and polls its
+`story://runs/{run_id}` resource until completion or failure.
 
 ## Conversational API
 
@@ -152,8 +131,8 @@ outcome = asyncio.run(
             thread_id="demo-conversation-01",
             input_id="demo-01",
             message=(
-                "OrbitClean V3 is a slim robot vacuum for people who frequently "
-                "clean under furniture. Its dock empties collected dust."
+                "클린포지 R1은 가구 아래를 자주 청소하는 사용자를 위한 "
+                "얇은 로봇청소기이며 도크가 모인 먼지를 비웁니다."
             ),
         )
     )
@@ -163,10 +142,10 @@ print(outcome.stage)
 print(outcome.reply)
 ```
 
-Use the same `thread_id` for every turn in one conversation. The LangGraph SQLite checkpointer keeps
-messages, structured facts, question history, the current summary, and its approval version. The
-user approves or revises the summary with a normal message; there is no Boolean confirmation or
-question-skipping generation path.
+Use the same `thread_id` for every turn in one conversation. The LangGraph SQLite checkpointer
+keeps messages, structured facts, optional-information state, question history, the current summary,
+and its approval version. The worker stops at `generation-ready`; generation submission is a
+separate explicit operation.
 
 ## 🧹 Included example
 
@@ -175,96 +154,80 @@ question-skipping generation path.
 </p>
 
 The included robot vacuum is synthetic and is not an actual product or campaign. Its files provide
-a reproducible input package for the current PoC:
+a ready-to-run input package:
 
 - [`brief.json`](examples/robot-vacuum/brief.json) — product facts, claims, evidence, and unknowns
-- [`product-reference.png`](examples/robot-vacuum/product-reference.png) — synthetic reference image
+- [`product-reference.png`](examples/robot-vacuum/product-reference.png) — reference image
 
 ## 🏗 Architecture
 
 ```mermaid
 flowchart TB
-    U["User conversation + optional image"] --> X["Understand turn<br/>structured fact patches"]
-    X --> F["Validate + apply facts"]
+    U["User conversation<br/>+ optional image"] --> X["Understand turn<br/>intent + fact patches"]
+    X --> F["Validate and apply facts"]
     F --> Q{"Required facts complete?"}
-    Q -->|No| N["Adaptive next question"]
+    Q -->|No| N["Plan next question"]
     N --> U
-    Q -->|Yes| A["Grounded summary + explicit approval"]
-    A -->|Revise / reject / ambiguous| U
-    A -->|Approved summary version| B["Grounded story specification"]
-    C[("SQLite checkpointer<br/>thread-scoped state")]
-    C <--> X
-    C <--> A
+    Q -->|Yes| O{"Optional information<br/>resolved or skipped?"}
+    O -->|Not offered| L["Offer optional groups"]
+    O -->|More input| N
+    L --> U
+    O -->|Yes| A["Grounded summary<br/>+ explicit approval"]
+    A -->|Revise or clarify| U
+    A -->|Approved| R["generation-ready"]
 
-    B --> C["FastMCP client"]
-    C -->|"Streamable HTTP"| M["create_crowdfunding_story"]
-    M -->|"accepted + result URI"| S["Local run repository"]
+    CP[("SQLite checkpointer<br/>thread-scoped state")]
+    CP <--> X
+    CP <--> O
+    CP <--> A
+
+    R -.->|"Separate explicit dispatch"| B["Approved generation package<br/>revisions + digests"]
+    B --> MC["FastMCP client"]
+    MC -->|"Streamable HTTP"| M["create_crowdfunding_story"]
+    M -->|"Accepted + result URI"| S["Local run repository"]
     M -.-> E["Background story executor"]
 
-    E --> K["Gemini embeddings<br/>exact KNN + 0.15 category boost"]
-    K --> T["Structured template<br/>10–13 sections, 5–6 images"]
-    T --> G["Gemini structured text generation"]
-    G --> V["Schema + generic groundedness warnings"]
-    V --> I["OpenAI image generation<br/>Gemini fallback"]
-    I --> H["JSON + image manifest<br/>editor fragment + preview"]
+    E --> K["Gemini embeddings<br/>KNN + category boost"]
+    K --> T["Structured template"]
+    T --> G["Gemini structured text"]
+    G --> V["Schema and groundedness checks"]
+    V --> NF["MediaFacts normalization"]
+    NF --> MP["StoryTemplate + MediaProfile<br/>dynamic MediaPlan"]
+    MP --> I["Nano Banana 2<br/>Lite fallback"]
+    I --> H["Story + MediaPlan + manifest<br/>draft / publishable HTML"]
     H --> S
-    S --> R["story://runs/{run_id}"]
+    S --> Z["story://runs/{run_id}"]
 ```
 
-The worker-facing MCP surface deliberately exposes one generation tool. This is not a claim that an
-external service's full MCP server has only one tool. Streamable HTTP and Gemini text models are
-intentional local implementation choices; they are not asserted to match private production
-transport or model configuration.
+The conversation worker and the generation executor have separate responsibilities. A generation
+request is accepted only from an approved `generation-ready` state.
 
-## Implementation scope
+## What you get
 
-| Area | Current implementation |
-|---|---|
-| Dialogue | Separate Gemini understanding, question, summary, and approval nodes; deterministic reducers and LangGraph SQLite checkpoints |
-| Tool boundary | One worker-allowlisted FastMCP generation tool and one run resource |
-| Execution | Non-blocking local background job with caller-scoped idempotency |
-| Retrieval | Exact KNN over 16 reduced candidates; default category boost `0.15` |
-| Templates | Six robot-vacuum PoC templates with variable layouts and image counts |
-| Text | Gemini 3.7 Flash, then Gemini 3.6 Flash after five access failures |
-| Images | OpenAI primary when configured, Gemini fallback, three attempts per provider |
-| Validation | JSON Schema, source-field, unsupported-number, future-promise, and identifier checks |
-| Result | Structured input, story, image manifest, editor HTML, preview HTML, and SHA-256 hashes |
-| Demo UI | Streamlit chat input with one image attachment and MCP-resource result rendering |
+A completed run contains the following artifacts:
 
-## Development
-
-```bash
-uv lock --check
-uv run ruff check .
-uv run pytest
-uv run funding-story validate
+```text
+brief.json                 # Grounded structured input
+story.json                 # Generated sections and source fields
+media-facts.json            # Approved facts normalized for media planning
+media-plan.json             # Active slots, placement, references, and placeholders
+images/manifest.json        # Models, attempts, hashes, grounding, and review checks
+images/{slot}.{format}      # Independently generated MediaPlan slot images
+draft.html                  # Pure funding-page HTML with fixed placeholders
+publishable.html            # Present only after every publishing gate passes
 ```
 
-The test suite uses local fakes and does not call paid model APIs.
+The same caller, idempotency key, and input return the existing run. Reusing an idempotency key with
+different input is rejected.
 
-## Documentation
+## Usage notes
+
+- The included conversation and example templates are written for the Korean-language workflow.
+- Review generated text, images, warnings, and source fields before publishing.
+- Keep API credentials in `.env` and do not commit that file.
+
+## Learn more
 
 - [Architecture](docs/architecture.md)
-- [Planned adaptive conversation worker](docs/adaptive-conversation-worker-design.md) (Korean)
-- [Adaptive worker implementation checklist](docs/adaptive-conversation-worker-implementation-plan.md) (Korean)
-- [Adaptive worker evaluation results](docs/adaptive-conversation-worker-evaluation-results.md) (Korean)
 - [Template and retrieval system](docs/template-system.md)
 - [Input-grounded validation](docs/factuality-and-validation.md)
-- [Observable behavior study](docs/research/observable-story-ai-behavior.md)
-- [PoC evaluation summary](docs/research/poc-evaluation-summary.md)
-- [Current limitations](docs/research/limitations.md)
-
-## ⚠️ Current limitations
-
-- Behavioral comparison and executable templates are still limited to Korean robot-vacuum inputs.
-- The 16 retrieval candidates are a reduced engineering dataset, not the external service's reported
-  102-reference-template corpus.
-- The exact private template specifications, Froala allowlist, advertising review service, webhook
-  payload, infrastructure, and production model configuration are not public and are not claimed as
-  identical here.
-- The local run repository is single-process and has no authentication, authorization, TLS, or
-  durable distributed queue.
-- The Streamlit demo keeps conversation state only in the current browser session and is not an
-  authenticated multi-user application.
-- Automatic checks do not verify external facts, advertising compliance, image rights, or causal
-  impact on crowdfunding performance. Every output requires human review.
