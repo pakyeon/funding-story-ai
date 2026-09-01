@@ -356,3 +356,50 @@ def test_review_integrated_run_renders_publishable_html_after_all_checks_pass(tm
     updated = review["run"]
     assert updated["result"]["images"]["qa_pending"] == 0
     assert updated["result"]["publishable_html"]["path"] == "publishable.html"
+
+
+def test_review_integrated_run_keeps_warning_story_unpublishable(tmp_path) -> None:
+    repository = DataRepository()
+    store = LocalRunStore(tmp_path / "runs")
+    record, created = store.begin(
+        caller_id="review-warning-test",
+        idempotency_key="review-warning-key",
+        request_payload={"brief_id": "engine-test-warning"},
+    )
+    assert created is True
+    run_id = record["run_id"]
+    reference = tmp_path / "reference.jpg"
+    reference.write_bytes(b"reference")
+    warning = {
+        "code": "unsupported-generated-text",
+        "message": "입력에 없는 동작",
+        "section_id": "solution",
+        "source_fields": ["product.name"],
+    }
+    result = _integrated(repository, _Images(), warnings=[warning]).execute(
+        StoryExecutionInput(
+            generation_package=_generation_package(repository, reference),
+            template_id="t04_full_campaign",
+            run_id=run_id,
+            output_dir=store.root / run_id,
+        )
+    )
+    store.complete(run_id, result)
+    review = review_integrated_story_run(
+        repository=repository,
+        store=store,
+        run_id=run_id,
+        reviews={
+            "slot_product_identity_outcome_01": {
+                "qa_status": "pass",
+                "review_checks": {
+                    "scene_distinctness": "pass",
+                    "product_fidelity": "pass",
+                    "text_legibility": "pass",
+                    "claim_grounding": "pass",
+                },
+            }
+        },
+    )
+    assert review["publishable"] is False
+    assert review["run"]["result"]["publishable_html"] is None
