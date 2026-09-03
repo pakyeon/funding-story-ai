@@ -90,7 +90,7 @@
       "id": "all-fields-direct-summary",
       "turns": [
         {
-          "message": "16개 정보를 모두 입력할게",
+          "message": "15개 정보를 모두 입력할게",
           "understanding": {
             "intent": "provide_information",
             "fact_patches": [
@@ -108,7 +108,6 @@
               {"field": "refund_policy", "operation": "replace", "values": ["수령 후 7일"]},
               {"field": "as_policy", "operation": "replace", "values": ["1년 보증"]},
               {"field": "funding_plan", "operation": "replace", "values": ["초도 생산"]},
-              {"field": "platform_choice", "operation": "replace", "values": ["초기 사용자 검증"]},
               {"field": "risk_response", "operation": "replace", "values": ["예비 생산처 확보"]}
             ]
           },

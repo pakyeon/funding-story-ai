@@ -50,7 +50,6 @@
         "refund_policy",
         "as_policy",
         "funding_plan",
-        "platform_choice",
         "risk_response"
       ],
       "properties": {
@@ -68,7 +67,6 @@
         "refund_policy": {"$ref": "#/$defs/slot"},
         "as_policy": {"$ref": "#/$defs/slot"},
         "funding_plan": {"$ref": "#/$defs/slot"},
-        "platform_choice": {"$ref": "#/$defs/slot"},
         "risk_response": {"$ref": "#/$defs/slot"}
       }
     },
@@ -113,7 +111,6 @@
               "refund_policy",
               "as_policy",
               "funding_plan",
-              "platform_choice",
               "risk_response",
               "fact_conflict_resolution"
             ]

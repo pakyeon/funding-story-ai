@@ -357,7 +357,7 @@ def _invoke(graph, thread_id: str, message: str, index: int) -> dict[str, Any]:
 def test_optional_groups_cover_each_optional_field_once() -> None:
     flattened = [field for fields in OPTIONAL_FIELD_GROUPS.values() for field in fields]
     assert tuple(flattened) == OPTIONAL_FACT_FIELDS
-    assert len(flattened) == len(set(flattened)) == 11
+    assert len(flattened) == len(set(flattened)) == 10
     assert set(flattened).isdisjoint(set(FACT_FIELDS[:5]))
 
 
@@ -536,7 +536,6 @@ def test_question_plan_requires_all_candidates_and_hides_internal_field_names() 
         "question_purpose": "optional-collect",
         "question_candidate_fields": [
             "funding_plan",
-            "platform_choice",
             "risk_response",
         ],
         "question_group": "project_explanation",
@@ -547,7 +546,7 @@ def test_question_plan_requires_all_candidates_and_hides_internal_field_names() 
     }
     omitted = QuestionPlan(
         purpose="optional-collect",
-        requested_fields=["funding_plan", "risk_response"],
+        requested_fields=["funding_plan"],
         requested_group="project_explanation",
         requested_detail="프로젝트 설명 정보를 확인합니다.",
         question="펀딩금 사용 계획과 위험 대응 계획을 알려주세요.",
@@ -559,10 +558,9 @@ def test_question_plan_requires_all_candidates_and_hides_internal_field_names() 
         update={
             "requested_fields": [
                 "funding_plan",
-                "platform_choice",
                 "risk_response",
             ],
-            "question": "funding_plan, platform_choice, risk_response를 알려주세요.",
+            "question": "funding_plan, risk_response를 알려주세요.",
         }
     )
     assert "internal fact field" in str(question_plan_error(state, exposed))
@@ -636,7 +634,7 @@ def test_required_optional_skip_summary_and_generation_ready_flow() -> None:
     assert summary["current_summary"]["explicitly_absent_fields"] == [
         "maker_team_intro"
     ]
-    assert len(summary["current_summary"]["skipped_fields"]) == 8
+    assert len(summary["current_summary"]["skipped_fields"]) == 7
     assert summary["workflow_stage"] != "generation-ready"
 
     ambiguous = _invoke(graph, "thread-flow", "네", 6)
@@ -678,14 +676,14 @@ def test_active_group_answer_applies_cross_group_facts_without_reasking_them() -
     assert set(second_group["requested_fields"]) == {"funding_end", "shipping_start"}
 
 
-def test_all_sixteen_fields_skip_optional_offer_and_go_to_summary() -> None:
-    model = _ConversationModel({"16개 전체 입력": _all_fields_turn()})
+def test_all_fifteen_fields_skip_optional_offer_and_go_to_summary() -> None:
+    model = _ConversationModel({"15개 전체 입력": _all_fields_turn()})
     graph = build_conversation_graph(model, checkpointer=InMemorySaver())
-    state = _invoke(graph, "thread-all", "16개 전체 입력", 1)
+    state = _invoke(graph, "thread-all", "15개 전체 입력", 1)
     assert state["workflow_stage"] == "awaiting-approval"
     assert "offer_optional_information" not in state["visited_nodes"]
     assert state["current_summary"]["skipped_fields"] == []
-    assert len(state["current_summary"]["confirmed_facts"]) == 16
+    assert len(state["current_summary"]["confirmed_facts"]) == 15
 
 
 def test_ambiguous_skip_is_confirmed_without_changing_collection_state() -> None:
@@ -734,7 +732,7 @@ def test_revision_after_summary_invalidates_old_version_and_rebuilds() -> None:
     all_fields = _all_fields_turn()
     model = _ConversationModel(
         {
-            "16개 전체 입력": all_fields,
+            "15개 전체 입력": all_fields,
             "타깃 수정": TurnUnderstanding(
                 intent="revise_information",
                 fact_patches=_patches(target_supporters=["20~40대 반려동물 가구"]),
@@ -742,7 +740,7 @@ def test_revision_after_summary_invalidates_old_version_and_rebuilds() -> None:
         }
     )
     graph = build_conversation_graph(model, checkpointer=InMemorySaver())
-    first = _invoke(graph, "thread-revision", "16개 전체 입력", 1)
+    first = _invoke(graph, "thread-revision", "15개 전체 입력", 1)
     assert first["summary_version"] == 1
     revised = _invoke(graph, "thread-revision", "타깃 수정", 2)
     assert revised["workflow_stage"] == "awaiting-approval"
@@ -763,7 +761,7 @@ def test_threads_do_not_share_conversation_or_question_history() -> None:
 
 
 def test_summary_grounding_rejects_changed_fact_values() -> None:
-    model = _ConversationModel({"16개 전체 입력": _all_fields_turn()})
+    model = _ConversationModel({"15개 전체 입력": _all_fields_turn()})
     original = model.build_summary
 
     def hallucinated_summary(*, messages, facts, optional_collection):
@@ -779,4 +777,4 @@ def test_summary_grounding_rejects_changed_fact_values() -> None:
     model.build_summary = hallucinated_summary  # type: ignore[method-assign]
     graph = build_conversation_graph(model, checkpointer=InMemorySaver())
     with pytest.raises(ValueError, match="exactly match"):
-        _invoke(graph, "thread-hallucination", "16개 전체 입력", 1)
+        _invoke(graph, "thread-hallucination", "15개 전체 입력", 1)

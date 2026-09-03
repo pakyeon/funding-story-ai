@@ -45,7 +45,6 @@
         "refund_policy": "skipped",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -108,7 +107,6 @@
         "refund_policy": "skipped",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -177,7 +175,6 @@
         "refund_policy": "skipped",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -250,7 +247,6 @@
         "refund_policy": "resolved",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -335,7 +331,6 @@
         "refund_policy": "resolved",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -392,7 +387,6 @@
         "refund_policy": "skipped",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -455,7 +449,6 @@
         "refund_policy": "skipped",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -524,7 +517,6 @@
         "refund_policy": "skipped",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -597,7 +589,6 @@
         "refund_policy": "resolved",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -682,7 +673,6 @@
         "refund_policy": "resolved",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -739,7 +729,6 @@
         "refund_policy": "skipped",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -802,7 +791,6 @@
         "refund_policy": "skipped",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -871,7 +859,6 @@
         "refund_policy": "skipped",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -944,7 +931,6 @@
         "refund_policy": "resolved",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -1029,7 +1015,6 @@
         "refund_policy": "resolved",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -1086,7 +1071,6 @@
         "refund_policy": "skipped",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -1149,7 +1133,6 @@
         "refund_policy": "skipped",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -1218,7 +1201,6 @@
         "refund_policy": "skipped",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -1291,7 +1273,6 @@
         "refund_policy": "resolved",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -1376,7 +1357,6 @@
         "refund_policy": "resolved",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -1433,7 +1413,6 @@
         "refund_policy": "skipped",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -1496,7 +1475,6 @@
         "refund_policy": "skipped",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -1565,7 +1543,6 @@
         "refund_policy": "skipped",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -1638,7 +1615,6 @@
         "refund_policy": "resolved",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -1723,7 +1699,6 @@
         "refund_policy": "resolved",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -1780,7 +1755,6 @@
         "refund_policy": "skipped",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -1843,7 +1817,6 @@
         "refund_policy": "skipped",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -1912,7 +1885,6 @@
         "refund_policy": "skipped",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -1985,7 +1957,6 @@
         "refund_policy": "resolved",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -2070,7 +2041,6 @@
         "refund_policy": "resolved",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -2127,7 +2097,6 @@
         "refund_policy": "skipped",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -2190,7 +2159,6 @@
         "refund_policy": "skipped",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -2259,7 +2227,6 @@
         "refund_policy": "skipped",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -2332,7 +2299,6 @@
         "refund_policy": "resolved",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -2417,7 +2383,6 @@
         "refund_policy": "resolved",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -2474,7 +2439,6 @@
         "refund_policy": "skipped",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -2537,7 +2501,6 @@
         "refund_policy": "skipped",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -2606,7 +2569,6 @@
         "refund_policy": "skipped",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -2679,7 +2641,6 @@
         "refund_policy": "resolved",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -2764,7 +2725,6 @@
         "refund_policy": "resolved",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -2821,7 +2781,6 @@
         "refund_policy": "skipped",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -2884,7 +2843,6 @@
         "refund_policy": "skipped",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -2953,7 +2911,6 @@
         "refund_policy": "skipped",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -3026,7 +2983,6 @@
         "refund_policy": "resolved",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -3111,7 +3067,6 @@
         "refund_policy": "resolved",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -3168,7 +3123,6 @@
         "refund_policy": "skipped",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -3231,7 +3185,6 @@
         "refund_policy": "skipped",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -3300,7 +3253,6 @@
         "refund_policy": "skipped",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -3373,7 +3325,6 @@
         "refund_policy": "resolved",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -3458,7 +3409,6 @@
         "refund_policy": "resolved",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -3515,7 +3465,6 @@
         "refund_policy": "skipped",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -3578,7 +3527,6 @@
         "refund_policy": "skipped",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -3647,7 +3595,6 @@
         "refund_policy": "skipped",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -3720,7 +3667,6 @@
         "refund_policy": "resolved",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -3805,7 +3751,6 @@
         "refund_policy": "resolved",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -3862,7 +3807,6 @@
         "refund_policy": "skipped",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -3925,7 +3869,6 @@
         "refund_policy": "skipped",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -3994,7 +3937,6 @@
         "refund_policy": "skipped",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -4067,7 +4009,6 @@
         "refund_policy": "resolved",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -4152,7 +4093,6 @@
         "refund_policy": "resolved",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -4209,7 +4149,6 @@
         "refund_policy": "skipped",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -4272,7 +4211,6 @@
         "refund_policy": "skipped",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -4341,7 +4279,6 @@
         "refund_policy": "skipped",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -4414,7 +4351,6 @@
         "refund_policy": "resolved",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -4499,7 +4435,6 @@
         "refund_policy": "resolved",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -4556,7 +4491,6 @@
         "refund_policy": "skipped",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -4619,7 +4553,6 @@
         "refund_policy": "skipped",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -4688,7 +4621,6 @@
         "refund_policy": "skipped",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -4761,7 +4693,6 @@
         "refund_policy": "resolved",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -4846,7 +4777,6 @@
         "refund_policy": "resolved",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -4903,7 +4833,6 @@
         "refund_policy": "skipped",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -4966,7 +4895,6 @@
         "refund_policy": "skipped",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -5035,7 +4963,6 @@
         "refund_policy": "skipped",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -5108,7 +5035,6 @@
         "refund_policy": "resolved",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -5193,7 +5119,6 @@
         "refund_policy": "resolved",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -5250,7 +5175,6 @@
         "refund_policy": "skipped",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -5313,7 +5237,6 @@
         "refund_policy": "skipped",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -5382,7 +5305,6 @@
         "refund_policy": "skipped",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -5455,7 +5377,6 @@
         "refund_policy": "resolved",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -5540,7 +5461,6 @@
         "refund_policy": "resolved",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -5597,7 +5517,6 @@
         "refund_policy": "skipped",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -5660,7 +5579,6 @@
         "refund_policy": "skipped",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -5729,7 +5647,6 @@
         "refund_policy": "skipped",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -5802,7 +5719,6 @@
         "refund_policy": "resolved",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -5887,7 +5803,6 @@
         "refund_policy": "resolved",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -5944,7 +5859,6 @@
         "refund_policy": "skipped",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -6007,7 +5921,6 @@
         "refund_policy": "skipped",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -6076,7 +5989,6 @@
         "refund_policy": "skipped",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -6149,7 +6061,6 @@
         "refund_policy": "resolved",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -6234,7 +6145,6 @@
         "refund_policy": "resolved",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -6291,7 +6201,6 @@
         "refund_policy": "skipped",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -6354,7 +6263,6 @@
         "refund_policy": "skipped",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -6423,7 +6331,6 @@
         "refund_policy": "skipped",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -6496,7 +6403,6 @@
         "refund_policy": "resolved",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -6581,7 +6487,6 @@
         "refund_policy": "resolved",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -6638,7 +6543,6 @@
         "refund_policy": "skipped",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -6701,7 +6605,6 @@
         "refund_policy": "skipped",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -6770,7 +6673,6 @@
         "refund_policy": "skipped",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -6843,7 +6745,6 @@
         "refund_policy": "resolved",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [
@@ -6928,7 +6829,6 @@
         "refund_policy": "resolved",
         "as_policy": "skipped",
         "funding_plan": "skipped",
-        "platform_choice": "skipped",
         "risk_response": "skipped"
       },
       "messages": [

@@ -9,24 +9,6 @@ from typing import Annotated, Any, Literal, Protocol, TypedDict
 from langgraph.graph import END, START, StateGraph
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
-FACT_FIELDS = (
-    "product_name",
-    "product_type",
-    "category",
-    "key_strengths",
-    "target_supporters",
-    "problem_context",
-    "trust_elements",
-    "maker_team_intro",
-    "rewards",
-    "funding_end",
-    "shipping_start",
-    "refund_policy",
-    "as_policy",
-    "funding_plan",
-    "platform_choice",
-    "risk_response",
-)
 FactField = Literal[
     "product_name",
     "product_type",
@@ -42,9 +24,25 @@ FactField = Literal[
     "refund_policy",
     "as_policy",
     "funding_plan",
-    "platform_choice",
     "risk_response",
 ]
+FACT_FIELDS: tuple[FactField, ...] = (
+    "product_name",
+    "product_type",
+    "category",
+    "key_strengths",
+    "target_supporters",
+    "problem_context",
+    "trust_elements",
+    "maker_team_intro",
+    "rewards",
+    "funding_end",
+    "shipping_start",
+    "refund_policy",
+    "as_policy",
+    "funding_plan",
+    "risk_response",
+)
 REQUIRED_FACT_FIELDS: tuple[FactField, ...] = (
     "product_name",
     "product_type",
@@ -71,7 +69,7 @@ OPTIONAL_FIELD_GROUPS: dict[OptionalGroup, tuple[FactField, ...]] = {
     ),
     "funding_configuration": ("rewards", "funding_end", "shipping_start"),
     "policy": ("refund_policy", "as_policy"),
-    "project_explanation": ("funding_plan", "platform_choice", "risk_response"),
+    "project_explanation": ("funding_plan", "risk_response"),
 }
 OPTIONAL_FACT_FIELDS: tuple[FactField, ...] = tuple(
     field for fields in OPTIONAL_FIELD_GROUPS.values() for field in fields
@@ -97,7 +95,6 @@ FACT_LABELS: dict[FactField, str] = {
     "refund_policy": "교환·환불 정책",
     "as_policy": "보증·사후지원 정책",
     "funding_plan": "펀딩금 사용 계획",
-    "platform_choice": "플랫폼 선택 이유",
     "risk_response": "위험과 대응 계획",
 }
 
@@ -228,9 +225,7 @@ _EXPLICIT_SKIP_ALL_OPTIONAL = re.compile(
     r"(?:남은\s*)?선택\s*정보(?:는|를)?\s*(?:전체|전부|모두)(?:를)?\s*"
     r"(?:생략|건너뛰)(?:할게|할래|하자|해줘|해주세요|하겠습니다|하겠어|자)?"
 )
-_DATE_LIKE_VALUE = re.compile(
-    r"(?:\d{4}\s*년|\d{1,2}\s*월|\d{1,2}\s*일|\d{4}[-./]\d{1,2})"
-)
+_DATE_LIKE_VALUE = re.compile(r"(?:\d{4}\s*년|\d{1,2}\s*월|\d{1,2}\s*일|\d{4}[-./]\d{1,2})")
 _EXPLICIT_FIELD_CUES = (
     "제품명",
     "제품 이름",
@@ -253,8 +248,6 @@ _EXPLICIT_FIELD_CUES = (
     "A/S",
     "수리",
     "펀딩금",
-    "플랫폼",
-    "와디즈 선택",
     "위험",
     "대응",
 )
@@ -330,9 +323,7 @@ def reconcile_turn_understanding(
         )
     if reference is not None and patches and not explicit_field:
         patch_fields = list(dict.fromkeys(patch.field for patch in patches))
-        unresolved = list(
-            dict.fromkeys([*understanding.unresolved_references, reference.group(0)])
-        )
+        unresolved = list(dict.fromkeys([*understanding.unresolved_references, reference.group(0)]))
         return understanding.model_copy(
             update={
                 "fact_patches": [],
@@ -445,12 +436,12 @@ class StoryWorkerState(TypedDict, total=False):
     fact_history: list[dict[str, Any]]
     facts_revision: int
     collection_revision: int
-    missing_required_fields: list[str]
+    missing_required_fields: list[FactField]
     optional_collection: dict[str, Any]
     question_history: list[dict[str, Any]]
     question_purpose: QuestionPurpose
-    question_candidate_fields: list[str]
-    question_group: str | None
+    question_candidate_fields: list[FactField]
+    question_group: OptionalGroup | None
     question_requested_detail: str
     current_question_plan: dict[str, Any] | None
     question_plan_error: str | None
@@ -487,8 +478,8 @@ class ConversationModel(Protocol):
         messages: list[dict[str, str]],
         facts: dict[str, dict[str, Any]],
         purpose: QuestionPurpose,
-        candidate_fields: list[str],
-        requested_group: str | None,
+        candidate_fields: list[FactField],
+        requested_group: OptionalGroup | None,
         requested_detail: str,
         question_history: list[dict[str, Any]],
         turn_understanding: TurnUnderstanding,
@@ -502,8 +493,8 @@ class ConversationModel(Protocol):
         messages: list[dict[str, str]],
         facts: dict[str, dict[str, Any]],
         purpose: QuestionPurpose,
-        candidate_fields: list[str],
-        requested_group: str | None,
+        candidate_fields: list[FactField],
+        requested_group: OptionalGroup | None,
         requested_detail: str,
     ) -> QuestionPlan: ...
 
@@ -536,7 +527,7 @@ def provided_facts(facts: dict[str, dict[str, Any]]) -> dict[str, list[str]]:
     }
 
 
-def explicitly_absent_fields(facts: dict[str, dict[str, Any]]) -> list[str]:
+def explicitly_absent_fields(facts: dict[str, dict[str, Any]]) -> list[FactField]:
     return [
         field
         for field in FACT_FIELDS
@@ -545,7 +536,7 @@ def explicitly_absent_fields(facts: dict[str, dict[str, Any]]) -> list[str]:
     ]
 
 
-def missing_required_fields(facts: dict[str, dict[str, Any]]) -> list[str]:
+def missing_required_fields(facts: dict[str, dict[str, Any]]) -> list[FactField]:
     return [
         field
         for field in REQUIRED_FACT_FIELDS
@@ -553,7 +544,7 @@ def missing_required_fields(facts: dict[str, dict[str, Any]]) -> list[str]:
     ]
 
 
-def optional_group_for(field: str) -> OptionalGroup | None:
+def optional_group_for(field: FactField) -> OptionalGroup | None:
     for group, fields in OPTIONAL_FIELD_GROUPS.items():
         if field in fields:
             return group
@@ -859,8 +850,8 @@ def _remaining_group_lines(collection: OptionalCollection) -> list[str]:
 def _fallback_question(
     *,
     purpose: QuestionPurpose,
-    candidate_fields: list[str],
-    requested_group: str | None,
+    candidate_fields: list[FactField],
+    requested_group: OptionalGroup | None,
     requested_detail: str,
 ) -> QuestionPlan:
     fields = [field for field in candidate_fields if field in FACT_FIELDS][:3]
@@ -1092,6 +1083,8 @@ class ConversationNodes:
     def prepare_optional_question(state: StoryWorkerState) -> StoryWorkerState:
         collection = OptionalCollection.model_validate(state["optional_collection"])
         group = optional_group_for(collection.pending_fields[0])
+        if group is None:
+            raise ValueError("pending optional field does not belong to a collection group")
         candidates = [
             field for field in collection.pending_fields if optional_group_for(field) == group
         ][:3]

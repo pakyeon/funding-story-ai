@@ -22,6 +22,8 @@ from .conversation import (
     OPTIONAL_FIELD_GROUPS,
     ApprovalDecision,
     ConversationModel,
+    FactField,
+    OptionalGroup,
     QuestionPlan,
     QuestionPurpose,
     StorySummary,
@@ -68,9 +70,7 @@ _EXPLICIT_REQUIRED_FACT_PATTERNS: dict[str, tuple[re.Pattern[str], ...]] = {
     ),
     "category": (re.compile(r"(?:카테고리|분류)\s*(?:은|는|:|의)"),),
     "key_strengths": (re.compile(r"(?:핵심\s*)?(?:강점|장점)\s*(?:은|는|:)"),),
-    "target_supporters": (
-        re.compile(r"(?:주요\s*)?(?:서포터|타깃|대상)\s*(?:은|는|:)"),
-    ),
+    "target_supporters": (re.compile(r"(?:주요\s*)?(?:서포터|타깃|대상)\s*(?:은|는|:)"),),
 }
 
 
@@ -233,8 +233,7 @@ class GeminiConversationModel:
                     current_prompt = (
                         prompt
                         + "\n\n직전 구조화 출력이 계약 검증에 실패했습니다. 아래 오류를 바로잡아 "
-                        "스키마에 맞는 JSON만 다시 반환하세요.\n검증 오류: "
-                        + str(exc)
+                        "스키마에 맞는 JSON만 다시 반환하세요.\n검증 오류: " + str(exc)
                     )
         raise StructuredModelOutputError(
             "structured response validation failed after one correction"
@@ -261,7 +260,7 @@ class GeminiConversationModel:
 
 출력 전 점검 순서:
 1. 최신 사용자 발화를 문장 단위로 끝까지 읽습니다.
-2. 아래 16개 필드별로 사용자가 직접 말한 사실이 있는지 각각 확인합니다.
+2. 아래 15개 필드별로 사용자가 직접 말한 사실이 있는지 각각 확인합니다.
 3. 한 문장에 여러 사실이 있으면 fact_patches를 필드별로 모두 분리합니다.
 4. 사실 추출을 마친 뒤 발화 의도와 선택 정보 수집 지시를 별도로 판정합니다.
 5. 생성·질문·취소 의도와 사실 제공이 함께 있어도 서로 하나를 버리지 않습니다.
@@ -281,7 +280,6 @@ class GeminiConversationModel:
 - refund_policy: 교환·환불 조건과 기간
 - as_policy: 보증·수리·사후지원 정책
 - funding_plan: 펀딩금 사용 계획
-- platform_choice: 와디즈를 선택한 이유. 플랫폼 이름만 언급한 것은 해당하지 않음
 - risk_response: 생산·공급·배송 위험과 대응 조치
 
 규칙:
@@ -361,7 +359,8 @@ class GeminiConversationModel:
             images=images,
             response_model=TurnUnderstanding,
             validator=lambda candidate: _validate_explicit_required_fact_coverage(
-                message["content"], candidate  # type: ignore[arg-type]
+                message["content"],
+                candidate,  # type: ignore[arg-type]
             ),
         )
         return reconcile_turn_understanding(message["content"], understanding)
@@ -372,8 +371,8 @@ class GeminiConversationModel:
         messages: list[dict[str, str]],
         facts: dict[str, dict[str, Any]],
         purpose: QuestionPurpose,
-        candidate_fields: list[str],
-        requested_group: str | None,
+        candidate_fields: list[FactField],
+        requested_group: OptionalGroup | None,
         requested_detail: str,
         question_history: list[dict[str, Any]],
         turn_understanding: TurnUnderstanding,
@@ -416,8 +415,8 @@ class GeminiConversationModel:
         messages: list[dict[str, str]],
         facts: dict[str, dict[str, Any]],
         purpose: QuestionPurpose,
-        candidate_fields: list[str],
-        requested_group: str | None,
+        candidate_fields: list[FactField],
+        requested_group: OptionalGroup | None,
         requested_detail: str,
     ) -> QuestionPlan:
         prompt = f"""당신은 잘못된 후속 질문 계획을 한 번만 교정하는 노드입니다.
@@ -474,7 +473,9 @@ class GeminiConversationModel:
             prompt=prompt,
             response_model=StorySummary,
             validator=lambda summary: validate_summary_grounding(
-                summary, facts, optional_collection  # type: ignore[arg-type]
+                summary,
+                facts,
+                optional_collection,  # type: ignore[arg-type]
             ),
         )
 
@@ -538,14 +539,22 @@ class GroundedBriefBuilder:
     """Map extracted slots to a brief without adding product knowledge."""
 
     _UNKNOWN_SPECS = {
-        "rewards": ("확정된 리워드 구성과 가격이 무엇인가요?", ["rewards", "cta"]),
+        "problem_context": (
+            "제품이 해결하려는 실제 문제나 사용 환경은 무엇인가요?",
+            ["problem_context"],
+        ),
+        "trust_elements": (
+            "검증 가능한 인증·시험·후기 등 신뢰 근거가 있나요?",
+            ["trust"],
+        ),
+        "maker_team_intro": ("메이커와 개발팀을 소개해 주세요.", ["trust"]),
+        "rewards": ("확정된 리워드 구성과 가격이 무엇인가요?", ["participation"]),
         "schedule_policy": (
             "확정된 펀딩 종료일, 발송 일정과 정책이 무엇인가요?",
-            ["timeline", "risks", "cta"],
+            ["maintenance", "participation"],
         ),
-        "funding_plan": ("펀딩금 사용 계획이 무엇인가요?", ["funding_plan"]),
-        "platform_choice": ("플랫폼 선택 이유가 무엇인가요?", ["platform_choice"]),
-        "risk_response": ("생산·공급 리스크와 대응 계획이 무엇인가요?", ["risks"]),
+        "funding_plan": ("펀딩금 사용 계획이 무엇인가요?", ["participation"]),
+        "risk_response": ("생산·공급 리스크와 대응 계획이 무엇인가요?", ["participation"]),
     }
 
     def __init__(self, *, repository: DataRepository) -> None:
@@ -635,7 +644,6 @@ class GroundedBriefBuilder:
                     *_values(slots, "trust_elements"),
                     *_values(slots, "maker_team_intro"),
                     *_values(slots, "funding_plan"),
-                    *_values(slots, "platform_choice"),
                     *_values(slots, "risk_response"),
                     *non_iso_schedule,
                 ]
@@ -681,12 +689,27 @@ class GroundedBriefBuilder:
                         if superseded
                         else "사용자가 첨부한 제품 참조 이미지"
                     ),
-                    "allowed_sections": [] if superseded else ["hero", "solution", "features"],
+                    "allowed_sections": (
+                        [] if superseded else ["introduction", "benefits_differentiation"]
+                    ),
                     "source_refs": ["source_product_image"],
                 }
             )
 
         unknowns = []
+        if slots["problem_context"]["status"] == "unknown":
+            question, sections = self._UNKNOWN_SPECS["problem_context"]
+            unknowns.append(
+                {
+                    "field": "problem_context",
+                    "question": question,
+                    "blocks_sections": sections,
+                }
+            )
+        for field in ("trust_elements", "maker_team_intro"):
+            if not _values(slots, field):
+                question, sections = self._UNKNOWN_SPECS[field]
+                unknowns.append({"field": field, "question": question, "blocks_sections": sections})
         if not rewards and slots["rewards"]["status"] == "unknown":
             question, sections = self._UNKNOWN_SPECS["rewards"]
             unknowns.append({"field": "rewards", "question": question, "blocks_sections": sections})
@@ -703,7 +726,7 @@ class GroundedBriefBuilder:
                     "blocks_sections": sections,
                 }
             )
-        for field in ("funding_plan", "platform_choice", "risk_response"):
+        for field in ("funding_plan", "risk_response"):
             if slots[field]["status"] == "unknown":
                 question, sections = self._UNKNOWN_SPECS[field]
                 unknowns.append({"field": field, "question": question, "blocks_sections": sections})
@@ -960,9 +983,7 @@ class StoryMakerWorker:
         try:
             state = self.conversation_graph.invoke(graph_input, config)
         except Exception as exc:
-            if not (
-                is_model_access_error(exc) or isinstance(exc, StructuredModelOutputError)
-            ):
+            if not (is_model_access_error(exc) or isinstance(exc, StructuredModelOutputError)):
                 raise
             state = self.get_state(request.thread_id)
             if not state:

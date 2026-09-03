@@ -73,7 +73,7 @@ class _Model:
         content = message["content"]
         if content == "필수 제품 입력":
             return _required_understanding()
-        if content == "16개 전체 입력":
+        if content == "15개 전체 입력":
             return _all_fields_understanding()
         if content == "선택 정보 전체 생략":
             return TurnUnderstanding(
@@ -255,7 +255,7 @@ def test_worker_stops_at_generation_ready_without_mcp_dispatch() -> None:
     offer = asyncio.run(worker.handle(_request("worker-flow", "필수 제품 입력")))
     assert offer.status == "awaiting-input"
     assert offer.collection_phase == "optional-offer"
-    assert len(offer.remaining_optional_fields) == 11
+    assert len(offer.remaining_optional_fields) == 10
 
     summary = asyncio.run(
         worker.handle(_request("worker-flow", "선택 정보 전체 생략", 2))
@@ -527,7 +527,7 @@ def test_long_conversation_with_continuous_progress_has_no_arbitrary_turn_cap() 
     worker = StoryMakerWorker(
         conversation_model=_LongRevisionModel(), checkpointer=InMemorySaver()
     )
-    first = asyncio.run(worker.handle(_request("worker-long-progress", "16개 전체 입력", 1)))
+    first = asyncio.run(worker.handle(_request("worker-long-progress", "15개 전체 입력", 1)))
     assert first.status == "awaiting-approval"
 
     outcome = first
@@ -569,7 +569,7 @@ def test_sqlite_checkpointer_restores_no_progress_question_history(tmp_path) -> 
 
 def test_revision_after_summary_requires_new_approval() -> None:
     worker = _worker()
-    first = asyncio.run(worker.handle(_request("worker-revise", "16개 전체 입력")))
+    first = asyncio.run(worker.handle(_request("worker-revise", "15개 전체 입력")))
     assert first.status == "awaiting-approval"
     assert first.summary_version == 1
     revised = asyncio.run(worker.handle(_request("worker-revise", "타깃 변경", 2)))
@@ -655,7 +655,7 @@ def test_graph_state_adapter_preserves_current_values_and_collection_gate() -> N
 def test_grounded_brief_preserves_optional_input_without_domain_expansion() -> None:
     repository = DataRepository()
     worker = _worker()
-    asyncio.run(worker.handle(_request("robot-grounded", "16개 전체 입력")))
+    asyncio.run(worker.handle(_request("robot-grounded", "15개 전체 입력")))
     state = deepcopy(worker.get_state("robot-grounded"))
     state["facts"]["key_strengths"]["values"] = [
         "최대 6,800Pa",

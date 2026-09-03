@@ -69,7 +69,6 @@ def test_field_evaluation_scores_exact_outputs() -> None:
         "refund_policy",
         "as_policy",
         "funding_plan",
-        "platform_choice",
         "risk_response",
     }
     assert result["per_field_metrics"]["product_name"]["selection_recall"] == 1.0
@@ -101,7 +100,9 @@ def test_field_evaluation_records_model_error_and_continues() -> None:
     )
     assert result["counts"]["model_response_error"] == 1
     assert result["counts"]["model_response_success"] == len(dataset.cases) - 1
-    assert result["metrics"]["model_response_success_rate"] == 0.99
+    assert result["metrics"]["model_response_success_rate"] == pytest.approx(
+        (len(dataset.cases) - 1) / len(dataset.cases)
+    )
     assert result["cases"][0]["model_error"]["type"] == "ValueError"
 
 

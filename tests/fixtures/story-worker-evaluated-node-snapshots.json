@@ -57,8 +57,8 @@
           "target_supporters": ["맞벌이 가구"]
         },
         "explicitly_absent_fields": [],
-        "skipped_fields": ["problem_context", "trust_elements", "maker_team_intro", "rewards", "funding_end", "shipping_start", "refund_policy", "as_policy", "funding_plan", "platform_choice", "risk_response"],
-        "summary_text": "[확정 정보] 제품명: 오빗클린 V3 1 / 제품 유형: 로봇청소기 / 카테고리: 테크·가전 / 핵심 강점: 얇은 본체 / 타깃 서포터: 맞벌이 가구. [생략 항목] 문제 배경, 신뢰 요소, 메이커 소개, 리워드, 펀딩 종료일, 배송 시작일, 환불 정책, AS 정책, 펀딩 계획, 플랫폼 선택, 위험 대응 항목은 이번 생성에서 생략됩니다. [실제 없음 항목] 확인된 해당 항목이 없습니다.",
+        "skipped_fields": ["problem_context", "trust_elements", "maker_team_intro", "rewards", "funding_end", "shipping_start", "refund_policy", "as_policy", "funding_plan", "risk_response"],
+        "summary_text": "[확정 정보] 제품명: 오빗클린 V3 1 / 제품 유형: 로봇청소기 / 카테고리: 테크·가전 / 핵심 강점: 얇은 본체 / 타깃 서포터: 맞벌이 가구. [생략 항목] 문제 배경, 신뢰 요소, 메이커 소개, 리워드, 펀딩 종료일, 배송 시작일, 환불 정책, AS 정책, 펀딩 계획, 위험 대응 항목은 이번 생성에서 생략됩니다. [실제 없음 항목] 확인된 해당 항목이 없습니다.",
         "confirmation_question": "확인된 위 내용으로 크라우드펀딩 스토리를 생성할까요?"
       }
     },

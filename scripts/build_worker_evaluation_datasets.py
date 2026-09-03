@@ -11,7 +11,7 @@ OPTIONAL_GROUPS = {
     "story_persuasion": ["problem_context", "trust_elements", "maker_team_intro"],
     "funding_configuration": ["rewards", "funding_end", "shipping_start"],
     "policy": ["refund_policy", "as_policy"],
-    "project_explanation": ["funding_plan", "platform_choice", "risk_response"],
+    "project_explanation": ["funding_plan", "risk_response"],
 }
 REQUIRED_FIELDS = [
     "product_name",
@@ -81,6 +81,8 @@ def expand_field_dataset() -> None:
     path = DATASET_ROOT / "story-worker-field-evaluation-v1.json"
     payload = json.loads(path.read_text(encoding="utf-8"))
     cases = payload["cases"][:50]
+    for index, case in enumerate(cases, start=1):
+        case["id"] = f"field-{index:03d}"
     additions: list[dict[str, Any]] = []
 
     for index, (name, product_type, category, strength, target) in enumerate(PRODUCTS, 51):
@@ -236,18 +238,16 @@ def expand_field_dataset() -> None:
         ("maker_team_intro", "팀 소개는 이번에는 제공하지 않을게.", "mark_absent"),
         ("refund_policy", "환불 정책은 아직 정하지 못했어.", "clear"),
         ("as_policy", "A/S 기간은 미정으로 돌려줘.", "clear"),
-        ("platform_choice", "플랫폼 선택 이유는 따로 없어.", "mark_absent"),
         ("risk_response", "위험 대응 계획은 현재 없어.", "mark_absent"),
         ("funding_plan", "사용 계획은 아직 미정이야.", "clear"),
         ("rewards", "리워드 가격은 미정으로 바꿔줘.", "clear"),
         ("shipping_start", "발송 일정은 아직 없어.", "clear"),
         ("problem_context", "해결 문제는 우선 미정으로 둘게.", "clear"),
+        ("rewards", "이번 스토리에는 별도 리워드가 없어.", "mark_absent"),
     ]
     for offset, (field, message, operation) in enumerate(absent_clear, 81):
         if field == "maker_team_intro":
-            expected = understanding(
-                directive={"action": "skip_fields", "fields": [field]}
-            )
+            expected = understanding(directive={"action": "skip_fields", "fields": [field]})
             tags = ["follow-up", "skip_fields", field]
         else:
             expected = understanding(
@@ -271,7 +271,7 @@ def expand_field_dataset() -> None:
         ("지금 확인된 정보가 뭐야?", "ask_question"),
         ("그건 아까 말한 걸로 해줘.", "unclear"),
         ("조금 더 좋은 방향으로 알아서 정리해줘.", "unclear"),
-        ("와디즈에서 진행할 거야.", "provide_information"),
+        ("온라인에서 공개할 거야.", "provide_information"),
         ("제품 설명 예시를 하나 보여줘.", "ask_question"),
         ("생성하지 말고 여기서 멈춰.", "cancel"),
         ("앞의 값은 지우고 아직 미정으로 해줘.", "unclear"),
@@ -295,7 +295,29 @@ def expand_field_dataset() -> None:
             }
         )
 
+    additions.extend(
+        [
+            {
+                "id": "field-coverage-maker",
+                "description": "메이커 소개 추가 입력",
+                "message": "메이커는 생활가전 제품을 개발해 온 3인 팀이야.",
+                "expected": understanding(
+                    patches=[patch("maker_team_intro", "생활가전 제품을 개발해 온 3인 팀")]
+                ),
+                "tags": ["optional-field", "maker_team_intro"],
+            },
+            {
+                "id": "field-coverage-plan",
+                "description": "펀딩금 사용 계획 추가 입력",
+                "message": "펀딩금은 금형 제작과 초도 생산에 사용할 계획이야.",
+                "expected": understanding(patches=[patch("funding_plan", "금형 제작과 초도 생산")]),
+                "tags": ["optional-field", "funding_plan"],
+            },
+        ]
+    )
     payload["cases"] = [*cases, *additions]
+    for index, case in enumerate(payload["cases"], start=1):
+        case["id"] = f"field-{index:03d}"
     write("story-worker-field-evaluation-v1.json", payload)
 
 
@@ -315,7 +337,7 @@ def build_collection_dataset() -> None:
         ],
         "skip_all_optional": [
             "선택 정보는 전부 생략할게.",
-            "추가 항목 11개는 모두 이번 생성에서 빼줘.",
+            "추가 항목 10개는 모두 이번 생성에서 빼줘.",
             "선택 정보 전체를 건너뛰겠습니다.",
             "필수 정보만 쓰고 나머지는 전부 생략해.",
             "네 그룹 모두 작성하지 않을게.",
@@ -358,7 +380,7 @@ def build_collection_dataset() -> None:
         "story_persuasion": ["스토리 설득 정보", "문제와 신뢰 근거", "메이커 소개 그룹"],
         "funding_configuration": ["펀딩 구성", "리워드와 일정", "가격과 발송 정보"],
         "policy": ["정책 그룹", "환불과 A/S", "교환·보증 정보"],
-        "project_explanation": ["프로젝트 설명", "펀딩 목적과 위험", "플랫폼 선택 이유 그룹"],
+        "project_explanation": ["프로젝트 설명", "펀딩 목적과 위험", "자금 계획과 위험 대응"],
     }
     for group, phrases in group_phrases.items():
         for repeat in range(4):
@@ -384,7 +406,6 @@ def build_collection_dataset() -> None:
         ("refund_policy", "교환·환불 정책만 작성하겠습니다."),
         ("as_policy", "보증과 사후지원 내용을 입력할게."),
         ("funding_plan", "펀딩금 사용 계획부터 작성하자."),
-        ("platform_choice", "와디즈 선택 이유를 입력할래."),
         ("risk_response", "위험과 대응 계획만 보완할게."),
     ]
     for repeat in range(2):
@@ -408,14 +429,13 @@ def build_collection_dataset() -> None:
         (["funding_end", "shipping_start"], "종료일과 발송 일정은 둘 다 생략할게."),
         (["refund_policy", "as_policy"], "환불과 A/S 정책은 이번에 건너뛰자."),
         (["funding_plan"], "펀딩금 사용 계획은 빼줘."),
-        (["platform_choice"], "플랫폼 선택 이유는 생략할래."),
         (["risk_response"], "위험 대응 계획은 이번에 작성하지 않겠어."),
         (OPTIONAL_GROUPS["story_persuasion"], "스토리 설득 정보 그룹 전체를 생략해."),
         (OPTIONAL_GROUPS["funding_configuration"], "펀딩 구성 그룹은 전부 건너뛰어."),
         (OPTIONAL_GROUPS["policy"], "정책 그룹 전체를 제외할게."),
         (OPTIONAL_GROUPS["project_explanation"], "프로젝트 설명 그룹은 모두 생략하자."),
         (["rewards", "refund_policy"], "리워드와 환불 정책만 이번에 빼줘."),
-        (["maker_team_intro", "platform_choice"], "팀 소개와 플랫폼 선택 이유는 생략할게."),
+        (["maker_team_intro", "risk_response"], "팀 소개와 위험 대응 계획은 생략할게."),
         (["trust_elements", "risk_response"], "신뢰 근거와 위험 대응 계획은 건너뛰자."),
     ]
     for fields, message in skip_specs:
@@ -459,7 +479,7 @@ def build_collection_dataset() -> None:
         )
         case_id += 1
 
-    assert len(cases) == 96
+    assert 50 <= len(cases) <= 200
     neutral = [
         ("제품의 핵심 강점을 추가로 말할게.", "provide_information"),
         ("스토리를 생성해줘.", "request_generation"),
@@ -477,7 +497,7 @@ def build_collection_dataset() -> None:
             }
         )
         case_id += 1
-    assert len(cases) == 100
+    assert 50 <= len(cases) <= 200
     write(
         "story-worker-collection-evaluation-v1.json",
         {"schema_version": "story-worker-collection-evaluation-v1", "cases": cases},
