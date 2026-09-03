@@ -33,7 +33,7 @@ def test_settings_use_default_models(
     monkeypatch.delenv("GEMINI_FALLBACK_MODEL", raising=False)
     settings = RuntimeSettings.from_env()
     assert settings.primary_model == "gemini-3.8-flash"
-    assert settings.fallback_model == "gemini-3.6-flash"
+    assert settings.fallback_model == "gemini-3.7-flash"
     assert settings.thinking_level == "MEDIUM"
     assert settings.max_output_tokens == 24576
 

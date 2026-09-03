@@ -19,7 +19,7 @@
 
 ## 모델
 
-- 기준 텍스트 모델은 `gemini-3.8-flash`, 폴백은 `gemini-3.6-flash`다.
+- 기준 텍스트 모델은 `gemini-3.8-flash`, 폴백은 `gemini-3.7-flash`다.
 - 이미지는 OpenAI 우선·Gemini 폴백 구조지만 비용·품질·장애 전환의 충분한 반복 평가는
   수행하지 않았다.
 

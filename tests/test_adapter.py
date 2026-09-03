@@ -72,8 +72,8 @@ def test_success_uses_primary() -> None:
 def test_fallback_after_five_access_errors() -> None:
     target, models = adapter([AccessError()] * 5 + [response()])
     result = target.generate_json(prompt="test", response_schema={"type": "object"})
-    assert result.model == "gemini-3.6-flash"
-    assert models.models == ["gemini-3.8-flash"] * 5 + ["gemini-3.6-flash"]
+    assert result.model == "gemini-3.7-flash"
+    assert models.models == ["gemini-3.8-flash"] * 5 + ["gemini-3.7-flash"]
 
 
 def test_non_access_error_does_not_fallback() -> None:
@@ -105,8 +105,8 @@ def test_before_call_runs_for_every_actual_model_request() -> None:
 def test_non_retryable_model_access_error_falls_back_without_repeating() -> None:
     target, models = adapter([MissingModelError(), response()])
     result = target.generate_json(prompt="test", response_schema={"type": "object"})
-    assert result.model == "gemini-3.6-flash"
-    assert models.models == ["gemini-3.8-flash", "gemini-3.6-flash"]
+    assert result.model == "gemini-3.7-flash"
+    assert models.models == ["gemini-3.8-flash", "gemini-3.7-flash"]
 
 
 def test_retry_after_header_controls_retry_delay() -> None:

@@ -157,7 +157,7 @@ Lite를 1회 호출한다. 권한·잘못된 요청·안전 정책 거부는 반
 
 ## 의도적으로 다른 부분
 
-- 본문 모델은 Gemini 3.8 Flash를 기본으로 사용하고, 접근 오류 시 Gemini 3.6 Flash로 폴백한다.
+- 본문 모델은 Gemini 3.8 Flash를 기본으로 사용하고, 접근 오류 시 Gemini 3.7 Flash로 폴백한다.
 - 전송은 FastMCP 권장 Streamable HTTP를 사용하고 SSE 폴백은 구현하지 않았다.
 - 로컬 callback 대체는 polling resource이며 운영 webhook payload를 재현하지 않는다.
 - 생성 dispatcher가 보는 도구가 하나라는 사실은 전체 MCP 서버 도구 수에 대한 주장이 아니다.

@@ -19,7 +19,7 @@ class RuntimeSettings:
     project_id: str
     location: str = "global"
     primary_model: str = "gemini-3.8-flash"
-    fallback_model: str = "gemini-3.6-flash"
+    fallback_model: str = "gemini-3.7-flash"
     primary_access_attempts: int = 5
     request_timeout_ms: int = 120000
     max_output_tokens: int = 24576
@@ -40,7 +40,7 @@ class RuntimeSettings:
             project_id=project_id,
             location=os.getenv("GOOGLE_CLOUD_LOCATION", "global"),
             primary_model=os.getenv("GEMINI_PRIMARY_MODEL", "gemini-3.8-flash"),
-            fallback_model=os.getenv("GEMINI_FALLBACK_MODEL", "gemini-3.6-flash"),
+            fallback_model=os.getenv("GEMINI_FALLBACK_MODEL", "gemini-3.7-flash"),
             primary_access_attempts=_positive_int("GEMINI_PRIMARY_ACCESS_ATTEMPTS", 5),
             request_timeout_ms=_positive_int("GEMINI_REQUEST_TIMEOUT_MS", 120000),
             max_output_tokens=_positive_int("GEMINI_MAX_OUTPUT_TOKENS", 24576),
