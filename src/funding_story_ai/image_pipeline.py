@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import logging
 import struct
 import zlib
 from collections.abc import Sequence
@@ -10,8 +11,10 @@ from pathlib import Path
 from typing import Any
 
 from .data_repository import DataRepository
-from .image_generation import ImageAdapter, ImageSettings
+from .image_generation import ImageAdapter, ImageSettings, image_error_metadata
 from .media_projection import canonical_digest
+
+logger = logging.getLogger(__name__)
 
 
 def _embed_ai_metadata(data: bytes, *, mime_type: str, model: str) -> tuple[bytes, bool]:
@@ -275,6 +278,10 @@ def generate_planned_images(
                     "path": filename,
                     "sha256": hashlib.sha256(image_bytes).hexdigest(),
                     "error_type": None,
+                    "error_category": None,
+                    "error_code": None,
+                    "error_message": None,
+                    "attempt_history": [],
                     "qa_status": "pending",
                     "qa_notes": ["게시 전 사람의 사실·외형·문자 품질 검토가 필요합니다."],
                     "review_checks": {
@@ -291,25 +298,39 @@ def generate_planned_images(
                 }
             )
         except Exception as exc:
+            error = image_error_metadata(exc)
+            logger.warning(
+                "Image slot %s failed after %s attempt(s): category=%s code=%s model=%s message=%s",
+                slot["slot_id"],
+                error["attempts"],
+                error["error_category"],
+                error["error_code"],
+                error["model"],
+                error["error_message"],
+            )
             assets.append(
                 {
                     **base,
                     "status": "error",
                     "path": None,
                     "sha256": None,
-                    "error_type": type(exc).__name__,
+                    "error_type": error["error_type"],
+                    "error_category": error["error_category"],
+                    "error_code": error["error_code"],
+                    "error_message": error["error_message"],
+                    "attempt_history": error["attempt_history"],
                     "qa_status": "fail",
-                    "qa_notes": ["생성 오류로 초안 이미지를 만들지 못했습니다."],
+                    "qa_notes": ["자동 재시도 후에도 초안 이미지를 만들지 못했습니다."],
                     "review_checks": {
                         "scene_distinctness": "not_applicable",
                         "product_fidelity": "not_applicable",
                         "text_legibility": "not_applicable",
                         "claim_grounding": "not_applicable",
                     },
-                    "provider": None,
-                    "model": None,
+                    "provider": error["provider"],
+                    "model": error["model"],
                     "mime_type": None,
-                    "attempts": max(1, int(getattr(exc, "attempts", 1))),
+                    "attempts": error["attempts"],
                     "ai_metadata_embedded": False,
                 }
             )

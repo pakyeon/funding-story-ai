@@ -246,6 +246,11 @@ def test_image_failure_is_isolated_in_manifest(tmp_path) -> None:
     )
     assert manifest["failed"] == 1
     assert manifest["succeeded"] == 3
+    failed = next(asset for asset in manifest["assets"] if asset["status"] == "error")
+    assert failed["error_category"] == "unknown"
+    assert failed["error_message"] == "image failure"
+    assert failed["attempts"] == 1
+    assert failed["attempt_history"] == []
 
 
 def test_draft_is_pure_740px_html_and_publishable_requires_review(tmp_path) -> None:

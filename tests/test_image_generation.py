@@ -86,6 +86,68 @@ def test_transient_primary_failure_retries_then_uses_lite_fallback() -> None:
     ]
 
 
+def test_rate_limit_failure_keeps_model_code_and_attempt_history() -> None:
+    models = _Models(
+        [
+            RuntimeError("429 RESOURCE_EXHAUSTED; retry in 12s"),
+            RuntimeError("429 RESOURCE_EXHAUSTED; retry in 12s"),
+            RuntimeError("429 RESOURCE_EXHAUSTED; retry in 12s"),
+        ]
+    )
+    sleeps: list[float] = []
+    adapter = GeminiImageAdapter(
+        ImageSettings(
+            request_interval_seconds=0,
+            retry_base_seconds=2,
+            retry_max_seconds=30,
+            retry_jitter_seconds=0,
+            fallback_delay_seconds=5,
+        ),
+        client=SimpleNamespace(models=models),
+        sleep=sleeps.append,
+        jitter=lambda: 0,
+    )
+
+    with pytest.raises(ImageGenerationError) as error:
+        adapter.generate(slot_id="slot_automation_return_01", prompt="장면")
+
+    assert error.value.attempts == 3
+    assert error.value.category == "rate_limit"
+    assert error.value.status_code == 429
+    assert error.value.model == "gemini-3.1-flash-lite-image"
+    assert len(error.value.attempt_history) == 3
+    assert [item["model"] for item in error.value.attempt_history] == [
+        "gemini-3.1-flash-image",
+        "gemini-3.1-flash-image",
+        "gemini-3.1-flash-lite-image",
+    ]
+    assert [item["delay_seconds"] for item in error.value.attempt_history] == [12, 12, 0]
+    assert sleeps == [12, 12]
+
+
+def test_adapter_spaces_successive_slot_requests() -> None:
+    models = _Models([_image_response(b"first"), _image_response(b"second")])
+    now = [0.0]
+    sleeps: list[float] = []
+
+    def sleep(seconds: float) -> None:
+        sleeps.append(seconds)
+        now[0] += seconds
+
+    adapter = GeminiImageAdapter(
+        ImageSettings(request_interval_seconds=3),
+        client=SimpleNamespace(models=models),
+        sleep=sleep,
+        monotonic=lambda: now[0],
+        jitter=lambda: 0,
+    )
+
+    adapter.generate(slot_id="slot_first", prompt="첫 장면")
+    adapter.generate(slot_id="slot_second", prompt="둘째 장면")
+
+    assert sleeps == [3]
+
+
 def test_permission_rejection_is_not_retried_or_fallbacked() -> None:
     models = _Models([RuntimeError("403 permission denied")])
     adapter = GeminiImageAdapter(
@@ -96,4 +158,7 @@ def test_permission_rejection_is_not_retried_or_fallbacked() -> None:
         adapter.generate(slot_id="slot_problem_environment_01", prompt="장면")
 
     assert error.value.attempts == 1
+    assert error.value.category == "permission"
+    assert error.value.status_code == 403
+    assert error.value.attempt_history[0]["retryable"] is False
     assert len(models.calls) == 1

@@ -77,6 +77,43 @@
           "path": {"type": ["string", "null"]},
           "sha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
           "error_type": {"type": ["string", "null"]},
+          "error_category": {
+            "type": ["string", "null"],
+            "enum": [
+              "rate_limit", "timeout", "provider_unavailable", "network",
+              "authentication", "permission", "invalid_request", "safety",
+              "empty_response", "unknown", null
+            ]
+          },
+          "error_code": {"type": ["integer", "null"], "minimum": 100, "maximum": 599},
+          "error_message": {"type": ["string", "null"], "maxLength": 500},
+          "attempt_history": {
+            "type": "array",
+            "maxItems": 3,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "model", "model_attempt", "error_type", "error_category",
+                "error_code", "retryable", "delay_seconds"
+              ],
+              "properties": {
+                "model": {"type": "string", "minLength": 1},
+                "model_attempt": {"type": "integer", "minimum": 1, "maximum": 2},
+                "error_type": {"type": "string", "minLength": 1},
+                "error_category": {
+                  "enum": [
+                    "rate_limit", "timeout", "provider_unavailable", "network",
+                    "authentication", "permission", "invalid_request", "safety",
+                    "empty_response", "unknown"
+                  ]
+                },
+                "error_code": {"type": ["integer", "null"], "minimum": 100, "maximum": 599},
+                "retryable": {"type": "boolean"},
+                "delay_seconds": {"type": "number", "minimum": 0, "maximum": 30}
+              }
+            }
+          },
           "qa_status": {"enum": ["pending", "pass", "conditional", "fail"]},
           "qa_notes": {"type": "array", "items": {"type": "string", "minLength": 1}},
           "review_checks": {
