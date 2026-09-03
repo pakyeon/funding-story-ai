@@ -91,10 +91,10 @@ def _facts_and_plan(package: dict) -> tuple[dict, dict]:
         "ignored_fact_ids": [],
     }
     section_by_group = {
-        "product_identity_outcome": "hero",
-        "problem_environment": "problem",
-        "cleaning_mechanism": "solution",
-        "evidence_performance": "social_proof",
+        "product_identity_outcome": "introduction",
+        "problem_environment": "problem_context",
+        "cleaning_mechanism": "cleaning_performance",
+        "evidence_performance": "trust",
     }
     slots = []
     for proposition, fact in zip(propositions, facts, strict=True):
@@ -128,7 +128,7 @@ def _facts_and_plan(package: dict) -> tuple[dict, dict]:
     plan = {
         "schema_version": "media-plan-v1",
         "brief_id": media_facts["brief_id"],
-        "template_id": "t04_full_campaign",
+        "template_id": "t02_problem_solution_automation",
         "media_profile_id": "robotic-floor-cleaner-v1",
         "decision": "ready",
         "publishable": True,
@@ -161,7 +161,10 @@ class _Images:
 
 
 def _story(repository: DataRepository) -> dict:
-    template = repository.get_template("t04_full_campaign")
+    template = repository.compose_template(
+        template_id="t02_problem_solution_automation",
+        brief=repository.load_brief(),
+    )
     return {
         "title_candidates": ["클린포지 R1"],
         "sections": [
@@ -263,7 +266,10 @@ def test_draft_is_pure_740px_html_and_publishable_requires_review(tmp_path) -> N
     for asset in manifest["assets"]:
         asset["path"] = f"images/{asset['path']}"
     story = _story(repository)
-    template = repository.get_template("t04_full_campaign")
+    template = repository.compose_template(
+        template_id="t02_problem_solution_automation",
+        brief=repository.load_brief(),
+    )
 
     draft = render_funding_story_html(
         story=story, template=template, media_plan=plan, manifest=manifest
@@ -298,3 +304,58 @@ def test_draft_is_pure_740px_html_and_publishable_requires_review(tmp_path) -> N
         mode="publishable",
     )
     assert 'data-render-mode="publishable"' in published
+
+
+def test_missing_optional_content_renders_clearly_labeled_fixed_example(tmp_path) -> None:
+    repository = DataRepository()
+    reference = tmp_path / "product.jpg"
+    reference.write_bytes(b"reference")
+    package = _package(repository, reference)
+    facts, plan = _facts_and_plan(package)
+    manifest = generate_planned_images(
+        media_plan=plan,
+        media_facts=facts,
+        generation_package=package,
+        output_dir=tmp_path / "images",
+        repository=repository,
+        adapter=_Images(),
+        settings=ImageSettings(),
+    )
+    for asset in manifest["assets"]:
+        asset["qa_status"] = "pass"
+        asset["path"] = f"images/{asset['path']}"
+    brief = deepcopy(repository.load_brief())
+    brief["unknowns"] = [
+        {
+            "field": "funding_plan",
+            "question": "펀딩금 사용 계획이 무엇인가요?",
+            "blocks_sections": ["participation"],
+        }
+    ]
+    template = repository.compose_template(
+        template_id="t02_problem_solution_automation",
+        brief=brief,
+    )
+    story = _story(repository)
+
+    draft = render_funding_story_html(
+        story=story,
+        template=template,
+        media_plan=plan,
+        manifest=manifest,
+        brief=brief,
+    )
+
+    assert "작성 예시 · 실제 정보 아님" in draft
+    assert "참여에 필요한 정보를 작성해 주세요" in draft
+    assert "실제 메이커 정보로 교체" in draft
+    assert (
+        can_render_publishable(
+            media_plan=plan,
+            manifest=manifest,
+            story=story,
+            brief=brief,
+            template=template,
+        )
+        is False
+    )

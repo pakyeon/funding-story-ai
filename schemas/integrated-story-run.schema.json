@@ -7,7 +7,7 @@
   "required": [
     "schema_version", "run_id", "status", "template_id", "model", "input_brief",
     "story", "media_facts", "media_plan", "images", "draft_html", "publishable_html",
-    "warning_count", "review_required"
+    "warning_count", "content_placeholder_count", "review_required"
   ],
   "$defs": {
     "artifact": {
@@ -52,6 +52,7 @@
       "anyOf": [{"$ref": "#/$defs/artifact"}, {"type": "null"}]
     },
     "warning_count": {"type": "integer", "minimum": 0},
+    "content_placeholder_count": {"type": "integer", "minimum": 0},
     "review_required": {"const": true}
   }
 }

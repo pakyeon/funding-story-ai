@@ -8,10 +8,20 @@ from typing import Any, Protocol
 
 from .data_repository import DataRepository
 from .image_generation import ImageAdapter, ImageSettings
-from .image_pipeline import empty_image_manifest, file_sha256, generate_planned_images
+from .image_pipeline import (
+    attach_generated_reference,
+    empty_image_manifest,
+    file_sha256,
+    generate_planned_images,
+    generate_product_reference,
+)
 from .media_planning import MediaPlanner
 from .pipeline import StoryPipeline
-from .preview import can_render_publishable, write_funding_story_html
+from .preview import (
+    can_render_publishable,
+    content_placeholder_sections,
+    write_funding_story_html,
+)
 from .run_store import LocalRunStore
 from .semantic_normalization import SemanticNormalizer
 
@@ -72,12 +82,17 @@ class IntegratedStoryMakerExecutor:
         package = value.generation_package
         brief = package["brief"]
 
+        media_facts = self.semantic_normalizer.normalize(package)
         story = self.pipeline.invoke(
             brief,
             template_id=value.template_id,
+            media_facts=media_facts,
         )
-        template = self.repository.get_template(story["template_id"])
-        media_facts = self.semantic_normalizer.normalize(package)
+        template = self.repository.compose_template(
+            template_id=story["template_id"],
+            brief=brief,
+            media_facts=media_facts,
+        )
         media_profile = self.repository.get_media_profile(template["media_profile_ref"])
         media_plan = self.media_planner.plan(
             media_facts=media_facts,
@@ -85,6 +100,33 @@ class IntegratedStoryMakerExecutor:
             profile=media_profile,
         )
         value.output_dir.mkdir(parents=True, exist_ok=False)
+        generated_references: list[dict[str, Any]] = []
+        runtime_reference_paths: dict[str, Path] = {}
+        auto_reference_roles = [
+            role
+            for role in media_plan["missing_reference_roles"]
+            if role in {"product_body", "dock", "accessory"}
+        ]
+        if auto_reference_roles:
+            reference_dir = value.output_dir / "reference-assets"
+            reference, reference_path = generate_product_reference(
+                brief=brief,
+                roles=auto_reference_roles,
+                output_dir=reference_dir,
+                adapter=self.image_adapter,
+            )
+            reference["path"] = f"reference-assets/{reference['path']}"
+            generated_references.append(reference)
+            runtime_reference_paths[reference["asset_id"]] = reference_path
+            media_facts = attach_generated_reference(
+                media_facts=media_facts,
+                asset=reference,
+            )
+            media_plan = self.media_planner.plan(
+                media_facts=media_facts,
+                template=template,
+                profile=media_profile,
+            )
         brief_path = value.output_dir / "brief.json"
         brief_path.write_text(
             json.dumps(brief, ensure_ascii=False, indent=2) + "\n",
@@ -116,6 +158,8 @@ class IntegratedStoryMakerExecutor:
                 adapter=self.image_adapter,
                 settings=self.image_settings,
                 run_id=value.run_id,
+                runtime_reference_paths=runtime_reference_paths,
+                generated_references=generated_references,
             )
         else:
             images_dir.mkdir(parents=True, exist_ok=False)
@@ -124,6 +168,7 @@ class IntegratedStoryMakerExecutor:
                 generation_package=package,
                 settings=self.image_settings,
                 run_id=value.run_id,
+                generated_references=generated_references,
             )
             self.repository.validate_story_image_manifest(manifest)
             (images_dir / "manifest.json").write_text(
@@ -143,10 +188,15 @@ class IntegratedStoryMakerExecutor:
             media_plan=media_plan,
             manifest=render_manifest,
             mode="draft",
+            brief=brief,
         )
         publishable_path: Path | None = None
         if can_render_publishable(
-            media_plan=media_plan, manifest=render_manifest, story=story
+            media_plan=media_plan,
+            manifest=render_manifest,
+            story=story,
+            brief=brief,
+            template=template,
         ):
             publishable_path = value.output_dir / "publishable.html"
             write_funding_story_html(
@@ -156,8 +206,12 @@ class IntegratedStoryMakerExecutor:
                 media_plan=media_plan,
                 manifest=render_manifest,
                 mode="publishable",
+                brief=brief,
             )
         manifest_path = images_dir / "manifest.json"
+        content_placeholder_count = len(
+            content_placeholder_sections(brief=brief, template=template)
+        )
         result = {
             "schema_version": "integrated-story-run-v2",
             "run_id": value.run_id,
@@ -166,6 +220,7 @@ class IntegratedStoryMakerExecutor:
                 if manifest["failed"]
                 or story["warnings"]
                 or not media_plan["generation_allowed"]
+                or content_placeholder_count
                 else "complete"
             ),
             "template_id": story["template_id"],
@@ -189,9 +244,7 @@ class IntegratedStoryMakerExecutor:
                 "requested": manifest["requested"],
                 "succeeded": manifest["succeeded"],
                 "failed": manifest["failed"],
-                "qa_pending": sum(
-                    asset["qa_status"] == "pending" for asset in manifest["assets"]
-                ),
+                "qa_pending": sum(asset["qa_status"] == "pending" for asset in manifest["assets"]),
             },
             "draft_html": {"path": "draft.html", "sha256": file_sha256(draft_path)},
             "publishable_html": (
@@ -203,6 +256,7 @@ class IntegratedStoryMakerExecutor:
                 else None
             ),
             "warning_count": len(story["warnings"]),
+            "content_placeholder_count": content_placeholder_count,
             "review_required": True,
         }
         self.repository.validate_integrated_story_run(result)
@@ -241,9 +295,13 @@ def review_integrated_story_run(
     run_dir = store.root / run_id
     manifest_path = run_dir / "images" / "manifest.json"
     story_path = run_dir / "story.json"
+    brief_path = run_dir / "brief.json"
+    media_facts_path = run_dir / "media-facts.json"
     media_plan_path = run_dir / "media-plan.json"
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     story = json.loads(story_path.read_text(encoding="utf-8"))
+    brief = json.loads(brief_path.read_text(encoding="utf-8"))
+    media_facts = json.loads(media_facts_path.read_text(encoding="utf-8"))
     media_plan = json.loads(media_plan_path.read_text(encoding="utf-8"))
     repository.validate_story_image_manifest(manifest)
     repository.validate_media_plan(media_plan)
@@ -291,10 +349,18 @@ def review_integrated_story_run(
         if asset["path"]:
             asset["path"] = f"images/{asset['path']}"
     publishable_path = run_dir / "publishable.html"
+    template = repository.compose_template(
+        template_id=story["template_id"],
+        brief=brief,
+        media_facts=media_facts,
+    )
     if can_render_publishable(
-        media_plan=media_plan, manifest=render_manifest, story=story
+        media_plan=media_plan,
+        manifest=render_manifest,
+        story=story,
+        brief=brief,
+        template=template,
     ):
-        template = repository.get_template(story["template_id"])
         write_funding_story_html(
             target=publishable_path,
             story=story,
@@ -302,6 +368,7 @@ def review_integrated_story_run(
             media_plan=media_plan,
             manifest=render_manifest,
             mode="publishable",
+            brief=brief,
         )
     elif publishable_path.exists():
         publishable_path.unlink()

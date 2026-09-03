@@ -58,7 +58,9 @@ def _render_markdown_body(value: str) -> str:
             while index < len(lines) and lines[index].strip().startswith("- "):
                 items.append(lines[index].strip()[2:].strip())
                 index += 1
-            blocks.append("<ul>" + "".join(f"<li>{_render_inline(item)}</li>" for item in items) + "</ul>")
+            blocks.append(
+                "<ul>" + "".join(f"<li>{_render_inline(item)}</li>" for item in items) + "</ul>"
+            )
             continue
         if _ORDERED_ITEM.match(line):
             items = []
@@ -68,7 +70,9 @@ def _render_markdown_body(value: str) -> str:
                     break
                 items.append(match.group(1))
                 index += 1
-            blocks.append("<ol>" + "".join(f"<li>{_render_inline(item)}</li>" for item in items) + "</ol>")
+            blocks.append(
+                "<ol>" + "".join(f"<li>{_render_inline(item)}</li>" for item in items) + "</ol>"
+            )
             continue
         if line.startswith("> "):
             blocks.append(f"<blockquote>{_render_inline(line[2:].strip())}</blockquote>")
@@ -105,7 +109,7 @@ def _media_html(
         elif mode == "draft":
             blocks.append(
                 f'<div class="media-placeholder" data-media-slot="{_escape(slot["slot_id"])}">'
-                f'<strong>이미지 자리</strong><p>{_escape(slot["scene"]["visual_direction"])}</p>'
+                f"<strong>이미지 자리</strong><p>{_escape(slot['scene']['visual_direction'])}</p>"
                 "</div>"
             )
     if mode == "draft":
@@ -114,12 +118,42 @@ def _media_html(
                 continue
             blocks.append(
                 '<aside class="content-placeholder">'
-                f'<strong>{_escape(placeholder["title"])}</strong>'
-                f'<p>{_escape(placeholder["description"])}</p>'
-                f'<small>{_escape(placeholder["input_format"])}</small>'
+                f"<strong>{_escape(placeholder['title'])}</strong>"
+                f"<p>{_escape(placeholder['description'])}</p>"
+                f"<small>{_escape(placeholder['input_format'])}</small>"
                 "</aside>"
             )
     return "".join(blocks)
+
+
+def content_placeholder_sections(
+    *, brief: dict[str, Any], template: dict[str, Any]
+) -> dict[str, dict[str, Any]]:
+    unknown_fields = {item["field"] for item in brief.get("unknowns", [])}
+    layout_ids = {section["id"] for section in template["layout"]}
+    result: dict[str, dict[str, Any]] = {}
+    for section_id, guide in template.get("content_placeholders", {}).items():
+        fields = set(guide["fields"])
+        if guide.get("trigger", "any_unknown") == "all_unknown":
+            triggered = fields.issubset(unknown_fields)
+        else:
+            triggered = bool(fields.intersection(unknown_fields))
+        if triggered and section_id in layout_ids:
+            result[section_id] = guide
+    return result
+
+
+def _content_placeholder_html(guide: dict[str, Any]) -> str:
+    return (
+        '<aside class="content-placeholder" data-content-status="example">'
+        '<span class="example-badge">작성 예시 · 실제 정보 아님</span>'
+        f"<strong>{_escape(guide['title'])}</strong>"
+        '<p class="example-notice">입력된 정보가 없어 작성 형식만 보여드립니다. '
+        "게시 전에 실제 메이커 정보로 교체해야 합니다.</p>"
+        f'<p class="placeholder-example">{_escape(guide["example"])}</p>'
+        f"<small>권장 입력 형식: {_escape(guide['input_format'])}</small>"
+        "</aside>"
+    )
 
 
 def can_render_publishable(
@@ -127,11 +161,19 @@ def can_render_publishable(
     media_plan: dict[str, Any],
     manifest: dict[str, Any],
     story: dict[str, Any] | None = None,
+    brief: dict[str, Any] | None = None,
+    template: dict[str, Any] | None = None,
 ) -> bool:
     assets = manifest["assets"]
+    content_placeholders = (
+        content_placeholder_sections(brief=brief, template=template)
+        if brief is not None and template is not None
+        else {}
+    )
     return bool(
         media_plan["publishable"]
         and not media_plan["placeholders"]
+        and not content_placeholders
         and manifest["requested"] == manifest["succeeded"]
         and all(asset["qa_status"] == "pass" for asset in assets)
         and (story is None or not story.get("warnings"))
@@ -145,12 +187,22 @@ def render_funding_story_html(
     media_plan: dict[str, Any],
     manifest: dict[str, Any],
     mode: Literal["draft", "publishable"] = "draft",
+    brief: dict[str, Any] | None = None,
 ) -> str:
     if mode == "publishable" and not can_render_publishable(
-        media_plan=media_plan, manifest=manifest, story=story
+        media_plan=media_plan,
+        manifest=manifest,
+        story=story,
+        brief=brief,
+        template=template,
     ):
-        raise ValueError("Publishable HTML requires complete facts, assets, and passed image review")
+        raise ValueError(
+            "Publishable HTML requires complete facts, assets, and passed image review"
+        )
     colors = template["style"]["color_palette"]
+    placeholder_sections = (
+        content_placeholder_sections(brief=brief, template=template) if brief is not None else {}
+    )
     sections: list[str] = []
     for section in story["sections"]:
         section_id = section["template_section_id"]
@@ -160,10 +212,14 @@ def render_funding_story_html(
             manifest=manifest,
             mode=mode,
         )
+        placeholder = placeholder_sections.get(section_id)
+        copy = f'<div class="story-copy">{_render_markdown_body(section["body"])}</div>'
+        if mode == "draft" and placeholder is not None:
+            copy += _content_placeholder_html(placeholder)
         sections.append(
             f'<section data-story-section="{_escape(section_id)}">'
-            f'<h2>{_escape(section["heading"])}</h2>'
-            f'{media}<div class="story-copy">{_render_markdown_body(section["body"])}</div>'
+            f"<h2>{_escape(section['heading'])}</h2>"
+            f"{media}{copy}"
             "</section>"
         )
     return f"""<!doctype html>
@@ -171,7 +227,7 @@ def render_funding_story_html(
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{_escape(story['title_candidates'][0])}</title>
+<title>{_escape(story["title_candidates"][0])}</title>
 <style>
 :root{{--story-ink:{colors[0]};--story-accent:{colors[1]};--story-surface:{colors[2]}}}
 *{{box-sizing:border-box}}body{{margin:0;background:#fff;color:var(--story-ink);font-family:Arial,'Noto Sans KR',sans-serif;line-height:1.72}}
@@ -184,12 +240,14 @@ figure{{margin:0 0 26px}}img{{display:block;width:100%;height:auto}}.story-copy 
 .story-copy th{{background:var(--story-surface)}}blockquote{{margin:18px 0;padding:14px 18px;border-left:4px solid var(--story-accent);background:var(--story-surface)}}
 mark{{background:#fff2a8}}.media-placeholder,.content-placeholder{{margin:0 0 24px;padding:24px;border:2px dashed #aab4c0;background:#f8fafc;text-align:center}}
 .media-placeholder p,.content-placeholder p{{margin:8px 0}}.content-placeholder small{{color:#586474}}
+.example-badge{{display:inline-block;margin:0 0 12px;padding:4px 10px;border-radius:999px;background:#fff3cd;color:#7a4b00;font-size:13px;font-weight:700}}
+.content-placeholder strong{{display:block;font-size:19px}}.example-notice{{color:#475569}}.placeholder-example{{padding:14px;background:#fff;border-radius:10px;color:#334155}}
 @media(max-width:768px){{.funding-story{{max-width:100%}}.story-hero,section{{padding:32px 20px}}.story-hero h1{{font-size:31px}}h2{{font-size:25px}}}}
 </style>
 </head>
 <body><main class="funding-story" data-render-mode="{mode}">
-<header class="story-hero"><h1>{_escape(story['title_candidates'][0])}</h1></header>
-{''.join(sections)}
+<header class="story-hero"><h1>{_escape(story["title_candidates"][0])}</h1></header>
+{"".join(sections)}
 </main></body>
 </html>
 """
@@ -203,6 +261,7 @@ def write_funding_story_html(
     media_plan: dict[str, Any],
     manifest: dict[str, Any],
     mode: Literal["draft", "publishable"] = "draft",
+    brief: dict[str, Any] | None = None,
 ) -> None:
     target.write_text(
         render_funding_story_html(
@@ -211,6 +270,7 @@ def write_funding_story_html(
             media_plan=media_plan,
             manifest=manifest,
             mode=mode,
+            brief=brief,
         ),
         encoding="utf-8",
     )

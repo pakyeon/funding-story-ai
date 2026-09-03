@@ -1,4 +1,5 @@
 import hashlib
+import json
 from typing import Any
 
 from funding_story_ai.data_repository import DataRepository
@@ -15,6 +16,8 @@ from funding_story_ai.run_store import LocalRunStore
 
 
 def _generation_package(repository: DataRepository, reference=None):
+    brief = repository.load_brief()
+    brief["unknowns"] = []
     return build_approved_generation_package(
         repository=repository,
         input_id="engine-test",
@@ -27,10 +30,8 @@ def _generation_package(repository: DataRepository, reference=None):
             "collection_revision": 1,
             "facts": {},
         },
-        brief=repository.load_brief(),
-        local_asset_paths=(
-            {"asset_product_hero": reference} if reference is not None else {}
-        ),
+        brief=brief,
+        local_asset_paths=({"asset_product_hero": reference} if reference is not None else {}),
     )
 
 
@@ -47,16 +48,19 @@ def test_story_maker_executor_has_no_mcp_dependency() -> None:
     repository = DataRepository()
     pipeline = _Pipeline()
     executor = StoryMakerExecutor(repository=repository, pipeline=pipeline)  # type: ignore[arg-type]
-    brief = repository.load_brief()
+    package = _generation_package(repository)
     result = executor.execute(
         StoryExecutionInput(
-            generation_package=_generation_package(repository),
+            generation_package=package,
             template_id="t02_problem_solution_automation",
         )
     )
     assert result == {"status": "complete"}
     assert pipeline.calls == [
-        {"brief": brief, "template_id": "t02_problem_solution_automation"}
+        {
+            "brief": package["brief"],
+            "template_id": "t02_problem_solution_automation",
+        }
     ]
 
 
@@ -65,13 +69,17 @@ class _IntegratedPipeline:
         self.repository = repository
         self.warnings = warnings or []
 
-    def invoke(self, brief, *, template_id=None):
-        template = self.repository.get_template(template_id or "t04_full_campaign")
+    def invoke(self, brief, *, template_id=None, media_facts=None):
+        template = self.repository.compose_template(
+            template_id=template_id or "t02_problem_solution_automation",
+            brief=brief,
+            media_facts=media_facts,
+        )
         return {
             "schema_version": "story-result-v1",
             "language": "ko",
             "template_id": template["id"],
-            "template_version": "0.1.0",
+            "template_version": "1.0.0",
             "model": "gemini-test",
             "title_candidates": ["통합 실행 테스트"],
             "sections": [
@@ -140,8 +148,7 @@ def _media_facts(package: dict) -> dict:
         "assets": [
             {
                 **asset,
-                "generation_available": asset["asset_id"]
-                in package["local_asset_paths"],
+                "generation_available": asset["asset_id"] in package["local_asset_paths"],
             }
             for asset in package["entity_projection"]["assets"]
         ],
@@ -186,7 +193,7 @@ class _Planner:
                     "slot_id": "slot_product_identity_outcome_01",
                     "capability_group": "product_identity_outcome",
                     "grouping_key": "identity_outcome",
-                    "section_id": "hero",
+                    "section_id": "introduction",
                     "persuasion_goal": "제품 정체성 전달",
                     "priority": "required",
                     "placement": "section_lead",
@@ -210,8 +217,12 @@ class _Planner:
 class _Images:
     def __init__(self, fail=False) -> None:
         self.fail = fail
+        self.calls: list[dict[str, Any]] = []
 
     def generate(self, *, slot_id, prompt, reference_paths=()):
+        self.calls.append(
+            {"slot_id": slot_id, "prompt": prompt, "reference_paths": reference_paths}
+        )
         if self.fail:
             raise RuntimeError("image failure")
         return ImageResult(
@@ -240,7 +251,7 @@ def test_integrated_executor_writes_plan_images_and_pure_draft_html(tmp_path) ->
     result = _integrated(repository, _Images()).execute(
         StoryExecutionInput(
             generation_package=_generation_package(repository, reference),
-            template_id="t04_full_campaign",
+            template_id="t02_problem_solution_automation",
             run_id="run-integrated",
             output_dir=run_dir,
         )
@@ -252,9 +263,9 @@ def test_integrated_executor_writes_plan_images_and_pure_draft_html(tmp_path) ->
     assert (run_dir / "media-plan.json").is_file()
     assert (run_dir / "draft.html").is_file()
     assert not (run_dir / "publishable.html").exists()
-    assert 'src="images/slot_product_identity_outcome_01.jpeg"' in (
-        run_dir / "draft.html"
-    ).read_text()
+    assert (
+        'src="images/slot_product_identity_outcome_01.jpeg"' in (run_dir / "draft.html").read_text()
+    )
     repository.validate_integrated_story_run(result)
 
 
@@ -273,16 +284,36 @@ def test_integrated_executor_isolates_image_failure_as_partial(tmp_path) -> None
     assert result["images"]["failed"] == 1
 
 
-def test_integrated_executor_does_not_call_images_when_plan_blocks(tmp_path) -> None:
+def test_integrated_executor_generates_reference_then_grounded_scene(tmp_path) -> None:
     repository = DataRepository()
+    images = _Images()
+    run_dir = tmp_path / "run-generated-reference"
+    result = _integrated(repository, images).execute(
+        StoryExecutionInput(
+            generation_package=_generation_package(repository),
+            run_id="run-generated-reference",
+            output_dir=run_dir,
+        )
+    )
 
-    class _MustNotRun:
-        def generate(self, **kwargs):
-            raise AssertionError("image adapter must not run")
+    assert result["images"]["requested"] == 1
+    assert [call["slot_id"] for call in images.calls] == [
+        "reference_product_body",
+        "slot_product_identity_outcome_01",
+    ]
+    assert images.calls[1]["reference_paths"] == [
+        run_dir / "reference-assets" / "asset_generated_product_reference.jpeg"
+    ]
+    manifest = json.loads((run_dir / "images" / "manifest.json").read_text(encoding="utf-8"))
+    generated = manifest["generated_references"][0]
+    assert generated["asset_id"] == "asset_generated_product_reference"
+    assert "실제 제품 사진이 아닙니다" in generated["description"]
 
-    result = _integrated(
-        repository, _MustNotRun(), allow_generation=False
-    ).execute(
+
+def test_integrated_executor_bootstraps_reference_before_a_remaining_plan_block(tmp_path) -> None:
+    repository = DataRepository()
+    images = _Images()
+    result = _integrated(repository, images, allow_generation=False).execute(
         StoryExecutionInput(
             generation_package=_generation_package(repository),
             run_id="run-blocked",
@@ -291,6 +322,10 @@ def test_integrated_executor_does_not_call_images_when_plan_blocks(tmp_path) -> 
     )
     assert result["status"] == "partial"
     assert result["images"]["requested"] == 0
+    assert [call["slot_id"] for call in images.calls] == ["reference_product_body"]
+    assert (
+        tmp_path / "run-blocked" / "reference-assets" / "asset_generated_product_reference.jpeg"
+    ).is_file()
     assert "이미지 자리" in (tmp_path / "run-blocked" / "draft.html").read_text()
 
 
@@ -299,7 +334,7 @@ def test_integrated_executor_marks_story_warning_as_partial(tmp_path) -> None:
     warning = {
         "code": "unsupported-generated-text",
         "message": "입력에 없는 동작",
-        "section_id": "solution",
+        "section_id": "benefits_differentiation",
         "source_fields": ["product.name"],
     }
     result = _integrated(repository, _Images(), warnings=[warning]).execute(
@@ -329,7 +364,7 @@ def test_review_integrated_run_renders_publishable_html_after_all_checks_pass(tm
     result = _integrated(repository, _Images()).execute(
         StoryExecutionInput(
             generation_package=_generation_package(repository, reference),
-            template_id="t04_full_campaign",
+            template_id="t02_problem_solution_automation",
             run_id=run_id,
             output_dir=store.root / run_id,
         )
@@ -359,9 +394,7 @@ def test_review_integrated_run_renders_publishable_html_after_all_checks_pass(tm
     assert updated["result"]["images"]["qa_pending"] == 0
     assert updated["result"]["publishable_html"]["path"] == "publishable.html"
     manifest_path = store.root / run_id / "images" / "manifest.json"
-    assert updated["result"]["images"]["manifest"]["sha256"] == file_sha256(
-        manifest_path
-    )
+    assert updated["result"]["images"]["manifest"]["sha256"] == file_sha256(manifest_path)
     assert updated["result"]["images"]["manifest"]["sha256"] != original_manifest_sha
 
 
@@ -380,13 +413,13 @@ def test_review_integrated_run_keeps_warning_story_unpublishable(tmp_path) -> No
     warning = {
         "code": "unsupported-generated-text",
         "message": "입력에 없는 동작",
-        "section_id": "solution",
+        "section_id": "benefits_differentiation",
         "source_fields": ["product.name"],
     }
     result = _integrated(repository, _Images(), warnings=[warning]).execute(
         StoryExecutionInput(
             generation_package=_generation_package(repository, reference),
-            template_id="t04_full_campaign",
+            template_id="t02_problem_solution_automation",
             run_id=run_id,
             output_dir=store.root / run_id,
         )

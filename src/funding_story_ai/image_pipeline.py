@@ -4,6 +4,8 @@ import hashlib
 import json
 import struct
 import zlib
+from collections.abc import Sequence
+from copy import deepcopy
 from pathlib import Path
 from typing import Any
 
@@ -29,9 +31,7 @@ def _embed_ai_metadata(data: bytes, *, mime_type: str, model: str) -> tuple[byte
 
 
 def _extension(mime_type: str) -> str:
-    return {"image/jpeg": "jpeg", "image/png": "png", "image/webp": "webp"}.get(
-        mime_type, "bin"
-    )
+    return {"image/jpeg": "jpeg", "image/png": "png", "image/webp": "webp"}.get(mime_type, "bin")
 
 
 def file_sha256(path: Path) -> str:
@@ -48,9 +48,7 @@ def build_slot_image_prompt(
     media_facts: dict[str, Any],
     reference_available: bool,
 ) -> str:
-    proposition_by_id = {
-        item["proposition_id"]: item for item in media_facts["propositions"]
-    }
+    proposition_by_id = {item["proposition_id"]: item for item in media_facts["propositions"]}
     approved = [proposition_by_id[item]["text"] for item in slot["proposition_ids"]]
     reference_rule = (
         "첨부된 제품 참조 자산의 본체·도크·부속품 외형을 동일하게 보존하세요."
@@ -64,10 +62,10 @@ def build_slot_image_prompt(
     )
     return f"""한국 크라우드펀딩 상세 페이지용 독립 장면 한 장을 생성하세요.
 
-슬롯: {slot['slot_id']}
-설득 목적: {slot['persuasion_goal']}
-장면 요약: {slot['scene']['summary']}
-시각 방향: {slot['scene']['visual_direction']}
+슬롯: {slot["slot_id"]}
+설득 목적: {slot["persuasion_goal"]}
+장면 요약: {slot["scene"]["summary"]}
+시각 방향: {slot["scene"]["visual_direction"]}
 승인 사실: {json.dumps(approved, ensure_ascii=False)}
 
 제약:
@@ -80,6 +78,83 @@ def build_slot_image_prompt(
 """
 
 
+def build_generated_reference_prompt(*, brief: dict[str, Any], roles: Sequence[str]) -> str:
+    facts = [
+        f"{item['name']}: {item['value']}{item['unit'] or ''}" for item in brief["product"]["facts"]
+    ]
+    features = [item["description"] for item in brief["features"]]
+    return f"""크라우드펀딩 이미지 제작에 사용할 가상의 제품 기준 이미지를 생성하세요.
+
+제품명: {brief["product"]["name"]}
+제품 유형: {brief["product"]["product_type"]}
+제품 요약: {brief["product"]["summary"]}
+확인된 제품 정보: {json.dumps([*facts, *features], ensure_ascii=False)}
+필요한 참조 역할: {json.dumps(list(roles), ensure_ascii=False)}
+
+제약:
+- 실제 출시 제품이나 특정 브랜드 제품을 복제하지 말고 새로운 가상 제품 디자인으로 만드세요.
+- 이후 여러 장면에서 외형을 일관되게 재사용할 수 있도록 본체 전체가 잘 보이는
+  중립적인 스튜디오 제품 사진으로 만드세요.
+- 확인된 정보에 없는 성능, 수치, 인증, 로고, 구성품, UI를 추가하지 마세요.
+- 제품명과 설명 문구를 이미지 안에 넣지 마세요.
+- 사람이나 반려동물을 포함하지 말고 자연스러운 3:2 가로 구도로 구성하세요.
+"""
+
+
+def generate_product_reference(
+    *,
+    brief: dict[str, Any],
+    roles: Sequence[str],
+    output_dir: Path,
+    adapter: ImageAdapter,
+) -> tuple[dict[str, Any], Path]:
+    """Create one clearly synthetic identity reference for otherwise ungrounded scenes."""
+    asset_id = "asset_generated_product_reference"
+    prompt = build_generated_reference_prompt(brief=brief, roles=roles)
+    result = adapter.generate(
+        slot_id="reference_product_body",
+        prompt=prompt,
+        reference_paths=(),
+    )
+    image_bytes, metadata_embedded = _embed_ai_metadata(
+        result.image_bytes,
+        mime_type=result.mime_type,
+        model=result.model,
+    )
+    output_dir.mkdir(parents=True, exist_ok=False)
+    filename = f"{asset_id}.{_extension(result.mime_type)}"
+    target = output_dir / filename
+    target.write_bytes(image_bytes)
+    asset = {
+        "asset_id": asset_id,
+        "roles": list(dict.fromkeys(roles)),
+        "description": "AI가 생성한 가상 제품 기준 이미지이며 실제 제품 사진이 아닙니다.",
+        "source_refs": [brief["source"]["refs"][0]["source_id"]],
+        "path": filename,
+        "sha256": hashlib.sha256(image_bytes).hexdigest(),
+        "provider": result.provider,
+        "model": result.model,
+        "mime_type": result.mime_type,
+        "attempts": result.attempts,
+        "ai_metadata_embedded": metadata_embedded,
+    }
+    return asset, target
+
+
+def attach_generated_reference(
+    *, media_facts: dict[str, Any], asset: dict[str, Any]
+) -> dict[str, Any]:
+    """Attach a runtime-only visual reference without mutating the approved maker input."""
+    enriched = deepcopy(media_facts)
+    projection = {key: asset[key] for key in ("asset_id", "roles", "description", "source_refs")}
+    enriched["assets"].append(projection)
+    roles = set(asset["roles"])
+    for fact in enriched["facts"]:
+        if roles.intersection(fact["reference_roles"]):
+            fact["asset_refs"] = list(dict.fromkeys([*fact["asset_refs"], asset["asset_id"]]))
+    return enriched
+
+
 def planned_image_slots(
     media_plan: dict[str, Any], *, slot_ids: set[str] | None = None
 ) -> list[dict[str, Any]]:
@@ -87,11 +162,7 @@ def planned_image_slots(
     unknown = (slot_ids or set()) - available
     if unknown:
         raise ValueError(f"Unknown media slot ids: {sorted(unknown)}")
-    return [
-        slot
-        for slot in media_plan["slots"]
-        if slot_ids is None or slot["slot_id"] in slot_ids
-    ]
+    return [slot for slot in media_plan["slots"] if slot_ids is None or slot["slot_id"] in slot_ids]
 
 
 def empty_image_manifest(
@@ -100,6 +171,7 @@ def empty_image_manifest(
     generation_package: dict[str, Any],
     settings: ImageSettings,
     run_id: str,
+    generated_references: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     return {
         "schema_version": "story-image-manifest-v2",
@@ -114,6 +186,7 @@ def empty_image_manifest(
         "succeeded": 0,
         "failed": 0,
         "assets": [],
+        "generated_references": generated_references or [],
     }
 
 
@@ -128,6 +201,8 @@ def generate_planned_images(
     settings: ImageSettings,
     slot_ids: set[str] | None = None,
     run_id: str | None = None,
+    runtime_reference_paths: dict[str, Path] | None = None,
+    generated_references: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     repository.validate_media_plan(media_plan)
     repository.validate_media_facts(media_facts)
@@ -138,16 +213,14 @@ def generate_planned_images(
         raise ValueError("Media plan does not allow image generation")
     slots = planned_image_slots(media_plan, slot_ids=slot_ids)
     local_paths = {
-        asset_id: Path(path)
-        for asset_id, path in generation_package["local_asset_paths"].items()
+        asset_id: Path(path) for asset_id, path in generation_package["local_asset_paths"].items()
     }
+    local_paths.update(runtime_reference_paths or {})
     for path in local_paths.values():
         if not path.is_file():
             raise FileNotFoundError(path)
     fact_ids = {item["fact_id"] for item in media_facts["facts"]}
-    proposition_ids = {
-        item["proposition_id"] for item in media_facts["propositions"]
-    }
+    proposition_ids = {item["proposition_id"] for item in media_facts["propositions"]}
     asset_ids = {item["asset_id"] for item in media_facts["assets"]}
     for slot in slots:
         if not set(slot["fact_ids"]).issubset(fact_ids):
@@ -254,6 +327,7 @@ def generate_planned_images(
         "succeeded": sum(item["status"] == "success" for item in assets),
         "failed": sum(item["status"] == "error" for item in assets),
         "assets": assets,
+        "generated_references": generated_references or [],
     }
     repository.validate_story_image_manifest(manifest)
     (output_dir / "manifest.json").write_text(
