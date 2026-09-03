@@ -160,9 +160,9 @@
         "t01_performance_value_evidence",
         "t02_problem_solution_automation",
         "t03_lifestyle_social_proof",
-        "t04_full_campaign",
-        "t05_value_practical_full_campaign",
-        "t06_trust_maintenance_full_campaign"
+        "t02_problem_solution_automation",
+        "t01_performance_value_evidence",
+        "t03_lifestyle_social_proof"
       ]
     },
     "input": {

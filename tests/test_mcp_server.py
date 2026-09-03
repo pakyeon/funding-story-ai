@@ -20,7 +20,7 @@ class _Executor:
         self.calls.append(value)
         return {
             "status": "complete",
-            "template_id": value.template_id or "t04_full_campaign",
+            "template_id": value.template_id or "t02_problem_solution_automation",
             "model": "fake-model",
             "warnings": [],
             "review_required": True,

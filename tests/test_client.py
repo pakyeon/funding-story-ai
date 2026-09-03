@@ -18,11 +18,11 @@ def test_public_client_loads_a_brief_path_and_forwards_options() -> None:
 
     result = generator.generate(
         repository.examples_dir / "robot-vacuum" / "brief.json",
-        template="t04_full_campaign",
+        template="t02_problem_solution_automation",
     )
 
     assert result == {
         "brief_id": "cleanforge-r1-synthetic-v1",
-        "template_id": "t04_full_campaign",
+        "template_id": "t02_problem_solution_automation",
     }
-    assert pipeline.calls[0][1] == "t04_full_campaign"
+    assert pipeline.calls[0][1] == "t02_problem_solution_automation"

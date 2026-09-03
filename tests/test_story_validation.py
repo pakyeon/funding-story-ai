@@ -6,8 +6,15 @@ from funding_story_ai.data_repository import DataRepository
 from funding_story_ai.validation import StoryValidator
 
 
+def _template(repository: DataRepository, template_id: str) -> dict:
+    return repository.compose_template(
+        template_id=template_id,
+        brief=repository.load_brief("robot-vacuum/brief.json"),
+    )
+
+
 def _valid_content(repository: DataRepository, template_id: str) -> dict:
-    template = repository.get_template(template_id)
+    template = _template(repository, template_id)
     return {
         "title_candidates": ["클린포지 R1, 청소 이후의 관리까지 한 흐름으로"],
         "sections": [
@@ -34,7 +41,7 @@ def _valid_content(repository: DataRepository, template_id: str) -> dict:
 def test_valid_content_matches_t02_contract() -> None:
     repository = DataRepository()
     brief = repository.load_brief("robot-vacuum/brief.json")
-    template = repository.get_template("t02_problem_solution_automation")
+    template = _template(repository, "t02_problem_solution_automation")
     content = _valid_content(repository, template["id"])
 
     repository.validate_story_generation_content(content)
@@ -46,11 +53,11 @@ def test_valid_content_matches_t02_contract() -> None:
 def test_validator_flags_unlisted_number_and_template_drift() -> None:
     repository = DataRepository()
     brief = repository.load_brief("robot-vacuum/brief.json")
-    template = repository.get_template("t02_problem_solution_automation")
+    template = _template(repository, "t02_problem_solution_automation")
     content = deepcopy(_valid_content(repository, template["id"]))
     content["sections"][0]["body"] = "입력에 없는 99% 만족도를 주장합니다."
     content["sections"][0]["type"] = "offer"
-    content["sections"][0]["image_intent"]["required"] = False
+    content["sections"][0]["image_intent"]["required"] = True
 
     codes = {
         warning.code
@@ -64,7 +71,7 @@ def test_validator_flags_unlisted_number_and_template_drift() -> None:
 def test_validator_ignores_ordered_list_labels_but_keeps_claim_numbers() -> None:
     repository = DataRepository()
     brief = repository.load_brief("robot-vacuum/brief.json")
-    template = repository.get_template("t02_problem_solution_automation")
+    template = _template(repository, "t02_problem_solution_automation")
     content = _valid_content(repository, template["id"])
     content["sections"][0]["body"] = (
         "1. 입력된 제품 정보\n"
@@ -87,10 +94,12 @@ def test_validator_ignores_ordered_list_labels_but_keeps_claim_numbers() -> None
 def test_validator_flags_promises_created_from_unknown_input() -> None:
     repository = DataRepository()
     brief = repository.load_brief("robot-vacuum/brief.json")
-    template = repository.get_template("t02_problem_solution_automation")
+    template = _template(repository, "t02_problem_solution_automation")
     content = _valid_content(repository, template["id"])
     service = next(
-        section for section in content["sections"] if section["template_section_id"] == "timeline"
+        section
+        for section in content["sections"]
+        if section["template_section_id"] == "participation"
     )
     service["body"] = "AS 정책은 현재 확인 중이며 추후 공지될 예정입니다."
     service["source_fields"] = ["unknown.as_and_refund_policy"]
@@ -115,7 +124,7 @@ def test_validator_flags_promises_created_from_unknown_input() -> None:
 def test_validator_flags_future_copy_variants(future_copy: str) -> None:
     repository = DataRepository()
     brief = repository.load_brief()
-    template = repository.get_template("t02_problem_solution_automation")
+    template = _template(repository, "t02_problem_solution_automation")
     content = _valid_content(repository, template["id"])
     content["sections"][-1]["body"] = future_copy
     content["sections"][-1]["source_fields"] = ["unknown.reward_and_schedule"]
@@ -129,7 +138,7 @@ def test_validator_does_not_treat_explicit_app_absence_as_new_app_claim() -> Non
     repository = DataRepository()
     brief = repository.load_brief()
     brief["product"]["summary"] += " 전용 앱 미지원"
-    template = repository.get_template("t02_problem_solution_automation")
+    template = _template(repository, "t02_problem_solution_automation")
     content = _valid_content(repository, template["id"])
     content["sections"][0]["body"] = "전용 앱은 지원하지 않습니다."
     warnings = StoryValidator().validate(
@@ -144,12 +153,17 @@ def test_validator_does_not_treat_explicit_app_absence_as_new_app_claim() -> Non
 def test_validator_flags_internal_unknown_identifier_in_prose() -> None:
     repository = DataRepository()
     brief = repository.load_brief("robot-vacuum/brief.json")
-    template = repository.get_template("t02_problem_solution_automation")
+    template = _template(repository, "t02_problem_solution_automation")
     content = _valid_content(repository, template["id"])
-    content["sections"][6]["body"] = (
+    participation = next(
+        section
+        for section in content["sections"]
+        if section["template_section_id"] == "participation"
+    )
+    participation["body"] = (
         "AS 정책은 입력되지 않았습니다(unknown.as_and_refund_policy)."
     )
-    content["sections"][6]["source_fields"] = ["unknown.as_and_refund_policy"]
+    participation["source_fields"] = ["unknown.as_and_refund_policy"]
 
     codes = {
         warning.code

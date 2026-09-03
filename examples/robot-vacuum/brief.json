@@ -266,7 +266,7 @@
       "id": "asset_product_hero",
       "asset_type": "product",
       "description": "웜화이트·차콜 원형 본체와 세로형 도크가 있는 텍스트 없는 합성 제품 이미지",
-      "allowed_sections": ["hero", "automation_journey", "performance_proof"],
+      "allowed_sections": ["introduction", "automation", "cleaning_performance", "trust"],
       "source_refs": ["source_product_image"]
     }
   ],
@@ -280,29 +280,29 @@
   },
   "unknowns": [
     {
-      "field": "reward_price_and_components",
+      "field": "rewards",
       "question": "리워드 가격·구성·수량은 무엇인가요?",
-      "blocks_sections": ["reward"]
+      "blocks_sections": ["participation"]
     },
     {
-      "field": "funding_and_shipping_schedule",
+      "field": "schedule_policy",
       "question": "펀딩 종료일과 발송 시작일은 언제인가요?",
-      "blocks_sections": ["project_detail"]
+      "blocks_sections": ["maintenance", "participation"]
     },
     {
-      "field": "certification",
+      "field": "trust_elements",
       "question": "필요한 인증의 취득 상태와 적용 모델은 무엇인가요?",
-      "blocks_sections": ["performance_proof", "project_detail"]
+      "blocks_sections": ["trust"]
     },
     {
-      "field": "as_and_refund_policy",
-      "question": "AS 기간·범위와 환불 정책은 무엇인가요?",
-      "blocks_sections": ["service", "project_detail"]
+      "field": "funding_plan",
+      "question": "펀딩금 사용 계획은 무엇인가요?",
+      "blocks_sections": ["participation"]
     },
     {
-      "field": "social_proof",
-      "question": "검증 가능한 후기·판매·수상 이력이 있나요?",
-      "blocks_sections": ["social_proof"]
+      "field": "risk_response",
+      "question": "생산·공급·배송 위험과 대응 계획은 무엇인가요?",
+      "blocks_sections": ["participation"]
     }
   ]
 }

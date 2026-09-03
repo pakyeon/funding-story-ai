@@ -86,9 +86,11 @@ def test_media_profiles_and_template_links_are_valid() -> None:
 
     assert [profile["id"] for profile in profiles] == ["robotic-floor-cleaner-v1"]
     assert len(profiles[0]["capability_groups"]) == 8
-    assert {
-        template["media_profile_ref"] for template in repository.load_templates()
-    } == {"robotic-floor-cleaner-v1"}
+    modules = repository.load_category_modules()
+    assert [module["id"] for module in modules] == ["robotic-floor-cleaner-v1"]
+    assert {module["media_profile_ref"] for module in modules} == {
+        "robotic-floor-cleaner-v1"
+    }
 
 
 def test_media_profile_does_not_embed_example_product_identity() -> None:

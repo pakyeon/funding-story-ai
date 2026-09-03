@@ -1,205 +1,85 @@
 {
-  "schema_version": "funding-story-template-v1",
+  "schema_version": "funding-story-template-v2",
   "id": "t02_problem_solution_automation",
-  "template_name": "로봇청소기 문제–해결·완전자동형",
-  "category": "테크·가전",
+  "template_name": "문제–해결·사용 편익형",
   "language": "ko",
-  "generation_source": "manual-analysis",
-  "media_profile_ref": "robotic-floor-cleaner-v1",
-  "target": "청소 과정의 반복 작업과 관리 부담을 줄이는 자동화 기능을 우선하는 사용자",
-  "default_word_count": 2000,
+  "generation_source": "research-derived",
+  "persuasion_axis": ["문제해결", "사용편익", "자동화"],
+  "target": "반복되는 문제와 해결 이후의 변화를 구체적으로 확인하려는 사용자",
+  "default_word_count": 1400,
   "narration_mode": "problem_solution",
   "style": {
-    "tone_keywords": [
-      "문제해결",
-      "구체적",
-      "신뢰감"
-    ],
-    "sentence_style": "문제 하나와 대응 기능 하나를 짝지어 전후 관계를 명확히 설명",
-    "visual_mood": "청소 전 과정을 단계별로 보여주는 자동화 흐름 중심 구성",
-    "color_palette": [
-      "#0F172A",
-      "#0EA5E9",
-      "#F97316"
-    ],
+    "tone_keywords": ["공감", "구체적", "문제해결"],
+    "sentence_style": "실제 문제 상황을 짚고 대응 기능과 사용 결과를 순서대로 연결",
+    "visual_mood": "문제와 해결 이후가 구분되는 생활 장면 중심",
+    "color_palette": ["#16202A", "#4C8BF5", "#F3F6FB"],
     "font_style": "Sans-serif",
-    "typography": "문제는 중간 크기, 해결 결과와 자동화 단계는 굵은 제목으로 표현",
-    "urgency_style": "개발 예정 기능과 현재 제공 기능을 분리하고 예정일은 입력이 있을 때만 표시",
-    "cta_style": "자동화 범위와 예외 조건을 확인한 후 적합한 리워드를 선택하도록 안내"
+    "typography": "문제는 짧게, 해결 과정은 단계와 핵심 문장으로 구분",
+    "urgency_style": "입력에 없는 긴급성과 한정성을 만들지 않음",
+    "cta_style": "사용자가 얻게 되는 확인된 변화를 요약"
   },
   "content_strategy": {
-    "core_message": "사용자가 겪는 복수의 청소 문제를 정의하고 각 문제를 해결하는 자동화 기능·작동 조건·예외를 연결한다.",
-    "product_keywords": [
-      "로봇청소기",
-      "완전자동",
-      "자동세척",
-      "자동비움",
-      "앱제어",
-      "AS"
-    ],
-    "success_metrics": [
-      "문제와 기능의 1:1 연결",
-      "자동화 범위·예외 표시",
-      "예정 기능과 제공 기능 분리"
-    ],
+    "core_message": "사용자가 겪는 문제를 제품의 확인된 해결 방식과 사용 편익으로 연결한다.",
+    "product_keywords": ["문제", "해결", "자동", "편의", "시간", "과정"],
+    "success_metrics": ["문제–기능 연결", "사용 조건 표시", "과장된 효과 배제"],
     "emphasis_phrases": {
-      "problem": [
-        "사용 상황을 특정",
-        "확인된 불편만 사용"
-      ],
-      "solution": [
-        "대응 기능과 조건 연결",
-        "예외와 수동 작업 공개"
-      ],
-      "service": [
-        "AS 범위와 기간 명시",
-        "입력된 서비스 정보만 사용"
-      ]
+      "problem": ["반복되는 불편에서 시작"],
+      "solution": ["기능이 바꾸는 실제 과정"],
+      "benefit": ["확인된 범위의 사용 편익"]
+    }
+  },
+  "content_placeholders": {
+    "trust": {
+      "fields": ["trust_elements", "maker_team_intro"],
+      "trigger": "any_unknown",
+      "title": "신뢰 근거를 작성해 주세요",
+      "example": "예: 제품 개발 배경과 시험·검증 범위를 구분해 소개하고, 확인 가능한 자료를 함께 제시합니다.",
+      "input_format": "시험·인증·검증 자료 또는 메이커·팀 소개를 입력"
+    },
+    "participation": {
+      "fields": ["rewards", "schedule_policy", "funding_plan", "risk_response"],
+      "trigger": "any_unknown",
+      "title": "참여에 필요한 정보를 작성해 주세요",
+      "example": "예: 제공 구성과 가격, 발송 일정, 교환·환불 및 사후지원 조건을 항목별로 안내합니다.",
+      "input_format": "리워드 구성·가격, 주요 일정, 정책, 자금 사용 계획과 위험 대응을 입력"
     }
   },
   "layout": [
     {
-      "id": "hero",
-      "label": "히어로",
-      "type": "intro",
-      "summary": "대표 성능과 제품 정체성을 첫 화면에서 제시",
-      "expected_content": "제품명, 제품 유형, 대표 성능·조건, 핵심 기능과 타깃을 입력 사실로 요약",
-      "visual_hint": "참조 제품 본체와 도크를 유지한 밝은 가로 제품 사진과 편집 가능한 제목 여백",
-      "content_type": "image_full_overlay",
-      "image_required": true,
-      "overlay_content": "{{headline}} · {{verified_performance}}",
-      "html_content": "<section class=\"hero\"><h1>{{headline}}</h1><p>{{verified_summary}}</p><ul>{{key_features}}</ul></section>",
-      "html_structure": "full-width hero followed by verified feature list"
+      "id": "introduction", "label": "제품과 핵심 변화", "type": "intro",
+      "summary": "제품과 해결하려는 대표 문제를 짧게 소개",
+      "expected_content": "제품 정체성·타깃·핵심 변화를 입력 사실로만 요약",
+      "visual_hint": "제품과 대표 사용 결과", "content_type": "hero_intro",
+      "image_required": false, "overlay_content": null,
+      "html_content": "<section class=\"introduction\"><h2>{{introduction_heading}}</h2><p>{{grounded_introduction}}</p></section>",
+      "html_structure": "product introduction and expected change"
     },
     {
-      "id": "problem",
-      "label": "문제 제기",
-      "type": "problem",
-      "summary": "타깃이 해결하려는 청소 부담을 입력 범위 안에서 정의",
-      "expected_content": "AUDIENCE와 명시된 PROBLEM만 사용하며 시장 전체나 위생 효과를 일반화하지 않음",
-      "visual_hint": "문제별 짧은 목록과 충분한 여백. 미제공 불편은 만들지 않음",
-      "content_type": "problem_list",
-      "image_required": false,
-      "overlay_content": null,
-      "html_content": "<section class=\"problem\"><h2>{{problem_heading}}</h2><ul>{{supported_problem_items}}</ul></section>",
-      "html_structure": "problem heading with evidence-bounded list"
+      "id": "benefits_differentiation", "label": "해결 방식과 장점", "type": "solution",
+      "summary": "문제에 대응하는 기능과 사용 편익을 연결",
+      "expected_content": "문제·기능·사용 결과를 연결하되 지원되지 않는 자동화나 효과를 만들지 않음",
+      "visual_hint": "문제 해결 과정과 사용 결과", "content_type": "problem_solution",
+      "image_required": false, "overlay_content": null,
+      "html_content": "<section class=\"benefits\"><h2>{{benefits_heading}}</h2><div>{{grounded_solution}}</div></section>",
+      "html_structure": "problem-to-solution benefits"
     },
     {
-      "id": "solution",
-      "label": "솔루션",
-      "type": "solution",
-      "summary": "확인된 기능을 타깃의 요구와 연결",
-      "expected_content": "FEATURE·FACT·CLAIM ID를 사용해 청소·물걸레·센서·도크 기능과 조건을 설명하고 미검증 효과는 제외",
-      "visual_hint": "참조 제품 외형만 유지한 실제 사용 공간의 가로 이미지와 편집 가능한 본문 여백",
-      "content_type": "image_solution_list",
-      "image_required": true,
-      "overlay_content": "{{solution_heading}}",
-      "html_content": "<section class=\"solution\"><h2>{{solution_heading}}</h2><p>{{solution_summary}}</p><ul>{{verified_solution_items}}</ul></section>",
-      "html_structure": "solution image followed by verified feature list"
+      "id": "trust", "label": "신뢰와 검증", "type": "evidence",
+      "summary": "해결 방식의 근거와 메이커 정보를 구분해 제시",
+      "expected_content": "시험·인증·진술의 상태를 구분하고 입력에 없는 신뢰 요소를 만들지 않음",
+      "visual_hint": "검증 자료 또는 메이커 정보", "content_type": "trust_evidence",
+      "image_required": false, "overlay_content": null,
+      "html_content": "<section class=\"trust\"><h2>{{trust_heading}}</h2><div>{{grounded_trust}}</div></section>",
+      "html_structure": "evidence and maker trust"
     },
     {
-      "id": "features",
-      "label": "주요 기능·구성",
-      "type": "feature",
-      "summary": "주요 기능과 확인된 구성만 정리",
-      "expected_content": "FEATURE와 FACT를 표·목록으로 정리하고 리워드 구성품이 없으면 미입력 사실을 표시",
-      "visual_hint": "추가 구성품 없이 참조 제품 본체와 도크만 보여 주는 가로 제품 이미지",
-      "content_type": "image_feature_table",
-      "image_required": true,
-      "overlay_content": "{{features_heading}}",
-      "html_content": "<section class=\"features\"><h2>{{features_heading}}</h2><table>{{verified_feature_rows}}</table></section>",
-      "html_structure": "feature image followed by editable feature table"
-    },
-    {
-      "id": "social_proof",
-      "label": "신뢰·검증",
-      "type": "evidence",
-      "summary": "시험·인증·후기·메이커 배경을 출처 상태와 함께 구분",
-      "expected_content": "EVIDENCE와 CLAIM을 연결하고 인증·전문가 평가·후기가 없으면 생성하지 않음",
-      "visual_hint": "증빙 유형과 적용 범위를 나타내는 편집 가능한 목록",
-      "content_type": "evidence_list",
-      "image_required": true,
-      "overlay_content": null,
-      "html_content": "<section class=\"evidence\"><h2>{{trust_heading}}</h2><ul>{{evidence_items}}</ul></section>",
-      "html_structure": "evidence list without fabricated quotation"
-    },
-    {
-      "id": "funding_plan",
-      "label": "펀딩금 사용 계획",
-      "type": "funding_plan",
-      "summary": "메이커가 제공한 펀딩금 사용 항목·비율을 표로 제시",
-      "expected_content": "사용 계획 입력이 없으면 비율과 용도를 만들지 않고 필요한 입력 항목만 표시",
-      "visual_hint": "제공된 값만 포함하는 편집 가능한 사용 계획 표",
-      "content_type": "funding_plan_table",
-      "image_required": false,
-      "overlay_content": null,
-      "html_content": "<section class=\"funding-plan\"><h2>{{funding_heading}}</h2><table>{{provided_funding_rows}}</table></section>",
-      "html_structure": "funding plan table or missing-input notice"
-    },
-    {
-      "id": "platform_choice",
-      "label": "플랫폼 선택 이유",
-      "type": "platform_choice",
-      "summary": "메이커가 제공한 와디즈 선택 이유를 설명",
-      "expected_content": "선택 이유가 입력되지 않았으면 메이커 의도·성과·커뮤니티 효과를 추정하지 않음",
-      "visual_hint": "제공된 선택 이유를 짧은 목록으로 배치",
-      "content_type": "platform_reason_list",
-      "image_required": false,
-      "overlay_content": null,
-      "html_content": "<section class=\"platform-choice\"><h2>{{platform_heading}}</h2><ul>{{provided_reasons}}</ul></section>",
-      "html_structure": "maker-provided platform reason list"
-    },
-    {
-      "id": "timeline",
-      "label": "개발·생산 일정",
-      "type": "timeline",
-      "summary": "개발·생산·발송 일정을 입력값으로만 구성",
-      "expected_content": "SCHEDULE_POLICY와 일정 출처를 사용하고 미입력 기간·미래 공지 약속을 만들지 않음",
-      "visual_hint": "날짜와 상태를 수정할 수 있는 세로 타임라인",
-      "content_type": "project_timeline",
-      "image_required": true,
-      "overlay_content": null,
-      "html_content": "<section class=\"timeline\"><h2>{{timeline_heading}}</h2><ol>{{provided_schedule}}</ol></section>",
-      "html_structure": "editable schedule timeline or missing-input notice"
-    },
-    {
-      "id": "team",
-      "label": "메이커·팀",
-      "type": "team",
-      "summary": "제공된 팀 규모·경험·개발 기간을 역할별 추정 없이 소개",
-      "expected_content": "CLAIM과 FACT로 확인된 팀 정보만 사용하고 개인별 경력·직책은 입력이 있을 때만 표시",
-      "visual_hint": "검증된 팀 정보와 미입력 역할을 구분한 목록",
-      "content_type": "team_list",
-      "image_required": false,
-      "overlay_content": null,
-      "html_content": "<section class=\"team\"><h2>{{team_heading}}</h2><ul>{{verified_team_items}}</ul></section>",
-      "html_structure": "team fact list without inferred roles"
-    },
-    {
-      "id": "risks",
-      "label": "리스크·대응",
-      "type": "risk",
-      "summary": "메이커가 제공한 공급·생산·일정 리스크와 대응만 정리",
-      "expected_content": "대응 계획이 없으면 공급업체·QA 조직·업데이트 약속을 만들지 않고 미입력 사실을 표시",
-      "visual_hint": "리스크와 대응을 분리한 편집 가능한 목록 또는 표",
-      "content_type": "risk_table",
-      "image_required": false,
-      "overlay_content": null,
-      "html_content": "<section class=\"risks\"><h2>{{risk_heading}}</h2><table>{{provided_risk_rows}}</table></section>",
-      "html_structure": "risk-response table or missing-input notice"
-    },
-    {
-      "id": "cta",
-      "label": "참여 안내",
-      "type": "cta",
-      "summary": "확인된 제품 가치와 검토 필요 정보를 바탕으로 참여를 안내",
-      "expected_content": "검증된 기능을 짧게 요약하고 미제공 가격·수량·마감 긴급성을 만들지 않음",
-      "visual_hint": "제품 핵심 가치와 검토 안내를 담는 단순한 마무리 배너",
-      "content_type": "cta_banner",
-      "image_required": false,
-      "overlay_content": null,
-      "html_content": "<section class=\"cta\"><h2>{{cta_heading}}</h2><p>{{verified_cta}}</p></section>",
-      "html_structure": "verified-value CTA without artificial urgency"
+      "id": "participation", "label": "구성과 참여 정보", "type": "reward",
+      "summary": "리워드·일정·정책과 위험 대응을 안내",
+      "expected_content": "제공된 구성과 조건만 사용하고 미정 값을 추정하지 않음",
+      "visual_hint": "리워드 구성과 일정·정책 요약", "content_type": "participation_information",
+      "image_required": false, "overlay_content": null,
+      "html_content": "<section class=\"participation\"><h2>{{participation_heading}}</h2><div>{{verified_participation}}</div></section>",
+      "html_structure": "reward, schedule, and policy summary"
     }
   ]
 }

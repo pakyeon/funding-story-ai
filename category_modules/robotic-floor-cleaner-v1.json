@@ -1,0 +1,145 @@
+{
+  "schema_version": "story-category-module-v1",
+  "id": "robotic-floor-cleaner-v1",
+  "version": "1.0.0",
+  "category": "테크·가전",
+  "product_types": [
+    "로봇청소기",
+    "로봇 청소기",
+    "올인원 로봇청소기",
+    "도킹 스테이션 로봇청소기"
+  ],
+  "media_profile_ref": "robotic-floor-cleaner-v1",
+  "media_section_bindings": {
+    "product_identity_outcome": "introduction",
+    "problem_environment": "problem_context",
+    "cleaning_mechanism": "cleaning_performance",
+    "mobility_coverage": "space_response",
+    "automation_return": "automation",
+    "control_personalization": "control",
+    "evidence_performance": "trust",
+    "configuration_maintenance": "maintenance"
+  },
+  "section_modules": [
+    {
+      "after_stage": "introduction",
+      "activation_capability_groups": ["problem_environment"],
+      "section": {
+        "id": "problem_context",
+        "label": "사용자가 겪는 문제",
+        "type": "problem",
+        "summary": "제품이 해결하려는 실제 청소 부담과 사용 환경을 구체화",
+        "expected_content": "입력된 사용자·공간·청소 문제만 사용하고 제품 기능을 미리 추정하지 않음",
+        "visual_hint": "제품 없이 실제 청소 부담이 드러나는 생활 환경",
+        "content_type": "problem_context",
+        "image_required": false,
+        "overlay_content": null,
+        "html_content": "<section class=\"problem-context\"><h2>{{problem_heading}}</h2><p>{{grounded_problem}}</p></section>",
+        "html_structure": "problem context grounded in maker input"
+      },
+      "content_placeholder": {
+        "fields": ["problem_context"],
+        "trigger": "any_unknown",
+        "title": "해결하려는 청소 문제를 작성해 주세요",
+        "example": "예: 반려동물 털과 매일 반복되는 물걸레 청소 때문에 바닥 관리 시간이 길어집니다.",
+        "input_format": "사용 공간, 반복되는 불편, 현재 해결 방식의 한계를 1~3문장으로 입력"
+      }
+    },
+    {
+      "after_stage": "benefits_differentiation",
+      "activation_capability_groups": ["cleaning_mechanism"],
+      "section": {
+        "id": "cleaning_performance",
+        "label": "청소 방식과 성능",
+        "type": "feature",
+        "summary": "흡입·브러시·물걸레 등 확인된 청소 방식과 성능을 설명",
+        "expected_content": "기능, 성능 수치와 측정 조건을 입력 근거 범위 안에서 연결",
+        "visual_hint": "제품 외형 또는 청소 구조를 실제 입력 사실에 맞춰 설명",
+        "content_type": "feature_evidence",
+        "image_required": false,
+        "overlay_content": null,
+        "html_content": "<section class=\"cleaning-performance\"><h2>{{performance_heading}}</h2><div>{{grounded_performance}}</div></section>",
+        "html_structure": "grounded cleaning capability blocks"
+      },
+      "content_placeholder": null
+    },
+    {
+      "after_stage": "benefits_differentiation",
+      "activation_capability_groups": ["mobility_coverage"],
+      "section": {
+        "id": "space_response",
+        "label": "이동과 공간 대응",
+        "type": "feature",
+        "summary": "주행·매핑·장애물·문턱 등 실제 공간 대응 범위를 설명",
+        "expected_content": "지원되는 기능과 조건만 사용하고 센서나 동작을 추정하지 않음",
+        "visual_hint": "제품이 실제 지원하는 공간 대응 장면",
+        "content_type": "feature_scenarios",
+        "image_required": false,
+        "overlay_content": null,
+        "html_content": "<section class=\"space-response\"><h2>{{space_heading}}</h2><div>{{grounded_space_response}}</div></section>",
+        "html_structure": "grounded mobility and coverage scenarios"
+      },
+      "content_placeholder": null
+    },
+    {
+      "after_stage": "benefits_differentiation",
+      "activation_capability_groups": ["automation_return"],
+      "section": {
+        "id": "automation",
+        "label": "자동화 범위",
+        "type": "feature",
+        "summary": "충전·복귀·비움·세척·건조 중 실제 제공하는 자동화 범위를 설명",
+        "expected_content": "입력에 있는 자동화 단계만 순서와 조건에 맞게 설명",
+        "visual_hint": "본체와 도크의 관계 또는 확인된 자동화 과정",
+        "content_type": "automation_flow",
+        "image_required": false,
+        "overlay_content": null,
+        "html_content": "<section class=\"automation\"><h2>{{automation_heading}}</h2><ol>{{verified_automation_steps}}</ol></section>",
+        "html_structure": "verified automation sequence"
+      },
+      "content_placeholder": null
+    },
+    {
+      "after_stage": "benefits_differentiation",
+      "activation_capability_groups": ["control_personalization"],
+      "section": {
+        "id": "control",
+        "label": "제어와 맞춤 설정",
+        "type": "feature",
+        "summary": "앱·리모컨·버튼으로 제공하는 실제 제어 방식을 설명",
+        "expected_content": "입력에 없는 앱 화면이나 제어 기능을 만들지 않음",
+        "visual_hint": "실제 제공된 제어 화면 또는 승인된 조작 방식",
+        "content_type": "control_features",
+        "image_required": false,
+        "overlay_content": null,
+        "html_content": "<section class=\"control\"><h2>{{control_heading}}</h2><div>{{verified_controls}}</div></section>",
+        "html_structure": "verified control capabilities"
+      },
+      "content_placeholder": null
+    },
+    {
+      "after_stage": "trust",
+      "activation_capability_groups": ["configuration_maintenance"],
+      "section": {
+        "id": "maintenance",
+        "label": "구성과 유지관리",
+        "type": "feature",
+        "summary": "구성품·소모품·세척·보증·사후지원 정보를 구분해 설명",
+        "expected_content": "제공된 구성과 정책만 사용하고 교체 주기나 서비스 범위를 추정하지 않음",
+        "visual_hint": "실제 구성품이나 관리 항목을 한눈에 확인하는 구성",
+        "content_type": "maintenance_guide",
+        "image_required": false,
+        "overlay_content": null,
+        "html_content": "<section class=\"maintenance\"><h2>{{maintenance_heading}}</h2><div>{{verified_maintenance}}</div></section>",
+        "html_structure": "configuration and maintenance guide"
+      },
+      "content_placeholder": {
+        "fields": ["as_policy", "refund_policy"],
+        "trigger": "any_unknown",
+        "title": "사후지원과 교환·환불 조건을 작성해 주세요",
+        "example": "예: 제품 수령 후 1년 동안 제조상 결함에 대한 무상 수리를 지원하며, 교환·환불 기준은 별도 정책에 따릅니다.",
+        "input_format": "보증 기간, 지원 범위, 접수 방법, 교환·환불 조건을 입력"
+      }
+    }
+  ]
+}

@@ -29,19 +29,25 @@ def build_dry_run_summary(
     settings = build_runtime(require_project=False)
     brief = _load_brief(repository, brief_name=brief_name, brief_path=brief_path)
     if template_id:
-        template = repository.get_template(template_id)
+        selected_template_id = repository.get_template(template_id)["id"]
         selection_scores = {template_id: 0}
         selection_reasons = ["explicit template request"]
     else:
         selection = TemplateSelector().select(brief, repository.load_templates())
-        template = repository.get_template(selection.template_id)
+        selected_template_id = selection.template_id
         selection_scores = selection.scores
         selection_reasons = list(selection.reasons)
+    template = repository.compose_template(
+        template_id=selected_template_id,
+        brief=brief,
+    )
     return {
         "mode": "dry-run",
         "brief_id": brief["brief_id"],
         "template_id": template["id"],
         "template_version": repository.get_template_version(template["id"]),
+        "category_module_id": template["category_module_id"],
+        "media_profile_id": template["media_profile_ref"],
         "selection_scores": selection_scores,
         "selection_reasons": selection_reasons,
         "model": settings.primary_model,

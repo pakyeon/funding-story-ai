@@ -25,6 +25,7 @@ class StoryTemplateSelector(Protocol):
 
 class StoryPipelineState(TypedDict, total=False):
     brief: dict[str, Any]
+    media_facts: dict[str, Any] | None
     requested_template_id: str | None
     template: dict[str, Any]
     template_version: str
@@ -59,7 +60,7 @@ class StoryPipeline:
     def _select_template(self, state: StoryPipelineState) -> StoryPipelineState:
         requested = state.get("requested_template_id")
         if requested:
-            template = self.repository.get_template(requested)
+            base_template = self.repository.get_template(requested)
             selection = TemplateSelection(
                 template_id=requested,
                 score=0,
@@ -69,10 +70,15 @@ class StoryPipeline:
         else:
             templates = self.repository.load_templates()
             selection = self.selector.select(state["brief"], templates)
-            template = self.repository.get_template(selection.template_id)
+            base_template = self.repository.get_template(selection.template_id)
+        template = self.repository.compose_template(
+            template_id=base_template["id"],
+            brief=state["brief"],
+            media_facts=state.get("media_facts"),
+        )
         return {
             "template": template,
-            "template_version": self.repository.get_template_version(template["id"]),
+            "template_version": self.repository.get_template_version(base_template["id"]),
             "selection": selection,
             "retry_count": 0,
         }
@@ -180,12 +186,14 @@ class StoryPipeline:
         brief: dict[str, Any],
         *,
         template_id: str | None = None,
+        media_facts: dict[str, Any] | None = None,
     ) -> dict[str, Any]:
         self.repository.validate_story_brief(brief)
         state = self.graph.invoke(
             {
                 "brief": brief,
                 "requested_template_id": template_id,
+                "media_facts": media_facts,
             }
         )
         return state["result"]

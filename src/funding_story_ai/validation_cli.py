@@ -10,6 +10,8 @@ def validation_summary(repository: DataRepository | None = None) -> dict:
     repository.check_schemas()
     templates = repository.load_templates()
     repository.validate_catalog_links()
+    modules = repository.load_category_modules()
+    repository.validate_template_media_profile_links()
     brief = repository.load_brief()
     return {
         "status": "ok",
@@ -19,6 +21,10 @@ def validation_summary(repository: DataRepository | None = None) -> dict:
             "section_counts": {
                 template["id"]: len(template["layout"]) for template in templates
             },
+        },
+        "category_modules": {
+            "count": len(modules),
+            "ids": [module["id"] for module in modules],
         },
         "example": {
             "brief_id": brief["brief_id"],

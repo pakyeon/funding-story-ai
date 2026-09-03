@@ -18,7 +18,7 @@
       "problems": ["성능 수치의 근거 부족", "가격 대비 구성 판단 어려움"],
       "core_message": "검증된 성능 수치와 구성·가격을 조건과 함께 비교한다.",
       "tone_keywords": ["명확함", "실용적", "검증중심"],
-      "section_roles": ["hero", "problem", "performance", "evidence", "project"],
+      "section_roles": ["introduction", "benefits_differentiation", "trust", "participation"],
       "executable_template_id": "t01_performance_value_evidence"
     },
     {
@@ -32,36 +32,36 @@
       "problems": ["반복 청소", "먼지통과 물걸레 관리", "가구 아래 청소"],
       "core_message": "생활의 청소 문제를 확인된 자동화 기능과 조건으로 연결한다.",
       "tone_keywords": ["문제해결", "구체적", "신뢰감"],
-      "section_roles": ["hero", "problem", "solution", "automation", "service"],
+      "section_roles": ["introduction", "problem_context", "benefits_differentiation", "automation", "trust", "participation"],
       "executable_template_id": "t02_problem_solution_automation"
     },
     {
       "candidate_id": "rc03",
-      "name": "로봇청소기 라이프스타일·사회적 증거형",
+      "name": "로봇청소기 라이프스타일·신뢰형",
       "origin": "executable-template",
       "category": "테크·가전",
       "product_types": ["로봇청소기"],
-      "persuasion_axis": ["생활편익", "사용장면", "사회적증거"],
+      "persuasion_axis": ["생활편익", "사용장면", "신뢰"],
       "target": "가족·반려동물 생활 속 청소 편익을 중시하는 사용자",
-      "problems": ["일상 청소 시간 부담", "후기와 실제 편익 판단 어려움"],
-      "core_message": "구체적인 생활 장면과 제공된 후기·브랜드 근거로 편익을 설명한다.",
+      "problems": ["일상 청소 시간 부담", "생활 속 실제 편익 판단 어려움"],
+      "core_message": "구체적인 생활 장면과 확인 가능한 근거로 편익을 설명한다.",
       "tone_keywords": ["생활밀착", "편안함", "신뢰감"],
-      "section_roles": ["hero", "use_case", "benefit", "social_proof", "trust"],
+      "section_roles": ["introduction", "benefits_differentiation", "trust", "participation"],
       "executable_template_id": "t03_lifestyle_social_proof"
     },
     {
       "candidate_id": "rc04",
-      "name": "로봇청소기 전체 캠페인형",
+      "name": "로봇청소기 균형형 문제–해결 후보",
       "origin": "executable-template",
       "category": "테크·가전",
       "product_types": ["로봇청소기", "올인원 로봇청소기"],
-      "persuasion_axis": ["성능", "문제해결", "신뢰", "프로젝트"],
-      "target": "제품과 펀딩 운영 정보를 함께 검토하는 사용자",
-      "problems": ["제품 가치와 프로젝트 정보의 분산", "근거 없는 비교 위험"],
-      "core_message": "성능·문제·해결·비교·신뢰·프로젝트 정보를 구조화된 역할로 구성한다.",
+      "persuasion_axis": ["성능", "문제해결", "신뢰"],
+      "target": "제품의 문제 해결 방식과 근거를 함께 검토하는 사용자",
+      "problems": ["제품 가치와 근거 정보의 분산", "근거 없는 비교 위험"],
+      "core_message": "문제·해결·성능·신뢰 정보를 확인 가능한 근거로 연결한다.",
       "tone_keywords": ["실용적", "구체적", "검토가능"],
-      "section_roles": ["hero", "problem", "solution", "comparison", "features", "social_proof", "funding_plan", "platform_choice", "timeline", "team", "risks", "cta"],
-      "executable_template_id": "t04_full_campaign"
+      "section_roles": ["introduction", "problem_context", "benefits_differentiation", "trust", "participation"],
+      "executable_template_id": "t02_problem_solution_automation"
     },
     {
       "candidate_id": "rc05",
@@ -74,8 +74,8 @@
       "problems": ["불필요한 고급 기능 비용", "구성 대비 가격 판단 어려움"],
       "core_message": "필수 청소 기능과 실제 제공 구성을 근거 중심으로 설명한다.",
       "tone_keywords": ["경제적", "담백함", "실용적"],
-      "section_roles": ["hero", "problem", "solution", "comparison", "features", "project", "cta"],
-      "executable_template_id": "t05_value_practical_full_campaign"
+      "section_roles": ["introduction", "benefits_differentiation", "trust", "participation"],
+      "executable_template_id": "t01_performance_value_evidence"
     },
     {
       "candidate_id": "rc06",
@@ -88,8 +88,8 @@
       "problems": ["관리 범위 불명확", "증빙과 서비스 조건 부족"],
       "core_message": "검증 상태와 유지관리·서비스 조건을 미확인 정보와 분리한다.",
       "tone_keywords": ["신중함", "투명함", "관리중심"],
-      "section_roles": ["hero", "problem", "solution", "features", "social_proof", "timeline", "risks", "cta"],
-      "executable_template_id": "t06_trust_maintenance_full_campaign"
+      "section_roles": ["introduction", "benefits_differentiation", "trust", "maintenance", "participation"],
+      "executable_template_id": "t03_lifestyle_social_proof"
     },
     {
       "candidate_id": "rc07",

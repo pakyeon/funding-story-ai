@@ -38,7 +38,7 @@ def test_category_soft_boost_recovers_same_category_executable() -> None:
         index=index, embeddings=_ControlledEmbeddings(), category_boost=0.15
     ).rank(query="가성비 실용형", query_category="테크·가전")
     assert with_boost.ranked[0].candidate_id == "rc05"
-    assert with_boost.selected_template_id == "t05_value_practical_full_campaign"
+    assert with_boost.selected_template_id == "t01_performance_value_evidence"
 
 
 def test_gemini_embedding_provider_freezes_task_types_and_dimensions() -> None:

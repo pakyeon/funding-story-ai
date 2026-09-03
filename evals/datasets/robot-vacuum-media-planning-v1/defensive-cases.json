@@ -11359,7 +11359,7 @@
     "case_id": "rv_defensive_035",
     "case_kind": "defensive",
     "variant": "auto_empty_dock",
-    "template_id": "t04_full_campaign",
+    "template_id": "t02_problem_solution_automation",
     "input": {
       "source_boundary": "approved_worker_projection",
       "worker_revision": 3,
@@ -11699,7 +11699,7 @@
     "case_id": "rv_defensive_036",
     "case_kind": "defensive",
     "variant": "all_in_one_dock",
-    "template_id": "t04_full_campaign",
+    "template_id": "t02_problem_solution_automation",
     "input": {
       "source_boundary": "approved_worker_projection",
       "worker_revision": 3,
@@ -12040,7 +12040,7 @@
     "case_id": "rv_defensive_037",
     "case_kind": "defensive",
     "variant": "basic_vacuum",
-    "template_id": "t04_full_campaign",
+    "template_id": "t02_problem_solution_automation",
     "input": {
       "source_boundary": "approved_worker_projection",
       "worker_revision": 3,
@@ -12356,7 +12356,7 @@
     "case_id": "rv_defensive_038",
     "case_kind": "defensive",
     "variant": "vacuum_mop",
-    "template_id": "t04_full_campaign",
+    "template_id": "t02_problem_solution_automation",
     "input": {
       "source_boundary": "approved_worker_projection",
       "worker_revision": 3,
@@ -12672,7 +12672,7 @@
     "case_id": "rv_defensive_039",
     "case_kind": "defensive",
     "variant": "auto_empty_dock",
-    "template_id": "t04_full_campaign",
+    "template_id": "t02_problem_solution_automation",
     "input": {
       "source_boundary": "approved_worker_projection",
       "worker_revision": 3,
@@ -13012,7 +13012,7 @@
     "case_id": "rv_defensive_040",
     "case_kind": "defensive",
     "variant": "all_in_one_dock",
-    "template_id": "t04_full_campaign",
+    "template_id": "t02_problem_solution_automation",
     "input": {
       "source_boundary": "approved_worker_projection",
       "worker_revision": 3,
@@ -13353,7 +13353,7 @@
     "case_id": "rv_defensive_041",
     "case_kind": "defensive",
     "variant": "basic_vacuum",
-    "template_id": "t04_full_campaign",
+    "template_id": "t02_problem_solution_automation",
     "input": {
       "source_boundary": "approved_worker_projection",
       "worker_revision": 3,
@@ -13671,7 +13671,7 @@
     "case_id": "rv_defensive_042",
     "case_kind": "defensive",
     "variant": "vacuum_mop",
-    "template_id": "t04_full_campaign",
+    "template_id": "t02_problem_solution_automation",
     "input": {
       "source_boundary": "approved_worker_projection",
       "worker_revision": 3,
@@ -13989,7 +13989,7 @@
     "case_id": "rv_defensive_043",
     "case_kind": "defensive",
     "variant": "auto_empty_dock",
-    "template_id": "t04_full_campaign",
+    "template_id": "t02_problem_solution_automation",
     "input": {
       "source_boundary": "approved_worker_projection",
       "worker_revision": 3,
@@ -14331,7 +14331,7 @@
     "case_id": "rv_defensive_044",
     "case_kind": "defensive",
     "variant": "all_in_one_dock",
-    "template_id": "t04_full_campaign",
+    "template_id": "t02_problem_solution_automation",
     "input": {
       "source_boundary": "approved_worker_projection",
       "worker_revision": 3,
@@ -14674,7 +14674,7 @@
     "case_id": "rv_defensive_045",
     "case_kind": "defensive",
     "variant": "basic_vacuum",
-    "template_id": "t05_value_practical_full_campaign",
+    "template_id": "t01_performance_value_evidence",
     "input": {
       "source_boundary": "approved_worker_projection",
       "worker_revision": 3,
@@ -14992,7 +14992,7 @@
     "case_id": "rv_defensive_046",
     "case_kind": "defensive",
     "variant": "vacuum_mop",
-    "template_id": "t05_value_practical_full_campaign",
+    "template_id": "t01_performance_value_evidence",
     "input": {
       "source_boundary": "approved_worker_projection",
       "worker_revision": 3,
@@ -15310,7 +15310,7 @@
     "case_id": "rv_defensive_047",
     "case_kind": "defensive",
     "variant": "auto_empty_dock",
-    "template_id": "t05_value_practical_full_campaign",
+    "template_id": "t01_performance_value_evidence",
     "input": {
       "source_boundary": "approved_worker_projection",
       "worker_revision": 3,
@@ -15652,7 +15652,7 @@
     "case_id": "rv_defensive_048",
     "case_kind": "defensive",
     "variant": "all_in_one_dock",
-    "template_id": "t05_value_practical_full_campaign",
+    "template_id": "t01_performance_value_evidence",
     "input": {
       "source_boundary": "approved_worker_projection",
       "worker_revision": 3,
@@ -15995,7 +15995,7 @@
     "case_id": "rv_defensive_049",
     "case_kind": "defensive",
     "variant": "basic_vacuum",
-    "template_id": "t05_value_practical_full_campaign",
+    "template_id": "t01_performance_value_evidence",
     "input": {
       "source_boundary": "defensive_boundary_injection",
       "worker_revision": 3,
@@ -16323,7 +16323,7 @@
     "case_id": "rv_defensive_050",
     "case_kind": "defensive",
     "variant": "vacuum_mop",
-    "template_id": "t05_value_practical_full_campaign",
+    "template_id": "t01_performance_value_evidence",
     "input": {
       "source_boundary": "defensive_boundary_injection",
       "worker_revision": 3,
@@ -16651,7 +16651,7 @@
     "case_id": "rv_defensive_051",
     "case_kind": "defensive",
     "variant": "auto_empty_dock",
-    "template_id": "t05_value_practical_full_campaign",
+    "template_id": "t01_performance_value_evidence",
     "input": {
       "source_boundary": "defensive_boundary_injection",
       "worker_revision": 3,
@@ -17003,7 +17003,7 @@
     "case_id": "rv_defensive_052",
     "case_kind": "defensive",
     "variant": "all_in_one_dock",
-    "template_id": "t05_value_practical_full_campaign",
+    "template_id": "t01_performance_value_evidence",
     "input": {
       "source_boundary": "defensive_boundary_injection",
       "worker_revision": 3,
@@ -17356,7 +17356,7 @@
     "case_id": "rv_defensive_053",
     "case_kind": "defensive",
     "variant": "basic_vacuum",
-    "template_id": "t05_value_practical_full_campaign",
+    "template_id": "t01_performance_value_evidence",
     "input": {
       "source_boundary": "defensive_boundary_injection",
       "worker_revision": 3,
@@ -17684,7 +17684,7 @@
     "case_id": "rv_defensive_054",
     "case_kind": "defensive",
     "variant": "vacuum_mop",
-    "template_id": "t05_value_practical_full_campaign",
+    "template_id": "t01_performance_value_evidence",
     "input": {
       "source_boundary": "defensive_boundary_injection",
       "worker_revision": 3,
@@ -18012,7 +18012,7 @@
     "case_id": "rv_defensive_055",
     "case_kind": "defensive",
     "variant": "auto_empty_dock",
-    "template_id": "t06_trust_maintenance_full_campaign",
+    "template_id": "t03_lifestyle_social_proof",
     "input": {
       "source_boundary": "defensive_boundary_injection",
       "worker_revision": 3,
@@ -18364,7 +18364,7 @@
     "case_id": "rv_defensive_056",
     "case_kind": "defensive",
     "variant": "all_in_one_dock",
-    "template_id": "t06_trust_maintenance_full_campaign",
+    "template_id": "t03_lifestyle_social_proof",
     "input": {
       "source_boundary": "defensive_boundary_injection",
       "worker_revision": 3,
@@ -18717,7 +18717,7 @@
     "case_id": "rv_defensive_057",
     "case_kind": "defensive",
     "variant": "basic_vacuum",
-    "template_id": "t06_trust_maintenance_full_campaign",
+    "template_id": "t03_lifestyle_social_proof",
     "input": {
       "source_boundary": "approved_worker_projection",
       "worker_revision": 3,
@@ -19057,7 +19057,7 @@
     "case_id": "rv_defensive_058",
     "case_kind": "defensive",
     "variant": "vacuum_mop",
-    "template_id": "t06_trust_maintenance_full_campaign",
+    "template_id": "t03_lifestyle_social_proof",
     "input": {
       "source_boundary": "approved_worker_projection",
       "worker_revision": 3,
@@ -19397,7 +19397,7 @@
     "case_id": "rv_defensive_059",
     "case_kind": "defensive",
     "variant": "auto_empty_dock",
-    "template_id": "t06_trust_maintenance_full_campaign",
+    "template_id": "t03_lifestyle_social_proof",
     "input": {
       "source_boundary": "approved_worker_projection",
       "worker_revision": 3,
@@ -19754,7 +19754,7 @@
     "case_id": "rv_defensive_060",
     "case_kind": "defensive",
     "variant": "all_in_one_dock",
-    "template_id": "t06_trust_maintenance_full_campaign",
+    "template_id": "t03_lifestyle_social_proof",
     "input": {
       "source_boundary": "approved_worker_projection",
       "worker_revision": 3,
@@ -20112,7 +20112,7 @@
     "case_id": "rv_defensive_061",
     "case_kind": "defensive",
     "variant": "basic_vacuum",
-    "template_id": "t06_trust_maintenance_full_campaign",
+    "template_id": "t03_lifestyle_social_proof",
     "input": {
       "source_boundary": "approved_worker_projection",
       "worker_revision": 3,
@@ -20452,7 +20452,7 @@
     "case_id": "rv_defensive_062",
     "case_kind": "defensive",
     "variant": "vacuum_mop",
-    "template_id": "t06_trust_maintenance_full_campaign",
+    "template_id": "t03_lifestyle_social_proof",
     "input": {
       "source_boundary": "approved_worker_projection",
       "worker_revision": 3,
@@ -20792,7 +20792,7 @@
     "case_id": "rv_defensive_063",
     "case_kind": "defensive",
     "variant": "auto_empty_dock",
-    "template_id": "t06_trust_maintenance_full_campaign",
+    "template_id": "t03_lifestyle_social_proof",
     "input": {
       "source_boundary": "approved_worker_projection",
       "worker_revision": 3,
@@ -21149,7 +21149,7 @@
     "case_id": "rv_defensive_064",
     "case_kind": "defensive",
     "variant": "all_in_one_dock",
-    "template_id": "t06_trust_maintenance_full_campaign",
+    "template_id": "t03_lifestyle_social_proof",
     "input": {
       "source_boundary": "approved_worker_projection",
       "worker_revision": 3,

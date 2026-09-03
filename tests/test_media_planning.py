@@ -11,12 +11,7 @@ import pytest
 from funding_story_ai.data_repository import DataRepository, DataValidationError
 from funding_story_ai.media_planning import MediaPlanner, MediaPlanningError
 
-DATA_ROOT = (
-    Path(__file__).parents[1]
-    / "evals"
-    / "datasets"
-    / "robot-vacuum-media-planning-v1"
-)
+DATA_ROOT = Path(__file__).parents[1] / "evals" / "datasets" / "robot-vacuum-media-planning-v1"
 
 
 def _id(prefix: str, value: str) -> str:
@@ -25,8 +20,7 @@ def _id(prefix: str, value: str) -> str:
 
 def _media_facts_from_case(case: dict[str, Any]) -> dict[str, Any]:
     group_by_fact = {
-        item["fact_id"]: item["capability_group"]
-        for item in case["expected"]["fact_mappings"]
+        item["fact_id"]: item["capability_group"] for item in case["expected"]["fact_mappings"]
     }
     asset_ids_by_role: dict[str, list[str]] = {}
     assets = []
@@ -89,25 +83,34 @@ def _cases(name: str) -> list[dict[str, Any]]:
     return json.loads((DATA_ROOT / name).read_text(encoding="utf-8"))
 
 
+def _composed_template(
+    repository: DataRepository, case: dict[str, Any]
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    media_facts = _media_facts_from_case(case)
+    template = repository.compose_template(
+        template_id=case["template_id"],
+        brief=repository.load_brief(),
+        media_facts=media_facts,
+    )
+    return media_facts, template
+
+
 def test_product_variant_plans_match_activation_and_safety_contracts() -> None:
     repository = DataRepository()
     profile = repository.get_media_profile("robotic-floor-cleaner-v1")
     planner = MediaPlanner(repository=repository)
 
     for case in _cases("product-variant-cases.json"):
+        media_facts, template = _composed_template(repository, case)
         plan = planner.plan(
-            media_facts=_media_facts_from_case(case),
-            template=repository.get_template(case["template_id"]),
+            media_facts=media_facts,
+            template=template,
             profile=profile,
         )
         expected = case["expected"]
         assert plan["decision"] == expected["decision"], case["case_id"]
-        assert set(plan["active_groups"]) == set(expected["active_groups"]), case[
-            "case_id"
-        ]
-        assert set(plan["inactive_groups"]) == set(expected["inactive_groups"]), case[
-            "case_id"
-        ]
+        assert set(plan["active_groups"]) == set(expected["active_groups"]), case["case_id"]
+        assert set(plan["inactive_groups"]) == set(expected["inactive_groups"]), case["case_id"]
         assert plan["missing_reference_roles"] == [], case["case_id"]
         assert 4 <= len(plan["slots"]) <= 8, case["case_id"]
 
@@ -118,33 +121,30 @@ def test_defensive_plans_match_non_conflict_decisions_and_group_states() -> None
     planner = MediaPlanner(repository=repository)
 
     for case in _cases("defensive-cases.json"):
+        media_facts, template = _composed_template(repository, case)
         if case["expected"]["decision"] == "reject_conflict":
             with pytest.raises(DataValidationError, match="conflicting"):
                 planner.plan(
-                    media_facts=_media_facts_from_case(case),
-                    template=repository.get_template(case["template_id"]),
+                    media_facts=media_facts,
+                    template=template,
                     profile=profile,
                 )
             continue
         plan = planner.plan(
-            media_facts=_media_facts_from_case(case),
-            template=repository.get_template(case["template_id"]),
+            media_facts=media_facts,
+            template=template,
             profile=profile,
         )
         expected = case["expected"]
         assert plan["decision"] == expected["decision"], case["case_id"]
-        assert set(plan["active_groups"]) == set(expected["active_groups"]), case[
+        assert set(plan["active_groups"]) == set(expected["active_groups"]), case["case_id"]
+        assert set(plan["placeholder_groups"]) == set(expected["placeholder_groups"]), case[
             "case_id"
         ]
-        assert set(plan["placeholder_groups"]) == set(
-            expected["placeholder_groups"]
-        ), case["case_id"]
-        assert set(plan["inactive_groups"]) == set(expected["inactive_groups"]), case[
-            "case_id"
-        ]
-        assert set(plan["missing_reference_roles"]) == set(
-            expected["missing_reference_roles"]
-        ), case["case_id"]
+        assert set(plan["inactive_groups"]) == set(expected["inactive_groups"]), case["case_id"]
+        assert set(plan["missing_reference_roles"]) == set(expected["missing_reference_roles"]), (
+            case["case_id"]
+        )
 
 
 @dataclass
@@ -162,18 +162,14 @@ class _SceneAdapter:
 
     def generate_json(self, *, prompt: str, response_schema: dict[str, Any]) -> _Result:
         self.calls.append({"prompt": prompt, "schema": response_schema})
-        slot_ids = response_schema["properties"]["scenes"]["items"]["properties"][
-            "slot_id"
-        ]["enum"]
+        slot_ids = response_schema["properties"]["scenes"]["items"]["properties"]["slot_id"]["enum"]
         return _Result(
             {
                 "scenes": [
                     {
                         "slot_id": slot_id,
                         "grounding_fact_ids": next(
-                            slot["fact_ids"]
-                            for slot in self.slots
-                            if slot["slot_id"] == slot_id
+                            slot["fact_ids"] for slot in self.slots if slot["slot_id"] == slot_id
                         ),
                         "reference_asset_ids": next(
                             slot["reference_asset_ids"]
@@ -197,30 +193,29 @@ def test_scene_adapter_must_cover_slots_without_new_numbers() -> None:
     repository = DataRepository()
     case = _cases("product-variant-cases.json")[0]
     profile = repository.get_media_profile("robotic-floor-cleaner-v1")
+    media_facts, template = _composed_template(repository, case)
     base_slots = MediaPlanner(repository=repository).plan(
-        media_facts=_media_facts_from_case(case),
-        template=repository.get_template(case["template_id"]),
+        media_facts=media_facts,
+        template=template,
         profile=profile,
     )["slots"]
     adapter = _SceneAdapter(slots=base_slots)
 
     plan = MediaPlanner(repository=repository, scene_adapter=adapter).plan(
-        media_facts=_media_facts_from_case(case),
-        template=repository.get_template(case["template_id"]),
+        media_facts=media_facts,
+        template=template,
         profile=profile,
     )
 
     assert adapter.calls
-    assert {slot["scene"]["visual_direction"] for slot in plan["slots"]} == {
-        "서로 다른 구도"
-    }
+    assert {slot["scene"]["visual_direction"] for slot in plan["slots"]} == {"서로 다른 구도"}
 
     with pytest.raises(MediaPlanningError, match="numeric claim"):
         MediaPlanner(
             repository=repository,
             scene_adapter=_SceneAdapter(slots=base_slots, invented_number=True),
         ).plan(
-            media_facts=_media_facts_from_case(case),
-            template=repository.get_template(case["template_id"]),
+            media_facts=media_facts,
+            template=template,
             profile=profile,
         )

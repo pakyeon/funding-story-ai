@@ -71,9 +71,7 @@ class GeminiEmbeddingProvider:
                 f"Embedding count mismatch: expected={expected}, actual={len(vectors)}"
             )
         if any(len(vector) != self.dimensions for vector in vectors):
-            raise TemplateRetrievalError(
-                f"Embedding dimensionality must be {self.dimensions}"
-            )
+            raise TemplateRetrievalError(f"Embedding dimensionality must be {self.dimensions}")
         return vectors
 
 
@@ -135,10 +133,7 @@ def _normalize(vector: list[float]) -> list[float]:
 def _cosine(left: list[float], right: list[float]) -> float:
     if len(left) != len(right):
         raise TemplateRetrievalError("Embedding dimensionality mismatch")
-    return sum(
-        a * b
-        for a, b in zip(_normalize(left), _normalize(right), strict=True)
-    )
+    return sum(a * b for a, b in zip(_normalize(left), _normalize(right), strict=True))
 
 
 def candidate_document(candidate: dict[str, Any]) -> str:
@@ -159,9 +154,7 @@ def candidate_document(candidate: dict[str, Any]) -> str:
 def brief_query_document(brief: dict[str, Any]) -> str:
     problems = ", ".join(item["description"] for item in brief["problems"])
     audiences = ", ".join(item["description"] for item in brief["audiences"])
-    features = ", ".join(
-        f"{item['name']}: {item['description']}" for item in brief["features"]
-    )
+    features = ", ".join(f"{item['name']}: {item['description']}" for item in brief["features"])
     claims = ", ".join(item["statement"] for item in brief["claims"])
     return "\n".join(
         [
@@ -212,9 +205,7 @@ class ExactKnnTemplateRetriever:
     ) -> TemplateRetrievalResult:
         query_vector = self.embeddings.embed_query(query)
         values: list[tuple[dict[str, Any], float, float, float]] = []
-        for candidate, vector in zip(
-            self.index["candidates"], self._vectors(), strict=True
-        ):
+        for candidate, vector in zip(self.index["candidates"], self._vectors(), strict=True):
             semantic_score = _cosine(query_vector, vector)
             boost = self.category_boost if candidate["category"] == query_category else 0.0
             values.append((candidate, semantic_score, boost, semantic_score + boost))
@@ -269,11 +260,13 @@ class RetrievalTemplateSelector:
                 f"Retrieved executable template is unavailable: {template_id}"
             )
         self.last_result = result
-        scores = {
-            item.executable_template_id: round(item.final_score * 1_000_000)
-            for item in result.ranked
-            if item.executable_template_id is not None
-        }
+        scores: dict[str, int] = {}
+        for item in result.ranked:
+            executable_id = item.executable_template_id
+            if executable_id is None:
+                continue
+            score = round(item.final_score * 1_000_000)
+            scores[executable_id] = max(scores.get(executable_id, score), score)
         selected = result.selected_candidate
         return TemplateSelection(
             template_id=template_id,

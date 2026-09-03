@@ -1027,7 +1027,7 @@
     "case_id": "rv_variant_004",
     "case_kind": "product_variant",
     "variant": "basic_vacuum",
-    "template_id": "t04_full_campaign",
+    "template_id": "t02_problem_solution_automation",
     "input": {
       "source_boundary": "approved_worker_projection",
       "worker_revision": 1,
@@ -1326,7 +1326,7 @@
     "case_id": "rv_variant_005",
     "case_kind": "product_variant",
     "variant": "basic_vacuum",
-    "template_id": "t05_value_practical_full_campaign",
+    "template_id": "t01_performance_value_evidence",
     "input": {
       "source_boundary": "approved_worker_projection",
       "worker_revision": 1,
@@ -1636,7 +1636,7 @@
     "case_id": "rv_variant_006",
     "case_kind": "product_variant",
     "variant": "basic_vacuum",
-    "template_id": "t06_trust_maintenance_full_campaign",
+    "template_id": "t03_lifestyle_social_proof",
     "input": {
       "source_boundary": "approved_worker_projection",
       "worker_revision": 1,
@@ -2898,7 +2898,7 @@
     "case_id": "rv_variant_010",
     "case_kind": "product_variant",
     "variant": "basic_vacuum",
-    "template_id": "t04_full_campaign",
+    "template_id": "t02_problem_solution_automation",
     "input": {
       "source_boundary": "approved_worker_projection",
       "worker_revision": 1,
@@ -3185,7 +3185,7 @@
     "case_id": "rv_variant_011",
     "case_kind": "product_variant",
     "variant": "basic_vacuum",
-    "template_id": "t05_value_practical_full_campaign",
+    "template_id": "t01_performance_value_evidence",
     "input": {
       "source_boundary": "approved_worker_projection",
       "worker_revision": 1,
@@ -3507,7 +3507,7 @@
     "case_id": "rv_variant_012",
     "case_kind": "product_variant",
     "variant": "basic_vacuum",
-    "template_id": "t06_trust_maintenance_full_campaign",
+    "template_id": "t03_lifestyle_social_proof",
     "input": {
       "source_boundary": "approved_worker_projection",
       "worker_revision": 1,
@@ -4792,7 +4792,7 @@
     "case_id": "rv_variant_016",
     "case_kind": "product_variant",
     "variant": "basic_vacuum",
-    "template_id": "t04_full_campaign",
+    "template_id": "t02_problem_solution_automation",
     "input": {
       "source_boundary": "approved_worker_projection",
       "worker_revision": 1,
@@ -5092,7 +5092,7 @@
     "case_id": "rv_variant_017",
     "case_kind": "product_variant",
     "variant": "vacuum_mop",
-    "template_id": "t05_value_practical_full_campaign",
+    "template_id": "t01_performance_value_evidence",
     "input": {
       "source_boundary": "approved_worker_projection",
       "worker_revision": 1,
@@ -5462,7 +5462,7 @@
     "case_id": "rv_variant_018",
     "case_kind": "product_variant",
     "variant": "vacuum_mop",
-    "template_id": "t06_trust_maintenance_full_campaign",
+    "template_id": "t03_lifestyle_social_proof",
     "input": {
       "source_boundary": "approved_worker_projection",
       "worker_revision": 1,
@@ -6745,7 +6745,7 @@
     "case_id": "rv_variant_022",
     "case_kind": "product_variant",
     "variant": "vacuum_mop",
-    "template_id": "t04_full_campaign",
+    "template_id": "t02_problem_solution_automation",
     "input": {
       "source_boundary": "approved_worker_projection",
       "worker_revision": 1,
@@ -7057,7 +7057,7 @@
     "case_id": "rv_variant_023",
     "case_kind": "product_variant",
     "variant": "vacuum_mop",
-    "template_id": "t05_value_practical_full_campaign",
+    "template_id": "t01_performance_value_evidence",
     "input": {
       "source_boundary": "approved_worker_projection",
       "worker_revision": 1,
@@ -7364,7 +7364,7 @@
     "case_id": "rv_variant_024",
     "case_kind": "product_variant",
     "variant": "vacuum_mop",
-    "template_id": "t06_trust_maintenance_full_campaign",
+    "template_id": "t03_lifestyle_social_proof",
     "input": {
       "source_boundary": "approved_worker_projection",
       "worker_revision": 1,
@@ -8654,7 +8654,7 @@
     "case_id": "rv_variant_028",
     "case_kind": "product_variant",
     "variant": "vacuum_mop",
-    "template_id": "t04_full_campaign",
+    "template_id": "t02_problem_solution_automation",
     "input": {
       "source_boundary": "approved_worker_projection",
       "worker_revision": 1,
@@ -8955,7 +8955,7 @@
     "case_id": "rv_variant_029",
     "case_kind": "product_variant",
     "variant": "vacuum_mop",
-    "template_id": "t05_value_practical_full_campaign",
+    "template_id": "t01_performance_value_evidence",
     "input": {
       "source_boundary": "approved_worker_projection",
       "worker_revision": 1,
@@ -9290,7 +9290,7 @@
     "case_id": "rv_variant_030",
     "case_kind": "product_variant",
     "variant": "vacuum_mop",
-    "template_id": "t06_trust_maintenance_full_campaign",
+    "template_id": "t03_lifestyle_social_proof",
     "input": {
       "source_boundary": "approved_worker_projection",
       "worker_revision": 1,
@@ -10623,7 +10623,7 @@
     "case_id": "rv_variant_034",
     "case_kind": "product_variant",
     "variant": "auto_empty_dock",
-    "template_id": "t04_full_campaign",
+    "template_id": "t02_problem_solution_automation",
     "input": {
       "source_boundary": "approved_worker_projection",
       "worker_revision": 1,
@@ -10946,7 +10946,7 @@
     "case_id": "rv_variant_035",
     "case_kind": "product_variant",
     "variant": "auto_empty_dock",
-    "template_id": "t05_value_practical_full_campaign",
+    "template_id": "t01_performance_value_evidence",
     "input": {
       "source_boundary": "approved_worker_projection",
       "worker_revision": 1,
@@ -11303,7 +11303,7 @@
     "case_id": "rv_variant_036",
     "case_kind": "product_variant",
     "variant": "auto_empty_dock",
-    "template_id": "t06_trust_maintenance_full_campaign",
+    "template_id": "t03_lifestyle_social_proof",
     "input": {
       "source_boundary": "approved_worker_projection",
       "worker_revision": 1,
@@ -12562,7 +12562,7 @@
     "case_id": "rv_variant_040",
     "case_kind": "product_variant",
     "variant": "auto_empty_dock",
-    "template_id": "t04_full_campaign",
+    "template_id": "t02_problem_solution_automation",
     "input": {
       "source_boundary": "approved_worker_projection",
       "worker_revision": 1,
@@ -12896,7 +12896,7 @@
     "case_id": "rv_variant_041",
     "case_kind": "product_variant",
     "variant": "auto_empty_dock",
-    "template_id": "t05_value_practical_full_campaign",
+    "template_id": "t01_performance_value_evidence",
     "input": {
       "source_boundary": "approved_worker_projection",
       "worker_revision": 1,
@@ -13242,7 +13242,7 @@
     "case_id": "rv_variant_042",
     "case_kind": "product_variant",
     "variant": "auto_empty_dock",
-    "template_id": "t06_trust_maintenance_full_campaign",
+    "template_id": "t03_lifestyle_social_proof",
     "input": {
       "source_boundary": "approved_worker_projection",
       "worker_revision": 1,
@@ -14527,7 +14527,7 @@
     "case_id": "rv_variant_046",
     "case_kind": "product_variant",
     "variant": "auto_empty_dock",
-    "template_id": "t04_full_campaign",
+    "template_id": "t02_problem_solution_automation",
     "input": {
       "source_boundary": "approved_worker_projection",
       "worker_revision": 1,
@@ -14873,7 +14873,7 @@
     "case_id": "rv_variant_047",
     "case_kind": "product_variant",
     "variant": "auto_empty_dock",
-    "template_id": "t05_value_practical_full_campaign",
+    "template_id": "t01_performance_value_evidence",
     "input": {
       "source_boundary": "approved_worker_projection",
       "worker_revision": 1,
@@ -15206,7 +15206,7 @@
     "case_id": "rv_variant_048",
     "case_kind": "product_variant",
     "variant": "auto_empty_dock",
-    "template_id": "t06_trust_maintenance_full_campaign",
+    "template_id": "t03_lifestyle_social_proof",
     "input": {
       "source_boundary": "approved_worker_projection",
       "worker_revision": 1,
@@ -16588,7 +16588,7 @@
     "case_id": "rv_variant_052",
     "case_kind": "product_variant",
     "variant": "all_in_one_dock",
-    "template_id": "t04_full_campaign",
+    "template_id": "t02_problem_solution_automation",
     "input": {
       "source_boundary": "approved_worker_projection",
       "worker_revision": 1,
@@ -16912,7 +16912,7 @@
     "case_id": "rv_variant_053",
     "case_kind": "product_variant",
     "variant": "all_in_one_dock",
-    "template_id": "t05_value_practical_full_campaign",
+    "template_id": "t01_performance_value_evidence",
     "input": {
       "source_boundary": "approved_worker_projection",
       "worker_revision": 1,
@@ -17231,7 +17231,7 @@
     "case_id": "rv_variant_054",
     "case_kind": "product_variant",
     "variant": "all_in_one_dock",
-    "template_id": "t06_trust_maintenance_full_campaign",
+    "template_id": "t03_lifestyle_social_proof",
     "input": {
       "source_boundary": "approved_worker_projection",
       "worker_revision": 1,
@@ -18562,7 +18562,7 @@
     "case_id": "rv_variant_058",
     "case_kind": "product_variant",
     "variant": "all_in_one_dock",
-    "template_id": "t04_full_campaign",
+    "template_id": "t02_problem_solution_automation",
     "input": {
       "source_boundary": "approved_worker_projection",
       "worker_revision": 1,
@@ -18858,7 +18858,7 @@
     "case_id": "rv_variant_059",
     "case_kind": "product_variant",
     "variant": "all_in_one_dock",
-    "template_id": "t05_value_practical_full_campaign",
+    "template_id": "t01_performance_value_evidence",
     "input": {
       "source_boundary": "approved_worker_projection",
       "worker_revision": 1,
@@ -19213,7 +19213,7 @@
     "case_id": "rv_variant_060",
     "case_kind": "product_variant",
     "variant": "all_in_one_dock",
-    "template_id": "t06_trust_maintenance_full_campaign",
+    "template_id": "t03_lifestyle_social_proof",
     "input": {
       "source_boundary": "approved_worker_projection",
       "worker_revision": 1,
@@ -20553,7 +20553,7 @@
     "case_id": "rv_variant_064",
     "case_kind": "product_variant",
     "variant": "all_in_one_dock",
-    "template_id": "t04_full_campaign",
+    "template_id": "t02_problem_solution_automation",
     "input": {
       "source_boundary": "approved_worker_projection",
       "worker_revision": 1,

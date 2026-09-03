@@ -6,7 +6,10 @@ from funding_story_ai.pipeline import StoryPipeline
 
 
 def _content(repository: DataRepository, *, unsupported_number: bool = False) -> dict:
-    template = repository.get_template("t02_problem_solution_automation")
+    template = repository.compose_template(
+        template_id="t02_problem_solution_automation",
+        brief=repository.load_brief("robot-vacuum/brief.json"),
+    )
     sections = []
     for index, section in enumerate(template["layout"]):
         body = "클린포지 R1의 입력 사실과 미확인 항목을 구분합니다."
@@ -63,7 +66,7 @@ def test_pipeline_selects_t02_and_builds_valid_result() -> None:
     assert result["automated_validation_passed"] is True
     assert result["review_required"] is True
     assert result["warnings"] == []
-    assert len(result["sections"]) == 11
+    assert len(result["sections"]) == 10
 
 
 def test_pipeline_records_validation_warning_without_full_regeneration() -> None:

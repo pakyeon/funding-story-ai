@@ -33,6 +33,11 @@ def _planner_state(fact: dict[str, Any]) -> str:
 def _section_for_group(
     *, template: dict[str, Any], group: dict[str, Any]
 ) -> dict[str, Any]:
+    bound_id = template.get("media_section_bindings", {}).get(group["id"])
+    if bound_id is not None:
+        for section in template["layout"]:
+            if section["id"] == bound_id:
+                return section
     allowed = set(group["allowed_section_types"])
     for section in template["layout"]:
         if section["type"] in allowed:
@@ -245,7 +250,6 @@ class MediaPlanner:
         for group in profile["capability_groups"]:
             group_id = group["id"]
             is_required = group["cardinality"]["min"] > 0
-            section = _section_for_group(template=template, group=group)
             facts = list({item["fact_id"]: item for item in group_facts[group_id]}.values())
             states = {_planner_state(fact) for fact in facts}
             usable = [
@@ -259,6 +263,7 @@ class MediaPlanner:
             ]
             if not usable:
                 if "unknown" in states:
+                    section = _section_for_group(template=template, group=group)
                     if is_required:
                         inactive_groups.append(group_id)
                         missing_required_groups.append(group_id)
@@ -280,6 +285,7 @@ class MediaPlanner:
                         missing_required_groups.append(group_id)
                 continue
 
+            section = _section_for_group(template=template, group=group)
             active_groups.append(group_id)
             proposition_ids = _unique(
                 proposition["proposition_id"]
