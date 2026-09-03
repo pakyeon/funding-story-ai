@@ -88,6 +88,7 @@ Set the Google Cloud project in `.env`.
 
 ```dotenv
 GOOGLE_CLOUD_PROJECT=your-gcp-project
+GEMINI_PRIMARY_MODEL=gemini-3.8-flash
 GEMINI_IMAGE_MODEL=gemini-3.1-flash-image
 GEMINI_IMAGE_FALLBACK_MODEL=gemini-3.1-flash-lite-image
 ```

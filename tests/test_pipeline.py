@@ -50,7 +50,7 @@ class FakeAdapter:
     def generate_json(self, *, prompt: str, response_schema: dict) -> GenerationResult:
         self.prompts.append(prompt)
         return GenerationResult(
-            model="gemini-3.7-flash",
+            model="gemini-3.8-flash",
             data=next(self.outcomes),
         )
 

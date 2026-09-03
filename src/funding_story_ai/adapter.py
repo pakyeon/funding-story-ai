@@ -36,6 +36,8 @@ def _error_code(exc: Exception) -> int | None:
             if callable(value):
                 value = value()
             value = getattr(value, "value", value)
+            if value is None:
+                continue
             try:
                 return int(value)
             except (TypeError, ValueError):
@@ -214,7 +216,9 @@ class GeminiAdapter:
                 response_mime_type="application/json",
                 response_json_schema=response_schema,
                 max_output_tokens=self.settings.max_output_tokens,
-                thinking_config=types.ThinkingConfig(thinking_level=self.settings.thinking_level),
+                thinking_config=types.ThinkingConfig(
+                    thinking_level=types.ThinkingLevel(self.settings.thinking_level)
+                ),
             ),
         )
         data = self._extract_json(response)

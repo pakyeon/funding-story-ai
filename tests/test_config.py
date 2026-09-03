@@ -32,7 +32,7 @@ def test_settings_use_default_models(
     monkeypatch.delenv("GEMINI_PRIMARY_MODEL", raising=False)
     monkeypatch.delenv("GEMINI_FALLBACK_MODEL", raising=False)
     settings = RuntimeSettings.from_env()
-    assert settings.primary_model == "gemini-3.7-flash"
+    assert settings.primary_model == "gemini-3.8-flash"
     assert settings.fallback_model == "gemini-3.6-flash"
     assert settings.thinking_level == "MEDIUM"
     assert settings.max_output_tokens == 24576
@@ -48,7 +48,7 @@ def test_settings_accept_supported_thinking_levels(
     assert RuntimeSettings.from_env().thinking_level == level
 
 
-def test_settings_reject_minimal_for_gemini_37_flash(
+def test_settings_reject_minimal_for_gemini_38_flash(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     monkeypatch.setenv("GOOGLE_CLOUD_PROJECT", "test-project")

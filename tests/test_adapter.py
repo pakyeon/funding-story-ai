@@ -65,29 +65,29 @@ def adapter(
 def test_success_uses_primary() -> None:
     target, models = adapter([response()])
     result = target.generate_json(prompt="test", response_schema={"type": "object"})
-    assert result.model == "gemini-3.7-flash"
-    assert models.models == ["gemini-3.7-flash"]
+    assert result.model == "gemini-3.8-flash"
+    assert models.models == ["gemini-3.8-flash"]
 
 
 def test_fallback_after_five_access_errors() -> None:
     target, models = adapter([AccessError()] * 5 + [response()])
     result = target.generate_json(prompt="test", response_schema={"type": "object"})
     assert result.model == "gemini-3.6-flash"
-    assert models.models == ["gemini-3.7-flash"] * 5 + ["gemini-3.6-flash"]
+    assert models.models == ["gemini-3.8-flash"] * 5 + ["gemini-3.6-flash"]
 
 
 def test_non_access_error_does_not_fallback() -> None:
     target, models = adapter([ValueError("invalid response")])
     with pytest.raises(ValueError, match="invalid response"):
         target.generate_json(prompt="test", response_schema={"type": "object"})
-    assert models.models == ["gemini-3.7-flash"]
+    assert models.models == ["gemini-3.8-flash"]
 
 
 def test_evaluation_mode_does_not_fallback() -> None:
     target, models = adapter([AccessError()] * 5, allow_fallback=False)
     with pytest.raises(AccessError):
         target.generate_json(prompt="test", response_schema={"type": "object"})
-    assert models.models == ["gemini-3.7-flash"] * 5
+    assert models.models == ["gemini-3.8-flash"] * 5
 
 
 def test_before_call_runs_for_every_actual_model_request() -> None:
@@ -99,14 +99,14 @@ def test_before_call_runs_for_every_actual_model_request() -> None:
     )
     target.generate_json(prompt="test", response_schema={"type": "object"})
     assert calls == ["called", "called"]
-    assert models.models == ["gemini-3.7-flash", "gemini-3.7-flash"]
+    assert models.models == ["gemini-3.8-flash", "gemini-3.8-flash"]
 
 
 def test_non_retryable_model_access_error_falls_back_without_repeating() -> None:
     target, models = adapter([MissingModelError(), response()])
     result = target.generate_json(prompt="test", response_schema={"type": "object"})
     assert result.model == "gemini-3.6-flash"
-    assert models.models == ["gemini-3.7-flash", "gemini-3.6-flash"]
+    assert models.models == ["gemini-3.8-flash", "gemini-3.6-flash"]
 
 
 def test_retry_after_header_controls_retry_delay() -> None:
@@ -125,8 +125,8 @@ def test_retry_after_header_controls_retry_delay() -> None:
 def test_transport_error_is_retried() -> None:
     target, models = adapter([TransportError("DNS lookup failed"), response()], attempts=2)
     result = target.generate_json(prompt="test", response_schema={"type": "object"})
-    assert result.model == "gemini-3.7-flash"
-    assert models.models == ["gemini-3.7-flash", "gemini-3.7-flash"]
+    assert result.model == "gemini-3.8-flash"
+    assert models.models == ["gemini-3.8-flash", "gemini-3.8-flash"]
 
 
 def test_wrapped_504_message_is_retried() -> None:
@@ -134,5 +134,5 @@ def test_wrapped_504_message_is_retried() -> None:
         [RuntimeError("ServerError: 504 DEADLINE_EXCEEDED"), response()], attempts=2
     )
     result = target.generate_json(prompt="test", response_schema={"type": "object"})
-    assert result.model == "gemini-3.7-flash"
-    assert models.models == ["gemini-3.7-flash", "gemini-3.7-flash"]
+    assert result.model == "gemini-3.8-flash"
+    assert models.models == ["gemini-3.8-flash", "gemini-3.8-flash"]
