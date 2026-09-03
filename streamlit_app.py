@@ -234,7 +234,7 @@ def _render_summary_and_actions() -> None:
 
 
 def _render_chat_input() -> None:
-    if st.session_state.generation_response:
+    if st.session_state.generation_response or st.session_state.stage == "generation-ready":
         return
     submitted = st.chat_input(
         "제품 설명이나 추가 정보를 입력하세요",
@@ -275,6 +275,18 @@ def _render_chat_input() -> None:
 
 def _render_review_form(record: dict[str, Any], artifacts: dict[str, Any]) -> None:
     manifest = artifacts["manifest"]
+    generated_references = manifest.get("generated_references", [])
+    if generated_references:
+        st.subheader("AI 생성 제품 기준 이미지")
+        st.caption(
+            "사용자 참조 이미지가 없어 만든 가상 콘셉트입니다. 실제 제품 사진이 아니며 "
+            "후속 장면의 외형 일관성에만 사용됩니다."
+        )
+        reference_data = artifacts.get("generated_reference_data", {})
+        for reference in generated_references:
+            image = reference_data.get(reference["asset_id"])
+            if image:
+                st.image(image, width=420)
     successful = [asset for asset in manifest["assets"] if asset["status"] == "success"]
     if not successful:
         return
@@ -372,12 +384,32 @@ def _render_run_result() -> None:
         return
     st.session_state.stage = "completed"
     result = record.get("result", {})
+    images = result.get("images", {})
+    requested = int(images.get("requested", 0))
+    succeeded = int(images.get("succeeded", 0))
+    failed = int(images.get("failed", 0))
+    qa_pending = int(images.get("qa_pending", 0))
+    placeholder_count = int(result.get("content_placeholder_count", 0))
+    media_decision = result.get("media_plan", {}).get("decision")
     if result.get("warning_count"):
         st.warning("원고에 추가 검토가 필요한 표현이 있습니다. 게시 전에 원고를 확인해 주세요.")
     if result.get("publishable_html"):
         st.success("게시 가능 HTML이 준비되었습니다.")
+    elif requested == 0 and media_decision == "needs_reference_assets":
+        st.warning("필수 참조 자산을 준비하지 못해 이미지 생성을 시작하지 못했습니다.")
     else:
-        st.info("초안 HTML을 확인하고 이미지 검수를 완료하면 게시 가능 HTML을 만들 수 있습니다.")
+        if failed:
+            st.warning(f"이미지 {requested}개 중 {failed}개 생성에 실패했습니다.")
+        elif requested and qa_pending:
+            st.info(
+                f"이미지 {succeeded}개가 생성되었습니다. 이미지 검수를 완료하면 "
+                "게시 가능 여부를 다시 확인합니다."
+            )
+        if placeholder_count:
+            st.info(
+                f"입력되지 않은 선택 정보 {placeholder_count}개는 명확히 표시된 작성 예시로 "
+                "초안에 남아 있습니다. 실제 정보로 교체해야 게시할 수 있습니다."
+            )
 
     draft_tab, publishable_tab, source_tab = st.tabs(
         ["완성 페이지 초안", "게시 가능 페이지", "원본 및 산출물"]
@@ -388,7 +420,10 @@ def _render_run_result() -> None:
         if artifacts["publishable_html"]:
             st.html(artifacts["publishable_html"])
         else:
-            st.info("모든 필수 이미지 검수와 원고 검토를 통과하면 이 페이지가 준비됩니다.")
+            st.info(
+                "이미지 검수, 원고 검토와 작성 예시의 실제 정보 교체를 모두 완료하면 "
+                "게시 가능 페이지가 준비됩니다."
+            )
     with source_tab:
         for filename, content in artifacts["source_files"].items():
             st.download_button(

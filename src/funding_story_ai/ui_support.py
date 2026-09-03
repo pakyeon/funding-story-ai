@@ -99,11 +99,15 @@ def load_run_artifacts(store_root: Path, record: dict[str, Any]) -> dict[str, An
         for asset in manifest["assets"]
         if asset["status"] == "success" and asset.get("path")
     }
+    generated_reference_data = {
+        asset["asset_id"]: _data_url(_artifact_path(run_dir, asset["path"]))
+        for asset in manifest.get("generated_references", [])
+    }
     source_files = {
         "story.json": story_path.read_text(encoding="utf-8"),
-        "media-facts.json": _artifact_path(
-            run_dir, result["media_facts"]["path"]
-        ).read_text(encoding="utf-8"),
+        "media-facts.json": _artifact_path(run_dir, result["media_facts"]["path"]).read_text(
+            encoding="utf-8"
+        ),
         "media-plan.json": media_plan_path.read_text(encoding="utf-8"),
         "images/manifest.json": manifest_path.read_text(encoding="utf-8"),
         "draft.html": draft_path.read_text(encoding="utf-8"),
@@ -121,6 +125,7 @@ def load_run_artifacts(store_root: Path, record: dict[str, Any]) -> dict[str, An
             else None
         ),
         "image_data": image_data,
+        "generated_reference_data": generated_reference_data,
         "source_files": source_files,
     }
 
@@ -147,6 +152,7 @@ def build_run_resource_payload(store_root: Path, record: dict[str, Any]) -> dict
         "draft_html": artifacts["draft_html"],
         "publishable_html": artifacts["publishable_html"],
         "image_data": artifacts["image_data"],
+        "generated_reference_data": artifacts["generated_reference_data"],
         "source_files": artifacts["source_files"],
     }
     return payload
