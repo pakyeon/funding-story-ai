@@ -34,9 +34,8 @@ generation, image generation, validation, and HTML rendering as an asynchronous 
 
 - Accepts one user message of up to 1,000 characters and one optional JPG, PNG, or WEBP image up to
   10 MB.
-- Collects 16 story inputs, including product identity, category, strengths, audience, problem,
-  evidence, maker information, rewards, schedule, policies, funding plan, platform choice, and
-  risk response.
+- Collects 15 story inputs, including product identity, category, strengths, audience, problem,
+  evidence, maker information, rewards, schedule, policies, funding plan, and risk response.
 - Uses a dialogue model to understand intent, fact changes, optional-information choices, and the
   next question. LangGraph keeps the conversation state for each `thread_id`.
 - Groups follow-up questions by purpose and asks for no more than three related fields at a time.
@@ -50,15 +49,16 @@ generation, image generation, validation, and HTML rendering as an asynchronous 
 
 - Builds a product query and ranks structured templates with `gemini-embedding-001` and exact cosine
   KNN retrieval.
-- Adds a configurable same-category boost to the semantic score and selects an executable template.
-- Fills the selected section layout with structured Gemini output while preserving source fields for
-  review.
-- Produces section-level image instructions from the selected layout.
+- Adds a configurable same-category boost to the semantic score and selects one of three reusable
+  persuasion-purpose templates.
+- Resolves a product-family module from the approved category and product type, then combines its
+  applicable sections with the template's four-stage story flow.
+- Fills the composed layout with structured Gemini output while preserving source fields for review.
 
 ### Planned images and publishable HTML
 
 - Normalizes approved product facts into eight robot-vacuum capability groups.
-- Combines the selected story template with a product-family media profile to create a dynamic
+- Uses the product-family module's exact section bindings and its media profile to create a dynamic
   `MediaPlan` of up to eight grounded image slots.
 - Uses Nano Banana 2 (`gemini-3.1-flash-image`) with Nano Banana 2 Lite
   (`gemini-3.1-flash-lite-image`) as a bounded fallback, and sends only each slot's declared
@@ -204,12 +204,16 @@ flowchart TB
     M -->|"Accepted + result URI"| S["Local run repository"]
     M -.-> E["Background story executor"]
 
+    E --> NF["MediaFacts normalization"]
     E --> K["Gemini embeddings<br/>KNN + category boost"]
-    K --> T["Structured template"]
-    T --> G["Gemini structured text"]
+    K --> PT["Persuasion-purpose template<br/>four common stages"]
+    NF --> CM["Product-family module<br/>conditional sections"]
+    PT --> CT["Composed story layout"]
+    CM --> CT
+    CT --> G["Gemini structured text"]
     G --> V["Schema and groundedness checks"]
-    V --> NF["MediaFacts normalization"]
-    NF --> MP["StoryTemplate + MediaProfile<br/>dynamic MediaPlan"]
+    CM --> MP["Media profile + exact section bindings<br/>dynamic MediaPlan"]
+    NF --> MP
     MP --> I["Nano Banana 2<br/>Lite fallback"]
     I --> H["Story + MediaPlan + manifest<br/>draft / publishable HTML"]
     H --> S

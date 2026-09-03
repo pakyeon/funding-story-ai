@@ -1,37 +1,109 @@
-# 구성 양식·검색 시스템
+# 템플릿·제품군 모듈·미디어 프로필
 
-구성 양식은 예시 카피가 아니라 생성 명세다. 실제 제품 값은 스토리 명세에서만 가져오고
-구성 양식에는 스타일, 콘텐츠 전략, 강조 문구 그룹과 순서가 있는 영역 골격을 저장한다.
+Funding Story AI는 하나의 거대한 제품 템플릿 대신 세 계층을 조합한다. 실제 제품명·수치·
+가격·후기는 어느 계층에도 고정하지 않고 승인된 스토리 명세에서만 가져온다.
 
 ```text
-기본 정보
-├── 이름·분류·언어·대상·기본 분량
-스타일
-├── 톤·문장 스타일·색상·타이포그래피·CTA
-콘텐츠 전략
-├── 핵심 메시지·제품 키워드·성공 지표·강조 문구
-레이아웃
-└── section[]: 역할·기대 콘텐츠·시각 힌트·이미지 필수 여부·HTML placeholder
+설득 목적 템플릿
+  └─ 어떤 순서와 문체로 설득할지
+제품군 모듈
+  └─ 해당 제품군에서 어떤 내용을 조건부로 설명할지
+미디어 프로필
+  └─ 어떤 사실을 어떤 이미지 슬롯으로 보여줄지
 ```
 
-## 실행 구성 양식
+특정 펀딩 플랫폼을 선택한 이유, 플랫폼 이용 절차와 플랫폼 홍보 문구는 템플릿 입력과
+출력에 포함하지 않는다.
 
-| ID | 설득 축 | 영역 | 미디어 프로필 |
-|---|---|---:|---|
-| `t01_performance_value_evidence` | 성능·가치·증빙 | 13 | `robotic-floor-cleaner-v1` |
-| `t02_problem_solution_automation` | 문제–해결·자동화 | 11 | `robotic-floor-cleaner-v1` |
-| `t03_lifestyle_social_proof` | 사용 상황·사회적 증거 | 10 | `robotic-floor-cleaner-v1` |
-| `t04_full_campaign` | 균형 잡힌 전체 캠페인 | 12 | `robotic-floor-cleaner-v1` |
-| `t05_value_practical_full_campaign` | 가성비·실용 | 11 | `robotic-floor-cleaner-v1` |
-| `t06_trust_maintenance_full_campaign` | 신뢰·유지관리 | 11 | `robotic-floor-cleaner-v1` |
+## 1. 설득 목적 템플릿
 
-이 파일들은 공개된 구성 양식 명세와 관찰 결과를 참고한 로봇청소기 PoC 후보이다.
-와디즈 비공개 원본이나 성공 펀딩 102개의 실제 자료라고 주장하지 않는다.
+`templates/`에는 제품군과 무관한 목적 템플릿 세 개가 있다.
 
-## 검색 index와 공식
+| ID | 설득 목적 | 내레이션 |
+|---|---|---|
+| `t01_performance_value_evidence` | 성능·가치·증빙 | 근거 우선 |
+| `t02_problem_solution_automation` | 문제–해결·사용 편익 | 문제–해결 |
+| `t03_lifestyle_social_proof` | 라이프스타일·신뢰 | 사용 장면 우선 |
 
-`templates/retrieval-index.json`에는 실행 후보 6개와 검색 교란 후보 10개가 있다.
-교란 후보는 검색 동작 검증용이며 실행 레이아웃을 갖지 않는다.
+각 템플릿은 다음만 소유한다.
+
+- 설득 축과 핵심 메시지
+- 톤, 문장 스타일, 색상과 타이포그래피
+- 강조 문구 그룹
+- `도입 → 장점·차별점 → 신뢰 → 참여 정보`의 공통 4단계
+- 선택 정보가 없을 때 표시할 고정 작성 예시
+
+제품군 이름, 로봇청소기 기능 목록, 미디어 수량과 참조 이미지 정책은 소유하지 않는다.
+
+## 2. 제품군 모듈
+
+`category_modules/robotic-floor-cleaner-v1.json`은 로봇청소기 제품군에서 반복되는 설명 문제를
+관리한다. 특정 모델이 아니라 다음 조건부 영역을 정의한다.
+
+| 영역 | 활성화 능력군 | 삽입 위치 |
+|---|---|---|
+| 사용자가 겪는 문제 | 문제·사용 환경 | 도입 뒤 |
+| 청소 방식과 성능 | 청소 메커니즘 | 장점·차별점 뒤 |
+| 이동과 공간 대응 | 이동·공간 대응 | 장점·차별점 뒤 |
+| 자동화 범위 | 자동화·복귀 | 장점·차별점 뒤 |
+| 제어와 맞춤 설정 | 제어·개인화 | 장점·차별점 뒤 |
+| 구성과 유지관리 | 구성·관리 | 신뢰 뒤 |
+
+승인된 입력을 의미 정규화한 결과에 해당 능력군이 있을 때만 영역을 활성화한다. 정보가
+미확인이고 작성 예시가 필요한 영역도 초안에는 포함한다. 기능 하나의 유무만으로 새
+템플릿을 만들지 않는다.
+
+제품군 모듈은 사용할 미디어 프로필과 능력군별 정확한 배치 영역도 연결한다.
+
+```yaml
+media_section_bindings:
+  product_identity_outcome: introduction
+  problem_environment: problem_context
+  cleaning_mechanism: cleaning_performance
+  mobility_coverage: space_response
+  automation_return: automation
+  control_personalization: control
+  evidence_performance: trust
+  configuration_maintenance: maintenance
+```
+
+## 3. 미디어 프로필
+
+`media_profiles/robotic-floor-cleaner-v1.json`은 이미지 필요성과 수량을 결정한다. 제품군
+모듈의 영역 구조와 분리하여 다음을 소유한다.
+
+- 능력군별 설득 목적과 우선순위
+- 최소·최대 슬롯 수
+- 제품 본체·도크·부속품·제어 화면·증빙 자료 참조 정책
+- 지원 미디어 종류와 배치 위치
+- 장면 지시와 이미지 정보가 없을 때의 고정 안내
+
+제품 외형을 표현하는 장면은 참조 자산을 사용한다. 문제 상황·표·차트처럼 제품 외형이
+없는 장면에는 참조 이미지를 강제하지 않는다. 동일한 설득 목적과 장면을 공유하는 기능은
+하나의 슬롯으로 묶고 전체 이미지는 최대 8개로 제한한다.
+
+## 실행 시 조합
+
+```text
+승인된 제품 정보
+   ├─ 의미 검색 ───────────────→ 설득 목적 템플릿 선택
+   └─ 의미 정규화 ─────────────→ 제품군 능력군 판정
+                                      ↓
+제품 유형 ─────────────────────→ 제품군 모듈 선택
+                                      ↓
+          공통 4단계 + 활성 제품군 영역으로 실행 레이아웃 구성
+                                      ↓
+          구조화 본문 생성 + 미디어 슬롯 계획 + HTML 렌더링
+```
+
+본문 LLM은 조합된 실행 레이아웃의 개수·순서·역할을 바꾸지 않는다. 미디어 계획은 제품군
+모듈이 지정한 영역 연결과 미디어 프로필의 슬롯 정책을 함께 사용한다.
+
+## 검색 인덱스
+
+`templates/retrieval-index.json`은 16개 검색 후보를 가진다. 이 중 6개 제품·설득 후보가
+세 개의 실행 목적 템플릿으로 연결되고, 나머지 10개는 제품군 또는 카테고리 교란
+후보다. 여러 검색 후보가 하나의 목적 템플릿을 공유할 수 있다.
 
 ```text
 semantic_score = cosine(query_embedding, candidate_embedding)
@@ -45,95 +117,21 @@ final_score = semantic_score + category_boost
 - query task: `RETRIEVAL_QUERY`
 - 허용 boost: `0.0`, `0.1`, `0.15`, `0.2`
 - 기본 boost: `0.15`
-- tie break: candidate ID 오름차순
-- 선택: 순위상 첫 실행 가능 후보
+- 동점 처리: candidate ID 오름차순
+- 실행 선택: 순위상 첫 실행 가능 후보가 가리키는 목적 템플릿
 
-프로세스 안에서 candidate document embedding을 캐시한다. 운영 벡터 DB, ANN, 102개
-실제 참조 구성 양식과 전체 검색 평가 자료는 현재 범위에 없다.
+제품군 모듈은 검색 결과로 추측하지 않고 승인된 `category`와 `product_type`이 정확히
+지원되는 모듈 하나를 결정하도록 한다.
 
-## 확장 규칙
+## 작성 예시와 게시 조건
 
-- 실제 제품 수치·가격·후기를 구성 양식에 고정하지 않는다.
-- 신규 구성 양식은 catalog, schema, retrieval index 링크 검증을 통과해야 한다.
-- 신규 후보는 제품 유형·문제·대상·설득 축·톤·영역 역할을 명시한다.
-- 질문 정책은 구성 양식 검색과 분리하고 대화 LLM이 결정한다.
-- 후보 집합과 평가 질의가 충분하기 전에는 boost 결과를 일반 검색 성능으로 표현하지
-  않는다.
+선택 정보가 없으면 값을 추정하지 않는다. 초안은 생성 본문을 유지하면서 해당 영역 아래에
+`작성 예시 · 실제 정보 아님` 표시, 고정 예문과 권장 입력 형식을 함께 보여준다. 작성
+예시가 하나라도 남아 있으면 게시 가능 HTML을 만들지 않는다.
 
-## 제품 구성 양식과 미디어 프로필 연결 방향
+## 근거 범위
 
-실행 구성 양식은 공개 구조와의 비교를 위해 영역별 `visual_hint`와 기존 `image_required`
-값을 보존하지만, 이미지 생성 여부와 수량을 이 값으로 결정하지 않는다. 제품 구성 양식과
-이미지 구성 양식을 독립적으로 검색하지 않고, 영역 골격이 카테고리 미디어 프로필을
-참조한 뒤 제품 사실에 따라 후보 슬롯을 활성화한다.
-
-```text
-공통 StoryTemplate·Section·MediaSlot 스키마
-                    ↓
-설득 방식별 제품 구성 양식 ── media_profile_ref
-                    ↓
-제품군별 미디어 프로필의 능력군·영역 연결
-                    ↓
-개별 제품 사실에 따른 슬롯 활성화·장면 구체화
-```
-
-로봇청소기 프로필은 특정 모델의 기능 목록이 아니라 다음 능력군을 관리한다.
-
-- 제품 정체성·결과
-- 문제·사용 환경
-- 청소 메커니즘
-- 이동·공간 대응
-- 자동화·복귀
-- 제어·개인화
-- 근거·성능
-- 구성·관리
-
-예를 들어 자동 먼지 비움과 걸레 세척은 각각 별도 제품 구성 양식을 만들지 않고
-`자동화·복귀` 능력군의 활성화 사실로 사용한다. 장애물 회피와 매핑도 `이동·공간 대응`
-능력군 안에서 제품별로 선택된다.
-
-현재 구현의 연결 명세는 다음과 같다.
-
-```yaml
-story_template:
-  id: t02_problem_solution_automation
-  media_profile_ref: robotic-floor-cleaner-v1
-  layout:
-    - id: solution
-      media_capability_groups:
-        - cleaning_mechanism
-        - mobility_coverage
-        - automation_return
-
-media_profile:
-  id: robotic-floor-cleaner-v1
-  capability_groups:
-    - id: automation_return
-      activation_condition: verified_product_fact_exists
-      cardinality:
-        strategy: evidence_calibrated
-        min: 0
-        max: 1
-      supported_media_kinds:
-        - static
-        - loop_motion
-      grouping_rule: combine_features_when_persuasion_goal_and_scene_are_equivalent
-```
-
-위 값은 로봇청소기 strict 표본 9개·75슬롯의 1차 보정 결과다. 자동화·복귀는 7개
-페이지에서 각 1슬롯으로 관찰됐으므로 제품 사실이 있을 때 최대 1개의 설득 목적 슬롯으로
-묶는다. 이미지 파일이나 API 호출 수가 아니며, 최종 값은 이미지 계획 평가 뒤 확정한다.
-
-과적합을 막기 위해 다음 규칙을 적용한다.
-
-- 제품명·브랜드명·고유 수치·특정 센서명은 미디어 프로필에 저장하지 않는다.
-- 구성 양식은 `무엇을 증명할지`를 저장하고 개별 장면은 제품 입력에서 생성한다.
-- 특정 기능의 유무만으로 신규 구성 양식을 만들지 않는다.
-- 신규 프로필은 기존 능력군으로 표현할 수 없는 시각적 설명 문제가 여러 제품에서 반복될
-  때만 추가한다.
-- 기능 하나당 이미지 하나를 생성하지 않고 설득 목적과 장면 중복을 기준으로 묶는다.
-- 제품 사실이 없는 슬롯은 추정하지 않고 비활성화하거나 정보 보완 대상으로 남긴다.
-
-로봇청소기 성공 표본을 이용한 능력군 검토와 미디어 프로필 보정 근거는
-[로봇청소기 미디어 프로필 표본 조사와 보정](research/robot-vacuum-media-profile-study.md)에
-기록한다.
+이 구조는 공개된 구조화 템플릿 설명, 관찰 가능한 출력과 일반 작성 지침을 참고한 독립
+설계다. 외부 서비스의 비공개 내부 JSON, 프롬프트 또는 고정 로봇청소기 템플릿과 동일하다고
+주장하지 않는다. 로봇청소기 세부 영역은 제품군 모듈 후보이며 공개 확인된 내부 템플릿이
+아니다.

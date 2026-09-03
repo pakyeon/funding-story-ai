@@ -40,12 +40,16 @@ flowchart TB
 
     subgraph Execution["실행 계층"]
         M -.-> E["Background Executor"]
+        E --> MF["MediaFacts 의미 정규화"]
         E --> K["Exact KNN + category boost 0.15"]
-        K --> TP["Structured Template"]
+        K --> PT["설득 목적 템플릿<br/>공통 4단계"]
+        MF --> CM["제품군 모듈<br/>조건부 영역 활성화"]
+        PT --> TP["조합된 실행 레이아웃"]
+        CM --> TP
         TP --> TX["Gemini Text Generation"]
         TX --> GV["Schema + Groundedness Warnings"]
-        GV --> MF["MediaFacts 의미 정규화"]
-        MF --> MP["StoryTemplate + MediaProfile<br/>MediaPlan"]
+        MF --> MP["MediaProfile + 영역 연결<br/>MediaPlan"]
+        CM --> MP
         MP --> I["Nano Banana 2 → Lite Fallback"]
         I --> H["Manifest + Draft / Publishable HTML"]
         H --> S
@@ -60,6 +64,7 @@ flowchart TB
 | MCP tool layer | `mcp_server.py` | worker용 생성 도구, 비동기 접수, 결과 리소스 |
 | story-maker executor | `engine.py` | 텍스트·이미지·HTML 통합 실행 |
 | template search | `template_retrieval.py` | Gemini embedding exact KNN + soft boost |
+| category module | `category_modules/`, `data_repository.py` | 제품 유형에 맞는 조건부 설명 영역과 미디어 배치 연결 |
 | text generation | `pipeline.py`, `adapter.py` | JSON Schema 제약 Gemini 결과 |
 | media planning | `semantic_normalization.py`, `media_planning.py` | 능력군 정규화, 동적 슬롯·참조·배치 계획 |
 | image generation | `image_generation.py`, `image_pipeline.py` | Nano Banana 폴백, 독립 슬롯 실행, AI 표시, 검토 상태 |
@@ -135,8 +140,9 @@ Gemini embedding (RETRIEVAL_DOCUMENT / RETRIEVAL_QUERY, 768d)
 → 순위상 첫 실행 가능 템플릿
 ```
 
-현재 index 16개 중 6개가 실행 가능하다. 선택된 구성 양식은 10~13개 영역의 설득 흐름을
-정의하고, 이미지 수는 로봇청소기 미디어 프로필과 승인 사실을 결합한 `MediaPlan`이
+현재 index 16개 중 6개 검색 후보가 세 개의 실행 가능한 설득 목적 템플릿으로 연결된다.
+목적 템플릿은 공통 4단계를 정의하고, 제품군 모듈은 승인 사실에 맞는 조건부 영역을
+삽입한다. 이미지 수는 로봇청소기 미디어 프로필과 승인 사실을 결합한 `MediaPlan`이
 동적으로 정한다. 동일 설득 목적은 한 슬롯으로 묶고 절대 상한은 8개다.
 
 제품 외형 슬롯에는 해당 역할의 제공 참조 자산만 전달하고, 문제 상황·차트처럼 제품이 없는
