@@ -13,6 +13,7 @@ from funding_story_ai.data_repository import DataRepository
 from funding_story_ai.engine import review_integrated_story_run
 from funding_story_ai.run_store import LocalRunStore
 from funding_story_ai.ui_support import (
+    image_failure_summary,
     load_run_artifacts,
     read_run_resource,
     save_uploaded_image,
@@ -400,6 +401,13 @@ def _render_run_result() -> None:
     else:
         if failed:
             st.warning(f"이미지 {requested}개 중 {failed}개 생성에 실패했습니다.")
+            failed_assets = [
+                asset for asset in artifacts["manifest"]["assets"] if asset["status"] == "error"
+            ]
+            with st.expander("실패한 이미지와 원인", expanded=True):
+                for asset in failed_assets:
+                    st.markdown(f"**{asset['section_id']}** · `{asset['slot_id']}`")
+                    st.write(image_failure_summary(asset))
         elif requested and qa_pending:
             st.info(
                 f"이미지 {succeeded}개가 생성되었습니다. 이미지 검수를 완료하면 "

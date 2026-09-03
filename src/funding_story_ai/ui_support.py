@@ -13,6 +13,29 @@ MAX_UPLOAD_BYTES = 10 * 1024 * 1024
 _ALLOWED_IMAGE_SUFFIXES = {".jpeg", ".jpg", ".png", ".webp"}
 _RUN_ID = re.compile(r"run-[a-f0-9-]+$")
 _LOCAL_IMAGE_SOURCE = re.compile(r'src=["\'](images/[A-Za-z0-9_.-]+)["\']')
+_IMAGE_ERROR_LABELS = {
+    "rate_limit": "이미지 API 호출 한도에 도달했습니다.",
+    "timeout": "이미지 모델의 응답 시간이 초과되었습니다.",
+    "provider_unavailable": "이미지 모델이 일시적으로 응답하지 않았습니다.",
+    "network": "이미지 API 연결 중 네트워크 오류가 발생했습니다.",
+    "authentication": "이미지 API 인증에 실패했습니다.",
+    "permission": "이미지 모델을 사용할 권한이 없습니다.",
+    "invalid_request": "이미지 생성 요청 형식이 모델과 맞지 않습니다.",
+    "safety": "이미지 생성 요청이 안전 정책에 의해 거절되었습니다.",
+    "empty_response": "모델 응답에 이미지 데이터가 없었습니다.",
+    "unknown": "분류되지 않은 이미지 생성 오류가 발생했습니다.",
+}
+
+
+def image_failure_summary(asset: dict[str, Any]) -> str:
+    """Build a concise user-facing reason from persisted slot diagnostics."""
+
+    category = str(asset.get("error_category") or "unknown")
+    message = _IMAGE_ERROR_LABELS.get(category, _IMAGE_ERROR_LABELS["unknown"])
+    code = asset.get("error_code")
+    attempts = max(1, int(asset.get("attempts", 1)))
+    suffix = f" HTTP {code}." if isinstance(code, int) else ""
+    return f"{message}{suffix} 기본 모델과 폴백을 포함해 {attempts}회 시도했습니다."
 
 
 def save_uploaded_image(*, root: Path, input_id: str, filename: str, content: bytes) -> Path:

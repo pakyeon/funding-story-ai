@@ -3,10 +3,31 @@ from pathlib import Path
 import pytest
 
 from funding_story_ai.ui_support import (
+    image_failure_summary,
     inline_preview_images,
     load_run_artifacts,
     save_uploaded_image,
 )
+
+
+def test_image_failure_summary_explains_rate_limit_and_attempts() -> None:
+    message = image_failure_summary(
+        {
+            "error_category": "rate_limit",
+            "error_code": 429,
+            "attempts": 3,
+        }
+    )
+
+    assert "호출 한도" in message
+    assert "HTTP 429" in message
+    assert "3회" in message
+
+
+def test_image_failure_summary_supports_legacy_manifest() -> None:
+    message = image_failure_summary({"attempts": 1})
+
+    assert "분류되지 않은" in message
 
 
 def test_uploaded_image_uses_a_fixed_safe_filename(tmp_path: Path) -> None:
@@ -59,9 +80,7 @@ def test_load_run_artifacts_inlines_html_and_exposes_downloads(tmp_path: Path) -
         '"slot_id": "slot-1", "path": "hero.jpeg"}]}',
         encoding="utf-8",
     )
-    (run_dir / "draft.html").write_text(
-        '<img src="images/hero.jpeg">', encoding="utf-8"
-    )
+    (run_dir / "draft.html").write_text('<img src="images/hero.jpeg">', encoding="utf-8")
     record = {
         "run_id": run_id,
         "status": "completed",
@@ -77,9 +96,7 @@ def test_load_run_artifacts_inlines_html_and_exposes_downloads(tmp_path: Path) -
     payload = load_run_artifacts(tmp_path, record)
     assert payload["story"] == {"template_id": "t02", "sections": [], "warnings": []}
     assert 'src="data:image/jpeg;base64,aW1hZ2U="' in payload["draft_html"]
-    assert payload["image_data"]["hero.jpeg"].startswith(
-        "data:image/jpeg;base64,"
-    )
+    assert payload["image_data"]["hero.jpeg"].startswith("data:image/jpeg;base64,")
     assert set(payload["source_files"]) == {
         "story.json",
         "media-facts.json",
