@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="메이커의 대화와 제품 자료를 근거 있는 펀딩 스토리로 연결하는 Funding Story AI 심사용 데모"
+      content="펀딩을 준비하는 메이커의 제품 정보와 이야기를 요약하고 상세 페이지로 완성하는 Funding Story AI"
     />
     <meta name="theme-color" content="#6c4ff8" />
-    <title>Funding Story AI — AI Championship 2026</title>
+    <title>Funding Story AI — 이야기에서 펀딩 상세 페이지까지</title>
     <link rel="icon" href="./favicon.svg" />
     <style>
       @font-face {
@@ -195,7 +195,7 @@
       .score-top strong { font-size: 32px; letter-spacing: -0.05em; }
       .score-top span { padding: 7px 10px; border-radius: 999px; color: #17895c; background: #e9f8f1; font-size: 12px; font-weight: 800; }
       .bar { height: 8px; margin: 20px 0 10px; overflow: hidden; border-radius: 99px; background: #eeedf3; }
-      .bar i { display: block; width: 92%; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--purple), #a965f2); }
+      .bar i { display: block; width: 100%; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--purple), #a965f2); }
       .score-card p { margin: 0; color: var(--sub); font-size: 13px; line-height: 1.6; }
       .fact-list { margin-top: 18px; display: grid; gap: 10px; }
       .fact { padding: 15px; display: grid; grid-template-columns: 22px 1fr auto; gap: 10px; align-items: center; border: 1px solid var(--line); border-radius: 14px; background: #fff; font-size: 13px; }
@@ -221,16 +221,11 @@
       .benefit { padding: 18px; border-radius: 16px; background: #f7f7fa; }
       .benefit b { display: block; margin: 10px 0 5px; }
       .benefit span { color: var(--sub); font-size: 12px; line-height: 1.45; }
-      .artifact { margin-top: 24px; }
-      .artifact img { display: block; width: 100%; border: 1px solid var(--line); border-radius: 18px; }
-      .artifact figcaption { margin-top: 12px; color: #8990a1; text-align: center; font-size: 12px; }
       .architecture { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 48px; align-items: start; }
       .architecture-list { display: grid; gap: 12px; }
       .architecture-item { padding: 20px; border: 1px solid var(--line); border-radius: 17px; }
       .architecture-item b { display: block; margin-bottom: 7px; }
       .architecture-item span { color: var(--sub); font-size: 13px; line-height: 1.6; }
-      .stack { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 25px; }
-      .stack span { padding: 9px 12px; border: 1px solid var(--line); border-radius: 999px; color: #596174; background: #fff; font-size: 12px; font-weight: 700; }
       footer { padding: 34px 24px; color: #8a90a0; background: #17171c; text-align: center; font-size: 13px; }
       @media (max-width: 920px) {
         .hero-inner, .architecture { grid-template-columns: 1fr; }
@@ -270,9 +265,9 @@
         <span class="ai-chip">AI</span>
       </a>
       <nav class="nav" aria-label="페이지 이동">
-        <a href="#how">작동 방식</a>
-        <a href="#demo">심사 데모</a>
-        <a class="nav-cta" href="#demo">1분 체험</a>
+        <a href="#how">문제와 해결</a>
+        <a href="#demo">제품 체험</a>
+        <a class="nav-cta" href="#demo">프로젝트 열기</a>
       </nav>
     </header>
 
@@ -280,74 +275,74 @@
       <section class="hero">
         <div class="hero-inner">
           <div>
-            <span class="kicker"><i></i> AI CHAMPIONSHIP 2026 · JUDGE DEMO</span>
-            <h1>좋은 제품의 이야기를,<br /><span class="gradient-text">근거 있는 펀딩 페이지로.</span></h1>
+            <span class="kicker"><i></i> FUNDING STORY WORKSPACE</span>
+            <h1>펀딩은 하고 싶지만,<br /><span class="gradient-text">상세 페이지가 막막하다면.</span></h1>
             <p class="hero-copy">
-              Funding Story AI는 등록 정보, 메이커와의 대화, 제품 이미지를 함께 읽고
-              설득 구조와 근거를 정리해 검토 가능한 펀딩 상세 페이지를 만듭니다.
+              Funding Story AI는 등록 정보, 메이커의 답변과 제품 이미지를 읽어 핵심 스토리를 요약하고,
+              와디즈·텀블벅 같은 펀딩에 필요한 상세 페이지의 흐름과 문장을 완성합니다.
             </p>
             <div class="hero-actions">
-              <a class="button primary" href="#demo" data-open-step="story">▶ 완성 결과 보기</a>
-              <a class="button" href="#demo" data-open-step="talk">제작 과정 체험하기 →</a>
+              <a class="button primary" href="#demo" data-open-step="talk">프로젝트 시작하기 →</a>
+              <a class="button" href="#demo" data-open-step="story">완성 페이지 보기</a>
             </div>
-            <p class="hero-note">심사용 샘플 데이터로 동작하는 로그인 없는 안전 데모입니다.</p>
+            <p class="hero-note">예시 프로젝트에서 스토리 요약부터 상세 페이지 완성까지 바로 확인할 수 있습니다.</p>
           </div>
           <div class="hero-card" aria-label="예시 제품 카드">
             <div class="hero-card-top">
-              <span>샘플 프로젝트</span>
-              <span class="status">● 근거 확인 완료</span>
+              <span>진행 중인 프로젝트</span>
+              <span class="status">● 스토리 분석 완료</span>
             </div>
             <img src="./assets/demo-vacuum.png" alt="3중 압착 경량 무선 청소기 V3 예시 이미지" />
             <div class="hero-card-copy">
               <b>3중 압착 경량 무선 청소기 V3</b>
               <p>등록 정보 6개 · 대화 근거 5개 · 제품 이미지 1개를 하나의 이야기로 연결했어요.</p>
             </div>
-            <div class="floating-card"><span>92%</span> 스토리 준비 완료</div>
+            <div class="floating-card"><span>5개</span> 핵심 스토리 정리 완료</div>
           </div>
         </div>
       </section>
 
       <section class="section" id="how">
         <div class="section-head">
-          <span class="eyebrow">ONE SOURCE, ONE STORY</span>
-          <h2>빈 화면에서 시작하지 않도록,<br />메이커의 자료부터 연결합니다.</h2>
-          <p>AI가 대신 지어내는 것이 아니라, 제공된 정보가 어떤 문장에 쓰였는지 확인하며 초안을 완성합니다.</p>
+          <span class="eyebrow">BUILT FROM REAL USER PROBLEMS</span>
+          <h2>“무엇을 어떻게 써야 할지 모르겠다”는<br />펀딩 준비자의 응답에서 시작했습니다.</h2>
+          <p>사전 설문에서 반복적으로 확인된 상세 페이지 기획·작성·구현의 어려움을, 메이커의 말과 자료에서 출발하는 하나의 제작 흐름으로 해결합니다.</p>
         </div>
         <div class="flow">
-          <article class="flow-card"><span class="number">01</span><h3>프로젝트 불러오기</h3><p>상품명, 목표 금액, 리워드와 등록된 제품 자료를 다시 입력하지 않고 시작합니다.</p></article>
-          <article class="flow-card"><span class="number">02</span><h3>메이커와 대화</h3><p>대상, 문제, 해결, 제작 계기를 짧은 안내형 대화로 자연스럽게 수집합니다.</p></article>
-          <article class="flow-card"><span class="number">03</span><h3>근거와 위험 확인</h3><p>수치·인증·일정의 출처를 추적하고 없는 정보는 ‘자료 필요’로 남깁니다.</p></article>
-          <article class="flow-card"><span class="number">04</span><h3>페이지로 완성</h3><p>카테고리 템플릿에 맞춰 문단과 이미지를 배치하고 HTML·JSON으로 내보냅니다.</p></article>
+          <article class="flow-card"><span class="number">01</span><h3>프로젝트 연결</h3><p>상품명, 목표 금액, 리워드와 제품 자료를 불러와 작성의 출발점을 만듭니다.</p></article>
+          <article class="flow-card"><span class="number">02</span><h3>메이커 이야기 수집</h3><p>대상, 문제, 해결 방법과 제작 계기를 짧은 안내형 대화로 정리합니다.</p></article>
+          <article class="flow-card"><span class="number">03</span><h3>스토리 요약</h3><p>흩어진 답변을 첫인상·문제·변화·메이커 이야기·리워드 구조로 요약합니다.</p></article>
+          <article class="flow-card"><span class="number">04</span><h3>상세 페이지 생성</h3><p>펀딩에 필요한 설득 흐름으로 문단과 이미지를 배치해 편집 가능한 페이지를 만듭니다.</p></article>
         </div>
       </section>
 
       <section class="demo-wrap" id="demo">
         <div class="section-head" style="max-width: 1280px; margin: 0 auto 32px">
-          <span class="eyebrow">INTERACTIVE JUDGE DEMO</span>
-          <h2>세 단계만 눌러 전체 흐름을 확인하세요.</h2>
-          <p>아래 데모는 심사를 위해 준비한 샘플 결과이며 실제 제품 설명이나 인증 자료가 아닙니다.</p>
+          <span class="eyebrow">FUNDING STORY WORKSPACE</span>
+          <h2>메이커의 답변이 페이지가 되는 과정입니다.</h2>
+          <p>예시 프로젝트를 열어 이야기 수집, 스토리 요약, 상세 페이지 생성 흐름을 직접 확인해 보세요.</p>
         </div>
         <div class="demo-shell">
           <div class="demo-toolbar">
             <span class="traffic" aria-hidden="true"><i></i><i></i><i></i></span>
-            <span class="demo-label">Funding Story AI · 메이커 스튜디오</span>
-            <span class="demo-status">● DEMO READY</span>
+            <span class="demo-label">Funding Story AI · 3중 압착 경량 무선 청소기 V3</span>
+            <span class="demo-status">● 자동 저장됨</span>
           </div>
-          <div class="demo-tabs" role="tablist" aria-label="데모 단계">
-            <button class="demo-tab" role="tab" aria-selected="true" data-step="talk">1. 이야기 나누기</button>
-            <button class="demo-tab" role="tab" aria-selected="false" data-step="proof">2. 강점·근거 확인</button>
-            <button class="demo-tab" role="tab" aria-selected="false" data-step="story">3. 페이지 완성</button>
+          <div class="demo-tabs" role="tablist" aria-label="스토리 제작 단계">
+            <button class="demo-tab" role="tab" aria-selected="true" data-step="talk">1. 메이커 이야기</button>
+            <button class="demo-tab" role="tab" aria-selected="false" data-step="proof">2. 스토리 요약</button>
+            <button class="demo-tab" role="tab" aria-selected="false" data-step="story">3. 상세 페이지</button>
           </div>
           <div class="demo-body">
-            <section class="demo-panel active" data-panel="talk" aria-label="이야기 나누기 데모">
+            <section class="demo-panel active" data-panel="talk" aria-label="메이커 이야기">
               <div class="studio-grid">
                 <article class="panel">
-                  <div class="panel-title"><b>스토리 대화</b><span>안내형 대화 · 샘플</span></div>
+                  <div class="panel-title"><b>스토리 대화</b><span>핵심 질문 4 / 5</span></div>
                   <div class="chat">
                     <div class="message ai"><strong>✦ Funding Story AI</strong>어떤 제품이고, 가장 중요한 장점은 무엇인가요?</div>
                     <div class="message user">가볍게 이동하면서도 3중 압착 구조로 먼지를 모으고, 사용 후에는 충전 거치대에 정리할 수 있는 무선 청소기예요.</div>
                     <div class="message ai"><strong>문제와 변화가 연결됐어요.</strong>기존 청소에서 가장 번거로웠던 순간과 이 제품을 만들게 된 계기도 알려주세요.</div>
-                    <div class="choice"><p>선택 정보를 더 입력하면 일정·예산·정책까지 같은 근거 맵에 연결할 수 있어요.</p><button class="mini-button" data-next="proof">지금 내용으로 강점 확인하기 →</button></div>
+                    <div class="choice"><p>입력한 답변을 바탕으로 펀딩 상세 페이지에 사용할 핵심 스토리를 먼저 정리합니다.</p><button class="mini-button" data-next="proof">스토리 요약 확인하기 →</button></div>
                   </div>
                 </article>
                 <aside class="panel">
@@ -363,10 +358,10 @@
               </div>
             </section>
 
-            <section class="demo-panel" data-panel="proof" aria-label="강점과 근거 확인 데모">
+            <section class="demo-panel" data-panel="proof" aria-label="스토리 요약">
               <div class="evidence-grid">
                 <article>
-                  <div class="score-card"><div class="score-top"><div><small>스토리 준비도</small><br /><strong>92%</strong></div><span>검토 가능</span></div><div class="bar"><i></i></div><p>핵심 주장 5개 중 4개는 등록 정보·메이커 대화·이미지에서 근거를 확인했습니다.</p></div>
+                  <div class="score-card"><div class="score-top"><div><small>AI 스토리 요약</small><br /><strong>5개 핵심</strong></div><span>요약 완료</span></div><div class="bar"><i></i></div><p>첫인상, 고객의 문제, 제품이 만드는 변화, 제작 계기와 리워드 정보를 한 흐름으로 정리했습니다.</p></div>
                   <div class="fact-list">
                     <div class="fact"><span>✓</span><b>제품명·리워드 구성</b><em>등록 정보</em></div>
                     <div class="fact"><span>✓</span><b>사용 상황과 핵심 장점</b><em>메이커 대화</em></div>
@@ -374,17 +369,17 @@
                     <div class="fact"><span>!</span><b>흡입력 정량 수치</b><em style="color:#bd7d18">자료 필요</em></div>
                   </div>
                 </article>
-                <aside class="guardrail"><h3>사실 보호 가드레일</h3><ul><li>제공되지 않은 수치와 인증은 생성하지 않음</li><li>미확정 정보는 문장에 숨기지 않고 표시</li><li>AI 연출 이미지는 원본 외형 비교 후 배치</li><li>문장마다 사용 근거를 다시 확인 가능</li></ul><div class="next-bar"><button class="next-button" data-next="story">검토 완료 · 페이지 보기 →</button></div></aside>
+                <aside class="guardrail"><h3>상세 페이지 구성 방식</h3><ul><li>스토리 요약을 문제·공감·해결·참여 순서로 연결</li><li>제공되지 않은 수치와 인증은 임의로 만들지 않음</li><li>제품 이미지는 설명과 맞는 문단에 자동 배치</li><li>생성 후 문단과 이미지 단위로 직접 편집 가능</li></ul><div class="next-bar"><button class="next-button" data-next="story">상세 페이지 생성하기 →</button></div></aside>
               </div>
             </section>
 
-            <section class="demo-panel" data-panel="story" aria-label="완성 페이지 데모">
+            <section class="demo-panel" data-panel="story" aria-label="완성된 상세 페이지">
               <article class="result-frame">
-                <div class="result-head"><div><h3>메이커님의 첫 페이지가 완성됐어요.</h3><p>문단과 이미지를 다듬고 HTML·JSON으로 내보낼 수 있어요.</p></div><span class="result-badge">AI 초안 · 검토 완료</span></div>
+                <div class="result-head"><div><h3>펀딩 상세 페이지가 완성됐어요.</h3><p>스토리 흐름을 확인하고 문단과 이미지를 원하는 순서로 다듬어 보세요.</p></div><span class="result-badge">AI 초안 · 편집 가능</span></div>
                 <div class="story-page">
                   <div class="story-hero"><div><span class="tag">YOUR SPACE, LIGHTER</span><h3>꺼내는 순간부터<br />정리하는 순간까지.</h3><p>필요한 곳으로 가볍게 이동하고, 청소가 끝나면 충전 거치대에 바로 보관하는 일상의 청소 루틴을 제안합니다.</p></div><img src="./assets/demo-vacuum.png" alt="무선 청소기와 충전 거치대" /></div>
                   <section class="story-section"><h4>청소를 시작하기도 전에 지치지 않도록</h4><p>바닥의 먼지를 보고도 무거운 청소기를 꺼내고 선을 연결하는 일이 먼저 떠올랐습니다. 그래서 메이커는 필요한 자리까지 쉽게 이동하고, 사용 뒤에도 제자리를 찾는 흐름부터 다시 설계했습니다.</p><div class="benefits"><div class="benefit">◈<b>경량 이동</b><span>필요한 공간까지 부담 없이</span></div><div class="benefit">✦<b>3중 압착 구조</b><span>메이커가 설명한 핵심 기능</span></div><div class="benefit">⌂<b>충전 거치</b><span>사용과 보관을 하나로</span></div></div></section>
-                  <section class="story-section"><h4>얼리버드 패키지</h4><p><strong>본체 + 충전 거치대 · 29,000원 · 100개 한정</strong><br />색상은 화이트와 블랙 중 선택할 수 있습니다. 제공된 프로젝트 정보만 사용한 샘플 문구입니다.</p></section>
+                  <section class="story-section"><h4>얼리버드 패키지</h4><p><strong>본체 + 충전 거치대 · 29,000원 · 100개 한정</strong><br />색상은 화이트와 블랙 중 선택할 수 있습니다. 등록된 리워드 정보가 상세 페이지에 자동으로 연결됩니다.</p></section>
                 </div>
               </article>
             </section>
@@ -395,22 +390,20 @@
       <section class="section">
         <div class="architecture">
           <div class="section-head" style="margin: 0">
-            <span class="eyebrow">DESIGNED FOR REVIEW</span>
-            <h2>생성보다 먼저,<br />검토 가능한 구조를 설계했습니다.</h2>
-            <p>대화 원문과 프로젝트 데이터를 하나의 근거 맵으로 합친 뒤, 카테고리 템플릿과 콘텐츠 정책을 통과한 결과만 편집 화면에 배치합니다.</p>
-            <div class="stack"><span>Next.js</span><span>React 19</span><span>TypeScript</span><span>Gemini on Vertex AI</span><span>Cloudflare D1 · R2</span><span>Drizzle ORM</span><span>SEED Design</span></div>
+            <span class="eyebrow">FROM ANSWERS TO A FUNDING PAGE</span>
+            <h2>단순 문장 생성이 아니라,<br />펀딩의 설득 구조를 완성합니다.</h2>
+            <p>메이커의 원문과 프로젝트 정보를 연결하고, 스토리 요약을 거쳐 고객이 이해하기 쉬운 상세 페이지 순서로 구성합니다.</p>
           </div>
           <div class="architecture-list">
-            <article class="architecture-item"><b>01 · Intake normalization</b><span>등록 정보, 대화, 이미지 메타데이터를 대상·문제·해결·제작 계기·참여 조건으로 구조화합니다.</span></article>
-            <article class="architecture-item"><b>02 · Evidence map & policy</b><span>각 주장의 출처와 확정 상태를 기록하고, 미확정 수치·인증·일정의 과장을 막습니다.</span></article>
-            <article class="architecture-item"><b>03 · Template retrieval</b><span>카테고리와 스토리 목적에 맞는 검증된 블록을 골라 초안과 라이브커머스 스토리라인을 구성합니다.</span></article>
+            <article class="architecture-item"><b>01 · 메이커의 언어를 그대로</b><span>등록 정보와 답변을 고객·문제·해결·제작 계기·참여 조건으로 빠짐없이 정리합니다.</span></article>
+            <article class="architecture-item"><b>02 · 확인된 정보만 사용</b><span>수치, 인증과 일정의 출처를 구분하고 확인되지 않은 내용은 페이지에 단정적으로 쓰지 않습니다.</span></article>
+            <article class="architecture-item"><b>03 · 펀딩에 맞는 이야기 순서</b><span>제품 카테고리와 스토리 목적에 맞춰 공감부터 리워드 참여까지 자연스러운 흐름으로 구성합니다.</span></article>
           </div>
         </div>
-        <figure class="artifact"><img src="./assets/completed-story.png" alt="Funding Story AI 실제 구현 화면" /><figcaption>실제 구현 화면 · 심사용 샘플 프로젝트의 완성 단계</figcaption></figure>
       </section>
     </main>
 
-    <footer>Funding Story AI · AI Championship 2026 submission demo · 샘플 데이터는 실제 제품 설명이 아닙니다.</footer>
+    <footer>Funding Story AI · 메이커의 이야기에서 펀딩 상세 페이지까지</footer>
     <script>
       const tabs = [...document.querySelectorAll("[data-step]")];
       const panels = [...document.querySelectorAll("[data-panel]")];
